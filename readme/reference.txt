@@ -1,0 +1,8 @@
+Puzzlum is Copyright (C) 1989-2009 Timothy Robert Keal alias jargon
+Puzzlum is released by Timothy Robert Keal under the Gnu Public License 2.0.
+http://puzzlum.retromachineshop.com/
+irc://chat.freenode.net/puzzlum
+mailto:jargon@juno.com
+
+Please review the Gnu Public License, Thank you. 
+The GPL can be located online at http://www.gnu.org/copyleft/gpl.html

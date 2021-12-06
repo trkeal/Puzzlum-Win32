@@ -1,0 +1,175 @@
+Puzzlum : Realm Of Existence (FBC)
+Revision History
+>fbc068.200908170813 (Compiles)
+Updates:
+	Added Short cut keys (PgUp, PgDn, Home, End, Space, Enter, Up, Down, Left, Right)
+Bugs:
+	Map (Invisible Sprites)	
+
+>fbc068.200908170351 (Compiles)
+Updates:
+	Added Gnu Public License 2.0 As "license.txt"
+	Added "reference.txt"
+	Added "./readme/" Folder
+	Moved all documenation into "./readme/"
+	Renamed "readme.txt" As "old revision history.txt"
+	Renamed "rev-bio.txt" As "revision history.txt"
+	Renamed "./vds/" As "./maps/"
+Bugs:
+	Map (Invisible Sprites)	
+
+>fbc068.200908171211 (Compiles)
+Updates:
+	Database Routines (Total Overhaul)
+	Composite Video Routines (Total Overhaul)
+	Progress Bar (Map Load & Save)
+Bugs:
+	Map (Invisible Sprites)	
+
+>fbc068.200908052340 (Compiles)
+Updates:
+	Database Routines (Names)
+Fixed:
+	Composite Video Layer Flipping (Map Save/Load)
+Bugs:
+	Map (Invisible Sprites)	
+
+>fbc068.200908021656 (Compiles)
+Updates:
+	Map Save/Load
+	Database Routines
+Bugs:
+	Map (Invisible Sprites)	
+	Composite Video Layer Flipping (Map Save/Load)
+
+>fbc068.200908020103 (Compiles)
+Updates:
+	Puzzlum Icon
+	Database Routines
+	Input (Hexidecimal + Debug)
+Bugs:
+	Map (Invisible Sprites)	
+
+>fbc068.200908010302 (Compiles)
+Updates:
+	Restart Feature
+Bugs:
+	Map (Invisible Sprites)	
+
+>fbc068.200907290744 (Compiles)
+Updates:
+	Doors (Superimpose Locks)
+Fixed:
+	Boulder / Cactus (Watery Steps Glitch)
+	Map (Erroneous Sprite Render, Erroneous Game Logic)
+Bugs:
+	Map (Invisible Sprites)	
+	
+>fbc068.200907290242 (Compiles)
+Fixed:
+	Level-Up Menu (Erroneous Cost Render, Erroneous Cost Logic)
+	Play-By-Play (Composite Graphics Layers Erroneous Refresh)
+Bugs:
+	Map (Erroneous Sprite Render, Erroneous Game Logic)
+
+>fbc068.200907290153 (Compiles)
+Updated:
+	Composite Graphics Layers (Focus, Additional Paging)
+Fixed:
+	Title Screen (Erroneous Flowchart)
+	Help Screen (Non-Functional)
+	Status Frames (Erroneous Layout Render)
+	Mouse Cursor Layer (Irregular Refreshes)
+Bugs:
+	Boulder / Cactus (Watery Steps Glitch)
+	Level-Up Menu (Erroneous Cost Render, Erroneous Cost Logic)
+	Map (Erroneous Sprite Render, Erroneous Game Logic)
+	Play-By-Play (Composite Graphics Layers Erroneous Refresh)
+
+>fbc068.200907281039 (Compiles)
+Updated:
+	Composite Graphics Layers
+Fixed:
+	Page Flipping (Erroneous Flowchart)	
+Bugs:
+	Boulder / Cactus (Watery Steps Glitch)
+	Title Screen (Erroneous Flowchart)
+	Help Screen (Non-Functional)
+	Level-Up Menu (Erroneous Cost Render, Erroneous Cost Logic)
+	Map (Erroneous Sprite Render, Erroneous Game Logic)
+	Status Frames (Erroneous Layout Render)
+	Mouse Cursor Layer (Irregular Refreshes)
+
+>fbc068.200907201025 (Compiles)
+Fixed:
+	Text (Delayed Non-Functional Render)
+	Play-By-Play (Non-Functional)
+Bugs:
+	Boulder / Cactus (Watery Steps Glitch)
+	Title Screen (Erroneous Flowchart)
+	Help Screen (Non-Functional)
+	Level-Up Menu (Erroneous Cost Render, Erroneous Cost Logic)
+	Page Flipping (Erroneous Flowchart)	
+	Map (Erroneous Sprite Render, Erroneous Game Logic)
+
+>fbc068.200907181908 (Compiles)
+Update:
+	Text (Font Sheets: roe00.font.png, mishap22.font.png)
+	Inventory Menu (Sprite-Based Interface)
+Fixed:
+	Splash (Poor Vertical Alignment)
+Bugs:
+	Boulder / Cactus (Watery Steps Glitch)
+	Text (Delayed Non-Functional Render)
+	Title Screen (Erroneous Flowchart)
+	Help Screen (Non-Functional)
+	Play-By-Play (Non-Functional)
+	Level-Up Menu (Erroneous Cost Render, Erroneous Cost Logic)
+	Page Flipping (Erroneous Flowchart)	
+	Map (Erroneous Sprite Render, Erroneous Game Logic)
+
+>fbc068.200907180101 (Compiles)
+Fixed:
+	GUI (Non-Functional GUI Render)
+Bugs:
+	Boulder / Cactus (Watery Steps Glitch)
+	Splash (Poor Vertical Alignment)
+	Title Screen (Erroneous Flowchart)
+	Help Screen (Non-Functional)
+	Play-By-Play (Non-Functional)
+	Level-Up Menu (Erroneous Cost Render, Erroneous Cost Logic)
+	Page Flipping (Erroneous Flowchart)	
+	Map (Erroneous Sprite Render, Erroneous Game Logic)
+
+>fbc068.200907162117 (Compiles)
+Bugs:
+	Boulder / Cactus (Watery Steps Glitch)
+	Splash (Poor Vertical Alignment)
+	Title Screen (Erroneous Flowchart)
+	Help Screen (Non-Functional)
+	Play-By-Play (Non-Functional)
+	Level-Up Menu (Erroneous Cost Render, Erroneous Cost Logic)
+	Page Flipping (Erroneous Flowchart)	
+	Map (Erroneous Sprite Render, Erroneous Game Logic)
+	GUI (Non-Functional GUI Render)
+
+>fbc067.200907130558 (Does Not Compile)
+>fbc066.200907130105 (Does Not Compile)
+>fbc065.200907122354 (Does Not Compile)
+>fbc064.200907120118 (Does Not Compile)
+>fbc062.200907080028 (Does Not Compile)
+>fbc08.200906141219 (Does Not Compile)
+>fbc07.200906020907 (Does Not Compile)
+>fbc06.200906242024 (Does Not Compile)
+>fbc06.200906241847 (Does Not Compile)
+>fbc06.200905150217 (Does Not Compile)
+>fbc06.200905140038 (Does Not Compile)
+>fbc08.200906020907 (Does Not Compile) (Abandoned)
+>fbc07.200906020907 (Does Not Compile) (Abandoned)
+>fbc06.200905150217 (Does Not Compile) (Abandoned)
+>fbc06.200905140038 (Does Not Compile) (Abandoned)
+>fbc06.200905130529 (Does Not Compile) (Abandoned)
+>fbc06.200905130429 (Does Not Compile) (Abandoned)
+>fbc06.200905110815 (Does Not Compile)
+
+[EOF]

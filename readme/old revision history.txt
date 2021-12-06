@@ -1,0 +1,215 @@
+=== realm of existence 4.000.003 ===========
+=== realm of existence 2.092.019 ===========
+copyright 1990-2000 aquarius games - ag47
+created by tim keal alias jargon
+http://idealgeneration.net
+aim:ribbon cage
+jargon@juno.com
+============================================
+this is corruptware of the source code to roe2
+
+roe2 got as far as .26 and was great...
+but this is the crap ass lesser version.
+
+i tried repairing the file structure so that it wont crash...
+
+but it still is blah...
+
+try clicking around with the mouse unitl you find creatures that status conition pops up for... that means you can control them...
+use level up to gain abilities such as MOVE and INSPECT... without those you cant do much of anything!
+
+
+-tim keal 2000.11.02 16:03gmt-07
+
+by the way tyhee right mouse button advances play while the left doees options etc
+
+---
+RoE 4.000.003
+update 2002 12/09 tim keal
+i fixed all the corrupt stuff. i had to replace the mouse functions with those from future71.lib. i had to leave svga and ems out of the build of the lib because those were no longer compatable.
+
+i am working on a nethub for RoE4 called 'Aquarius Portals'.
+basically it is an executable called 'portal47.exe' that manages netplay in a multi-user gameplay environment.
+
+soon the game will have been converted to screen 13 instead of screen 7 meaning 256 color instead of 16. :) so far the only 256 portion is where the RoE logo is displayed when the engine first starts up or resets.
+
+<<<WARNING>>>
+
+FIRST OF ALL... DO NOT PLAY THIS GAME ON A CORRUPT HARD-DRIVE!
+
+WHEN YOU INSTALL THIS FROM A ZIP MAKE SURE THAT THE 'ROE4QBX' FOLDER ALONG WITH ALL ITS SUBFOLDERS IS PUT INSIDE A DIRECTORY CALLED 'AG47' IN THE ROOT DIRECTORY OF THE DRIVE YOU WANT TO PUT IT ON.
+
+ONLY RUN THIS GAME OFF A HARD-DRIVE OR ELSE IT WILL PLAY EXCRUTIATINGLY SLOW AND *RUIN*YOUR*DISK*!!!
+
+IT IS NOT ADVISED TO PLAY THIS GAME WHEN INSTALLED ON AN OLDER TYPE OF HARD-DRIVE DUE TO THE NATURE OF THE WAY IT ACCESSES ITS GRAPHICS. ALWAYS USE THE HARD-DRIVE ERROR CORRECTION TOOL ATLEAST EVERY 250TH TIME YOU PLAY THIS GAME, FREQUENCY VARIES ACCORDING TO QUALITY OF HARD-DRIVE. IF YOU CAN, IN THEORY YOU ONLY NEED TO SCAN SECTORS THAT THE GAME FILES ARE STORED ON.
+
+I AM CURRENTLY ATTEMPTING TO CREATE A MEMORYCORE THAT IS LESS ABRASIVE TO HARD-DRIVES.
+
+DO NOT RUN THIS GAME OFF ZIP DISK'S, PERIOD. TRUST ME. IF YOU DO RUN IT OFF A ZIP DISK YOUR DISK WILL AGE AT AN INCREDIBLE RATE. ONLY RUN IT OFF A HARD-DRIVE THAT HAS A HIGH READ RATE.
+
+AND FINALLY... DO NOT PLAY THIS GAME ON A CORRUPT HARD-DRIVE!
+
+<<<END WARNING>>>
+
+<<<what led up to RoE>>>
+-Art Workshop-
+i made a artpiece of a book that was a magical spell dictionary containing a crossword puzzle. i combined COLUMNS and PUZZLES that i cut out of a newspaper that i glued in to come up with a name for a sorceror named Puzzlum. also i made a twin of his name Quizzard but later on a milton bradley or someone game game out with the Quizzard name.
+
+-Color-
+ah what fond memories.
+this was one of my first programs i ever made that used color.
+bascially it simply changed the screen to screen 0 in 40 columns by 25 rows of text characters and did cls (clear screen). then it displayed at the second to last line of the screen was the gw-basic command for color. basically it ended as soon as it finished that. it was simply a fun tool for drawing pictures. all you did was execute the color command displayed on the screen after retyping its parameters to the color you want and then hit enter on it.
+
+this allowed you to do blocks and symbols of color on a 25x23 region of text space where each block is the size of a character, aka ascii symbol or single unit of text. it allowed you to change the fg(foregorund color), bg(backgorund color), and a third value for the color of the frame around the screen. :)
+
+i still have some scenes and portraits i redrew to graphing paper i hid in a big box of all the other puzzlum stuff i'd done over the years. at one point after 10 years of work i almost purposelyt threw the box and all its stuff away!!! im sure glad i was too lazy at the time! whooo...
+
+-Original Puzzlum Intro dialog and musical score-
+i had made a picture using the Color program of Puzzlum from the book i made in art workshop. at the time i had no idea that pc's could only use 8 letters and a 3 letter extension for their names nor how to list files so computers seemed amazing and intriguing at the time. i named my files all sorts of really long names as though they were really amazing spells. however becuase of this i could never remember the names of files. then i made a program using the image from the Color program of Puzzlum and added progressing diolog and a musical score and a follow up screen containing a partial map of a level i designed with my friend Todd followed by a title screen. :)
+
+-Puzzlum's Palace-
+a text based adventure game similar to zork, based on an engine titled 'miser' that was created by m.j. lansing for the commedore CBM/PET computer series. according to my theory, specifically for the PET 4016 due to its memorycore being limited to 16k.
+
+i worked on the puzzles of this game with my best friend at the time, Todd Hoover.
+
+-Puzzlum Dungeon-
+puzzlum dungeon was one of my first graphical game using screen 7.
+it wasnt very advanced because the map was static and you were the only character that could move around every other creature in the game was simply part of the map with lines card coded into the engine that caused them to say something. during this time i was coding all images, maps, and stuff either directly into the code, or in data lines within the program.
+
+every map required its own similar engine. the maps just chained from one program to the other whenever your character walked on to a hard coded map connection.
+
+later on at about Dungeon 216 i had began making it so it loaded its images and maps from external files. however the size information of the maps and what objects were assigned to which values of the map were hard coded into the program still! this caused a lot of trouble down the road. dont worry. later on i came up with a really good nearly 100% effective algorithm for a vb tool called vis-view that is compatible with nearly every single image format i have ever used except for bsave.
+
+for a while i had started working on integrating all the varius Dungeons into one engine, but gave up when i realized i had corrupted them after a whole day of work. i plan on continuing to develop vis-view and evolving it into a manager for various engines i have produced, which would allow it to rip info from various builds and then produce newer builds which are compatible with all the data for that certain engine line. :)
+
+one format i am working on is the VDS format. stands for Visual Data Stream. the VDS format has been evolving for a long time. i have been developing vis-view so that it would be compatible with both VDS sprites as well as VDS maps. VDS files can even contain multiple frames. currently when loaded into vis-view multi-frame VDS files simply animate at a high rate of speed until it hits the end of the file.
+
+Puzzlum Dungeon i am planning on converting to all VDS files.
+
+Another thing is that Dungeon 216's filename is DUNGEON.216 which causes mass lameness for the vis-view program. i could change vis-view so that if it finds any easily recognizable formats or any related engines, that it would test possible files to see if it can figure out the exact codec sequence to use :)
+
+a new format i have been designing since a year or two ago is the MVX format, standing for visual media exchange. the format is compressed using a tecnique i came up with relating to topography.
+
+Dungeon 216 was able to edit it map by saving on quit. by then i had developed a program called vis-draw, which allowed me to make VIS images, basically the format was simply the width and height followed by the list of cell values left to right top to bottom.
+
+-Puzzlum OverWorld-
+
+-Puzzlum Hutville-
+fun times with actual moving creatures!
+really nice 16color. experimented with a wide 
+
+-Puzzlum Guardian-
+a failed attempt at making a map version of vis-draw
+
+-Puzzlum World 2-
+made whole new lot of 8x8x16 sprites
+made a crypt containing all the sprites as a individually labeled multi-frame VDS
+built a program that converted the sprites when ripping from crypt as 2color, 4color, 16color and varying choices of palette from available 16 colors.
+recoded to allow screen 1, 3 , or 7 to be used.
+created BGM editor.
+created a remaster of the Original Puzzlum Score
+added BGM system using the remastered OPS, purpose being to add some type of game speed syncronizer.
+
+-MindRealm-
+a text based computer generated dungeon game based on a DUNGEON game i saw while in 6th grade on a PET computer.
+created spells
+created characters
+created enemies
+created terrain types
+created inventory system
+created merchant system, never got around to putting a merchant in the game though.
+created treasure system.
+created password controlled randomizer, (didnt actually work beyond 1st level due to incapability of completely restting random number generator rather than simply seed it)
+
+-Puzzlum World III-
+originally made in gwbasic for screen 9
+graphics imported from World2 and blown up to 24x24.
+made a program that converted all world3's sprites from VIS to EGAbsave
+created ega-edit
+added detail using ega-edit
+world map was generated using swirlmelt.
+animation added
+map converted to 3 layers (terrain, structure, creature)
+code converted to qbasic
+vga-edit was created
+made a conversion program that converted all world3's EGAbsave's into VGAbsave's
+used vga-edit to manually add interpolate and add detail to world3's sprites
+removed sound
+created an improved cyclespeed manager
+added guardian capabilites, guardian mode being the ability to edit map while gameplay is still in action
+
+broke for computers beyond 166mhz
+above 166 played correct speed, but graphics mostly either not displayed or animated wrong.
+
+-MindRealm Enhanced-
+basically the mindrealm engine tinkered with to use mode 7 8x8 sprites in place of ascii
+another enhancement was the map generation progress bars at the begining that were displayed when the computer was busy rendering a map
+
+<<<production history>>>
+-RoE1-
+just to assure you, in the original version of realm of existence, roe1, it accessed the hard-drive in a peculiar fashion due to bugs in the engine which caused it to spontaneously generate random virus-like filters within its gameplay environment memorycore. the result of this was that the engine's gamedata 'mutated', if you were to describe the process in genetic programmer's terms, giving the 'creations', what critters and objects were named during that incarnation of the engine, abilities beyond the engine's intended scope. during subsequent trial runs of the engine unbeknownst to me at the time, the creations were damaging the gamedata along with the hard-drive due to their memorycore access' rampant nature. the cause of this was due to sprite memory and realm memory overlapping while being stored in temporary variables. the end result of all this was that the gamedata became corrupted to such a degree that the engine ceased functioning and nearly all the sprites were damaged. in the end RoE1 was completely destoryed. no known complete copies of RoE1 exist anymore. the computer RoE1 was developed on eventually crashed and its hard-drive was fried in an attept to rescue its GIG's of code dating back to the early 90's.
+
+-Puzzlum Story-
+a simple yet kinda fun story book game
+
+-RoE2-
+all the bugs worked out.
+however ran out of memory and wouldnt compile under qb45
+wasnt completed.
+lost nearly finished version when previously mentioned hard-drive crashed.
+
+about 200 builds were lost along with about 20 sprites and the more advanced menu system including an improved map and helpfile as well.
+
+floppy disk backup was corrupt losing about 12 builds of progress along with a few sprites.
+
+-19990328.EXE-
+a very cool demo reel i made involving mouse handling, timers, palette controls, and 3d graphics.
+
+-RoE3-
+a new approach.
+this one was from scratch.
+it was one of two demo programs i created to test out future software's future library, of which now i am the maintainer of the online helpfile and collector of all its add-ons, externals and versions. its location on the internet is within http://idealgeneration.net :)
+
+for roe3 i used the svga, mouse, and tritext routines. roe3 was 3d, using what i called parrallax perspective. however, either fslib had a bug in tritext or else my 3d algorithm did becuase textures were slightly distorted. in roe3 movement was fluid. also 3d models of pulsating boulders and springy trees were included but they were hard coded. the map and sprites/textures however were external VDS files. the map could have it's cells' floor altitude modified fluidly while the engine was running. gravity was introduced as well as some experimentation with momentum.
+
+later i accidently broke all source codes to roe3
+in a later build i got it to work again but not as well. i tried using textures for surfaces  aligned in proper direction relative to towards the viewer for doors and stuff but the textures became completely bent.
+
+-Sentient Surreal QB-
+a good attempt at producing a better memorycore for puzzlum story
+however, extremely redundant
+involved binary script
+however got slow after around 1,300 db entries
+
+-Sentient Surreal VB-
+i tried 9 times starting from scratch over the course of a year and couldnt get it to work
+
+-Puzzlum MX-
+a failed attempt at producing a multiplayer storybook rp gameplay environment client/server system in vb5
+
+-Realmachine 3d-
+the fslib version of 19990328.EXE with all the stuff not relating to 3d removed.
+reprogrammed with camera control in svga. has a cartoony low polycount slug which wanders around.
+
+stopped working on newer computers due to new fslib svga lib incompatibilities
+
+-MindRealm Apparitions-
+an attempt to make a contemporary version of mindrealm
+it was supposed to be 3d and have all the things that mindrealm and mindrealm enhanced never developed into.
+it was recoded directly within the original file but became corrupt.
+perhaps when i get around to having a somewhat working version of vis-guardian i can try again
+
+-RoE4-
+took what left i have of roe2. added fslib mouse controls since embedded mouse controls were no longer compatible. 
+the game extensively uses bsave graphics.
+soon i will change this to loading bmps off the net.
+eventually ill change it so that it uses MVX format downloadable images.
+i hope to add music soon.
+
+-Aquarius Portals-
+a nethub for RoE4 online multiuser connections.
+i may make a broadcasting system for it where there's the ability to http out 2 color video of the game. eventually i may build it so that it compresses the output using MVX technology. MVX technology would only really be mighty helpful after the game is completely converted to screen 13's 320x200x256.
+so far the hub has 5 channels which are LISTEN, SERVER, CLIENT, DIRECT, and HTTP. i may add a FTP one later on :)
+
+
+[end of file]
