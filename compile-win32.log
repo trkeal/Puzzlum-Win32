@@ -1,0 +1,10 @@
+clv002.bas(122) error 20: Type mismatch in 'put clv_buffer(DestIndex, 0), (0, 0), clv_buffer(SrcIndex, 0), custom, @clv_filter_mask, clv_flag_and'
+clv002.bas(124) error 20: Type mismatch in 'put clv_buffer(DestIndex, 1), (0, 0), clv_buffer(SrcIndex, 0), custom, @clv_filter_mask, clv_flag_and'
+clv002.bas(125) error 20: Type mismatch in 'put clv_buffer(DestIndex, 1), (0, 0), clv_buffer(SrcIndex, 1), custom, @clv_filter_mask, clv_flag_or'
+clv002.bas(175) error 20: Type mismatch in 'put clv_buffer(PageIndex, 0), (X, Y), TransparencyGraphic, custom, @clv_filter_mask, clv_flag_and'
+clv002.bas(177) error 20: Type mismatch in 'put clv_buffer(PageIndex, 1), (X, Y), TransparencyGraphic, custom, @clv_filter_mask, clv_flag_and'
+clv002.bas(178) error 20: Type mismatch in 'put clv_buffer(PageIndex, 1), (X, Y), ColorGraphic, custom, @clv_filter_mask, clv_flag_or'
+libclv002.a
+libconst.a
+libnames.a
+        3 file(s) copied.

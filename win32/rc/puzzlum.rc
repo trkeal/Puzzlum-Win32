@@ -1,1 +1,1 @@
-FB_PROGRAM_ICON ICON .\win32\icons\puzzlum.ico
+FB_PROGRAM_ICON ICON ".\win32\icons\puzzlum.ico"

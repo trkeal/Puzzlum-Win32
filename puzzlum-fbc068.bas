@@ -1,38 +1,31 @@
 '"Puzzlum : Realm of Existence"
 'Build: puzzlum-fbc068.200908170813
 
-'Puzzlum is Copyright (C) 1989-2010 Timothy Robert Keal alias jargon
-'Puzzlum is released by Timothy Robert Keal under the Gnu Public License 2.0.
-'http://puzzlum.retromachineshop.com/
-'irc://chat.freenode.net/puzzlum
-'mailto:jargon@juno.com
+'Puzzlum is Copyright (C) 1989-2021 Timothy Robert Keal alias jargon
+'Puzzlum is released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" (Attribution, Education / Charity)
+'http://puzzlum.net/
+'mailto:trkeal@gmail.com
 
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
+#include once ".\inc\const.bi"
+#include once ".\inc\names.bi"
+
 #include once "fbgfx.bi"
 #include once ".\inc\fbpng.bi"
 #include once ".\inc\png_image.bi"
-#include once ".\inc\KealDemux.bi"
-#include once ".\inc\Timothy.bi"
+'#include once ".\inc\KealDemux.bi" '[!!]'junk
+#include once ".\inc\names.bi"
+'#include once ".\inc\Timothy.bi" '[!!]'junk
 #include once ".\inc\clv002.bi"
+'#include once ".\inc\Names.bi"
 
-    const Timothy_Read=TIMOTHY_ACCESS_RESET or TIMOTHY_ACCESS_READ or TIMOTHY_ACCESS_DEBUG
-    const Timothy_Write=TIMOTHY_ACCESS_RESET or TIMOTHY_ACCESS_READ or TIMOTHY_ACCESS_ALLOCATION or TIMOTHY_ACCESS_WRITE or TIMOTHY_ACCESS_OVERWRITE or TIMOTHY_ACCESS_DEBUG
-    const Timothy_Delete=TIMOTHY_ACCESS_RESET or TIMOTHY_ACCESS_READ or TIMOTHY_ACCESS_DELETE or TIMOTHY_ACCESS_DEBUG
-
-    const Attrib_ReadOnly   = 1
-    const Attrib_Hidden     = 2
-    const Attrib_System     = 4
-    const Attrib_Directory  = 16
-    const Attrib_Archive    = 32
+	redim shared as names_type DB_Names(any), DB_Input( any ), DB_Map( any ), DB_Queue( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
     
     declare sub clv_glyph_ini (clv_glyph() as integer)
     declare sub input_text (Index as integer, Src as integer, _
         Row as short, Col as short, W as short, H as short, byref Text_str as string)
-
-    declare sub Map_Load (DB() as Timothy_node_type)
-    declare sub Map_Save (DB() as Timothy_node_type)
 
     declare SUB suspend (byref start_sf as single, byref delay as short)
     declare SUB graphicput (clv_buffer() as fb.image ptr, Index as integer, _
@@ -198,14 +191,13 @@
     declare sub ln_crtnpndx ()
     declare sub ln_crtnccts ()
     declare sub ln_crtnbldr ()
-    declare sub savegame_save()
-    declare sub savegame_load()
+    
+	declare sub savegame_save( filename as string = "", map_buffer( any ) as names_type )
+	declare sub savegame_load( filename as string = "", map_buffer( any ) as names_type )
 
     COMMON SHARED as short win_si
     COMMON SHARED as string mappath_str, map_str, lvuppath_str, lvup_str
     COMMON SHARED as string thispath_str, fontpath_str, logopath_str, spritepath_str, palpath_str, helppath_str, helpfilename_str
-
-    redim shared as Timothy_node_type DB_Map(0 to 0), DB_Names(0 to 0), DB_Input(0 to 0)
     
     dim shared as double progress_delay=0.2
     
@@ -317,7 +309,6 @@ ln_roe
 end
 
 sub ln_roe ()
-    redim as Timothy_queue_type queue(0)
     Mouse_Width=320
     Mouse_Height=240
     Screen_Width=320
@@ -344,12 +335,13 @@ sub ln_roe ()
     map_str = "demo.vds"
     lvuppath_str = "lvup\"
     lvup_str = "roe_lvup.dat"
+    	
+	wipe_table( DB_Input() )
     
-    Timothy_memory_ini DB_Input(), Timothy_Write
-    'DB_Ini DB_Input()
-    
-    Timothy_memory_queue_load queue(), ".\dict\input.txt", Timothy_Write, Timothy_Write
-    Timothy_memory_queue_exec DB_Input(),queue(),Timothy_Write
+    load_names_from_file ( ".\dict\input.txt", DB_Queue() )
+	
+	'Timothy_memory_queue_load queue(), ".\dict\input.txt", 'Timothy_Write, Timothy_Write
+    'Timothy_memory_queue_exec DB_Input(),queue(),Timothy_Write
     'DB_Load_Text DB_Input(), ".\dict\input.txt"
     
     pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
@@ -404,7 +396,7 @@ sub ln_roe ()
                     if (lcase(c_str) = "t") OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
                     exitcommand3=NOT(0)
                         exitcommand=not(0)
-                    endif
+                    end if
                     if restart_roe then exit do
                 loop while (INSTR(1, "L ||", RIGHT(" " + c_str, 1)) = 0) and not exitcommand3
                 if restart_roe then exit do
@@ -417,11 +409,11 @@ sub ln_roe ()
 end sub
 
 sub ln_startup ()
-    Timothy_memory_ini DB_Names(),Timothy_Write
-    redim as Timothy_queue_type queue(0)
-    Timothy_memory_queue_load queue(),".\dict\names.txt",Timothy_Write,Timothy_Write
-    Timothy_memory_queue_save queue(),".\dict\names.dat",Timothy_Read,Timothy_Read
-    Timothy_memory_queue_exec DB_Names(),queue(),Timothy_Write
+
+	wipe_table( DB_Names() )
+	wipe_table( Names_Buffer() )
+
+	load_names_from_file( ".\dict\names.txt" , Names_Buffer() )
   
     OPEN thispath_str + mappath_str + map_str FOR INPUT AS 1
     INPUT #1, mapname_str
@@ -932,7 +924,9 @@ sub ln_command2 ()
 end sub
 
 sub ln_command3 ()
-    redim as Timothy_queue_type queue(0)
+    dim as string filename = string$( 0, 0 )
+	filename = "0002"
+	redim Names_Buffer(0 to 0):Names_Buffer(0).label = "":Names_Buffer(0).value = ""
     redim as string dump(0,0)
     dim as short X, Y, Z
     dim as string ActnNav(0 to 4)
@@ -949,13 +943,14 @@ sub ln_command3 ()
     clv_buffer_stack clv_buffer()
     select case c_str
     case "&HFF3B" 'F1 (save savegame)
-        savegame_save
+		savegame_save( filename, map_buffer() )
+
         c_str="t"
         ln_starttitle
         exitcommand3=not(0)
         return
     case "&HFF3C" 'F2 (load savegame)
-        savegame_load
+		savegame_load( filename, map_buffer() )
         c_str="t"
         ln_starttitle
         exitcommand3=not(0)
@@ -1072,18 +1067,18 @@ sub ln_command3 ()
                             ActnNav(1)=mkl(cvl(ActnNav(1))-5)
                             if cvl(ActnNav(1))<1 then
                                 ActnNav(1)=mkl(cvl(ActnNav(1))+cvl(ActnNav(3)))
-                            endif
+                            end if
                         case "&HFF51" 'Page Down
                             ActnNav(1)=mkl(cvl(ActnNav(1))+5)
                             if cvl(ActnNav(1))>cvl(ActnNav(3)) then                        
                                 ActnNav(1)=mkl(cvl(ActnNav(1))-cvl(ActnNav(3)))                    
-                            endif
+                            end if
                         end select
                         action_str=mid(ActnNav(2),cvl(ActnNav(1))*4-3,4)
                     end if
                 end if
-            endif
-        endif
+            end if
+        end if
         ln_putaction
         st_sf = TIMER
     END IF
@@ -1118,10 +1113,10 @@ sub ln_command3 ()
     END IF
 end sub   
 
-sub ln_names()
-    dim as uinteger fail,index,octet,biet
-    rr_str=Timothy_memory(DB_Names(),R_str,R_str,Timothy_Read,Timothy_Read,fail,index,octet,biet)
-    'DB_Dict_Get DB_Names(), R_str, rr_str, R_str
+sub ln_names() ''[!!!]''
+    ''dim as uinteger fail,index,octet,biet
+    ''rr_str=Timothy_memory(DB_Names(),R_str,R_str,Timothy_Read,Timothy_Read,fail,index,octet,biet)
+    '''DB_Dict_Get DB_Names(), R_str, rr_str, R_str
 end sub
 
 sub ln_swapdata ()
@@ -3734,11 +3729,11 @@ END SUB
 SUB cursorput
     if c_str<>string(2,"%") then
         clast_str=c_str
-    endif
+    end if
     clv_buffer_cls clv_buffer(), clv_buffer_cursor
     clv_draw_line clv_buffer(), clv_buffer_cursor, XMouse_si - 2, Ymouse_si - 2, XMouse_si + 2, Ymouse_si + 2, rgb(255,255,255), rgb(0,0,0), clv_flag_default
     clv_draw_line clv_buffer(), clv_buffer_cursor, XMouse_si + 2, Ymouse_si - 2, XMouse_si - 2, Ymouse_si + 2, rgb(255,255,255), rgb(0,0,0), clv_flag_default
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_cursor, clv_glyph(), (1-1) shl 3, (1-1) shl 3, str(XMouse_si)+","+str(YMouse_si)+","+clast_str
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_cursor, clv_glyph(), (1-1) shl 3, (1-1) shl 3, str(XMouse_si)+","+trimint(YMouse_si)+","+clast_str
 END SUB
 
 sub progress_put (clv_buffer() as fb.image ptr, Index as integer, Caption as string, _
@@ -3756,15 +3751,21 @@ sub progress_put (clv_buffer() as fb.image ptr, Index as integer, Caption as str
         Progress="0"+right(string(2,"0")+right(Progress,2),2)+"%"
     else
         Progress=mid(Progress,1,len(Progress)-2)+"."+right(string(2,"0")+right(Progress,2),2)+"%"
-    endif
-    if Sec-LastSec>=DelaySec then
-        LastSec=Sec-KealDemux_m(DelaySec-KealDemux_m(Sec-LastSec,DelaySec),DelaySec)
-    else
-        return
-    endif
+    end if
+    
+	#ifdef __Keal_Demux__
+		if Sec-LastSec>=DelaySec then
+			LastSec=Sec-KealDemux_m(DelaySec-KealDemux_m(Sec-LastSec,DelaySec),DelaySec)
+		else
+	#endif
+			return
+	#ifdef __Keal_Demux__
+		end if	
+	#endif
+	
     if Switch and 1 then
         clv_buffer_cls clv_buffer(), Index
-    endif
+    end if
     X1_si=X1
     Y1_si=Y1
     X2_si=X2
@@ -3833,7 +3834,7 @@ function file_get_contents(filename as string) as string
     if not(eof(mode)) and (lof(mode)>0) then
         seek #mode,1
         get #mode,seek(mode),ret
-    endif
+    end if
     close mode
     file_get_contents=ret
 end function
@@ -4061,65 +4062,64 @@ sub input_text (Index as integer, Src as integer, Row as short, Col as short, W 
     loop
 end sub
 
-sub Map_Load (DB() as Timothy_node_type)
-    dim as integer X,Y, X1=5, Y1=10, X2=35, Y2=15, Cur=0, Max=161, Index2=clv_buffer_progress
+sub Map_Load (map_names() as names_type)
+	
+    dim as integer X,Y, X1=5, Y1=10, X2=35, Y2=15, Cur=0, Max=161, Index2=clv_buffer_progress, Index = 0
     dim as double DelaySec=progress_delay, LastSec=timer-DelaySec
     dim as string Caption="Loading Map", progress=space(0)
     dim as uinteger ARGB, Switch=1
     
-    redim as Timothy_queue_type queue()
     dim as string label=space(0),value=space(0),ret=space(0),mapname=space(0)
-    dim as uinteger request=Timothy_Read,waccess=Timothy_Read,fail=0,index=0,octet=0,biet=0
     
     ARGB=rgb(96,32,255)
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 0, progress, LastSec, DelaySec
 
     'map name
-    mapname=Timothy_memory(DB(),"mapname_str",space(0),request,waccess,fail,index,octet,biet)
+    mapname= sync_names( "mapname_str", Data_Table() )
     Caption=Caption+" "+chr(34)+mapname_str+chr(34)
     'map dimensions width
-    AA_si=val(Timothy_memory(DB(),"AA_si",space(0),request,waccess,fail,index,octet,biet))
+    AA_si= val( sync_names( "AA_si", Data_Table() ) )
     'map dimensions height
-    DD_si=val(Timothy_memory(DB(),"DD_si",space(0),request,waccess,fail,index,octet,biet))
+    DD_si= val( sync_names( "DD_si", Data_Table() ) )
     Max=Max+AA_si*DD_si*23
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 3, progress, LastSec, DelaySec
 
     'directional axis matrix
     for X=0 to 4
         for Y=1 to 2
-            d_sia(X,Y)=val(Timothy_memory(DB(),"d_sia["+str(X)+"]["+str(Y)+"]",space(0),request,waccess,fail,index,octet,biet))
+            d_sia(X,Y)= val( sync_names( "d_sia["+trimint(X)+"]["+trimint(Y)+"]", Data_Table() ) )
         next
     next
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 10, progress, LastSec, DelaySec
 
     'map pointer x
-    ex_si=val(Timothy_memory(DB(),"ex_si",space(0),request,waccess,fail,index,octet,biet))
+    ex_si= val( sync_names( "ex_si", Data_Table() ) )
     'map pointer y
-    dy_si=val(Timothy_memory(DB(),"dy_si",space(0),request,waccess,fail,index,octet,biet))
+    dy_si= val( sync_names( "dy_si", Data_Table() ) )
     'screen cursor x
-    mdx_si=val(Timothy_memory(DB(),"mdx_si",space(0),request,waccess,fail,index,octet,biet))
+    mdx_si= val( sync_names( "mdx_si", Data_Table() ) )
     'screen cursor y
-    mdy_si=val(Timothy_memory(DB(),"mdy_si",space(0),request,waccess,fail,index,octet,biet))
+    mdy_si= val( sync_names( "mdy_si", Data_Table() ) )
         
     'text color
-    textcolor_si=val(Timothy_memory(DB(),"textcolor_si",space(0),request,waccess,fail,index,octet,biet))
+    textcolor_si= val( sync_names( "textcolor_si", Data_Table() ) )
     'text delay
-    textdelay_sf=val(Timothy_memory(DB(),"textdelay_sf",space(0),request,waccess,fail,index,octet,biet))
+    textdelay_sf= val( sync_names( "textdelay_sf", Data_Table() ) )
     
     'current window
-    win_si=val(Timothy_memory(DB(),"win_si",space(0),request,waccess,fail,index,octet,biet))
-    progress_put clv_buffer(), Index, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 7, progress, LastSec, DelaySec
+    win_si= val( sync_names( "win_si", Data_Table() ) )
+    '[!!!]'progress_put clv_buffer(), Index, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 7, progress, LastSec, DelaySec
 
     for Y=0 to 4
         for X=1 to 2
-            d_sia(Y,X)=val(Timothy_memory(DB(),"d_sia["+str(Y)+"]["+str(X)+"]",space(0),request,waccess,fail,index,octet,biet))
+            d_sia(Y,X)= val( sync_names( "d_sia["+trimint(Y)+"]["+trimint(X)+"]", Data_Table() ) )
         next
     next
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 10, progress, LastSec, DelaySec
 
     FOR X = 0 TO win_si
         for Y=1 to 2
-            win_sia(Y + (X - 1) * 2)=val(Timothy_memory(DB(),"win_sia["+str(X)+"]["+str(Y)+"]",space(0),request,waccess,fail,index,octet,biet))
+            win_sia(Y + (X - 1) * 2)= val( sync_names( "win_sia["+trimint(X)+"]["+trimint(Y)+"]", Data_Table() ) )
         next
     NEXT
     Max=Max+(win_si+1)*2
@@ -4128,40 +4128,40 @@ sub Map_Load (DB() as Timothy_node_type)
     'level up data
     FOR t_si = 0 TO 64
         for X=1 to 2
-            l_sia(t_si)=val(Timothy_memory(DB(),"l_sia["+str(t_si)+"]",space(0),request,waccess,fail,index,octet,biet))
+            l_sia(t_si)= val( sync_names( "l_sia["+trimint(t_si)+"]", Data_Table() ) )
         next
     NEXT
 
-    ctrl_str=Timothy_memory(DB(),"ctrl_str",space(0),request,waccess,fail,index,octet,biet)
+    ctrl_str= sync_names( "ctrl_str", Data_Table() )
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 131, progress, LastSec, DelaySec
         
     FOR Ty_si = 1 TO DD_si
         FOR Tx_si = 1 TO AA_si
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)=Timothy_memory(DB(),"prflidty_str["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet)
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)=Timothy_memory(DB(),"prflactn_str["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet)
-            mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4)=Timothy_memory(DB(),"prflgpic_str["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet)
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 3)=Timothy_memory(DB(),"prflcmnd_str["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet)
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 4)=Timothy_memory(DB(),"prflgpicactn_str["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet)
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 5)=Timothy_memory(DB(),"prflactnct_str["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet)
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)= sync_names( "prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)= sync_names( "prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
+            mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4)= sync_names( "prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 3)= sync_names( "prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 4)= sync_names( "prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 5)= sync_names( "prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
             progress_put clv_buffer(), Index, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 6, progress, LastSec, DelaySec
 
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)=val(Timothy_memory(DB(),"prflidty_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)=val(Timothy_memory(DB(),"prflhp_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)=val(Timothy_memory(DB(),"prflstr_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)=val(Timothy_memory(DB(),"prfless_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)=val(Timothy_memory(DB(),"prflspd_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)=val(Timothy_memory(DB(),"prflarmr_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)=val(Timothy_memory(DB(),"prflexp_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)=val(Timothy_memory(DB(),"prflvalu_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)=val(Timothy_memory(DB(),"prflpirc_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)=val(Timothy_memory(DB(),"prflchck_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)=val(Timothy_memory(DB(),"prfllv_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)=val(Timothy_memory(DB(),"prflhpmax_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)=val(Timothy_memory(DB(),"prflstrmax_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)=val(Timothy_memory(DB(),"prflessmax_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)=val(Timothy_memory(DB(),"prflessspd_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)=val(Timothy_memory(DB(),"prflevad_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)=val(Timothy_memory(DB(),"prflblnk_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",space(0),request,waccess,fail,index,octet,biet))
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)= val( sync_names( "prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)= val( sync_names( "prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)= val( sync_names( "prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)= val( sync_names( "prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)= val( sync_names( "prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)= val( sync_names( "prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)= val( sync_names( "prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)= val( sync_names( "prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)= val( sync_names( "prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)= val( sync_names( "prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)= val( sync_names( "prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)= val( sync_names( "prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)= val( sync_names( "prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)= val( sync_names( "prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)= val( sync_names( "prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)= val( sync_names( "prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)= val( sync_names( "prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 17, progress, LastSec, DelaySec
         NEXT
     NEXT
@@ -4170,7 +4170,7 @@ sub Map_Load (DB() as Timothy_node_type)
     clv_buffer_cls clv_buffer(), Index2
 end sub
 
-sub Map_Save (DB() as Timothy_node_type)
+sub Map_Save ( DB(any) as names_type)
     dim as integer X,Y, X1=5, Y1=10, X2=35, Y2=15, Cur=0, Max=161, Index2=clv_buffer_progress
     dim as double DelaySec=progress_delay, LastSec=timer-DelaySec
     dim as integer queue_max=0
@@ -4179,18 +4179,14 @@ sub Map_Save (DB() as Timothy_node_type)
     ARGB=rgb(96,32,255)
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 0, progress, LastSec, DelaySec
     
-    redim as Timothy_queue_type queue(0 to 0)
+    wipe_table( queue_table() )
     
     dim as uinteger fail=0,index=0,octet=0,biet=0
     dim as string ret=space(0)
     
-    ret=Timothy_memory(DB(),"mapname_str",mapname_str,Timothy_Write,Timothy_Write,fail,index,octet,biet)
-    ret=Timothy_memory(DB(),"AA_si",str(AA_si),Timothy_Write,Timothy_Write,fail,index,octet,biet)
-    ret=Timothy_memory(DB(),"DD_si",str(DD_si),Timothy_Write,Timothy_Write,fail,index,octet,biet)
-
-    'Timothy_memory_queue_push queue(),"mapname_str",mapname_str,Timothy_Write,Timothy_Write 'map name
-    'Timothy_memory_queue_push queue(),"AA_si",str(AA_si),Timothy_Write,Timothy_Write 'map dimensions width
-    'Timothy_memory_queue_push queue(),"DD_si",str(DD_si),Timothy_Write,Timothy_Write 'map dimensions height
+    names_push( "mapname_str", mapname_str,Names_Buffer() ) 'map name
+    names_push( "AA_si", trimint(AA_si), Names_Buffer() ) 'map dimensions width
+    names_push( "DD_si", trimint(DD_si), Names_Buffer() ) 'map dimensions height
     Max=Max+AA_si*DD_si*23
     
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 3, progress, LastSec, DelaySec
@@ -4198,35 +4194,35 @@ sub Map_Save (DB() as Timothy_node_type)
     'directional axis matrix
     for X=0 to 4
         for Y=1 to 2
-            Timothy_memory_queue_push queue(),"d_sia["+str(X)+"]["+str(Y)+"]",str(d_sia(X,Y)),Timothy_Write,Timothy_Write
+            names_push("d_sia["+trimint(X)+"]["+trimint(Y)+"]",trimint(d_sia(X,Y)),Names_Buffer())
         next
     next
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 10, progress, LastSec, DelaySec
 
-    Timothy_memory_queue_push queue(),"ex_si",str(ex_si),Timothy_Write,Timothy_Write 'map pointer x
-    Timothy_memory_queue_push queue(),"dy_si",str(dy_si),Timothy_Write,Timothy_Write 'map pointer y
-    Timothy_memory_queue_push queue(),"mdx_si",str(mdx_si),Timothy_Write,Timothy_Write 'screen cursor x
-    Timothy_memory_queue_push queue(),"mdy_si",str(mdy_si),Timothy_Write,Timothy_Write 'screen cursor y
+    names_push("ex_si",trimint(ex_si),Names_Buffer()) 'map pointer x
+    names_push("dy_si",trimint(dy_si),Names_Buffer()) 'map pointer y
+    names_push("mdx_si",trimint(mdx_si),Names_Buffer()) 'screen cursor x
+    names_push("mdy_si",trimint(mdy_si),Names_Buffer()) 'screen cursor y
         
-    Timothy_memory_queue_push queue(),"textcolor_si",str(textcolor_si),Timothy_Write,Timothy_Write 'screen cursor y
-    Timothy_memory_queue_push queue(),"textdelay_sf",str(textdelay_sf),Timothy_Write,Timothy_Write 'screen cursor y
+    names_push("textcolor_si",trimint(textcolor_si),Names_Buffer()) 'screen cursor y
+    names_push("textdelay_sf",trimint(textdelay_sf),Names_Buffer()) 'screen cursor y
     
-    Timothy_memory_queue_push queue(),"win_si",str(win_si),Timothy_Write,Timothy_Write 'screen cursor y
+    names_push("win_si",trimint(win_si),Names_Buffer()) 'screen cursor y
     Max=Max+(Win_si+1)*2
     queue_max=Max
-    redim preserve queue(0 to queue_max)
+    redim preserve queue(0 to queue_max) as names_type
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 7, progress, LastSec, DelaySec
 
     for Y=0 to 4
         for X=1 to 2
-            Timothy_memory_queue_push queue(),"d_sia["+str(Y)+"]["+str(X)+"]",str(d_sia(Y,X)),Timothy_Write,Timothy_Write
+            names_push("d_sia["+trimint(Y)+"]["+trimint(X)+"]",trimint(d_sia(Y,X)),Names_Buffer())
         next
     next
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 10, progress, LastSec, DelaySec
     
     FOR X = 0 TO win_si
         for Y=1 to 2
-            Timothy_memory_queue_push queue(),"win_sia["+str(X)+"]["+str(Y)+"]",str(win_sia(Y + (X - 1) * 2)),Timothy_Write,Timothy_Write
+            names_push("win_sia["+trimint(X)+"]["+trimint(Y)+"]",trimint(win_sia(Y + (X - 1) * 2)),Names_Buffer())
         next
     NEXT
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, (win_si+1)*2, progress, LastSec, DelaySec
@@ -4234,102 +4230,66 @@ sub Map_Save (DB() as Timothy_node_type)
     'level up data
     FOR t_si = 0 TO 64
         for X=1 to 2
-            Timothy_memory_queue_push queue(),"l_sia["+str(t_si)+"]",str(l_sia(t_si)),Timothy_Write,Timothy_Write
+            names_push("l_sia["+trimint(t_si)+"]",trimint(l_sia(t_si)),Names_Buffer())
         next
     NEXT
     
-    Timothy_memory_queue_push queue(),"ctrl_str", ctrl_str,Timothy_Write,Timothy_Write
+    names_push("ctrl_str", ctrl_str,Names_Buffer())
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 131, progress, LastSec, DelaySec
 
     FOR Ty_si = 1 TO DD_si
         FOR Tx_si = 1 TO AA_si
-            Timothy_memory_queue_push queue(),"prflidty_str["+str(Tx_si)+"]["+str(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 0),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflactn_str["+str(Tx_si)+"]["+str(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 1),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflgpic_str["+str(Tx_si)+"]["+str(Ty_si)+"]",mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflcmnd_str["+str(Tx_si)+"]["+str(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 3),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflgpicactn_str["+str(Tx_si)+"]["+str(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 4),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflactnct_str["+str(Tx_si)+"]["+str(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 5),Timothy_Write,Timothy_Write
+            names_push("prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 0),Names_Buffer())
+            names_push("prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 1),Names_Buffer())
+            names_push("prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4),Names_Buffer())
+            names_push("prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 3),Names_Buffer())
+            names_push("prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 4),Names_Buffer())
+            names_push("prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 5),Names_Buffer())
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 6, progress, LastSec, DelaySec
 
-            Timothy_memory_queue_push queue(),"prflidty_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflhp_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflstr_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prfless_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflspd_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflarmr_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflexp_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflvalu_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflpirc_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflchck_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prfllv_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflhpmax_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflstrmax_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflessmax_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflessspd_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflevad_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)),Timothy_Write,Timothy_Write
-            Timothy_memory_queue_push queue(),"prflblnk_sf["+str(Tx_si)+"]["+str(Ty_si)+"]",str(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)),Timothy_Write,Timothy_Write
+            names_push("prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)),Names_Buffer())
+            names_push("prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)),Names_Buffer())
+            names_push("prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)),Names_Buffer())
+            names_push("prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)),Names_Buffer())
+            names_push("prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)),Names_Buffer())
+            names_push("prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)),Names_Buffer())
+            names_push("prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)),Names_Buffer())
+            names_push("prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)),Names_Buffer())
+            names_push("prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)),Names_Buffer())
+            names_push("prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)),Names_Buffer())
+            names_push("prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)),Names_Buffer())
+            names_push("prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)),Names_Buffer())
+            names_push("prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)),Names_Buffer())
+            names_push("prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)),Names_Buffer())
+            names_push("prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)),Names_Buffer())
+            names_push("prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)),Names_Buffer())
+            names_push("prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)),Names_Buffer())
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 17, progress, LastSec, DelaySec
         NEXT
     NEXT
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 0, progress, LastSec, 0.0
-    Timothy_memory_queue_exec DB(),queue(),Timothy_Write
+	'[..]'merge_names( Names_Buffer(), names_table() )
     sleep 1
     clv_buffer_cls clv_buffer(), Index2
 end sub
 
 
-sub savegame_save()
+sub savegame_save( filename as string = "", map_buffer( any ) as names_type )
 'case "&HFF3B" 'F1 (save savegame)
-    dim as uinteger index=0,octet=0,biet=0,fork=0
-    dim as string label=space(0)
+    	    	
+    Map_Save( map_buffer() )
     
-    label=space(0)
-    index=0
-    octet=0
-    biet=0
-    fork=0
-    redim as Timothy_queue_type queue(0)
-    Timothy_memory_queue DB_Names(),queue(),label,Timothy_Write,Timothy_Write,index,octet,biet,fork
-    Timothy_memory_queue_save queue(),".\dict\names.dat",Timothy_Read,Timothy_Read
- 
-    label=space(0)
-    index=0
-    octet=0
-    biet=0
-    fork=0
-    Timothy_memory_ini DB_Map(),Timothy_Write
-    redim as Timothy_queue_type queue(0)
-    Map_Save DB_Map()
-    Timothy_memory_queue DB_Map(),queue(),label,Timothy_Write,Timothy_Write,index,octet,biet,fork
-    Timothy_memory_queue_save queue(),".\save\"+mapname_str+".txt",Timothy_Read,Timothy_Read
+	save_names( ".\save\" + filename + ".dat", map_buffer() )
+
 end sub
 
-sub savegame_load()
+sub savegame_load( filename as string = "", map_buffer( any ) as names_type )
 'case "&HFF3C" 'F2 (load savegame)
-    dim as uinteger index=0,octet=0,biet=0,fork=0
-    dim as string label=space(0)
-    
-    label=space(0)
-    index=0
-    octet=0
-    biet=0
-    fork=0
-    Timothy_memory_ini DB_Names(),Timothy_Write
-    redim as Timothy_queue_type queue(0)
-    Timothy_memory_queue_load queue(),".\dict\names.txt",Timothy_Write,Timothy_Write
-    Timothy_memory_queue_save queue(),".\dict\names.dat",Timothy_Read,Timothy_Read
-    Timothy_memory_queue_exec DB_Names(),queue(),Timothy_Write
 
-    label=space(0)
-    index=0
-    octet=0
-    biet=0
-    fork=0
-    Timothy_memory_ini DB_Map(),Timothy_Write
-    redim as Timothy_queue_type queue(0)
-    Timothy_memory_queue_load queue(),".\save\"+mapname_str+".txt",Timothy_Write,Timothy_Write
-    Timothy_memory_queue_exec DB_Map(),queue(),Timothy_Write
-    Map_Load DB_Map()
+	load_names_from_file( ".\save\" + filename + ".dat", map_buffer() )
+    
+	Map_Load( map_buffer() )
+
 end sub
 
 
