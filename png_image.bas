@@ -5,10 +5,10 @@
 #ifndef _PNG_IMAGE_BI_
 #define _PNG_IMAGE_BI_
 
-#include ".\inc\fbpng.bi"
-#include ".\inc\zlib.bi"
-#include ".\inc\FBImage.bi"
-#include "crt.bi"
+#include once ".\inc\fbpng.bi"
+#include once ".\inc\zlib.bi"
+#include once ".\inc\FBImage.bi"
+#include once "crt.bi"
 
 #ifndef NULL
 #define NULL cptr( any ptr, 0 )

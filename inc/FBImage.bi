@@ -52,6 +52,8 @@ end extern
 
 declare function png_load( filename as string ) as fb.image ptr
 
+declare function png_save( image as fb.image ptr, filename as string, bsaveAlpha as boolean = false ) as boolean
+
 declare sub png_destroy( image as fb.image ptr )
 
 ' load (32bit) RGBA image and convert it for 16 bit RGB mode
@@ -132,6 +134,10 @@ end namespace
 
 	function png_load( filename as string ) as fb.image ptr
 		png_load = LoadRGBAFile( filename )
+	end function
+
+	function png_save( image as fb.image ptr, filename as string, bsaveAlpha as boolean = false ) as boolean
+		png_save = SavePNGFile ( image, filename, bsaveAlpha )
 	end function
 
 	sub png_destroy( image as fb.image ptr )

@@ -8,10 +8,9 @@
 '
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
-
-	#inclib "clv"
 	
 	#include once ".\inc\clv.bi"
+	
 	#include once ".\inc\zlib.bi"
 	''''#include once ".\inc\fbpng.bi"
 	#include once "fbgfx.bi"

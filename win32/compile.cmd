@@ -3,7 +3,9 @@ del "compile-win32.log"
 
 "C:\Program Files (x86)\FreeBASIC\fbc32.exe" "const.bas" -lib >> "compile-win32.log"
 "C:\Program Files (x86)\FreeBASIC\fbc32.exe" "names.bas" -lib >> "compile-win32.log"
+
 "C:\Program Files (x86)\FreeBASIC\fbc32.exe" "zlib.bas" -lib >> "compile-win32.log"
+"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "fbimage.bas" -lib >> "compile-win32.log"
 
 "C:\Program Files (x86)\FreeBASIC\fbc32.exe" "clv.bas" -lib >> "compile-win32.log"
 

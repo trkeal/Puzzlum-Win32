@@ -5,8 +5,8 @@
 #ifndef _PNG_IMAGE_BI_
 #define _PNG_IMAGE_BI_
 
-#include "fbpng.bi"
-#include "crt.bi"
+'''#include once "fbpng.bi"
+#include once "crt.bi"
 
 #ifndef NULL
 #define NULL cptr( any ptr, 0 )

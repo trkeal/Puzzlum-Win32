@@ -1,5 +1,7 @@
 libclv.a
 libconst.a
+libfbimage.a
 libnames.a
+libz.a
 libzlib.a
-        4 file(s) copied.
+        6 file(s) copied.

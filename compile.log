@@ -7,6 +7,8 @@ C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "names.bas" -lib  1>>"
 
 C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "zlib.bas" -lib  1>>"compile-win32.log" 
 
+C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "fbimage.bas" -lib  1>>"compile-win32.log" 
+
 C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "clv.bas" -lib  1>>"compile-win32.log" 
 
 C:\ag\Roe068>copy "*.a" "C:\Program Files (x86)\FreeBASIC\lib\win32\*.a"  1>>"compile-win32.log" 
