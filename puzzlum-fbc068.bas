@@ -11,8 +11,12 @@
 
 #include once "crt\math.bi"
 
-#include once ".\inc\clv.bi"
+#include once "fbgfx.bi"
+
 #include once ".\inc\zlib.bi"
+#include once ".\inc\fbimage.bi"
+
+#include once ".\inc\clv.bi"
 
 #include once ".\inc\const.bi"
 #include once ".\inc\names.bi"
