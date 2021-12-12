@@ -48,11 +48,11 @@ declare function GetLastResult() as const zstring ptr
 
 declare function SavePNGFile (byval img as any ptr, byval filename as const zstring ptr,byval saveAlpha as boolean=false) as boolean
 
+end extern
+
 declare function png_load( filename as string ) as fb.image ptr
 
 declare sub png_destroy( image as fb.image ptr )
-
-end extern
 
 ' load (32bit) RGBA image and convert it for 16 bit RGB mode
 function Load16BitRGB(filename as const zstring ptr) as any ptr
@@ -130,7 +130,6 @@ namespace Base64
   end function
 end namespace  
 
-	
 	function png_load( filename as string ) as fb.image ptr
 		png_load = LoadRGBAFile( filename )
 	end function
@@ -138,6 +137,5 @@ end namespace
 	sub png_destroy( image as fb.image ptr )
 		imagedestroy ( image )
 	end sub
-
 
 #endif ' __FBImage_bi__

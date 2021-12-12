@@ -3,5 +3,3 @@ libconst.a
 libnames.a
 libzlib.a
         4 file(s) copied.
-C:\ag\Roe068\inc\fbimage.bi(134) error 41: Calling convention does not match DECLARE prototype in 'function png_load( filename as string ) as fb.image ptr'
-C:\ag\Roe068\inc\fbimage.bi(138) error 41: Calling convention does not match DECLARE prototype in 'sub png_destroy( image as fb.image ptr )'
