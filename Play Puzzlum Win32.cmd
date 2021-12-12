@@ -1,2 +1,2 @@
-".\win32\compile.cmd" > "compile.log"
+".\win32\compile32.cmd" > "Play Win32.log"
 exit

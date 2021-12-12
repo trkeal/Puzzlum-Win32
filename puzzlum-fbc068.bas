@@ -13,7 +13,7 @@
 
 #include once "fbgfx.bi"
 
-#include once ".\inc\zlib.bi"
+'''#include once ".\inc\zlib.bi"
 #include once ".\inc\fbimage.bi"
 
 #include once ".\inc\clv.bi"

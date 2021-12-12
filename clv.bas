@@ -11,7 +11,7 @@
 	
 	#include once ".\inc\clv.bi"
 	
-	#include once ".\inc\zlib.bi"
+	'''#include once ".\inc\zlib.bi"
 	''''#include once ".\inc\fbpng.bi"
 	#include once "fbgfx.bi"
 	#include once "crt\math.bi"
