@@ -1,6 +1,3 @@
-
-#inclib "fbimage"
-
 #ifndef __FBImage_bi__
 #define __FBImage_bi__
 
@@ -47,10 +44,6 @@ declare function LoadRGBAMemory(byval buffer as const any ptr, byval buffersize 
 declare function GetLastResult() as const zstring ptr
 
 declare function SavePNGFile (byval img as any ptr, byval filename as const zstring ptr,byval saveAlpha as boolean=false) as boolean
-
-declare function png_load( filename as string ) as fb.image ptr
-
-declare sub png_destroy( image as fb.image ptr )
 
 end extern
 
@@ -130,14 +123,6 @@ namespace Base64
   end function
 end namespace  
 
-	
-	function png_load( filename as string ) as fb.image ptr
-		png_load = LoadRGBAFile( filename )
-	end function
-
-	sub png_destroy( image as fb.image ptr )
-		imagedestroy ( image )
-	end sub
 
 
 #endif ' __FBImage_bi__

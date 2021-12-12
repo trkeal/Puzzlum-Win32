@@ -9,21 +9,16 @@
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
-#inclib "clv002"
-
-#Include Once "fbgfx.bi"
-#include once "zlib.bi"
-#include once ".\inc\FBImage.bi"
-
-#include once "crt\math.bi"
-
-'[..]''#Include Once "fbpng.bi"
-'[..]''#Include Once "png_image.bi"
+	#inclib "clv"
+	#include once ".\inc\clv.bi"
+	#include once "fbgfx.bi"
+	#include once "crt\math.bi"
 	
 	const clv_math_Pi = 4 * ATN(1)
-	'[..]'const clv_math_Pi = 3.141592653589793#
-    dim shared as const ulong clv_flag_and=0, clv_flag_or=1
-    const clv_buffer_and=0, clv_buffer_or=1
+    
+	dim shared as const ulong clv_flag_and=0, clv_flag_or=1
+    
+	const clv_buffer_and=0, clv_buffer_or=1
     const clv_buffer_visible=0, clv_buffer_draw=1
     const clv_flag_default=0, clv_flag_b=1, clv_flag_bf=2
     const clv_font_default=0

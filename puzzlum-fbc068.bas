@@ -9,33 +9,13 @@
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
-#Include Once "fbgfx.bi"
-#include once "zlib.bi"
-#include once ".\inc\FBImage.bi"
-
 #include once "crt\math.bi"
 
-'[..]''#Include Once "fbpng.bi"
-'[..]''#Include Once "png_image.bi"
-
-declare function png_load( filename as string ) as any ptr
-
-declare sub png_destroy( image as any ptr )
-
-function png_load( filename as string ) as any ptr
-	png_load = LoadRGBAFile( filename )
-end function
-
-sub png_destroy( image as any ptr )
-	imagedestroy ( image )
-end sub
+#include once ".\inc\clv.bi"
+#include once ".\inc\zlib.bi"
 
 #include once ".\inc\const.bi"
 #include once ".\inc\names.bi"
-
-'[..]'#include once ".\inc\KealDemux.bi" '[!!]'junk
-'[..]'#include once ".\inc\Timothy.bi" '[!!]'junk
-#include once ".\inc\clv002.bi"
 
 	redim shared as names_type DB_Names(any), DB_Input( any ), DB_Map( any ), DB_Queue( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
     

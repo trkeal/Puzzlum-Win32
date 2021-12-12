@@ -1,0 +1,11 @@
+libclv.a
+libconst.a
+libnames.a
+libzlib.a
+        4 file(s) copied.
+puzzlum-fbc068.bas(354) error 42: Variable not declared, png_load in 'gtmp=png_load(thispath_str + logopath_str + "roe.splash.png")'
+puzzlum-fbc068.bas(358) error 42: Variable not declared, png_destroy in 'png_destroy gtmp'
+puzzlum-fbc068.bas(3788) error 9: Expected expression, found 'png_load' in 'TransparencyGraphic=png_load(thispath_str + dpath_str + ss2_str + ".png")'
+puzzlum-fbc068.bas(3791) error 9: Expected expression, found 'png_load' in 'ColorGraphic=png_load(thispath_str + dpath_str + ss3_str + ".png")'
+puzzlum-fbc068.bas(3794) error 3: Expected End-of-Line, found 'png_destroy' in 'png_destroy ColorGraphic'
+puzzlum-fbc068.bas(3795) error 3: Expected End-of-Line, found 'png_destroy' in 'png_destroy TransparencyGraphic'
