@@ -31,10 +31,22 @@ creating:     __fb_ct.inf.bas
 compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
 assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
 archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libclv.a" "__fb_ct.inf" "clv.o" 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    fbimage.bas -o fbimage.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "fbimage.asm" -o "fbimage.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libfbimage.a" "__fb_ct.inf" "fbimage.o" 
 libclv.a
 libconst.a
+libfbimage.a
 libnames.a
-        3 file(s) copied.
+        4 file(s) copied.
 FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
 Copyright (C) 2004-2021 The FreeBASIC development team.
 standalone

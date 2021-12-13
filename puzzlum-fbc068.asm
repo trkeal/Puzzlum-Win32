@@ -4,9 +4,9 @@
 .balign 4
 _Lt_0000:	.ascii	"\0"
 .balign 4
-_Lt_000D:	.ascii	"\"\0"
+_Lt_0011:	.ascii	"\"\0"
 .balign 4
-_Lt_0010:	.ascii	",\0"
+_Lt_0014:	.ascii	",\0"
 
 .section .bss
 .balign 4
@@ -190,7 +190,7 @@ _FONTSHEETS:
 
 .section .data
 .balign 4
-_Lt_001F:
+_Lt_0023:
 .int _PAL
 .int _PAL
 .int 1024
@@ -579,564 +579,564 @@ _Lt_001F:
 
 .section .data
 .balign 4
-_.Lt_0022:
-.short 1
-.int _Lt_0024
-.short 1
-.int _Lt_0024
-.short -1
-.int _.Lt_0026
-.balign 4
-_Lt_0024:	.ascii	"1\0"
-.balign 4
 _.Lt_0026:
 .short 1
-.int _Lt_0024
+.int _Lt_0028
 .short 1
 .int _Lt_0028
 .short -1
 .int _.Lt_002A
 .balign 4
-_Lt_0028:	.ascii	"4\0"
+_Lt_0028:	.ascii	"1\0"
 .balign 4
 _.Lt_002A:
 .short 1
-.int _Lt_0024
+.int _Lt_0028
 .short 1
 .int _Lt_002C
 .short -1
 .int _.Lt_002E
 .balign 4
-_Lt_002C:	.ascii	"8\0"
+_Lt_002C:	.ascii	"4\0"
 .balign 4
 _.Lt_002E:
 .short 1
-.int _Lt_0024
-.short 2
+.int _Lt_0028
+.short 1
 .int _Lt_0030
 .short -1
 .int _.Lt_0032
 .balign 4
-_Lt_0030:	.ascii	"12\0"
+_Lt_0030:	.ascii	"8\0"
 .balign 4
 _.Lt_0032:
 .short 1
-.int _Lt_0024
+.int _Lt_0028
 .short 2
 .int _Lt_0034
 .short -1
+.int _.Lt_0036
+.balign 4
+_Lt_0034:	.ascii	"12\0"
+.balign 4
+_.Lt_0036:
+.short 1
+.int _Lt_0028
+.short 2
+.int _Lt_0038
+.short -1
 .long 0
 .balign 4
-_Lt_0034:	.ascii	"16\0"
+_Lt_0038:	.ascii	"16\0"
 .balign 4
-_Lt_0037:	.ascii	".\\\0"
+_Lt_003B:	.ascii	".\\\0"
 .balign 4
-_Lt_0038:	.ascii	"fonts\\\0"
+_Lt_003C:	.ascii	"fonts\\\0"
 .balign 4
-_Lt_0039:	.ascii	"logos\\\0"
+_Lt_003D:	.ascii	"logos\\\0"
 .balign 4
-_Lt_003A:	.ascii	"sprites\\\0"
+_Lt_003E:	.ascii	"sprites\\\0"
 .balign 4
-_Lt_003B:	.ascii	"pal\\\0"
+_Lt_003F:	.ascii	"pal\\\0"
 .balign 4
-_Lt_003C:	.ascii	"maps\\\0"
+_Lt_0040:	.ascii	"maps\\\0"
 .balign 4
-_Lt_003D:	.ascii	"help\\\0"
+_Lt_0041:	.ascii	"help\\\0"
 .balign 4
-_Lt_003E:	.ascii	"roe4help.hlp\0"
+_Lt_0042:	.ascii	"roe4help.hlp\0"
 .balign 4
-_Lt_003F:	.ascii	"demo.vds\0"
+_Lt_0043:	.ascii	"demo.vds\0"
 .balign 4
-_Lt_0040:	.ascii	"lvup\\\0"
+_Lt_0044:	.ascii	"lvup\\\0"
 .balign 4
-_Lt_0041:	.ascii	"roe_lvup.dat\0"
+_Lt_0045:	.ascii	"roe_lvup.dat\0"
 .balign 4
-_Lt_0042:	.ascii	".\\dict\\input.txt\0"
+_Lt_0046:	.ascii	".\\dict\\input.txt\0"
 .balign 4
-_Lt_0044:	.ascii	"QBPALVGA.DAT\0"
+_Lt_0048:	.ascii	"QBPALVGA.DAT\0"
 .balign 4
-_Lt_0048:	.ascii	".\\fonts\\mishap22.font.png\0"
+_Lt_004C:	.ascii	".\\fonts\\mishap22.font.png\0"
 .balign 4
-_Lt_004A:	.ascii	".\\fonts\\roe00.font.png\0"
+_Lt_004E:	.ascii	".\\fonts\\roe00.font.png\0"
 .balign 4
-_Lt_004C:	.ascii	"[F1 Save|F2 Load|F3 Shop]\0"
+_Lt_0050:	.ascii	"[F1 Save|F2 Load|F3 Shop]\0"
 .balign 4
-_Lt_0055:	.ascii	"t\0"
+_Lt_0059:	.ascii	"t\0"
 .balign 4
-_Lt_0067:	.ascii	"L ||\0"
+_Lt_006B:	.ascii	"L ||\0"
 .balign 4
-_Lt_0068:	.ascii	" \0"
+_Lt_006C:	.ascii	" \0"
 .balign 4
-_Lt_006C:	.ascii	"L||\0"
+_Lt_0070:	.ascii	"L||\0"
 .balign 4
-_Lt_0074:	.ascii	".\\dict\\names.txt\0"
+_Lt_0078:	.ascii	".\\dict\\names.txt\0"
 .balign 4
-_Lt_0083:	.ascii	"pndximp_\0"
+_Lt_0087:	.ascii	"pndximp_\0"
 .balign 4
-_Lt_0086:	.ascii	"dust\0"
+_Lt_008A:	.ascii	"dust\0"
 .balign 4
-_Lt_0091:	.ascii	"____\0"
+_Lt_0095:	.ascii	"____\0"
 .balign 4
-_Lt_0092:	.ascii	"________\0"
+_Lt_0096:	.ascii	"________\0"
 .balign 4
-_Lt_0097:	.ascii	"spdr\0"
+_Lt_009B:	.ascii	"spdr\0"
 .balign 4
-_Lt_0099:	.ascii	"Spider\0"
+_Lt_009D:	.ascii	"Spider\0"
 .balign 4
-_Lt_009A:	.ascii	"movebiteweb_\0"
+_Lt_009E:	.ascii	"movebiteweb_\0"
 .balign 4
-_Lt_009D:	.ascii	"0001\0"
+_Lt_00A1:	.ascii	"0001\0"
 .balign 4
-_Lt_00A1:	.ascii	"vnom\0"
+_Lt_00A5:	.ascii	"vnom\0"
 .balign 4
-_Lt_00A3:	.ascii	"wall\0"
+_Lt_00A7:	.ascii	"wall\0"
 .balign 4
-_Lt_00A6:	.ascii	"web_\0"
+_Lt_00AA:	.ascii	"web_\0"
 .balign 4
-_Lt_00A8:	.ascii	"Web\0"
+_Lt_00AC:	.ascii	"Web\0"
 .balign 4
-_Lt_00AA:	.ascii	"grml\0"
+_Lt_00AE:	.ascii	"grml\0"
 .balign 4
-_Lt_00AC:	.ascii	"Gremlin\0"
+_Lt_00B0:	.ascii	"Gremlin\0"
 .balign 4
-_Lt_00AD:	.ascii	"movebitepnch\0"
+_Lt_00B1:	.ascii	"movebitepnch\0"
 .balign 4
-_Lt_00B0:	.ascii	"dggr\0"
+_Lt_00B4:	.ascii	"dggr\0"
 .balign 4
-_Lt_00B2:	.ascii	"pndx\0"
+_Lt_00B6:	.ascii	"pndx\0"
 .balign 4
-_Lt_00B4:	.ascii	"Poindexter\0"
+_Lt_00B8:	.ascii	"Poindexter\0"
 .balign 4
-_Lt_00B5:	.ascii	"wstf\0"
+_Lt_00B9:	.ascii	"wstf\0"
 .balign 4
-_Lt_00B7:	.ascii	"dtby\0"
+_Lt_00BB:	.ascii	"dtby\0"
 .balign 4
-_Lt_00B9:	.ascii	"Dust Bunny\0"
+_Lt_00BD:	.ascii	"Dust Bunny\0"
 .balign 4
-_Lt_00BA:	.ascii	"movebitekickdtbydust\0"
+_Lt_00BE:	.ascii	"movebitekickdtbydust\0"
 .balign 4
-_Lt_00BC:	.ascii	"shkt\0"
+_Lt_00C0:	.ascii	"shkt\0"
 .balign 4
-_Lt_00BE:	.ascii	"Shiny Knight\0"
+_Lt_00C2:	.ascii	"Shiny Knight\0"
 .balign 4
-_Lt_00BF:	.ascii	"movepnchdggr\0"
+_Lt_00C3:	.ascii	"movepnchdggr\0"
 .balign 4
-_Lt_00C1:	.ascii	"emgd\0"
+_Lt_00C5:	.ascii	"emgd\0"
 .balign 4
-_Lt_00C3:	.ascii	"Emerald Guard\0"
+_Lt_00C7:	.ascii	"Emerald Guard\0"
 .balign 4
-_Lt_00C8:	.ascii	"pike\0"
+_Lt_00CC:	.ascii	"pike\0"
 .balign 4
-_Lt_00CA:	.ascii	"door\0"
+_Lt_00CE:	.ascii	"door\0"
 .balign 4
-_Lt_00CC:	.ascii	"Door\0"
+_Lt_00D0:	.ascii	"Door\0"
 .balign 4
-_Lt_00D0:	.ascii	"loc1\0"
+_Lt_00D4:	.ascii	"loc1\0"
 .balign 4
-_Lt_00D3:	.ascii	"loc2\0"
+_Lt_00D7:	.ascii	"loc2\0"
 .balign 4
-_Lt_00D6:	.ascii	"loc3\0"
+_Lt_00DA:	.ascii	"loc3\0"
 .balign 4
-_Lt_00D8:	.ascii	"imp_\0"
+_Lt_00DC:	.ascii	"imp_\0"
 .balign 4
-_Lt_00DA:	.ascii	"Little Imp\0"
+_Lt_00DE:	.ascii	"Little Imp\0"
 .balign 4
-_Lt_00DB:	.ascii	"movewingfire\0"
+_Lt_00DF:	.ascii	"movewingfire\0"
 .balign 4
-_Lt_00DE:	.ascii	"Merchant\0"
+_Lt_00E2:	.ascii	"Merchant\0"
 .balign 4
-_Lt_00DF:	.ascii	"dggrgrplseed\0"
+_Lt_00E3:	.ascii	"dggrgrplseed\0"
 .balign 4
-_Lt_00E4:	.ascii	"chst\0"
+_Lt_00E8:	.ascii	"chst\0"
 .balign 4
-_Lt_00E6:	.ascii	"Treasure chest\0"
+_Lt_00EA:	.ascii	"Treasure chest\0"
 .balign 4
-_Lt_00E9:	.ascii	"key1\0"
+_Lt_00ED:	.ascii	"key1\0"
 .balign 4
-_Lt_00EA:	.ascii	"key2\0"
+_Lt_00EE:	.ascii	"key2\0"
 .balign 4
-_Lt_00EC:	.ascii	"bldr\0"
+_Lt_00F0:	.ascii	"bldr\0"
 .balign 4
-_Lt_00EE:	.ascii	"Big boulder\0"
+_Lt_00F2:	.ascii	"Big boulder\0"
 .balign 4
-_Lt_00F4:	.ascii	"Puzzlum : Realm of Existence\0"
+_Lt_00F8:	.ascii	"Puzzlum : Realm of Existence\0"
 .balign 4
-_Lt_00F5:	.ascii	"Build: puzzlum-fbc068.200908170813\0"
+_Lt_00F9:	.ascii	"Build: puzzlum-fbc068.200908170813\0"
 .balign 4
-_Lt_00F6:	.ascii	"Created 1989-2009 Timothy Robert Keal\0"
+_Lt_00FA:	.ascii	"Created 1989-2009 Timothy Robert Keal\0"
 .balign 4
-_Lt_00F7:	.ascii	"Released under Gnu Public License 2.0\0"
+_Lt_00FB:	.ascii	"Released under Gnu Public License 2.0\0"
 .balign 4
-_Lt_00F8:	.ascii	"http://www.gnu.org/copyleft/gpl.html\0"
+_Lt_00FC:	.ascii	"http://www.gnu.org/copyleft/gpl.html\0"
 .balign 4
-_Lt_00F9:	.ascii	"http://puzzlum.retromachineshop.com/\0"
+_Lt_00FD:	.ascii	"http://puzzlum.retromachineshop.com/\0"
 .balign 4
-_Lt_00FA:	.ascii	"irc://chat.freenode.net/puzzlum\0"
+_Lt_00FE:	.ascii	"irc://chat.freenode.net/puzzlum\0"
 .balign 4
-_Lt_00FB:	.ascii	"mailto:jargon@juno.com\0"
+_Lt_00FF:	.ascii	"mailto:jargon@juno.com\0"
 .balign 4
-_Lt_00FC:	.ascii	" (H)elp\0"
+_Lt_0100:	.ascii	" (H)elp\0"
 .balign 4
-_Lt_00FD:	.ascii	" (C)ontinue\0"
+_Lt_0101:	.ascii	" (C)ontinue\0"
 .balign 4
-_Lt_00FE:	.ascii	" (R)estart\0"
+_Lt_0102:	.ascii	" (R)estart\0"
 .balign 4
-_Lt_00FF:	.ascii	" (Q)uit\0"
+_Lt_0103:	.ascii	" (Q)uit\0"
 .balign 4
-_Lt_0100:	.ascii	"r\0"
+_Lt_0104:	.ascii	"r\0"
 .balign 4
-_Lt_0101:	.ascii	"R\0"
+_Lt_0105:	.ascii	"R\0"
 .balign 4
-_Lt_0104:	.ascii	"q\0"
+_Lt_0108:	.ascii	"q\0"
 .balign 4
-_Lt_0105:	.ascii	"Q\0"
+_Lt_0109:	.ascii	"Q\0"
 .balign 4
-_Lt_0108:	.ascii	"h\0"
+_Lt_010C:	.ascii	"h\0"
 .balign 4
-_Lt_0109:	.ascii	"H\0"
+_Lt_010D:	.ascii	"H\0"
 .balign 4
-_Lt_010C:	.ascii	"c\0"
+_Lt_0110:	.ascii	"c\0"
 .balign 4
-_Lt_010D:	.ascii	"C\0"
+_Lt_0111:	.ascii	"C\0"
 .balign 4
-_Lt_0114:	.ascii	"\376 page start\0"
+_Lt_0118:	.ascii	"\376 page start\0"
 .balign 4
-_Lt_0117:	.ascii	"\376 page end\0"
+_Lt_011B:	.ascii	"\376 page end\0"
 .balign 4
-_Lt_011A:	.ascii	" (T)itle\0"
+_Lt_011E:	.ascii	" (T)itle\0"
 .balign 4
-_Lt_011E:	.ascii	"T\0"
+_Lt_0122:	.ascii	"T\0"
 .balign 4
-_Lt_0121:	.ascii	"\376 end\0"
+_Lt_0125:	.ascii	"\376 end\0"
 .balign 4
-_Lt_0124:	.ascii	"\376 COLOR\0"
+_Lt_0128:	.ascii	"\376 COLOR\0"
 .balign 4
-_Lt_0139:	.ascii	"zzzz\0"
+_Lt_013D:	.ascii	"zzzz\0"
 .balign 4
-_Lt_014F:	.ascii	"fire\0"
+_Lt_0153:	.ascii	"fire\0"
 .balign 4
-_Lt_0154:	.ascii	"ccts\0"
+_Lt_0158:	.ascii	"ccts\0"
 .balign 4
-_Lt_016C:	.ascii	"0002\0"
+_Lt_0170:	.ascii	"0002\0"
 .balign 4
-_Lt_0173:	.ascii	"&HFF3B\0"
+_Lt_0177:	.ascii	"&HFF3B\0"
 .balign 4
-_Lt_0176:	.ascii	"&HFF3C\0"
+_Lt_017A:	.ascii	"&HFF3C\0"
 .balign 4
-_Lt_017A:	.ascii	"&HFF3D\0"
+_Lt_017E:	.ascii	"&HFF3D\0"
 .balign 4
-_Lt_017D:	.ascii	"L\0"
+_Lt_0181:	.ascii	"L\0"
 .balign 4
-_Lt_0180:	.ascii	"&H20\0"
+_Lt_0184:	.ascii	"&H20\0"
 .balign 4
-_Lt_0183:	.ascii	"&HFF48\0"
+_Lt_0187:	.ascii	"&HFF48\0"
 .balign 4
-_Lt_0186:	.ascii	"&HFF4D\0"
+_Lt_018A:	.ascii	"&HFF4D\0"
 .balign 4
-_Lt_0189:	.ascii	"&HFF50\0"
+_Lt_018D:	.ascii	"&HFF50\0"
 .balign 4
-_Lt_018C:	.ascii	"&HFF4B\0"
+_Lt_0190:	.ascii	"&HFF4B\0"
 .balign 4
-_Lt_01A2:	.ascii	"||\0"
+_Lt_01A6:	.ascii	"||\0"
 .balign 4
-_Lt_01B0:	.ascii	"&HFF47\0"
+_Lt_01B4:	.ascii	"&HFF47\0"
 .balign 4
-_Lt_01B3:	.ascii	"&HFF4F\0"
+_Lt_01B7:	.ascii	"&HFF4F\0"
 .balign 4
-_Lt_01B6:	.ascii	"&HFF49\0"
+_Lt_01BA:	.ascii	"&HFF49\0"
 .balign 4
-_Lt_01BB:	.ascii	"&HFF51\0"
+_Lt_01BF:	.ascii	"&HFF51\0"
 .balign 4
-_Lt_01E6:	.ascii	"bite\0"
+_Lt_01EA:	.ascii	"bite\0"
 .balign 4
-_Lt_01E9:	.ascii	"pnch\0"
+_Lt_01ED:	.ascii	"pnch\0"
 .balign 4
-_Lt_01EC:	.ascii	"kick\0"
+_Lt_01F0:	.ascii	"kick\0"
 .balign 4
-_Lt_01F5:	.ascii	"cure\0"
+_Lt_01F9:	.ascii	"cure\0"
 .balign 4
-_Lt_0214:	.ascii	"burn\0"
+_Lt_0218:	.ascii	"burn\0"
 .balign 4
-_Lt_021D:	.ascii	"tngl\0"
+_Lt_0221:	.ascii	"tngl\0"
 .balign 4
-_Lt_0220:	.ascii	"lash\0"
+_Lt_0224:	.ascii	"lash\0"
 .balign 4
-_Lt_0233:	.ascii	"slep\0"
+_Lt_0237:	.ascii	"slep\0"
 .balign 4
-_Lt_023E:	.ascii	"pouch\0"
+_Lt_0242:	.ascii	"pouch\0"
 .balign 4
-_Lt_023F:	.ascii	"pwch\0"
+_Lt_0243:	.ascii	"pwch\0"
 .balign 4
-_Lt_0247:	.ascii	"lvup\0"
+_Lt_024B:	.ascii	"lvup\0"
 .balign 4
-_Lt_024E:	.ascii	"ispt\0"
+_Lt_0252:	.ascii	"ispt\0"
 .balign 4
-_Lt_0255:	.ascii	"move\0"
+_Lt_0259:	.ascii	"move\0"
 .balign 4
-_Lt_0278:	.ascii	"cncl\0"
+_Lt_027C:	.ascii	"cncl\0"
 .balign 4
-_Lt_0282:	.ascii	"\372\0"
+_Lt_0286:	.ascii	"\372\0"
 .balign 4
-_Lt_0283:	.ascii	"-\0"
+_Lt_0287:	.ascii	"-\0"
 .balign 4
-_Lt_0284:	.ascii	"----\0"
+_Lt_0288:	.ascii	"----\0"
 .balign 4
-_Lt_0285:	.ascii	"$\0"
+_Lt_0289:	.ascii	"$\0"
 .balign 4
-_Lt_02AF:	.ascii	"grpl\0"
+_Lt_02B3:	.ascii	"grpl\0"
 .balign 4
-_Lt_02B4:	.ascii	"seed\0"
+_Lt_02B8:	.ascii	"seed\0"
 .balign 4
-_Lt_02C0:	.ascii	"Wha'du like?\0"
+_Lt_02C4:	.ascii	"Wha'du like?\0"
 .balign 4
-_Lt_02C4:	.ascii	"____.24\0"
+_Lt_02C8:	.ascii	"____.24\0"
 .balign 4
-_Lt_02EE:	.ascii	"bye_\0"
+_Lt_02F2:	.ascii	"bye_\0"
 .balign 4
-_Lt_02F1:	.ascii	"Poindexter:\0"
+_Lt_02F5:	.ascii	"Poindexter:\0"
 .balign 4
-_Lt_02F3:	.ascii	"Hi. How are you. My\0"
+_Lt_02F7:	.ascii	"Hi. How are you. My\0"
 .balign 4
-_Lt_02F5:	.ascii	"name is Poindexter. I\0"
+_Lt_02F9:	.ascii	"name is Poindexter. I\0"
 .balign 4
-_Lt_02F7:	.ascii	"am the greatest thief\0"
+_Lt_02FB:	.ascii	"am the greatest thief\0"
 .balign 4
-_Lt_02F9:	.ascii	"in the entire world!!!\0"
+_Lt_02FD:	.ascii	"in the entire world!!!\0"
 .balign 4
-_Lt_0306:	.ascii	" =\0"
+_Lt_030A:	.ascii	" =\0"
 .balign 4
-_Lt_031F:	.ascii	"gained\0"
+_Lt_0323:	.ascii	"gained\0"
 .balign 4
-_Lt_0329:	.ascii	"      level up!\0"
+_Lt_032D:	.ascii	"      level up!\0"
 .balign 4
-_Lt_032B:	.ascii	"HPmax +\0"
+_Lt_032F:	.ascii	"HPmax +\0"
 .balign 4
-_Lt_032F:	.ascii	"STRmax +\0"
+_Lt_0333:	.ascii	"STRmax +\0"
 .balign 4
-_Lt_0333:	.ascii	"ESSmax +\0"
+_Lt_0337:	.ascii	"ESSmax +\0"
 .balign 4
-_Lt_0337:	.ascii	"STRspd up!\0"
+_Lt_033B:	.ascii	"STRspd up!\0"
 .balign 4
-_Lt_0339:	.ascii	"ESSspd up!\0"
+_Lt_033D:	.ascii	"ESSspd up!\0"
 .balign 4
-_Lt_033F:	.ascii	"reached LV!\0"
+_Lt_0343:	.ascii	"reached LV!\0"
 .balign 4
-_Lt_0345:	.ascii	"next:\0"
+_Lt_0349:	.ascii	"next:\0"
 .balign 4
-_Lt_035C:	.ascii	"from\0"
+_Lt_0360:	.ascii	"from\0"
 .balign 4
-_Lt_035E:	.ascii	"!\0"
+_Lt_0362:	.ascii	"!\0"
 .balign 4
-_Lt_0365:	.ascii	"used\0"
+_Lt_0369:	.ascii	"used\0"
 .balign 4
-_Lt_0367:	.ascii	"on\0"
+_Lt_036B:	.ascii	"on\0"
 .balign 4
-_Lt_036E:	.ascii	"HP -\0"
+_Lt_0372:	.ascii	"HP -\0"
 .balign 4
-_Lt_0372:	.ascii	"STR-\0"
+_Lt_0376:	.ascii	"STR-\0"
 .balign 4
-_Lt_037A:	.ascii	"pillaged\0"
+_Lt_037E:	.ascii	"pillaged\0"
 .balign 4
-_Lt_037C:	.ascii	"EXP+\0"
+_Lt_0380:	.ascii	"EXP+\0"
 .balign 4
-_Lt_0381:	.ascii	"EXP:\0"
+_Lt_0385:	.ascii	"EXP:\0"
 .balign 4
-_Lt_0386:	.ascii	"STR+\0"
+_Lt_038A:	.ascii	"STR+\0"
 .balign 4
-_Lt_038A:	.ascii	"STR:\0"
+_Lt_038E:	.ascii	"STR:\0"
 .balign 4
-_Lt_03B4:	.ascii	".24\0"
+_Lt_03B8:	.ascii	".24\0"
 .balign 4
-_Lt_03D4:	.ascii	"zzzz____.24\0"
+_Lt_03D8:	.ascii	"zzzz____.24\0"
 .balign 4
-_Lt_03E0:	.ascii	"rapl\0"
+_Lt_03E4:	.ascii	"rapl\0"
 .balign 4
-_Lt_03F5:	.ascii	"A RetroMachineShop Featured Project!\0"
+_Lt_03F9:	.ascii	"A RetroMachineShop Featured Project!\0"
 .balign 4
-_Lt_03FF:	.ascii	"LV\0"
+_Lt_0403:	.ascii	"LV\0"
 .balign 4
-_Lt_0402:	.ascii	"     \0"
+_Lt_0406:	.ascii	"     \0"
 .balign 4
-_Lt_0407:	.ascii	"HP\0"
+_Lt_040B:	.ascii	"HP\0"
 .balign 4
-_Lt_040A:	.ascii	"/\0"
+_Lt_040E:	.ascii	"/\0"
 .balign 4
-_Lt_040D:	.ascii	"STR\0"
+_Lt_0411:	.ascii	"STR\0"
 .balign 4
-_Lt_0412:	.ascii	"ESS\0"
+_Lt_0416:	.ascii	"ESS\0"
 .balign 4
-_Lt_041D:	.ascii	"____pwch\0"
+_Lt_0421:	.ascii	"____pwch\0"
 .balign 4
-_Lt_0420:	.ascii	"watr\0"
+_Lt_0424:	.ascii	"watr\0"
 .balign 4
-_Lt_0425:	.ascii	"hole\0"
+_Lt_0429:	.ascii	"hole\0"
 .balign 4
-_Lt_0426:	.ascii	"holestpsstp2\0"
+_Lt_042A:	.ascii	"holestpsstp2\0"
 .balign 4
-_Lt_044D:	.ascii	"Flame\0"
+_Lt_0451:	.ascii	"Flame\0"
 .balign 4
-_Lt_044E:	.ascii	"moveburn\0"
+_Lt_0452:	.ascii	"moveburn\0"
 .balign 4
-_Lt_0453:	.ascii	"Sleepy dust\0"
+_Lt_0457:	.ascii	"Sleepy dust\0"
 .balign 4
-_Lt_045E:	.ascii	"Cactus\0"
+_Lt_0462:	.ascii	"Cactus\0"
 .balign 4
-_Lt_0463:	.ascii	"bitekick\0"
+_Lt_0467:	.ascii	"bitekick\0"
 .balign 4
-_Lt_04BE:	.ascii	" EXP\0"
+_Lt_04C2:	.ascii	" EXP\0"
 .balign 4
-_Lt_04FB:	.ascii	"\372Ok\0"
+_Lt_04FF:	.ascii	"\372Ok\0"
 .balign 4
-_Lt_0502:	.ascii	"&H0D\0"
+_Lt_0506:	.ascii	"&H0D\0"
 .balign 4
-_Lt_0507:	.ascii	"%%\0"
+_Lt_050B:	.ascii	"%%\0"
 .balign 4
-_Lt_0520:	.ascii	"pndxspdrgrmldtbyemgdshktimp_\0"
+_Lt_0524:	.ascii	"pndxspdrgrmldtbyemgdshktimp_\0"
 .balign 4
-_Lt_05A1:	.ascii	"pwchchst\0"
+_Lt_05A5:	.ascii	"pwchchst\0"
 .balign 4
-_Lt_05DF:	.ascii	"bldrchst\0"
+_Lt_05E3:	.ascii	"bldrchst\0"
 .balign 4
-_Lt_05FC:	.ascii	"pndxgrmlspdrdtbyweb_emgdshkt\0"
+_Lt_0600:	.ascii	"pndxgrmlspdrdtbyweb_emgdshkt\0"
 .balign 4
-_Lt_060A:	.ascii	"pndxgrmlspdrdtbyweb_shktemgd\0"
+_Lt_060E:	.ascii	"pndxgrmlspdrdtbyweb_shktemgd\0"
 .balign 4
-_Lt_0611:	.ascii	"pndxgrmlspdrshktemgdimp_\0"
+_Lt_0615:	.ascii	"pndxgrmlspdrshktemgdimp_\0"
 .balign 4
-_Lt_0618:	.ascii	"pndxgrmlspdrdtbyweb_imp_\0"
+_Lt_061C:	.ascii	"pndxgrmlspdrdtbyweb_imp_\0"
 .balign 4
-_Lt_063D:	.ascii	"pndxdtbyspdrimp_emgdshktgrml\0"
+_Lt_0641:	.ascii	"pndxdtbyspdrimp_emgdshktgrml\0"
 .balign 4
-_Lt_064C:	.ascii	"pndxgrmldtbyweb_shktemgdimp_\0"
+_Lt_0650:	.ascii	"pndxgrmldtbyweb_shktemgdimp_\0"
 .balign 4
-_Lt_0655:	.ascii	"pndxgrmlspdrimp_emgdshkt\0"
+_Lt_0659:	.ascii	"pndxgrmlspdrimp_emgdshkt\0"
 .balign 4
-_Lt_0666:	.ascii	"pndxdtbyspdrimp_emgdshktweb_\0"
+_Lt_066A:	.ascii	"pndxdtbyspdrimp_emgdshktweb_\0"
 .balign 4
-_Lt_0679:	.ascii	"pndxdtbyspdrimp_emgdshktweb_grmlccts\0"
+_Lt_067D:	.ascii	"pndxdtbyspdrimp_emgdshktweb_grmlccts\0"
 .balign 4
-_Lt_06A6:	.ascii	"stpw\0"
+_Lt_06AA:	.ascii	"stpw\0"
 .balign 4
-_Lt_06A9:	.ascii	"stps\0"
+_Lt_06AD:	.ascii	"stps\0"
 .balign 4
-_Lt_06B2:	.ascii	"dirt\0"
+_Lt_06B6:	.ascii	"dirt\0"
 .balign 4
-_Lt_06B9:	.ascii	"\377""\0"
+_Lt_06BD:	.ascii	"\377""\0"
 .balign 4
-_Lt_06BC:	.ascii	"&HFF\0"
+_Lt_06C0:	.ascii	"&HFF\0"
 .balign 4
-_Lt_06BD:	.ascii	"0\0"
+_Lt_06C1:	.ascii	"0\0"
 .balign 4
-_Lt_06C2:	.ascii	"&H\0"
+_Lt_06C6:	.ascii	"&H\0"
 .balign 4
-_Lt_06CB:	.ascii	"%\0"
+_Lt_06CF:	.ascii	"%\0"
 .balign 4
-_Lt_06DA:	.ascii	".\0"
+_Lt_06DE:	.ascii	".\0"
 .balign 4
-_Lt_06E3:	.ascii	"________.24\0"
+_Lt_06E7:	.ascii	"________.24\0"
 .balign 4
-_Lt_06E6:	.ascii	"y\0"
+_Lt_06EA:	.ascii	"y\0"
 .balign 4
-_Lt_06E8:	.ascii	"x\0"
+_Lt_06EC:	.ascii	"x\0"
 .balign 4
-_Lt_072E:	.ascii	"bttnself.24\0"
+_Lt_0732:	.ascii	"bttnself.24\0"
 .balign 4
-_Lt_0733:	.ascii	"bttnnrth.24\0"
+_Lt_0737:	.ascii	"bttnnrth.24\0"
 .balign 4
-_Lt_0738:	.ascii	"bttneast.24\0"
+_Lt_073C:	.ascii	"bttneast.24\0"
 .balign 4
-_Lt_073D:	.ascii	"bttnsuth.24\0"
+_Lt_0741:	.ascii	"bttnsuth.24\0"
 .balign 4
-_Lt_0742:	.ascii	"bttnwest.24\0"
+_Lt_0746:	.ascii	"bttnwest.24\0"
 .balign 4
-_Lt_0762:	.ascii	"Puzzlum\0"
+_Lt_0766:	.ascii	"Puzzlum\0"
 .balign 4
-_Lt_0766:	.ascii	"(T)itle\0"
+_Lt_076A:	.ascii	"(T)itle\0"
 .balign 4
-_Lt_077B:	.ascii	"&HFF0D\0"
+_Lt_077F:	.ascii	"&HFF0D\0"
 .balign 4
-_Lt_077F:	.ascii	"Loading Map\0"
+_Lt_0783:	.ascii	"Loading Map\0"
 .balign 4
-_Lt_0780:	.ascii	"mapname_str\0"
+_Lt_0784:	.ascii	"mapname_str\0"
 .balign 4
-_Lt_0786:	.ascii	"AA_si\0"
+_Lt_078A:	.ascii	"AA_si\0"
 .balign 4
-_Lt_0788:	.ascii	"DD_si\0"
+_Lt_078C:	.ascii	"DD_si\0"
 .balign 4
-_Lt_0792:	.ascii	"d_sia[\0"
+_Lt_0796:	.ascii	"d_sia[\0"
 .balign 4
-_Lt_0793:	.ascii	"][\0"
+_Lt_0797:	.ascii	"][\0"
 .balign 4
-_Lt_0794:	.ascii	"]\0"
+_Lt_0798:	.ascii	"]\0"
 .balign 4
-_Lt_079A:	.ascii	"ex_si\0"
+_Lt_079E:	.ascii	"ex_si\0"
 .balign 4
-_Lt_079C:	.ascii	"dy_si\0"
+_Lt_07A0:	.ascii	"dy_si\0"
 .balign 4
-_Lt_079E:	.ascii	"mdx_si\0"
+_Lt_07A2:	.ascii	"mdx_si\0"
 .balign 4
-_Lt_07A0:	.ascii	"mdy_si\0"
+_Lt_07A4:	.ascii	"mdy_si\0"
 .balign 4
-_Lt_07A2:	.ascii	"textcolor_si\0"
+_Lt_07A6:	.ascii	"textcolor_si\0"
 .balign 4
-_Lt_07A4:	.ascii	"textdelay_sf\0"
+_Lt_07A8:	.ascii	"textdelay_sf\0"
 .balign 4
-_Lt_07A6:	.ascii	"win_si\0"
+_Lt_07AA:	.ascii	"win_si\0"
 .balign 4
-_Lt_07BE:	.ascii	"win_sia[\0"
+_Lt_07C2:	.ascii	"win_sia[\0"
 .balign 4
-_Lt_07CC:	.ascii	"l_sia[\0"
+_Lt_07D0:	.ascii	"l_sia[\0"
 .balign 4
-_Lt_07D0:	.ascii	"ctrl_str\0"
+_Lt_07D4:	.ascii	"ctrl_str\0"
 .balign 4
-_Lt_07DC:	.ascii	"prflidty_str[\0"
+_Lt_07E0:	.ascii	"prflidty_str[\0"
 .balign 4
-_Lt_07E2:	.ascii	"prflactn_str[\0"
+_Lt_07E6:	.ascii	"prflactn_str[\0"
 .balign 4
-_Lt_07E8:	.ascii	"prflgpic_str[\0"
+_Lt_07EC:	.ascii	"prflgpic_str[\0"
 .balign 4
-_Lt_07EE:	.ascii	"prflcmnd_str[\0"
+_Lt_07F2:	.ascii	"prflcmnd_str[\0"
 .balign 4
-_Lt_07F4:	.ascii	"prflgpicactn_str[\0"
+_Lt_07F8:	.ascii	"prflgpicactn_str[\0"
 .balign 4
-_Lt_07FA:	.ascii	"prflactnct_str[\0"
+_Lt_07FE:	.ascii	"prflactnct_str[\0"
 .balign 4
-_Lt_0800:	.ascii	"prflidty_sf[\0"
+_Lt_0804:	.ascii	"prflidty_sf[\0"
 .balign 4
-_Lt_0806:	.ascii	"prflhp_sf[\0"
+_Lt_080A:	.ascii	"prflhp_sf[\0"
 .balign 4
-_Lt_080C:	.ascii	"prflstr_sf[\0"
+_Lt_0810:	.ascii	"prflstr_sf[\0"
 .balign 4
-_Lt_0812:	.ascii	"prfless_sf[\0"
+_Lt_0816:	.ascii	"prfless_sf[\0"
 .balign 4
-_Lt_0818:	.ascii	"prflspd_sf[\0"
+_Lt_081C:	.ascii	"prflspd_sf[\0"
 .balign 4
-_Lt_081E:	.ascii	"prflarmr_sf[\0"
+_Lt_0822:	.ascii	"prflarmr_sf[\0"
 .balign 4
-_Lt_0824:	.ascii	"prflexp_sf[\0"
+_Lt_0828:	.ascii	"prflexp_sf[\0"
 .balign 4
-_Lt_082A:	.ascii	"prflvalu_sf[\0"
+_Lt_082E:	.ascii	"prflvalu_sf[\0"
 .balign 4
-_Lt_0830:	.ascii	"prflpirc_sf[\0"
+_Lt_0834:	.ascii	"prflpirc_sf[\0"
 .balign 4
-_Lt_0836:	.ascii	"prflchck_sf[\0"
+_Lt_083A:	.ascii	"prflchck_sf[\0"
 .balign 4
-_Lt_083C:	.ascii	"prfllv_sf[\0"
+_Lt_0840:	.ascii	"prfllv_sf[\0"
 .balign 4
-_Lt_0842:	.ascii	"prflhpmax_sf[\0"
+_Lt_0846:	.ascii	"prflhpmax_sf[\0"
 .balign 4
-_Lt_0848:	.ascii	"prflstrmax_sf[\0"
+_Lt_084C:	.ascii	"prflstrmax_sf[\0"
 .balign 4
-_Lt_084E:	.ascii	"prflessmax_sf[\0"
+_Lt_0852:	.ascii	"prflessmax_sf[\0"
 .balign 4
-_Lt_0854:	.ascii	"prflessspd_sf[\0"
+_Lt_0858:	.ascii	"prflessspd_sf[\0"
 .balign 4
-_Lt_085A:	.ascii	"prflevad_sf[\0"
+_Lt_085E:	.ascii	"prflevad_sf[\0"
 .balign 4
-_Lt_0860:	.ascii	"prflblnk_sf[\0"
+_Lt_0864:	.ascii	"prflblnk_sf[\0"
 .balign 4
-_Lt_0869:	.ascii	"Saving Map \"\0"
+_Lt_086D:	.ascii	"Saving Map \"\0"
 .balign 4
-_Lt_0949:	.ascii	".\\save\\\0"
+_Lt_094D:	.ascii	".\\save\\\0"
 .balign 4
-_Lt_094A:	.ascii	".dat\0"
+_Lt_094E:	.ascii	".dat\0"
