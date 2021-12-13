@@ -132,16 +132,19 @@ namespace Base64
   end function
 end namespace  
 
-	function png_load( filename as string ) as fb.image ptr
-		png_load = LoadRGBAFile( filename )
-	end function
-
-	function png_save( image as fb.image ptr, filename as string, bsaveAlpha as boolean = false ) as boolean
-		png_save = SavePNGFile ( image, filename, bsaveAlpha )
-	end function
-
-	sub png_destroy( image as fb.image ptr )
-		imagedestroy ( image )
-	end sub
-
 #endif ' __FBImage_bi__
+
+''' Refer to: http://Puzzlum.Net/
+''' TRK-PNG-Support-Win32-Static (.bi .bas)
+
+#define __fbimage_override__
+
+#ifndef __fbimage_override__
+
+	declare function png_load( filename as string ) as fb.image ptr
+
+	declare function png_save( image as fb.image ptr, filename as string, bsaveAlpha as boolean = false ) as boolean
+
+	declare sub png_destroy( image as fb.image ptr )
+
+#endif
