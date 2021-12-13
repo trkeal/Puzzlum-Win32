@@ -1,21 +1,8 @@
+	.file	"__fb_ct.c"
 	.intel_syntax noprefix
-
-.section .fbctinf
-.ascii "-l\0"
-.ascii "TRK-PNG-Support-Win32-Static\0"
-.ascii "-l\0"
-.ascii "fbgfx\0"
-.ascii "-l\0"
-.ascii "gdi32\0"
-.ascii "-l\0"
-.ascii "winmm\0"
-.ascii "-l\0"
-.ascii "user32\0"
-.ascii "-l\0"
-.ascii "fbimage\0"
-.ascii "-l\0"
-.ascii "FBImage-32-static\0"
-.ascii "-p\0"
-.ascii "lib/win\0"
-.ascii "-gfx\0"
-
+	.text
+	.section	.fbctinf,"dr"
+	.align 32
+__fbctinf:
+	.ascii "-l\0clv\0-l\0fbgfx\0-l\0gdi32\0-l\0winmm\0-l\0user32\0-gfx\0"
+	.ident	"GCC: (MinGW-W64 x86_64-posix-sjlj, built by Brecht Sanders) 9.3.0"
