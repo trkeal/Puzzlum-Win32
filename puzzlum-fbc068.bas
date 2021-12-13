@@ -14,12 +14,11 @@
 #include once "fbgfx.bi"
 
 '''#include once ".\inc\zlib.bi"
-#include once ".\inc\fbimage.bi"
-
-#include once ".\inc\clv.bi"
+'''#include once ".\inc\fbimage.bi"
 
 #include once ".\inc\const.bi"
 #include once ".\inc\names.bi"
+#include once ".\inc\clv.bi"
 
 	redim shared as names_type DB_Names(any), DB_Input( any ), DB_Map( any ), DB_Queue( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
     

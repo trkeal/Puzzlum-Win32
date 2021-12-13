@@ -1,6 +1,49 @@
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    const.bas -o const.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "const.asm" -o "const.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libconst.a" "__fb_ct.inf" "const.o" 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    names.bas -o names.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "names.asm" -o "names.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libnames.a" "__fb_ct.inf" "names.o" 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    clv.bas -o clv.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "clv.asm" -o "clv.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libclv.a" "__fb_ct.inf" "clv.o" 
 libclv.a
 libconst.a
-libfbimage.a
 libnames.a
-libz.a
-        5 file(s) copied.
+        3 file(s) copied.
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    puzzlum-fbc068.bas -o puzzlum-fbc068.asm (main module)
+puzzlum-fbc068.bas(357) error 42: Variable not declared, png_load in 'gtmp=png_load(thispath_str + logopath_str + "roe.splash.png")'
+puzzlum-fbc068.bas(361) error 42: Variable not declared, png_destroy in 'png_destroy gtmp'
+puzzlum-fbc068.bas(3791) error 9: Expected expression, found 'png_load' in 'TransparencyGraphic=png_load(thispath_str + dpath_str + ss2_str + ".png")'
+puzzlum-fbc068.bas(3794) error 9: Expected expression, found 'png_load' in 'ColorGraphic=png_load(thispath_str + dpath_str + ss3_str + ".png")'
+puzzlum-fbc068.bas(3797) error 3: Expected End-of-Line, found 'png_destroy' in 'png_destroy ColorGraphic'
+puzzlum-fbc068.bas(3798) error 3: Expected End-of-Line, found 'png_destroy' in 'png_destroy TransparencyGraphic'

@@ -1,17 +1,15 @@
 
 C:\ag\Roe068>del "compile-win32.log" 
 
-C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "const.bas" -lib  1>>"compile-win32.log" 
+C:\ag\Roe068>"C:\FreeBASIC\fbc32.exe" "const.bas" -lib -v -RR  1>>"compile-win32.log" 
 
-C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "names.bas" -lib  1>>"compile-win32.log" 
+C:\ag\Roe068>"C:\FreeBASIC\fbc32.exe" "names.bas" -lib -v -RR  1>>"compile-win32.log" 
 
-C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "fbimage.bas" -lib  1>>"compile-win32.log" 
+C:\ag\Roe068>"C:\FreeBASIC\fbc32.exe" "clv.bas" -lib -v -RR  1>>"compile-win32.log" 
 
-C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "clv.bas" -lib  1>>"compile-win32.log" 
+C:\ag\Roe068>copy "*.a" "C:\FreeBASIC\lib\win32\*.a"  1>>"compile-win32.log" 
 
-C:\ag\Roe068>copy "*.a" "C:\Program Files (x86)\FreeBASIC\lib\win32\*.a"  1>>"compile-win32.log" 
-
-C:\ag\Roe068>"C:\Program Files (x86)\FreeBASIC\fbc32.exe" "puzzlum-fbc068.bas" -s gui ".\win32\rc\puzzlum.rc"  1>>"compile-win32.log" 
+C:\ag\Roe068>"C:\FreeBASIC\fbc32.exe" "puzzlum-fbc068.bas" -v -RR -s gui ".\win32\rc\puzzlum.rc"  1>>"compile-win32.log" 
 
 C:\ag\Roe068>"puzzlum-fbc068.exe"
 
