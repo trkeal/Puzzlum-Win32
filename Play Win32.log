@@ -29,12 +29,6 @@ C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "fbimage.bas" -lib -v -RR  1>>"compile-wi
 
 C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>echo === TRK-PNG-Support-Win32-Static Library ===  1>>"compile-win32.log" 
-
-C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "TRK-PNG-Support-Win32-Static.bas" -lib -v -RR  1>>"compile-win32.log" 
-
-C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
-
 C:\ag\Roe 068>echo === Roe 068 Copy As 32bit ===  1>>"compile-win32.log" 
 
 C:\ag\Roe 068>copy "puzzlum-fbc068.bas" "Roe068-fbc32.bas"  1>>"compile-win32.log" 

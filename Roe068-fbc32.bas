@@ -26,8 +26,13 @@
 #include once ".\inc\Names.bi"
 #include once ".\inc\CLV.bi"
 
-	redim shared as names_type DB_Names(any), DB_Input( any ), Maps_Table( any ), Levels_Table(), Input_Table( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
-    
+	redim shared as names_type Input_Table( any )
+	redim shared as names_type Names_Table(any)
+	redim shared as names_type Levels_Table()
+	redim shared as names_type Maps_Table( any )
+	redim shared as names_type Save_Table( any )
+	redim shared as names_type Queue_Table( any )
+	    
     declare sub clv_glyph_ini (clv_glyph() as integer)
     declare sub input_text (Index as integer, Src as integer, _
         Row as short, Col as short, W as short, H as short, byref Text_str as string)
@@ -197,11 +202,13 @@
     declare sub ln_crtnccts ()
     declare sub ln_crtnbldr ()
     
-	declare sub savegame_save( filename as string = "", map_buffer( any ) as names_type )
-	declare sub savegame_load( filename as string = "", map_buffer( any ) as names_type )
+	declare sub savegame_save( filename as string = "", Save_Table( any ) as names_type )
+	declare sub savegame_load( filename as string = "", Save_Table( any ) as names_type )
+
+	declare function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
 
     COMMON SHARED as short win_si
-    COMMON SHARED as string mappath_str, map_str, lvuppath_str, lvup_str
+    COMMON SHARED as string mappath_str, map_str, lvuppath_str, lvup_str, mapid_str
     COMMON SHARED as string thispath_str, fontpath_str, logopath_str, spritepath_str, palpath_str, helppath_str, helpfilename_str
     
     dim shared as double progress_delay=0.2
@@ -331,24 +338,20 @@ sub ln_roe ()
     spritepath_str = "sprites\"
     palpath_str = "pal\"
     mappath_str = "maps\"
-    'future71path_str = "future71\"
+    
+	'future71path_str = "future71\"
     'netplaypath_str = "netplay\"
     'netoutfile_str = "netplayo.bin"
     'netoutmode_li = 67
-    helppath_str="help\"
-    helpfilename_str = "roe4help.hlp"
+    
+	helppath_str="gamedata\Help\"
+    helpfilename_str = "Help.hlp"
     map_str = "Dire Dungeon 1.dat"
-    lvuppath_str = "lvup\"
-    lvup_str = "roe_lvup.dat"
+    lvuppath_str = "gamedata\"
+    lvup_str = "Levels.dat"
     	
-	wipe_table( DB_Input() )
-    
-    load_names_from_file ( ".\dict\input.dat", Input_Table() )
+    load_names_from_file ( ".\gamedata\Input.dat", Input_Table() )
 	
-	'Timothy_memory_queue_load queue(), ".\dict\input.txt", 'Timothy_Write, Timothy_Write
-    'Timothy_memory_queue_exec DB_Input(),queue(),Timothy_Write
-    'DB_Load_Text DB_Input(), ".\dict\input.txt"
-    
     pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
     
     clv_glyph_ini clv_glyph()
@@ -388,7 +391,7 @@ sub ln_roe ()
 
         do
             if restart_roe then exit do
-            if (lcase(c_str)="t") OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
+            if Compare_Key( c_str, "Title", Input_Table() ) OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
                 clv_buffer_focus=clv_buffer_title
                 ln_starttitle
             end if
@@ -415,11 +418,13 @@ end sub
 
 sub ln_startup ()
 
-	wipe_table( DB_Names() )
-	wipe_table( Names_Buffer() )
+	wipe_table( Names_Table() )
+	wipe_table( Levels_Table() )
+	wipe_table( Maps_Table() )
 
-	load_names_from_file( ".\dict\names.dat" , Names_Buffer() )
-		
+	load_names_from_file( ".\dat\Names.dat" , Names_Table() )
+	load_names_from_file( ".\dat\Levels.dat" , Levels_Table() )
+  	
 	'level up data
     FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
         l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
@@ -780,19 +785,19 @@ sub ln_starttitle ()
         ln_showtext clv_buffer(), clv_buffer_title
         clv_buffer_stack clv_buffer()
         ln_commandwait
-        IF c_str = "r" OR c_str = "R" OR (ym_si = 21 AND xm_si = 3 AND Lb_si = -1) THEN
+        IF Compare_Key( c_str, "Restart", Input_Table() ) OR (ym_si = 21 AND xm_si = 3 AND Lb_si = -1) THEN
             ln_screenset
             restart_roe=1 'RUN
             exit do
         END IF
-        IF c_str = "q" OR c_str = "Q" OR (ym_si = 23 AND xm_si = 3 AND Lb_si = -1) THEN
+        IF Compare_Key( c_str, "Quit", Input_Table() ) OR (ym_si = 23 AND xm_si = 3 AND Lb_si = -1) THEN
             ln_screenset
             END
         END IF
-        IF c_str = "h" OR c_str = "H" OR (ym_si = 17 AND xm_si = 3 AND Lb_si = -1) THEN
+        IF Compare_Key( c_str, "Help", Input_Table() ) OR (ym_si = 17 AND xm_si = 3 AND Lb_si = -1) THEN
             ln_starthelp
         END IF
-    loop while c_str <> "c" AND c_str <> "C" AND NOT (ym_si = 19 AND xm_si = 3 AND Lb_si = -1)
+    loop while not ( Compare_Key( c_str, "Continue", Input_Table() ) ) AND NOT (ym_si = 19 AND xm_si = 3 AND Lb_si = -1)
 end sub
 
 sub ln_starthelp ()
@@ -816,11 +821,11 @@ sub ln_starthelp ()
             do
                 clv_buffer_stack clv_buffer()
                 ln_commandwait
-                IF c_str = "t" OR c_str = "T" OR (ym_si = 24 AND xm_si = 3 AND Lb_si = -1) THEN
+                IF Compare_Key( c_str, "Title", Input_Table() ) OR (ym_si = 24 AND xm_si = 3 AND Lb_si = -1) THEN
                     CLOSE 63
                     return
                 END IF
-            loop while NOT (c_str = "c" OR c_str = "C" OR (ym_si = 22 AND xm_si = 3 AND Lb_si = -1))
+            loop while NOT (Compare_Key( c_str, "Continue", Input_Table() )) OR (ym_si = 22 AND xm_si = 3 AND Lb_si = -1)
             R_Str=chr(0)
         end if
         IF R_str = "þ end" THEN
@@ -929,7 +934,7 @@ end sub
 sub ln_command3 ()
     dim as string filename = string$( 0, 0 )
 	filename = "0002"
-	redim Names_Buffer(0 to 0):Names_Buffer(0).label = "":Names_Buffer(0).value = ""
+	redim Names_Table(0 to 0):Names_Table(0).label = "":Names_Table(0).value = ""
     redim as string dump(0,0)
     dim as short X, Y, Z
     dim as string ActnNav(0 to 4)
@@ -944,16 +949,17 @@ sub ln_command3 ()
     cursorput
     'netscreenout
     clv_buffer_stack clv_buffer()
-    select case c_str
+    
+	select case c_str
     case "&HFF3B" 'F1 (save savegame)
-		savegame_save( filename, map_buffer() )
+		savegame_save( filename, Save_Table() )
 
         c_str="t"
         ln_starttitle
         exitcommand3=not(0)
         return
     case "&HFF3C" 'F2 (load savegame)
-		savegame_load( filename, map_buffer() )
+		savegame_load( filename, Save_Table() )
         c_str="t"
         ln_starttitle
         exitcommand3=not(0)
@@ -962,7 +968,7 @@ sub ln_command3 ()
     IF am_si > 0 THEN
         statx_si = 24
         ln_getaction
-        IF (c_str="&HFF3D") OR (((ym_si = 5) AND (xm_si=26) AND (Lb_si=-1))) THEN 'F3
+        IF (Compare_Key( c_str, "Shop", Input_Table() )) OR (((ym_si = 5) AND (xm_si=26) AND (Lb_si=-1))) THEN 'F3
             c_str = "L"
             ln_paylevelup
             exitcommand3=not(0)
@@ -1086,7 +1092,7 @@ sub ln_command3 ()
         st_sf = TIMER
     END IF
     statx_si = 24
-    IF (lcase(c_str)="t") OR ((ym_si = 2) AND (xm_si>=statx_si) AND (xm_si<=statx_si+7-1) AND Lb_si = -1) THEN
+    IF (Compare_Key( c_str, "Title", Input_Table() )) OR ((ym_si = 2) AND (xm_si>=statx_si) AND (xm_si<=statx_si+7-1) AND Lb_si = -1) THEN
         ln_starttitle
         return
     END IF
@@ -1118,8 +1124,8 @@ end sub
 
 sub ln_names() ''[!!!]''
     ''dim as uinteger fail,index,octet,biet
-    ''rr_str=Timothy_memory(DB_Names(),R_str,R_str,Timothy_Read,Timothy_Read,fail,index,octet,biet)
-    '''DB_Dict_Get DB_Names(), R_str, rr_str, R_str
+    ''rr_str=Timothy_memory(Names_Table(),R_str,R_str,Timothy_Read,Timothy_Read,fail,index,octet,biet)
+    '''DB_Dict_Get Names_Table(), R_str, rr_str, R_str
 end sub
 
 sub ln_swapdata ()
@@ -4078,51 +4084,51 @@ sub Map_Load (map_names() as names_type)
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 0, progress, LastSec, DelaySec
 
     'map name
-    mapname= sync_names( "mapname_str", Data_Table() )
+    mapname= sync_names( "mapname_str", Save_Table() )
     Caption=Caption+" "+chr(34)+mapname_str+chr(34)
     'map dimensions width
-    AA_si= val( sync_names( "AA_si", Data_Table() ) )
+    AA_si= val( sync_names( "AA_si", Save_Table() ) )
     'map dimensions height
-    DD_si= val( sync_names( "DD_si", Data_Table() ) )
+    DD_si= val( sync_names( "DD_si", Save_Table() ) )
     Max=Max+AA_si*DD_si*23
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 3, progress, LastSec, DelaySec
 
     'directional axis matrix
     for X=0 to 4
         for Y=1 to 2
-            d_sia(X,Y)= val( sync_names( "d_sia["+trimint(X)+"]["+trimint(Y)+"]", Data_Table() ) )
+            d_sia(X,Y)= val( sync_names( "d_sia["+trimint(X)+"]["+trimint(Y)+"]", Save_Table() ) )
         next
     next
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 10, progress, LastSec, DelaySec
 
     'map pointer x
-    ex_si= val( sync_names( "ex_si", Data_Table() ) )
+    ex_si= val( sync_names( "ex_si", Save_Table() ) )
     'map pointer y
-    dy_si= val( sync_names( "dy_si", Data_Table() ) )
+    dy_si= val( sync_names( "dy_si", Save_Table() ) )
     'screen cursor x
-    mdx_si= val( sync_names( "mdx_si", Data_Table() ) )
+    mdx_si= val( sync_names( "mdx_si", Save_Table() ) )
     'screen cursor y
-    mdy_si= val( sync_names( "mdy_si", Data_Table() ) )
+    mdy_si= val( sync_names( "mdy_si", Save_Table() ) )
         
     'text color
-    textcolor_si= val( sync_names( "textcolor_si", Data_Table() ) )
+    textcolor_si= val( sync_names( "textcolor_si", Save_Table() ) )
     'text delay
-    textdelay_sf= val( sync_names( "textdelay_sf", Data_Table() ) )
+    textdelay_sf= val( sync_names( "textdelay_sf", Save_Table() ) )
     
     'current window
-    win_si= val( sync_names( "win_si", Data_Table() ) )
+    win_si= val( sync_names( "win_si", Save_Table() ) )
     '[!!!]'progress_put clv_buffer(), Index, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 7, progress, LastSec, DelaySec
 
     for Y=0 to 4
         for X=1 to 2
-            d_sia(Y,X)= val( sync_names( "d_sia["+trimint(Y)+"]["+trimint(X)+"]", Data_Table() ) )
+            d_sia(Y,X)= val( sync_names( "d_sia["+trimint(Y)+"]["+trimint(X)+"]", Save_Table() ) )
         next
     next
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 10, progress, LastSec, DelaySec
 
     FOR X = 0 TO win_si
         for Y=1 to 2
-            win_sia(Y + (X - 1) * 2)= val( sync_names( "win_sia["+trimint(X)+"]["+trimint(Y)+"]", Data_Table() ) )
+            win_sia(Y + (X - 1) * 2)= val( sync_names( "win_sia["+trimint(X)+"]["+trimint(Y)+"]", Save_Table() ) )
         next
     NEXT
     Max=Max+(win_si+1)*2
@@ -4131,40 +4137,40 @@ sub Map_Load (map_names() as names_type)
     'level up data
     FOR t_si = 0 TO 64
         for X=1 to 2
-            l_sia(t_si)= val( sync_names( "l_sia["+trimint(t_si)+"]", Data_Table() ) )
+            l_sia(t_si)= val( sync_names( "l_sia["+trimint(t_si)+"]", Save_Table() ) )
         next
     NEXT
 
-    ctrl_str= sync_names( "ctrl_str", Data_Table() )
+    ctrl_str= sync_names( "ctrl_str", Save_Table() )
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 131, progress, LastSec, DelaySec
         
     FOR Ty_si = 1 TO DD_si
         FOR Tx_si = 1 TO AA_si
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)= sync_names( "prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)= sync_names( "prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
-            mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4)= sync_names( "prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 3)= sync_names( "prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 4)= sync_names( "prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 5)= sync_names( "prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)= sync_names( "prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)= sync_names( "prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4)= sync_names( "prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 3)= sync_names( "prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 4)= sync_names( "prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Tx_si + (Ty_si - 1) * AA_si, 5)= sync_names( "prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
             progress_put clv_buffer(), Index, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 6, progress, LastSec, DelaySec
 
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)= val( sync_names( "prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)= val( sync_names( "prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)= val( sync_names( "prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)= val( sync_names( "prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)= val( sync_names( "prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)= val( sync_names( "prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)= val( sync_names( "prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)= val( sync_names( "prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)= val( sync_names( "prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)= val( sync_names( "prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)= val( sync_names( "prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)= val( sync_names( "prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)= val( sync_names( "prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)= val( sync_names( "prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)= val( sync_names( "prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)= val( sync_names( "prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)= val( sync_names( "prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Data_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)= val( sync_names( "prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)= val( sync_names( "prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)= val( sync_names( "prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)= val( sync_names( "prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)= val( sync_names( "prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)= val( sync_names( "prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)= val( sync_names( "prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)= val( sync_names( "prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)= val( sync_names( "prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)= val( sync_names( "prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)= val( sync_names( "prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)= val( sync_names( "prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)= val( sync_names( "prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)= val( sync_names( "prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)= val( sync_names( "prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)= val( sync_names( "prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)= val( sync_names( "prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 17, progress, LastSec, DelaySec
         NEXT
     NEXT
@@ -4187,9 +4193,9 @@ sub Map_Save ( DB(any) as names_type)
     dim as uinteger fail=0,index=0,octet=0,biet=0
     dim as string ret=space(0)
     
-    names_push( "mapname_str", mapname_str,Names_Buffer() ) 'map name
-    names_push( "AA_si", trimint(AA_si), Names_Buffer() ) 'map dimensions width
-    names_push( "DD_si", trimint(DD_si), Names_Buffer() ) 'map dimensions height
+    names_push( "mapname_str", mapname_str,Names_Table() ) 'map name
+    names_push( "AA_si", trimint(AA_si), Names_Table() ) 'map dimensions width
+    names_push( "DD_si", trimint(DD_si), Names_Table() ) 'map dimensions height
     Max=Max+AA_si*DD_si*23
     
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 3, progress, LastSec, DelaySec
@@ -4197,20 +4203,20 @@ sub Map_Save ( DB(any) as names_type)
     'directional axis matrix
     for X=0 to 4
         for Y=1 to 2
-            names_push("d_sia["+trimint(X)+"]["+trimint(Y)+"]",trimint(d_sia(X,Y)),Names_Buffer())
+            names_push("d_sia["+trimint(X)+"]["+trimint(Y)+"]",trimint(d_sia(X,Y)),Names_Table())
         next
     next
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 10, progress, LastSec, DelaySec
 
-    names_push("ex_si",trimint(ex_si),Names_Buffer()) 'map pointer x
-    names_push("dy_si",trimint(dy_si),Names_Buffer()) 'map pointer y
-    names_push("mdx_si",trimint(mdx_si),Names_Buffer()) 'screen cursor x
-    names_push("mdy_si",trimint(mdy_si),Names_Buffer()) 'screen cursor y
+    names_push("ex_si",trimint(ex_si),Names_Table()) 'map pointer x
+    names_push("dy_si",trimint(dy_si),Names_Table()) 'map pointer y
+    names_push("mdx_si",trimint(mdx_si),Names_Table()) 'screen cursor x
+    names_push("mdy_si",trimint(mdy_si),Names_Table()) 'screen cursor y
         
-    names_push("textcolor_si",trimint(textcolor_si),Names_Buffer()) 'screen cursor y
-    names_push("textdelay_sf",trimint(textdelay_sf),Names_Buffer()) 'screen cursor y
+    names_push("textcolor_si",trimint(textcolor_si),Names_Table()) 'screen cursor y
+    names_push("textdelay_sf",trimint(textdelay_sf),Names_Table()) 'screen cursor y
     
-    names_push("win_si",trimint(win_si),Names_Buffer()) 'screen cursor y
+    names_push("win_si",trimint(win_si),Names_Table()) 'screen cursor y
     Max=Max+(Win_si+1)*2
     queue_max=Max
     redim preserve queue(0 to queue_max) as names_type
@@ -4218,14 +4224,14 @@ sub Map_Save ( DB(any) as names_type)
 
     for Y=0 to 4
         for X=1 to 2
-            names_push("d_sia["+trimint(Y)+"]["+trimint(X)+"]",trimint(d_sia(Y,X)),Names_Buffer())
+            names_push("d_sia["+trimint(Y)+"]["+trimint(X)+"]",trimint(d_sia(Y,X)),Names_Table())
         next
     next
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 10, progress, LastSec, DelaySec
     
     FOR X = 0 TO win_si
         for Y=1 to 2
-            names_push("win_sia["+trimint(X)+"]["+trimint(Y)+"]",trimint(win_sia(Y + (X - 1) * 2)),Names_Buffer())
+            names_push("win_sia["+trimint(X)+"]["+trimint(Y)+"]",trimint(win_sia(Y + (X - 1) * 2)),Names_Table())
         next
     NEXT
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, (win_si+1)*2, progress, LastSec, DelaySec
@@ -4233,66 +4239,75 @@ sub Map_Save ( DB(any) as names_type)
     'level up data
     FOR t_si = 0 TO 64
         for X=1 to 2
-            names_push("l_sia["+trimint(t_si)+"]",trimint(l_sia(t_si)),Names_Buffer())
+            names_push("l_sia["+trimint(t_si)+"]",trimint(l_sia(t_si)),Names_Table())
         next
     NEXT
     
-    names_push("ctrl_str", ctrl_str,Names_Buffer())
+    names_push("ctrl_str", ctrl_str,Names_Table())
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 131, progress, LastSec, DelaySec
 
     FOR Ty_si = 1 TO DD_si
         FOR Tx_si = 1 TO AA_si
-            names_push("prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 0),Names_Buffer())
-            names_push("prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 1),Names_Buffer())
-            names_push("prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4),Names_Buffer())
-            names_push("prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 3),Names_Buffer())
-            names_push("prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 4),Names_Buffer())
-            names_push("prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 5),Names_Buffer())
+            names_push("prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 0),Names_Table())
+            names_push("prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 1),Names_Table())
+            names_push("prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4),Names_Table())
+            names_push("prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 3),Names_Table())
+            names_push("prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 4),Names_Table())
+            names_push("prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 5),Names_Table())
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 6, progress, LastSec, DelaySec
 
-            names_push("prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)),Names_Buffer())
-            names_push("prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)),Names_Buffer())
-            names_push("prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)),Names_Buffer())
-            names_push("prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)),Names_Buffer())
-            names_push("prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)),Names_Buffer())
-            names_push("prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)),Names_Buffer())
-            names_push("prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)),Names_Buffer())
-            names_push("prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)),Names_Buffer())
-            names_push("prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)),Names_Buffer())
-            names_push("prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)),Names_Buffer())
-            names_push("prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)),Names_Buffer())
-            names_push("prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)),Names_Buffer())
-            names_push("prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)),Names_Buffer())
-            names_push("prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)),Names_Buffer())
-            names_push("prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)),Names_Buffer())
-            names_push("prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)),Names_Buffer())
-            names_push("prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)),Names_Buffer())
+            names_push("prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)),Names_Table())
+            names_push("prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)),Names_Table())
+            names_push("prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)),Names_Table())
+            names_push("prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)),Names_Table())
+            names_push("prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)),Names_Table())
+            names_push("prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)),Names_Table())
+            names_push("prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)),Names_Table())
+            names_push("prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)),Names_Table())
+            names_push("prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)),Names_Table())
+            names_push("prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)),Names_Table())
+            names_push("prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)),Names_Table())
+            names_push("prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)),Names_Table())
+            names_push("prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)),Names_Table())
+            names_push("prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)),Names_Table())
+            names_push("prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)),Names_Table())
+            names_push("prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)),Names_Table())
+            names_push("prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)),Names_Table())
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 17, progress, LastSec, DelaySec
         NEXT
     NEXT
     progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 0, progress, LastSec, 0.0
-	'[..]'merge_names( Names_Buffer(), names_table() )
+	'[..]'merge_names( Names_Table(), names_table() )
     sleep 1
     clv_buffer_cls clv_buffer(), Index2
 end sub
 
 
-sub savegame_save( filename as string = "", map_buffer( any ) as names_type )
+sub savegame_save( filename as string = "", Save_Table( any ) as names_type )
 'case "&HFF3B" 'F1 (save savegame)
     	    	
-    Map_Save( map_buffer() )
+    Map_Save( Save_Table() )
     
-	save_names( ".\save\" + filename + ".dat", map_buffer() )
+	save_names( ".\save\" + filename + ".dat", Save_Table() )
 
 end sub
 
-sub savegame_load( filename as string = "", map_buffer( any ) as names_type )
+sub savegame_load( filename as string = "", Save_Table( any ) as names_type )
 'case "&HFF3C" 'F2 (load savegame)
 
-	load_names_from_file( ".\save\" + filename + ".dat", map_buffer() )
+	load_names_from_file( ".\save\" + filename + ".dat", Save_Table() )
     
-	Map_Load( map_buffer() )
+	Map_Load( Save_Table() )
 
 end sub
 
+function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
 
+	select case 0 = 0
+	case val( sync_names( Comparison, Input_Table() ) ) = cvl( KeyPress )
+		Compare_Key = 0 = 0
+	case else
+		Compare_Key = 0
+	end select
+	
+end function

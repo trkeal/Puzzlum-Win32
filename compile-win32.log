@@ -52,18 +52,6 @@ compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
 assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
 archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libfbimage.a" "__fb_ct.inf" "fbimage.o" 
  
-=== TRK-PNG-Support-Win32-Static Library === 
-FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
-Copyright (C) 2004-2021 The FreeBASIC development team.
-standalone
-target:       win32, 486, 32bit
-backend:      gas
-compiling:    TRK-PNG-Support-Win32-Static.bas -o TRK-PNG-Support-Win32-Static.asm
-TRK-PNG-Support-Win32-Static.bas(21) error 42: Variable not declared, LoadRGBAFile in 'TRK_PNG_Load = LoadRGBAFile( Filename )'
-TRK-PNG-Support-Win32-Static.bas(23) warning 13(1): Function result was not explicitly set
-TRK-PNG-Support-Win32-Static.bas(27) error 42: Variable not declared, SavePNGFile in 'TRK_PNG_Save = SavePNGFile ( Image, Filename, saveAlpha )'
-TRK-PNG-Support-Win32-Static.bas(29) warning 13(1): Function result was not explicitly set
- 
 === Roe 068 Copy As 32bit === 
         1 file(s) copied.
  
@@ -74,6 +62,8 @@ standalone
 target:       win32, 486, 32bit
 backend:      gas
 compiling:    Roe068-fbc32.bas -o Roe068-fbc32.asm (main module)
-Roe068-fbc32.bas(436) error 42: Variable not declared, mapid_str in 'mapid_str = sync_names( "map/id", Maps_Table() )'
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "Roe068-fbc32.asm" -o "Roe068-fbc32.o"
+compiling rc:               C:\FreeBASIC\bin\win32\GoRC.exe /ni /nw /o /fo ".\win32\rc\puzzlum.obj" ".\win32\rc\puzzlum.rc"
+linking:      C:\FreeBASIC\bin\win32\ld.exe -m i386pe -o "Roe068-fbc32.exe" -subsystem windows -T "C:\FreeBASIC\lib\win32\fbextra.x" --stack 1048576,1048576 -s -L "lib/win" -L "C:\FreeBASIC\lib\win32" -L "." "C:\FreeBASIC\lib\win32\crt2.o" "C:\FreeBASIC\lib\win32\crtbegin.o" "C:\FreeBASIC\lib\win32\fbrt0.o" "Roe068-fbc32.o" ".\win32\rc\puzzlum.obj" "-(" -lfbgfx -lgdi32 -lwinmm -luser32 -lfbimage -lFBImage-32-static -lz -lfbpngs -lconst -lnames -lclv -ladvapi32 -lmsvcrt -lfbpng -lfb -lgcc -lkernel32 -lmingw32 -lmingwex -lmoldname -lgcc_eh "-)" "C:\FreeBASIC\lib\win32\crtend.o" 
  
 === Execute Roe 068 32bit Binary === 
