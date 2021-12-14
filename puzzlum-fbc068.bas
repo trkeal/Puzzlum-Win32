@@ -1,11 +1,13 @@
-'"Puzzlum : Realm of Existence"
-'Build: puzzlum-fbc068.202112132028
 
-'Puzzlum is Copyright (C) 1989-2021 Timothy Robert Keal alias jargon
+'puzzlum-fbc068.bas
+'Puzzlum: Roe ( Build "068" )
+'
+'Puzzlum is Copyright (C) 1997, 2010, 2021 Timothy Robert Keal
 'Released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
+'
 'http://puzzlum.net/
 'mailto:trkeal@gmail.com
-
+'
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
@@ -16,9 +18,6 @@
 #include once ".\inc\fbpngs.bi"
 
 #include once "crt\math.bi"
-
-#include once "fbgfx.bi"
-#include ".\inc\FBImage.bi"
 
 #inclib "z"
 
@@ -207,6 +206,7 @@
 	declare sub savegame_load( filename as string = "", Save_Table( any ) as names_type )
 
 	declare function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
+	declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
 
 	ScreenRes 640, 480, 32, 16
 
@@ -267,8 +267,13 @@
     dim shared as string action_str, AA_str
     dim shared as single st_sf
     dim shared as short tempx_si, tempy_si
-    dim shared as short struse, essuse, evadeattack, attackblocked, attackdamage
-    dim shared as string attackpic_str, attackname_str
+    dim shared as short evadeattack, attackblocked
+    dim shared as short hp_use_si, str_use_si, ess_use_si
+    dim shared as short hp_dmg_si, str_dmg_si, ess_dmg_si
+    dim shared as string hp_dmg_bonus_str, str_dmg_bonus_str, ess_dmg_bonus_str
+    dim shared as short hp_dmg_bonus_si, str_dmg_bonus_si, ess_dmg_bonus_si
+    dim shared as short entity_count, entity_index
+    dim shared as string attk_pict_str, attk_name_str
     dim shared as short temptx_si, tempty_si, tempdis_si, slepadd_si
     dim shared as short lvgain_si, valugain_si, expgain_si, strgain_si, essgain_si
     dim shared as short menuitem_si, menuselect_si
@@ -301,7 +306,6 @@
     dim shared as short crsrx_si, crsry_si
     dim shared as string attackthem_str
     dim shared as string havehadit_str
-    dim shared as short struse_si, essse_si, strdamage_si
     dim shared as short r1_si, r2_si, r3_si, r4_si, r5_si
     dim shared as integer exitcommand3, exitcommand2, exitcommand, restart_roe
     dim shared as single tempx1_sf, tempy1_sf, tempx2_sf, tempy2_sf
@@ -515,9 +519,9 @@ sub ln_startup ()
             rbg_str = MID(bg_str, (Tx_si - 1) * 5 + 1, 4)
             rfg_str = MID(fg_str, (Tx_si - 1) * 5 + 1, 4)
             rid_sf = VAL(MID(rg_str, (Tx_si - 1) * 5 + 1, 4))
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 2) = "____" + rbg_str
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 3) = MKL(0) + "____" + MKL(0) 'command_str
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 4) = "________" 'graphicsaction_str
+            e_stra(Rose_Calc( Tx_si, Ty_si ), 2) = "____" + rbg_str
+            e_stra(Rose_Calc( Tx_si, Ty_si ), 3) = MKL(0) + "____" + MKL(0) 'command_str
+            e_stra(Rose_Calc( Tx_si, Ty_si ), 4) = "________" 'graphicsaction_str
             select case rfg_str
             case "____"
                 ln_prflblnk
@@ -882,15 +886,15 @@ sub ln_main ()
         FOR Ty_si = 1 TO DD_si
             a_si = 0
             d_si = 0
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9) = 0 THEN
-                G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9) = 1
-                MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 9) = 0 THEN
+                G_dfa(Rose_Calc( Tx_si, Ty_si ), 9) = 1
+                MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
                 ln_getaction
                 IF action_str = "zzzz" AND dis_si > 0 THEN
                     dis_si = dis_si - 1
                     ln_putaction
                 END IF
-                SELECT CASE CVL(MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4))
+                SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4))
                 CASE CVL("wall")
                 CASE CVL("spdr")
                     ln_crtnspdr
@@ -922,7 +926,7 @@ sub ln_main ()
     NEXT Tx_si
     FOR Tx_si = 1 TO AA_si
         FOR Ty_si = 1 TO DD_si
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9) = 0
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 9) = 0
         NEXT Ty_si
     NEXT Tx_si
     Exit Sub
@@ -1065,8 +1069,8 @@ sub ln_command3 ()
                     X=fix((xm_si-statx_si)/3)
                     Y=fix((ym_si-14)/3)
                     Z=1+X+Y*5
-                    if (Z>=1) and (Z<=LEN(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1))/4) then
-                        AA_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1), (Z*4)-3, 4)
+                    if (Z>=1) and (Z<=LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1))/4) then
+                        AA_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (Z*4)-3, 4)
                         IF action_str <> AA_str THEN
                             action_str = AA_str
                         ELSE
@@ -1079,7 +1083,7 @@ sub ln_command3 ()
             else
                 ActnNav(0)=action_str
                 ActnNav(1)=mkl(0)
-                ActnNav(2)=e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)
+                ActnNav(2)=e_stra(Rose_Calc( Tx_si, Ty_si ), 1)
                 ActnNav(3)=mkl(len(ActnNav(2))/4)
                 if cvl(ActnNav(3))>0 then
                     for Z=1 to cvl(ActnNav(3))
@@ -1153,24 +1157,24 @@ end sub
 
 sub ln_swapdata ()
     FOR t_si = 0 TO 1
-        SWAP e_stra(Tx_si + (Ty_si - 1) * AA_si, t_si), e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, t_si)
+        SWAP e_stra(Rose_Calc( Tx_si, Ty_si ), t_si), e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, t_si)
     NEXT t_si
-    temp1_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4)
+    temp1_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4)
     temp2_str = MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2), 1, 4)
     SWAP temp1_str, temp2_str
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) = temp1_str
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = temp1_str
     MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2), 1, 4) = temp2_str
     FOR t_si = 3 TO 4
-        SWAP e_stra(Tx_si + (Ty_si - 1) * AA_si, t_si), e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, t_si)
+        SWAP e_stra(Rose_Calc( Tx_si, Ty_si ), t_si), e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, t_si)
     NEXT t_si
     FOR t_si = 0 TO 16
-        SWAP G_dfa(Tx_si + (Ty_si - 1) * AA_si, t_si), G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, t_si)
+        SWAP G_dfa(Rose_Calc( Tx_si, Ty_si ), t_si), G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, t_si)
     NEXT t_si
     Exit Sub
 end sub
 
 sub ln_attack ()
-    SELECT CASE CVL(MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 5, 4))
+    SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4))
     CASE CVL("bite")
         ln_attkbite
     CASE CVL("pnch")
@@ -1188,182 +1192,238 @@ sub ln_attack ()
     CASE CVL("fire")
         ln_attkfire
     CASE ELSE
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
     END SELECT
     Exit Sub
 end sub
 
 sub ln_battle ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) >= struse_si AND G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) >= essse_si THEN
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) >= str_use_si AND G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= ess_use_si THEN
         IF 1 = 1 THEN
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = attackpic_str
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = attackname_str
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) - struse_si
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) - essse_si
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = attk_pict_str
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = attk_name_str
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - str_use_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - ess_use_si
             evadeattack = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 15)
             evadeattack = evadeattack + RND(1) * (1 - evadeattack)
-            attackblocked = attackdamage * (evadeattack) - G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 5)
+            attackblocked = hp_dmg_si * (evadeattack) - G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 5)
             IF attackblocked < 0 THEN attackblocked = 0
-            attackdamage = attackdamage * (1 - evadeattack) + attackblocked
-            G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) - attackdamage
+            hp_dmg_si = hp_dmg_si * (1 - evadeattack) + attackblocked
+            G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) - hp_dmg_si
             ln_battleattack
             IF G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) <= 0 THEN
                 ln_victory
             END IF
         END IF
     ELSE
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
     END IF
     Exit Sub
 end sub
 
 sub ln_attkbite ()
-    attackpic_str = "bite"
-    attackname_str = "bite"
-    struse_si = 10
-    essse_si = 0
-    attackdamage = 5 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 4)
-    strdamage_si = 2
+    attk_pict_str = "bite"
+    attk_name_str = "bite"
+    str_use_si = 10
+    ess_use_si = 0
+    hp_dmg_si = 5 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
+    str_dmg_si = 2
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attkpnch ()
-    attackpic_str = "pnch"
-    attackname_str = "pnch"
-    struse_si = 12
-    essse_si = 0
-    attackdamage = 3 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 6)
-    strdamage_si = 2 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 8)
+    attk_pict_str = "pnch"
+    attk_name_str = "pnch"
+    str_use_si = 12
+    ess_use_si = 0
+    hp_dmg_si = 3 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 6)
+    str_dmg_si = 2 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 8)
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attkwstf ()
-    attackpic_str = "wstf"
-    attackname_str = "wstf"
-    struse_si = 20
-    essse_si = 0
-    attackdamage = 5 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 4)
-    strdamage_si = 4 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 6)
+    attk_pict_str = "wstf"
+    attk_name_str = "wstf"
+    str_use_si = 20
+    ess_use_si = 0
+    hp_dmg_si = 5 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
+    str_dmg_si = 4 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 6)
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attkkick ()
-    attackpic_str = "kick"
-    attackname_str = "kick"
-    struse_si = 14
-    essse_si = 0
-    attackdamage = 4 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 5)
-    strdamage_si = 3 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 7)
+    attk_pict_str = "kick"
+    attk_name_str = "kick"
+    str_use_si = 14
+    ess_use_si = 0
+    hp_dmg_si = 4 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 5)
+    str_dmg_si = 3 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 7)
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attkvnom ()
-    attackpic_str = "vnom"
-    attackname_str = "vnom"
-    struse_si = 0
-    essse_si = 15
-    attackdamage = 7 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 4)
-    strdamage_si = 10 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 4)
+    attk_pict_str = "vnom"
+    attk_name_str = "vnom"
+    str_use_si = 0
+    ess_use_si = 15
+    hp_dmg_si = 7 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
+    str_dmg_si = 10 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attkdggr ()
-    attackpic_str = "dggr"
-    attackname_str = "dggr"
-    struse_si = 18
-    essse_si = 0
-    attackdamage = 8 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 4)
-    strdamage_si = 1 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 10)
+    attk_pict_str = "dggr"
+    attk_name_str = "dggr"
+    str_use_si = 18
+    ess_use_si = 0
+    hp_dmg_si = 8 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
+    str_dmg_si = 1 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 10)
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attkpike ()
-    attackpic_str = "pike"
-    attackname_str = "pike"
-    struse_si = 24
-    essse_si = 0
-    attackdamage = 12 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 3)
-    strdamage_si = 8 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 5)
+    attk_pict_str = "pike"
+    attk_name_str = "pike"
+    str_use_si = 24
+    ess_use_si = 0
+    hp_dmg_si = 12 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 3)
+    str_dmg_si = 8 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 5)
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attkburn ()
-    attackpic_str = "____"
-    attackname_str = "burn"
-    struse_si = 5
-    essse_si = 5
-    attackdamage = 12 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 2)
-    strdamage_si = 15 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 4)
+    attk_pict_str = "____"
+    attk_name_str = "burn"
+    str_use_si = 5
+    ess_use_si = 5
+    hp_dmg_si = 12 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 2)
+    str_dmg_si = 15 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
     ln_battle
-    IF MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) = "fire" THEN
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = "fire" THEN
         ln_gone
     END IF
     Exit Sub
 end sub
 
 sub ln_attkfire ()
-    attackpic_str = "____"
-    attackname_str = "fire"
-    struse_si = 5
-    essse_si = 20
-    attackdamage = 15 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 2)
-    strdamage_si = 20 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 4)
+    attk_pict_str = "____"
+    attk_name_str = "fire"
+    str_use_si = 5
+    ess_use_si = 20
+    hp_dmg_si = 15 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 2)
+    str_dmg_si = 20 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attkweb ()
-    attackpic_str = "____"
-    attackname_str = "web_"
-    struse_si = 22
-    essse_si = 0
-    attackdamage = 0
-    strdamage_si = 15 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 5)
+    attk_pict_str = "____"
+    attk_name_str = "web_"
+    str_use_si = 22
+    ess_use_si = 0
+    hp_dmg_si = 0
+    str_dmg_si = 15 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 5)
     ln_battle
     Exit Sub
 end sub
 
 sub ln_attktngl ()
-    attackpic_str = "____"
-    attackname_str = "tngl"
-    struse_si = 0
-    essse_si = 0
-    attackdamage = 0
-    strdamage_si = 10 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 6)
+    attk_pict_str = "____"
+    attk_name_str = "tngl"
+    str_use_si = 0
+    ess_use_si = 0
+    hp_dmg_si = 0
+    str_dmg_si = 10 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 6)
     ln_battle
     Exit Sub
 end sub
 
-sub ln_attklash ()
-    attackpic_str = "____"
-    attackname_str = "lash"
-    struse_si = 0
-    essse_si = 0
-    attackdamage = 5 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 5)
-    strdamage_si = 8 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 7)
+sub ln_attklash ()    
+	attk_pict_str = "____"
+    attk_name_str = "lash"
+    str_use_si = 0
+    ess_use_si = 0
+    hp_dmg_si = 5 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 5)
+    str_dmg_si = 8 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 7)
     ln_battle
     Exit Sub
 end sub
+
+Sub ln_attk_table ( attk as string = "%%", Attack_Table( Any ) As Names_Type )
+	
+	dim as integer level = G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)
+		
+	attk_pict_str = sync_names( "attk/"+attk+"/pict", Attack_Table())
+	attk_name_str = sync_names( "attk/"+attk+"/name", Attack_Table())
+
+	hp_use_si = val(sync_names( "attk/"+attk+"/hp/use", Attack_Table()))
+	str_use_si = val(sync_names( "attk/"+attk+"/str/use", Attack_Table()))
+	ess_use_si = val(sync_names( "attk/"+attk+"/ess/use", Attack_Table()))
+	
+	hp_dmg_si = val(sync_names( "attk/"+attk+"/hp/dmg", Attack_Table()))
+	str_dmg_si = val(sync_names( "attk/"+attk+"/str/dmg", Attack_Table()))
+	ess_dmg_si = val(sync_names( "attk/"+attk+"/ess/dmg", Attack_Table()))
+
+	hp_dmg_bonus_str = sync_names( "attk/"+attk+"/hp/dmg/bonus", Attack_Table())
+	str_dmg_bonus_str = sync_names( "attk/"+attk+"/str/dmg/bonus", Attack_Table())
+	ess_dmg_bonus_str = sync_names( "attk/"+attk+"/ess/dmg/bonus", Attack_Table())
+
+	if left$(hp_dmg_bonus_str,len("Level/"))="Level/" then
+		hp_dmg_si += level / val(mid$(hp_dmg_bonus_str,len("Level/")+1))
+	else
+		hp_dmg_si += 0
+	end if
+
+	if left$(str_dmg_bonus_str,len("Level/"))="Level/" then
+		str_dmg_si += level / val(mid$(str_dmg_bonus_str,len("Level/")+1))
+	else
+		str_dmg_si += 0	
+	end if
+
+	if left$(ess_dmg_bonus_str,len("Level/"))="Level/" then
+		ess_dmg_si += level / val(mid$(ess_dmg_bonus_str,len("Level/")+1))
+	else
+		ess_dmg_si += 0	
+	end if
+
+    ln_battle
+
+	entity_count = val( sync_names( "attk/"+attk+"/entity/count", Attack_Table()) )
+
+	For entity_index = 1 to entity_count step 1
+		Select Case sync_names( "attk/"+attk+"/entity/"+LTrim$(Str$(entity_index))+"/is", Attack_Table())
+		Case Mid$(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4)
+			Select Case sync_names( "attk/"+attk+"/entity/"+LTrim$(Str$(entity_index))+"/now", Attack_Table())
+			Case "gone"
+				ln_gone
+				Exit Sub
+			End Select
+		End Select
+    Next entity_index
+	
+	Exit Sub
+End Sub
+
 
 sub ln_usecure ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) >= 8 THEN
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 8 THEN
         IF 1 = 1 THEN
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "cure"
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "cure"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "cure"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "cure"
             AA_str = "cure"
             ln_attackusing
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) - 8
-            G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) + 12 + G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)
-            G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) + 15 + G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 8
+            G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) + 12 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)
+            G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) + 15 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)
             IF G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) <= 0 THEN
                 G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) = 0
             END IF
@@ -1373,24 +1433,24 @@ sub ln_usecure ()
         END IF
     ELSE
         IF 1 = 1 THEN
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "____"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
         END IF
     END IF
     Exit Sub
 end sub
 
 sub ln_useslep ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) >= 8 THEN
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 8 THEN
         IF 1 = 1 THEN
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "slep"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "slep"
             AA_str = "slep"
             ln_attackusing
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) - 8
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 8
             MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 4), 1, 4) = "____"
             MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 4), 5, 4) = "zzzz"
-            slepadd_si = INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) / 10)
+            slepadd_si = INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 10)
             temptx_si = Tx_si
             tempty_si = Ty_si
             Tx_si = Tx_si + d_sia(d_si, 1) * dis_si
@@ -1413,8 +1473,8 @@ sub ln_useslep ()
         END IF
     ELSE
         IF 1 = 1 THEN
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "____"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
         END IF
     END IF
     Exit Sub
@@ -1441,7 +1501,7 @@ sub ln_pillage ()
     expgain_si = expgain_si + G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 7)
     G_dfa(Tx_si + (Ty_si + -1) * AA_si, 6) = G_dfa(Tx_si + (Ty_si + -1) * AA_si, 6) + expgain_si
     strgain_si = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2)
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) + strgain_si
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) + strgain_si
     ln_defeated
     ln_windggr
     ln_winpike
@@ -1485,51 +1545,51 @@ ln_reshow1:
         statx_si = 15
         ln_stts clv_buffer(), clv_buffer_expshop, Row+1, Col+1
         menu_str = ""
-        menu_str = menu_str + "lvup" + MKL(l_sia(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)))
-        IF MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) = "pndx" THEN
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) >= 1 THEN
+        menu_str = menu_str + "lvup" + MKL(l_sia(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)))
+        IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = "pndx" THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 1 THEN
                 haveit_str = "ispt"
                 ln_haveit
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "ispt" + MKL(0)
                 END IF
             END IF
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) >= 1 THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 1 THEN
                 haveit_str = "move"
                 ln_haveit
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "move" + MKL(0)
                 END IF
             END IF
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) >= 1 THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 1 THEN
                 haveit_str = "bite"
                 ln_haveit
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "bite" + MKL(2)
                 END IF
             END IF
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) >= 1 THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 1 THEN
                 haveit_str = "pnch"
                 ln_haveit
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "pnch" + MKL(2)
                 END IF
             END IF
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) >= 2 THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 2 THEN
                 haveit_str = "kick"
                 ln_haveit
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "kick" + MKL(10)
                 END IF
             END IF
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) >= 3 THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 3 THEN
                 haveit_str = "cure"
                 ln_haveit
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "cure" + MKL(20)
                 END IF
             END IF
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) >= 7 THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 7 THEN
                 haveit_str = "vnom"
                 ln_haveit
                 IF haveit_si = 0 THEN
@@ -1567,7 +1627,7 @@ ln_wwait0:
             END IF
         END IF
         IF menuselect_str <> "lvup" AND menuselect_str <> "cncl" AND menuselect_str <> "____" THEN
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) >= menucost_si THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= menucost_si THEN
                 c_str = "L"
                 ln_abilitygain
                 clv_buffer_focus=clv_buffer_expshop
@@ -1575,7 +1635,7 @@ ln_wwait0:
             GOTO ln_reshow1
         END IF
         IF menuselect_str = "lvup" THEN
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) >= menucost_si THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= menucost_si THEN
                 c_str = "L"
                 ln_levelup
                 clv_buffer_focus=clv_buffer_expshop
@@ -1665,7 +1725,7 @@ ln_wwait1:
             END IF
         END IF
         IF menuselect_str <> "lvup" AND menuselect_str <> "cncl" AND menuselect_str <> "____" THEN
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) >= menucost_si THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= menucost_si THEN
                 c_str = "L"
                 ln_abilitygain
                 clv_buffer_focus=clv_buffer_merchant
@@ -1677,7 +1737,7 @@ ln_wwait1:
             GOTO ln_merchant1
         END IF
         IF menuselect_str = "lvup" THEN
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) >= menucost_si THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= menucost_si THEN
                 c_str = "L"
                 ln_levelup
                 clv_buffer_focus=clv_buffer_merchant
@@ -1770,8 +1830,8 @@ ln_wwait2:
 end sub
 
 sub ln_abilitygain ()
-    e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) = e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) + menuselect_str
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) - menucost_si
+    e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = e_stra(Rose_Calc( Tx_si, Ty_si ), 1) + menuselect_str
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) - menucost_si
     am_str = ctrl_str
     ln_am
     IF am_si > 0 THEN
@@ -1782,7 +1842,7 @@ sub ln_abilitygain ()
         'PCOPY 1, 2
         ln_portal
         ln_avgframe
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, "gained"
         R_str = menuselect_str
         ln_names
@@ -1797,22 +1857,22 @@ sub ln_levelup ()
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
         
-        IF MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) <> "____" THEN
-        IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) >= l_sia(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)) THEN
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) - l_sia(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10))
+        IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) <> "____" THEN
+        IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= l_sia(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)) THEN
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) - l_sia(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10))
             r1_si = INT(RND(1) * 5) + 1
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11) + r1_si
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1) + r1_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 11) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 11) + r1_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) + r1_si
             r2_si = INT(RND(1) * 5) + 1
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12) + r2_si
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) + r2_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 12) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 12) + r2_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) + r2_si
             r3_si = INT(RND(1) * 5) + 1
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13) + r3_si
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) + r3_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 13) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 13) + r3_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) + r3_si
             r4_si = .2
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4) + r4_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 4) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 4) + r4_si
             r5_si = .05
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14) + r5_si
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 14) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 14) + r5_si
             am_str = ctrl_str
             ln_am
             IF am_si > 0 THEN
@@ -1820,7 +1880,7 @@ sub ln_levelup ()
                 PCOPY 1, 2
                 ln_portal
                 ln_avgframe
-                clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+                clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, "      level up!"
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, "HPmax +"
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (9-1) shl 3, RIGHT(STRING(5, " ") + STR(r1_si), 5)
@@ -1831,16 +1891,16 @@ sub ln_levelup ()
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (15-1) shl 3, "STRspd up!"
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (16-1) shl 3, "ESSspd up!"
             END IF
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) < 64 THEN
-                G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) + 1
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) < 64 THEN
+                G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) + 1
                 am_str = ctrl_str
                 ln_am
                 IF am_si > 0 THEN
                     clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (18-1) shl 3, "reached LV!"
-                    clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (37-1) shl 3, (18-1) shl 3, RIGHT(STRING(3, " ") + STR(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)), 3)
-                    IF l_sia(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)) - G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) >= 0 THEN
+                    clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (37-1) shl 3, (18-1) shl 3, RIGHT(STRING(3, " ") + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)), 3)
+                    IF l_sia(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)) - G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= 0 THEN
                         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (20-1) shl 3, "next:"
-                        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (34-1) shl 3, (20-1) shl 3, RIGHT(STRING(5, " ") + STR(l_sia(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)) - G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)), 5) + "$"
+                        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (34-1) shl 3, (20-1) shl 3, RIGHT(STRING(5, " ") + STR(l_sia(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)) - G_dfa(Rose_Calc( Tx_si, Ty_si ), 6)), 5) + "$"
                     END IF
                 END IF
             END IF
@@ -1850,12 +1910,12 @@ sub ln_levelup ()
                 ln_okbutton
                 'PCOPY 2, 1
             END IF
-            IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) >= 2 AND MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) = "spdr" THEN
+            IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 2 AND MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = "spdr" THEN
                 getit_str = "vnom"
                 haveit_str = "vnom"
                 ln_haveit
                 IF haveit_si = 0 THEN
-                    e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) = e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) + getit_str
+                    e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = e_stra(Rose_Calc( Tx_si, Ty_si ), 1) + getit_str
                     ln_gain
                 END IF
             END IF
@@ -1875,7 +1935,7 @@ sub ln_gain ()
         'PCOPY 1, 2
         ln_portal
         ln_avgframe
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, "gained"
         R_str = getit_str
         ln_names
@@ -1891,7 +1951,7 @@ sub ln_getit ()
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
 
-        e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) = e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) + getit_str
+        e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = e_stra(Rose_Calc( Tx_si, Ty_si ), 1) + getit_str
         am_str = ctrl_str
         ln_am
         are_str = ctrl_str
@@ -1901,7 +1961,7 @@ sub ln_getit ()
             PCOPY 1, 2
             ln_portal
             ln_avgframe
-            clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+            clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (6-1) shl 3, "gained"
             R_str = getit_str
             ln_names
@@ -1928,7 +1988,7 @@ sub ln_attackusing ()
         'LINE (0, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
         ln_portal
         ln_avgframe
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (6-1) shl 3, "used"
         R_str = AA_str
         ln_names
@@ -1954,16 +2014,16 @@ sub ln_battleattack ()
         'LINE (0, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
         ln_portal
         ln_avgframe
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (6-1) shl 3, "used"
-        R_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4)
+        R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4)
         ln_names
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, rr_str
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (11-1) shl 3, "HP -"
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (11-1) shl 3, RIGHT(STRING(5, " ") + STR(attackdamage), 5)
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (11-1) shl 3, RIGHT(STRING(5, " ") + STR(hp_dmg_si), 5)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (12-1) shl 3, "STR-"
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (12-1) shl 3, RIGHT(STRING(5, " ") + STR(strdamage_si), 5)
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (12-1) shl 3, RIGHT(STRING(5, " ") + STR(str_dmg_si), 5)
         ln_okbutton
         'PCOPY 2, 1
     END IF
@@ -1983,17 +2043,17 @@ sub ln_defeated ()
         'LINE (0, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
         ln_portal
         ln_avgframe
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (6-1) shl 3, "pillaged"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, "EXP+"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (34-1) shl 3, (9-1) shl 3, RIGHT(STRING(5, " ") + STR(expgain_si), 5) + "$"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (10-1) shl 3, "EXP:"
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (34-1) shl 3, (10-1) shl 3, RIGHT(STRING(5, " ") + STR(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)), 5) + "$"
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (34-1) shl 3, (10-1) shl 3, RIGHT(STRING(5, " ") + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 6)), 5) + "$"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (12-1) shl 3, "STR+"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (12-1) shl 3, RIGHT(STRING(5, " ") + STR(strgain_si), 5)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (13-1) shl 3, "STR:"
-        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (13-1) shl 3, RIGHT(STRING(5, " ") + STR(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)), 5)
+        clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (13-1) shl 3, RIGHT(STRING(5, " ") + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 2)), 5)
         ln_okbutton
         'PCOPY 2, 1
     END IF
@@ -2173,23 +2233,23 @@ sub ln_framsttsitms ()
     Exit Sub
 end sub
 sub ln_stts (clv_buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+0-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+0-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+1-1) shl 3, "LV"
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+3-1) shl 3, (Row+1-1) shl 3, RIGHT(STR(100 + G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)), 2)
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+9-1) shl 3, (Row+1-1) shl 3, (RIGHT("     " + STR(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)), 5) + "$")
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+3-1) shl 3, (Row+1-1) shl 3, RIGHT(STR(100 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)), 2)
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+9-1) shl 3, (Row+1-1) shl 3, (RIGHT("     " + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 6)), 5) + "$")
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+2-1) shl 3, (Row+1-1) shl 3, "ú"
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+2-1) shl 3, "HP"
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+4-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1))), 4)
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+4-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 1))), 4)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+9-1) shl 3, (Row+2-1) shl 3, "/"
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+11-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11))), 4)
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+11-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 11))), 4)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+3-1) shl 3, "STR"
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+4-1) shl 3, (Row+3-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2))), 4)
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+4-1) shl 3, (Row+3-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 2))), 4)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+9-1) shl 3, (Row+3-1) shl 3, "/"
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+11-1) shl 3, (Row+3-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12))), 4)
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+11-1) shl 3, (Row+3-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 12))), 4)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+4-1) shl 3, "ESS"
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+4-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3))), 4)
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+4-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 3))), 4)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+9-1) shl 3, (Row+4-1) shl 3, "/"
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+11-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13))), 4)
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+11-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 13))), 4)
     Exit Sub
 end sub
 
@@ -2207,10 +2267,10 @@ sub ln_sttsgpic ()
     'CASE 4
     '    graphicput clv_buffer(), clv_buffer_portal9, statx_si, "bttnwest.24", spritepath_str
     'END SELECT
-    'graphicput clv_buffer(), clv_buffer_portal9, statx_si + 6, (MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) + "____.24"), spritepath_str
-    'graphicput clv_buffer(), clv_buffer_portal9, statx_si + 3, (MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 5, 4) + "____.24"), spritepath_str
-    'FOR t_si = 1 TO LEN(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)) / 4
-    '    R_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1), (t_si - 1) * 4 + 1, 4)
+    'graphicput clv_buffer(), clv_buffer_portal9, statx_si + 6, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) + "____.24"), spritepath_str
+    'graphicput clv_buffer(), clv_buffer_portal9, statx_si + 3, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) + "____.24"), spritepath_str
+    'FOR t_si = 1 TO LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
+    '    R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si - 1) * 4 + 1, 4)
     '    ln_names
     '    IF action_str = R_str THEN
     '        clv_draw_text 12, statx_si, rr_str, 15, 1
@@ -2222,12 +2282,12 @@ end sub
 sub ln_sttsitms ()
     'dim as short X, Y
     'ln_getaction
-    'FOR t_si = 1 TO LEN(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)) / 4
+    'FOR t_si = 1 TO LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
     '    X=fix((t_si-1) mod 5)*3
     '    Y=fix((t_si-1)/5)*3
-    '    R_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1), (t_si - 1) * 4 + 1, 4)
+    '    R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si - 1) * 4 + 1, 4)
     '    ln_names
-    '    graphicput clv_buffer(), clv_buffer_portal14 + Y, statx_si + X, (MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1), (t_si*4)-3, 4) + "____.24"), spritepath_str
+    '    graphicput clv_buffer(), clv_buffer_portal14 + Y, statx_si + X, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si*4)-3, 4) + "____.24"), spritepath_str
     '    IF action_str = R_str THEN
     '        clv_draw_line clv_buffer(), page_status, (statx_si+X-1) shl 3,(14+Y-1) shl 3,((statx_si+X-1) shl 3)+23,((14+Y-1) shl 3)+23, rgb(255,255,255), rgb(0,0,0)
     '    end if
@@ -2236,11 +2296,11 @@ sub ln_sttsitms ()
 end sub
 
 sub ln_move ()
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "move"
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "move"
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "move"
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "move"
     are_str = "____pwch"
     ln_are
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) >= 1 AND are_si > 0 THEN
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) >= 1 AND are_si > 0 THEN
         move_si = 1
         here_str = "watr"
         ln_here
@@ -2262,7 +2322,7 @@ sub ln_move ()
                     dy_si = Ty_si + d_sia(d_si, 2) * dis_si
                 END IF
             END IF
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) - 1
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 1
             ln_swapdata
         END IF
     END IF
@@ -2270,11 +2330,11 @@ sub ln_move ()
 end sub
 
 sub ln_wingmove ()
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "move"
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "move"
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "move"
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "move"
     are_str = "____pwch"
     ln_are
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) >= 3 AND are_si > 0 THEN
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) >= 3 AND are_si > 0 THEN
         move_si = 1
         IF move_si = 1 THEN
             IF Tx_si = ex_si AND Ty_si = dy_si THEN
@@ -2285,7 +2345,7 @@ sub ln_wingmove ()
                     dy_si = Ty_si + d_sia(d_si, 2) * dis_si
                 END IF
             END IF
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) - 3
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 3
             ln_swapdata
         END IF
     END IF
@@ -2293,7 +2353,7 @@ sub ln_wingmove ()
 end sub
 
 sub ln_firemove ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) >= 1 THEN
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) >= 1 THEN
         IF 1 = 1 THEN
             IF Tx_si = ex_si AND Ty_si = dy_si THEN
                 am_str = ctrl_str
@@ -2303,9 +2363,9 @@ sub ln_firemove ()
                     dy_si = Ty_si + d_sia(d_si, 2) * dis_si
                 END IF
             END IF
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-            MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "move"
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) - 1
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+            MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "move"
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 1
             ln_swapdata
         END IF
     ELSE
@@ -2323,18 +2383,18 @@ sub ln_webmove ()
             dy_si = Ty_si + d_sia(d_si, 2) * dis_si
         END IF
     END IF
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "move"
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "move"
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) - 1
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "move"
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "move"
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 1
     ln_swapdata
     Exit Sub
 end sub
 
 sub ln_castfire ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) >= 20 THEN
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "fire"
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) - 20
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 20 THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "fire"
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 20
         ln_prflblnk
         prflidty_str = "Flame"
         prflactn_str = "moveburn"
@@ -2358,10 +2418,10 @@ sub ln_castfire ()
 end sub
 
 sub ln_castdust ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) >= 8 THEN
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "dust"
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) - 8
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 8 THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "dust"
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 8
         ln_prflblnk
         prflidty_str = "Sleepy dust"
         prflactn_str = "move"
@@ -2385,8 +2445,8 @@ sub ln_castdust ()
 end sub
 
 sub ln_castweb ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) >= 220 THEN
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) - 220
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 220 THEN
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 220
         ln_prflblnk
         prflidty_str = "Web"
         prflactn_str = "spdr"
@@ -2410,8 +2470,8 @@ sub ln_castweb ()
 end sub
 
 sub ln_castspdr ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) >= 320 THEN
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) - 320
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 320 THEN
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 320
         ln_prflblnk
         prflidty_str = "Spider"
         prflactn_str = "movebiteweb_"
@@ -2457,8 +2517,8 @@ sub ln_castccts ()
 end sub
 
 sub ln_castdtby ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) >= 160 THEN
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) - 160
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 160 THEN
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 160
         ln_prflblnk
         prflidty_str = "Dust Bunny"
         prflactn_str = "bitekick"
@@ -2504,20 +2564,20 @@ sub ln_autolevelup ()
 end sub
 
 sub ln_statgain ()
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) + G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) + G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) + G_dfa(Rose_Calc( Tx_si, Ty_si ), 4)
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) + G_dfa(Rose_Calc( Tx_si, Ty_si ), 14)
     Exit Sub
 end sub
 
 sub ln_statmax ()
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1) > G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11) THEN
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) > G_dfa(Rose_Calc( Tx_si, Ty_si ), 11) THEN
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 11)
     END IF
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) > G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12) THEN
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) > G_dfa(Rose_Calc( Tx_si, Ty_si ), 12) THEN
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 12)
     END IF
-    IF G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) > G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13) THEN
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)
+    IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) > G_dfa(Rose_Calc( Tx_si, Ty_si ), 13) THEN
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 13)
     END IF
     Exit Sub
 end sub
@@ -2547,41 +2607,41 @@ sub ln_newaction ()
 end sub
 
 sub ln_randomaction ()
-    R_si = LEN(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)) / 4
+    R_si = LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
     R_si = INT(RND(1) * (R_si + 1))
     IF R_si = 0 THEN
         action_str = "____"
     ELSE
-        action_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1), (R_si - 1) * 4 + 1, 4)
+        action_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (R_si - 1) * 4 + 1, 4)
     END IF
     Exit Sub
 end sub
 
 sub ln_getaction ()
-    d_si = CVL(MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 1, 4))
-    action_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 5, 4)
-    dis_si = CVL(MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 9, 4))
+    d_si = CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 1, 4))
+    action_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)
+    dis_si = CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 9, 4))
     Exit Sub
 end sub
 
 sub ln_putaction ()
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 1, 4) = MKL(d_si)
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 5, 4) = action_str
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 9, 4) = MKL(dis_si)
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 1, 4) = MKL(d_si)
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) = action_str
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 9, 4) = MKL(dis_si)
     Exit Sub
 end sub
 
 sub ln_tempget ()
-    tempd_si = CVL(MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 1, 4))
-    tempaction_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 5, 4)
-    tempdis_si = CVL(MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 9, 4))
+    tempd_si = CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 1, 4))
+    tempaction_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)
+    tempdis_si = CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 9, 4))
     Exit Sub
 end sub
 
 sub ln_tempput ()
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 1, 4) = MKL(tempd_si)
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 5, 4) = tempaction_str
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 9, 4) = MKL(tempdis_si)
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 1, 4) = MKL(tempd_si)
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) = tempaction_str
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 9, 4) = MKL(tempdis_si)
     Exit Sub
 end sub
 
@@ -2596,7 +2656,7 @@ end sub
 
 sub ln_haveit ()
     haveit_si = 0
-    t_str = e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)
+    t_str = e_stra(Rose_Calc( Tx_si, Ty_si ), 1)
     t_si = LEN(t_str) / 4
     FOR tt_si = 1 TO t_si
         tt_str = MID(t_str, (tt_si - 1) * 4 + 1, 4)
@@ -2621,7 +2681,7 @@ sub ln_hasit ()
 end sub
 
 sub ln_havehadit ()
-    t_str = e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)
+    t_str = e_stra(Rose_Calc( Tx_si, Ty_si ), 1)
     t_si = LEN(t_str) / 4
     FOR tt_si = 1 TO t_si
         tt_str = MID(t_str, (tt_si - 1) * 4 + 1, 4)
@@ -2630,7 +2690,7 @@ sub ln_havehadit ()
             tt_si = t_si
         END IF
     NEXT tt_si
-    e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) = t_str
+    e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = t_str
     Exit Sub
 end sub
 
@@ -2649,8 +2709,8 @@ sub ln_hashadit ()
 end sub
 
 sub ln_havegotit ()
-    t_str = e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)
-    e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) = t_str + havegotit_str
+    t_str = e_stra(Rose_Calc( Tx_si, Ty_si ), 1)
+    e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = t_str + havegotit_str
     Exit Sub
 end sub
 
@@ -2665,7 +2725,7 @@ sub ln_winexp ()
     IF getit_si > 0 THEN
         getit_str = STR(getit_si) + " EXP"
         getit_str = RIGHT(getit_str, LEN(getit_str) - 1)
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1) + getit_si
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) + getit_si
         ln_getit
         G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 6) = 0
     END IF
@@ -2719,7 +2779,7 @@ end sub
 sub ln_am ()
     am_si = 0
     FOR t_si = 1 TO LEN(am_str) / 4
-        IF MID(am_str, (t_si - 1) * 4 + 1, 4) = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) THEN
+        IF MID(am_str, (t_si - 1) * 4 + 1, 4) = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) THEN
             am_si = am_si + 1
         END IF
     NEXT t_si
@@ -2739,7 +2799,7 @@ end sub
 sub ln_here ()
     here_si = 0
     FOR t_si = 1 TO LEN(here_str) / 4
-        IF MID(here_str, (t_si - 1) * 4 + 1, 4) = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 5, 4) THEN
+        IF MID(here_str, (t_si - 1) * 4 + 1, 4) = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) THEN
             here_si = here_si + 1
         END IF
     NEXT t_si
@@ -2882,29 +2942,29 @@ sub ln_prflblnk ()
 end sub
 
 sub ln_prflset ()
-    e_stra(Tx_si + (Ty_si - 1) * AA_si, 0) = prflidty_str
-    e_stra(Tx_si + (Ty_si - 1) * AA_si, 1) = prflactn_str
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) = prflgpic_str
-    e_stra(Tx_si + (Ty_si - 1) * AA_si, 3) = prflcmnd_str
-    e_stra(Tx_si + (Ty_si - 1) * AA_si, 4) = prflgpicactn_str
-    e_stra(Tx_si + (Ty_si - 1) * AA_si, 5) = prflactnct_str
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0) = prflidty_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1) = prflhp_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = prflstr_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3) = prfless_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4) = prflspd_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5) = prflarmr_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6) = prflexp_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7) = prflvalu_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8) = prflpirc_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9) = prflchck_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10) = prfllv_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11) = prflhpmax_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12) = prflstrmax_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13) = prflessmax_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14) = prflessspd_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15) = prflevad_sf
-    G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16) = prflblnk_sf
+    e_stra(Rose_Calc( Tx_si, Ty_si ), 0) = prflidty_str
+    e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = prflactn_str
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = prflgpic_str
+    e_stra(Rose_Calc( Tx_si, Ty_si ), 3) = prflcmnd_str
+    e_stra(Rose_Calc( Tx_si, Ty_si ), 4) = prflgpicactn_str
+    e_stra(Rose_Calc( Tx_si, Ty_si ), 5) = prflactnct_str
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 0) = prflidty_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) = prflhp_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = prflstr_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = prfless_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 4) = prflspd_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 5) = prflarmr_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) = prflexp_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 7) = prflvalu_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 8) = prflpirc_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 9) = prflchck_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) = prfllv_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 11) = prflhpmax_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 12) = prflstrmax_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 13) = prflessmax_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 14) = prflessspd_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 15) = prflevad_sf
+    G_dfa(Rose_Calc( Tx_si, Ty_si ), 16) = prflblnk_sf
     Exit Sub
 end sub
 
@@ -3331,20 +3391,20 @@ sub ln_actngrpl ()
         ln_actnrapl
         Exit Sub
     END IF
-    IF dis_si = 0 AND G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) < 10 THEN
+    IF dis_si = 0 AND G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) < 10 THEN
         action_str = "____pwch"
         ln_putaction
         Exit Sub
     END IF
     IF dis_si = 0 THEN
-        G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) = G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2) - 10
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 10
     END IF
     IF dis_si < 3 THEN
         dis_si = dis_si + 1
     END IF
         blankcheck_str = "____pwch"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "pnch"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "grpl"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
         ln_blankcheck
         IF blankcheck_si = -1 THEN
             dis_si = dis_si - 1
@@ -3359,8 +3419,8 @@ sub ln_actngrpl ()
     IF blankcheck_si > 0 THEN
         ln_putaction
         action_str = "rapl"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "pnch"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "grpl"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
         ln_putaction
         ln_attklash
         Exit Sub
@@ -3369,8 +3429,8 @@ sub ln_actngrpl ()
     ln_blankcheck
     IF blankcheck_si > 0 THEN
         action_str = "rapl"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "pnch"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "grpl"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
         ln_putaction
         Exit Sub
     END IF
@@ -3378,14 +3438,14 @@ sub ln_actngrpl ()
 end sub
 
 sub ln_actnrapl ()
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "pnch"
-    MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "grpl"
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
     IF dis_si = 1 THEN
         action_str = "____pwch"
         dis_si = 0
         ln_putaction
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 1, 4) = "____"
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 4), 5, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
         Exit Sub
     END IF
     blankcheck_str = "____pwch"
@@ -3682,12 +3742,12 @@ sub ln_crtnccts ()
     here_str = "watr"
     ln_here
     IF here_si > 0 THEN
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 5, 4) = "hole"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole"
     END IF
     here_str = "stpw"
     ln_here
     IF here_si > 0 THEN
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 5, 4) = "stps"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stps"
     END IF
     SELECT CASE CVL(action_str)
     CASE CVL("seed")
@@ -3702,13 +3762,13 @@ sub ln_crtnbldr ()
     ln_statmax
     ln_nextaction
     attackthem_str = ""
-    IF MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 5, 4) = "hole" THEN
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 5, 4) = "dirt"
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole" THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "dirt"
         ln_gone
         Exit Sub
     END IF
-    IF MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 5, 4) = "watr" THEN
-        MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 5, 4) = "stpw"
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "watr" THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stpw"
         ln_gone
         Exit Sub
     END IF
@@ -3962,23 +4022,23 @@ sub frame_status(Row as short, Col as short)
     C1 = 4
     C2 = 12
     frame_put clv_buffer(), clv_buffer_status, X1, Y1, X2, Y2, C1, C2
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col-1) shl 3, (Row-1) shl 3, e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col-1) shl 3, (Row-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (col-1) shl 3, (Row+1-1) shl 3, "LV"
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+3-1) shl 3, (Row+1-1) shl 3, RIGHT(STR(100 + G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)), 2)
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (col+9-1) shl 3, (Row+1-1) shl 3, (RIGHT("     " + STR(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)), 5) + "$")
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+3-1) shl 3, (Row+1-1) shl 3, RIGHT(STR(100 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)), 2)
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (col+9-1) shl 3, (Row+1-1) shl 3, (RIGHT("     " + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 6)), 5) + "$")
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+2-1) shl 3, (Row+1-1) shl 3, "ú"
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col-1) shl 3, (Row+2-1) shl 3, "HP"
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+4-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1))), 4)
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+4-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 1))), 4)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+9-1) shl 3, (Row+2-1) shl 3, "/"
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+11-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11))), 4)
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+11-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 11))), 4)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col-1) shl 3, (Row+3-1) shl 3, "STR"
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+4-1) shl 3, (Row+3-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2))), 4)
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+4-1) shl 3, (Row+3-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 2))), 4)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+9-1) shl 3, (Row+3-1) shl 3, "/"
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+11-1) shl 3, (Row+3-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12))), 4)
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+11-1) shl 3, (Row+3-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 12))), 4)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col-1) shl 3, (Row+4-1) shl 3, "ESS"
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+4-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3))), 4)
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+4-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 3))), 4)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+9-1) shl 3, (Row+4-1) shl 3, "/"
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+11-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13))), 4)
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+11-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 13))), 4)
     ln_getaction
     SELECT CASE d_si
     CASE 0
@@ -3992,10 +4052,10 @@ sub frame_status(Row as short, Col as short)
     CASE 4
         graphicput clv_buffer(), clv_buffer_status, Row+5, Col, "bttnwest.24", spritepath_str
     END SELECT
-    graphicput clv_buffer(), clv_buffer_status, Row+5, Col+6, (MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2), 1, 4) + MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 5, 4) +  ".24"), spritepath_str
-    'graphicput clv_buffer(), clv_buffer_status, Row+5, Col+3, (MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 3), 5, 4) + "____.24"), spritepath_str
-    FOR t_si = 1 TO LEN(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)) / 4
-        R_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1), (t_si - 1) * 4 + 1, 4)
+    graphicput clv_buffer(), clv_buffer_status, Row+5, Col+6, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) + MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) +  ".24"), spritepath_str
+    'graphicput clv_buffer(), clv_buffer_status, Row+5, Col+3, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) + "____.24"), spritepath_str
+    FOR t_si = 1 TO LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
+        R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si - 1) * 4 + 1, 4)
         ln_names
         IF action_str = R_str THEN
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col-1) shl 3, (Row+8-1) shl 3, rr_str
@@ -4014,12 +4074,12 @@ sub frame_inventory (Row as short, Col as short)
     C2 = 12
     frame_put clv_buffer(), clv_buffer_status, X1, Y1, X2, Y2, C1, C2
     ln_getaction
-    FOR t_si = 1 TO LEN(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)) / 4
+    FOR t_si = 1 TO LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
         X=fix((t_si-1) mod 5)*3
         Y=fix((t_si-1)/5)*3
-        R_str = MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1), (t_si - 1) * 4 + 1, 4)
+        R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si - 1) * 4 + 1, 4)
         ln_names
-        graphicput clv_buffer(), clv_buffer_status, Row + Y, Col + X, (MID(e_stra(Tx_si + (Ty_si - 1) * AA_si, 1), (t_si*4)-3, 4) + "____.24"), spritepath_str
+        graphicput clv_buffer(), clv_buffer_status, Row + Y, Col + X, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si*4)-3, 4) + "____.24"), spritepath_str
         IF action_str = R_str THEN
             clv_draw_line clv_buffer(), clv_buffer_status, (statx_si+X-1) shl 3,(14+Y-1) shl 3,((statx_si+X-1) shl 3)+23,((14+Y-1) shl 3)+23, rgb(255,255,255), rgb(0,0,0), clv_flag_b
         end if
@@ -4169,31 +4229,31 @@ sub Map_Load (map_names() as names_type)
         
     FOR Ty_si = 1 TO DD_si
         FOR Tx_si = 1 TO AA_si
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 0)= sync_names( "prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 1)= sync_names( "prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
-            mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4)= sync_names( "prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 3)= sync_names( "prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 4)= sync_names( "prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
-            e_stra(Tx_si + (Ty_si - 1) * AA_si, 5)= sync_names( "prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Rose_Calc( Tx_si, Ty_si ), 0)= sync_names( "prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Rose_Calc( Tx_si, Ty_si ), 1)= sync_names( "prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            mid(e_stra(Rose_Calc( Tx_si, Ty_si ), 2),1,4)= sync_names( "prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Rose_Calc( Tx_si, Ty_si ), 3)= sync_names( "prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Rose_Calc( Tx_si, Ty_si ), 4)= sync_names( "prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
+            e_stra(Rose_Calc( Tx_si, Ty_si ), 5)= sync_names( "prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() )
             progress_put clv_buffer(), Index, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 6, progress, LastSec, DelaySec
 
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)= val( sync_names( "prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)= val( sync_names( "prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)= val( sync_names( "prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)= val( sync_names( "prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)= val( sync_names( "prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)= val( sync_names( "prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)= val( sync_names( "prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)= val( sync_names( "prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)= val( sync_names( "prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)= val( sync_names( "prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)= val( sync_names( "prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)= val( sync_names( "prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)= val( sync_names( "prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)= val( sync_names( "prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)= val( sync_names( "prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)= val( sync_names( "prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
-            G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)= val( sync_names( "prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 0)= val( sync_names( "prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 1)= val( sync_names( "prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 2)= val( sync_names( "prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 3)= val( sync_names( "prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 4)= val( sync_names( "prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 5)= val( sync_names( "prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 6)= val( sync_names( "prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 7)= val( sync_names( "prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 8)= val( sync_names( "prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 9)= val( sync_names( "prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)= val( sync_names( "prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 11)= val( sync_names( "prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 12)= val( sync_names( "prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 13)= val( sync_names( "prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 14)= val( sync_names( "prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 15)= val( sync_names( "prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
+            G_dfa(Rose_Calc( Tx_si, Ty_si ), 16)= val( sync_names( "prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]", Save_Table() ) )
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 17, progress, LastSec, DelaySec
         NEXT
     NEXT
@@ -4271,31 +4331,31 @@ sub Map_Save ( DB(any) as names_type)
 
     FOR Ty_si = 1 TO DD_si
         FOR Tx_si = 1 TO AA_si
-            names_push("prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 0),Names_Table())
-            names_push("prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 1),Names_Table())
-            names_push("prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",mid(e_stra(Tx_si + (Ty_si - 1) * AA_si, 2),1,4),Names_Table())
-            names_push("prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 3),Names_Table())
-            names_push("prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 4),Names_Table())
-            names_push("prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Tx_si + (Ty_si - 1) * AA_si, 5),Names_Table())
+            names_push("prflidty_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Rose_Calc( Tx_si, Ty_si ), 0),Names_Table())
+            names_push("prflactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Rose_Calc( Tx_si, Ty_si ), 1),Names_Table())
+            names_push("prflgpic_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",mid(e_stra(Rose_Calc( Tx_si, Ty_si ), 2),1,4),Names_Table())
+            names_push("prflcmnd_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Rose_Calc( Tx_si, Ty_si ), 3),Names_Table())
+            names_push("prflgpicactn_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Rose_Calc( Tx_si, Ty_si ), 4),Names_Table())
+            names_push("prflactnct_str["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",e_stra(Rose_Calc( Tx_si, Ty_si ), 5),Names_Table())
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 6, progress, LastSec, DelaySec
 
-            names_push("prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 0)),Names_Table())
-            names_push("prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 1)),Names_Table())
-            names_push("prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 2)),Names_Table())
-            names_push("prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 3)),Names_Table())
-            names_push("prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 4)),Names_Table())
-            names_push("prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 5)),Names_Table())
-            names_push("prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 6)),Names_Table())
-            names_push("prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 7)),Names_Table())
-            names_push("prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 8)),Names_Table())
-            names_push("prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 9)),Names_Table())
-            names_push("prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 10)),Names_Table())
-            names_push("prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 11)),Names_Table())
-            names_push("prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 12)),Names_Table())
-            names_push("prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 13)),Names_Table())
-            names_push("prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 14)),Names_Table())
-            names_push("prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 15)),Names_Table())
-            names_push("prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Tx_si + (Ty_si - 1) * AA_si, 16)),Names_Table())
+            names_push("prflidty_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 0)),Names_Table())
+            names_push("prflhp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 1)),Names_Table())
+            names_push("prflstr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 2)),Names_Table())
+            names_push("prfless_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 3)),Names_Table())
+            names_push("prflspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 4)),Names_Table())
+            names_push("prflarmr_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 5)),Names_Table())
+            names_push("prflexp_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 6)),Names_Table())
+            names_push("prflvalu_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 7)),Names_Table())
+            names_push("prflpirc_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 8)),Names_Table())
+            names_push("prflchck_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 9)),Names_Table())
+            names_push("prfllv_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)),Names_Table())
+            names_push("prflhpmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 11)),Names_Table())
+            names_push("prflstrmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 12)),Names_Table())
+            names_push("prflessmax_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 13)),Names_Table())
+            names_push("prflessspd_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 14)),Names_Table())
+            names_push("prflevad_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 15)),Names_Table())
+            names_push("prflblnk_sf["+trimint(Tx_si)+"]["+trimint(Ty_si)+"]",trimint(G_dfa(Rose_Calc( Tx_si, Ty_si ), 16)),Names_Table())
             progress_put clv_buffer(), Index2, Caption, Cur, Max, X1, Y1, X2, Y2, Switch, ARGB, 17, progress, LastSec, DelaySec
         NEXT
     NEXT
@@ -4333,4 +4393,8 @@ function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_
 		Compare_Key = 0
 	end select
 	
+end function
+
+function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
+	Rose_Calc = Tx_si + (Ty_si - 1) * AA_si
 end function

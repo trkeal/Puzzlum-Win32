@@ -1,13 +1,17 @@
 
 'clv.bi
-'Advanced freeBASIC Composite Layer Video Routines 0x002
-'Created August 15th - November 26th 2009, December 8th 2021 by Timothy Robert Keal alias jargon
-'Released under the Gnu Public License 2.0
+'Advanced freeBASIC Composite Layer Video Routines (CLV)
+'
+'CLV is Copyright (C) 2009, 2021 Timothy Robert Keal
+'Released under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
 '
 'http://puzzlum.com/
+'mailto:trkeal@gmail.com
 '
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
+
+'=====
 
 	#inclib "clv"
 	#include once ".\inc\clv.bi"
