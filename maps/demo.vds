@@ -6,11 +6,11 @@ wall,wall,wall,wall,wall,wall,wall,door,wall,wall,door,wall,wall,wall,wall,wall
 0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0003,0000,0000,0000,0000,0000
 2
 dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,stps,hole,dirt,dirt,hole,hole,dirt
-wall,spdr,____,____,____,spdr,____,____,wall,____,____,____,chst,____,____,wall
+wall,spdr,____,____,____,spdr,wall,____,wall,____,____,____,chst,____,____,wall
 0000,0001,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0003,0000,0000,0000
 3
 dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,hole,hole,hole,dirt
-wall,chst,____,spdr,____,____,wall,____,____,____,wall,____,____,dtby,____,wall
+wall,chst,____,spdr,____,____,____,____,____,____,wall,____,____,dtby,____,wall
 0000,0001,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000
 4
 dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,hole,hole,hole,dirt
@@ -18,7 +18,7 @@ wall,wall,____,wall,wall,wall,wall,____,pndx,____,wall,____,grml,____,grml,wall
 0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000
 5
 dirt,dirt,dirt,dirt,dirt,hole,dirt,dirt,dirt,dirt,hole,dirt,dirt,dirt,dirt,dirt
-wall,____,____,door,bldr,____,____,spdr,____,____,____,____,____,____,____,wall
+wall,____,____,door,bldr,____,____,spdr,____,imp_,____,____,____,____,____,wall
 0000,0000,0000,0001,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000
 6
 dirt,dirt,dirt,dirt,dirt,dirt,hole,dirt,dirt,dirt,dirt,dirt,watr,watr,watr,dirt
