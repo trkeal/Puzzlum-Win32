@@ -1,0 +1,12 @@
+
+sub ln_actnspdr ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN
+        ln_castspdr
+        Exit Sub
+    END IF
+    Exit Sub
+end sub

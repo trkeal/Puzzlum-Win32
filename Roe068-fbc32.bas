@@ -170,7 +170,8 @@
     declare sub ln_prflblnk ()
     declare sub ln_prflset ()
     declare sub ln_prflmake ()
-    declare sub ln_actncure ()
+    
+	declare sub ln_actncure ()
     declare sub ln_actnbite ()
     declare sub ln_actnpnch ()
     declare sub ln_actnkick ()
@@ -189,12 +190,15 @@
     declare sub ln_actnkey1 ()
     declare sub ln_actnkey2 ()
     declare sub ln_actnispt ()
+
     declare sub ln_actnfiremove ()
     declare sub ln_actndustmove ()
     declare sub ln_actnwebmove ()
+
     declare sub ln_actngrpl ()
     declare sub ln_actnrapl ()
-    declare sub ln_crtnimp ()
+    
+	declare sub ln_crtnimp ()
     declare sub ln_crtnfire ()
     declare sub ln_crtndust ()
     declare sub ln_crtnshkt ()

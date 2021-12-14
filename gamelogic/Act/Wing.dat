@@ -1,0 +1,9 @@
+
+sub ln_actnwing ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    ln_wingmove
+    Exit Sub
+end sub

@@ -1,0 +1,53 @@
+
+sub ln_actngrpl ()
+    IF dis_si = 3 THEN
+        action_str = "rapl"
+        ln_putaction
+        ln_actnrapl
+        Exit Sub
+    END IF
+    IF dis_si = 0 AND G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) < 10 THEN
+        action_str = "____pwch"
+        ln_putaction
+        Exit Sub
+    END IF
+    IF dis_si = 0 THEN
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 10
+    END IF
+    IF dis_si < 3 THEN
+        dis_si = dis_si + 1
+    END IF
+        blankcheck_str = "____pwch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
+        ln_blankcheck
+        IF blankcheck_si = -1 THEN
+            dis_si = dis_si - 1
+        Exit Sub
+    END IF
+    IF blankcheck_si > 0 THEN
+        ln_putaction
+        Exit Sub
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_putaction
+        action_str = "rapl"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
+        ln_putaction
+        ln_attklash
+        Exit Sub
+    END IF
+    blankcheck_str = "bldrchst"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        action_str = "rapl"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
+        ln_putaction
+        Exit Sub
+    END IF
+    Exit Sub
+end sub

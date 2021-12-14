@@ -1,0 +1,288 @@
+sub ln_crtnimp ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    
+	attackthem_str = "pndxgrmlspdrdtbyweb_emgdshkt"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnmove
+    CASE CVL("fire")
+        ln_actnfire
+    CASE CVL("ispt")
+        ln_actnispt
+    CASE CVL("wing")
+        ln_actnwing
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtnfire ()
+    ln_statgain
+    ln_statmax
+    ln_getaction
+    
+	attackthem_str = "pndxgrmlspdrdtbyweb_shktemgd"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnfiremove
+    END SELECT
+    Exit Sub
+end sub
+
+sub ln_crtndust ()
+    ln_statgain
+    ln_statmax
+    ln_getaction
+    attackthem_str = "pndxgrmlspdrshktemgdimp_"
+    SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actndustmove
+    END SELECT
+    Exit Sub
+end sub
+
+sub ln_crtnshkt ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    
+	attackthem_str = "pndxgrmlspdrdtbyweb_imp_"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnmove
+    CASE CVL("fire")
+        ln_actnfire
+    CASE CVL("bite")
+        ln_actnbite
+    CASE CVL("pnch")
+        ln_actnpnch
+    CASE CVL("kick")
+        ln_actnkick
+    CASE CVL("dggr")
+        ln_actndggr
+    CASE CVL("pike")
+        ln_actnpike
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtnemgd ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    
+	attackthem_str = "pndxgrmlspdrdtbyweb_imp_"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnmove
+    CASE CVL("fire")
+        ln_actnfire
+    CASE CVL("bite")
+        ln_actnbite
+    CASE CVL("pnch")
+        ln_actnpnch
+    CASE CVL("kick")
+        ln_actnkick
+    CASE CVL("dggr")
+        ln_actndggr
+    CASE CVL("pike")
+        ln_actnpike
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtnspdr ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    
+	attackthem_str = "pndxdtbyspdrimp_emgdshktgrml"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnmove
+    CASE CVL("web_")
+        ln_actnweb
+    CASE CVL("bite")
+        ln_actnbite
+    CASE CVL("vnom")
+        ln_actnkick
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtnweb ()
+    ln_statgain
+    ln_statmax
+    ln_getaction
+    IF action_str <> "move" THEN
+        ln_nextaction
+    END IF
+    
+	attackthem_str = "pndxgrmldtbyweb_shktemgdimp_"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnwebmove
+    CASE CVL("spdr")
+        ln_actnspdr
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtndtby ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    
+	attackthem_str = "pndxgrmlspdrimp_emgdshkt"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnmove
+    CASE CVL("fire")
+        ln_actnfire
+    CASE CVL("dtby")
+        ln_actndtby
+    CASE CVL("bite")
+        ln_actnbite
+    CASE CVL("kick")
+        ln_actnkick
+    CASE CVL("dust")
+        ln_actndust
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtngrml ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    
+	attackthem_str = "pndxdtbyspdrimp_emgdshktweb_"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnmove
+    CASE CVL("fire")
+        ln_actnfire
+    CASE CVL("bite")
+        ln_actnbite
+    CASE CVL("pnch")
+        ln_actnpnch
+    CASE CVL("kick")
+        ln_actnkick
+    CASE CVL("dggr")
+        ln_actndggr
+    CASE CVL("pike")
+        ln_actnpike
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtnpndx ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    
+	attackthem_str = "pndxdtbyspdrimp_emgdshktweb_grmlccts"
+    
+	SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        ln_actnmove
+    CASE CVL("fire")
+        ln_actnfire
+    CASE CVL("bite")
+        ln_actnbite
+    CASE CVL("pnch")
+        ln_actnpnch
+    CASE CVL("kick")
+        ln_actnkick
+    CASE CVL("dggr")
+        ln_actndggr
+    CASE CVL("pike")
+        ln_actnpike
+    CASE CVL("spdr")
+        ln_actnspdr
+    CASE CVL("web_")
+        ln_actnweb
+    CASE CVL("vnom")
+        ln_actnvnom
+    CASE CVL("cure")
+        ln_actncure
+    CASE CVL("ispt")
+        ln_actnispt
+    CASE CVL("grpl")
+        ln_actngrpl
+    CASE CVL("rapl")
+        ln_actnrapl
+    CASE CVL("seed")
+        ln_actnccts
+    CASE CVL("wstf")
+        ln_actnwstf
+    CASE CVL("wing")
+        ln_actnwing
+    CASE CVL("key1")
+        ln_actnkey1
+    CASE CVL("key2")
+        ln_actnkey2
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtnccts ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    attackthem_str = ""
+    here_str = "watr"
+    ln_here
+    IF here_si > 0 THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole"
+    END IF
+    here_str = "stpw"
+    ln_here
+    IF here_si > 0 THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stps"
+    END IF
+    SELECT CASE CVL(action_str)
+    CASE CVL("seed")
+        ln_actnccts
+    END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub
+
+sub ln_crtnbldr ()
+    ln_statgain
+    ln_statmax
+    ln_nextaction
+    attackthem_str = ""
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole" THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "dirt"
+        ln_gone
+        Exit Sub
+    END IF
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "watr" THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stpw"
+        ln_gone
+        Exit Sub
+    END IF
+    'SELECT CASE CVL(action_str)
+    'END SELECT
+    ln_autolevelup
+    Exit Sub
+end sub

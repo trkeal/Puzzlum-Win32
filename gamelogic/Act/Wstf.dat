@@ -1,0 +1,28 @@
+
+sub ln_actnwstf ()
+    dis_si = 1
+    blankcheck_str = "bldr"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        dis_si = 2
+        blankcheck_str = "____pwch"
+        ln_blankcheck
+        IF blankcheck_si > 0 THEN
+            temptx_si = Tx_si
+            tempty_si = Ty_si
+            Tx_si = Tx_si + d_sia(d_si, 1)
+            Ty_si = Ty_si + d_sia(d_si, 2)
+            dis_si = 1
+            ln_swapdata
+            Tx_si = temptx_si
+            Ty_si = tempty_si
+            Exit Sub
+        END IF
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkwstf
+    END IF
+    Exit Sub
+end sub

@@ -1,0 +1,18 @@
+
+sub ln_actnkey1 ()
+    dis_si = 1
+    blankcheck_str = "door"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        hasit_str = "loc1"
+        ln_hasit
+        IF hasit_si > 0 THEN
+            hashadit_str = "loc1"
+            ln_hashadit
+            havehadit_str = "key1"
+            ln_havehadit
+            ln_delete2
+        END IF
+    END IF
+    Exit Sub
+end sub

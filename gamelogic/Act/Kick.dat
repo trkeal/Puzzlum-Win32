@@ -1,0 +1,15 @@
+
+sub ln_actnkick ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN Exit Sub
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkkick
+        Exit Sub
+    END IF
+    Exit Sub
+end sub

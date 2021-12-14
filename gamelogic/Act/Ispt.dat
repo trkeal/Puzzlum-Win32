@@ -1,0 +1,47 @@
+
+sub ln_actnispt ()
+    dim as short tempt
+    dis_si = 1
+    ln_putaction
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 OR blankcheck_si > 0 THEN Exit Sub
+    IF e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0) = "Merchant" THEN
+        ln_merchant
+        Exit Sub
+    END IF
+    IF e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0) = "Poindexter" THEN
+        ln_talk0001
+        Exit Sub
+    END IF
+    blankcheck_str = "pwchchst"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_pillage
+        blankcheck_str = "pwch"
+        IF blankcheck_si > 0 THEN
+            ln_delete2
+        END IF
+        Exit Sub
+    END IF
+    blankcheck_str = "door"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        tempt=0
+        for T_si=1 to fix(len(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1))/4)
+            select case mid(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1),T_si*4-3,4)
+            case "loc1"
+                tempt=1
+            case "loc2"
+                tempt=1
+            case "loc3"
+                tempt=1
+            end select
+        next
+        if tempt=0 then
+            ln_delete2
+        END IF
+        Exit Sub
+    END IF
+    Exit Sub
+end sub

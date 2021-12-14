@@ -1,0 +1,532 @@
+sub ln_actncure ()
+    dim as integer check_index = 0, check_count = 0
+	
+	Redim As Names_Type ActTable( Any )
+	wipe_table( ActTable() )
+	
+	dis_si = 1
+    blankcheck_str = "____"
+
+	names_push( "dis_si", trimint(1), ActTable() )
+	names_push( "blank_check_str", trimint("____"), ActTable() )
+    
+	ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN Exit Sub
+
+    blankcheck_str = "pndxspdrgrmldtbyemgdshktimp_"
+
+	names_push( "blank_check_str", trimint(blankcheck_str), ActTable() )
+	
+	check_count = fix( len( blankcheck_str ) + 3 ) / 4
+	names_push( "black_check/count", trimint( check_count ), ActTable() )
+	
+	for check_index = 1 to check_count
+		names_push( "black_check/" + trimint( check_index ), mid$( blankcheck_str, check_index * 4 - 3, 4 ), ActTable() )
+		names_push( "blank_check_str", trimint("____"), ActTable() )
+	next check_index
+	
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_usecure
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnbite ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN Exit Sub
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkbite
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnpnch ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN Exit Sub
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkpnch
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnkick ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN Exit Sub
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkkick
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actndggr ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN Exit Sub
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkdggr
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnpike ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN Exit Sub
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkpike
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnvnom ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN Exit Sub
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkvnom
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnfire ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN
+        ln_castfire
+        Exit Sub
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkfire
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actndust ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN
+        ln_castdust
+        Exit Sub
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_useslep
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnweb ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN
+        ln_castweb
+        Exit Sub
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkweb
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnspdr ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN
+        ln_castspdr
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnccts ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN
+        ln_castccts
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actndtby ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN
+        ln_castdtby
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnmove ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    ln_move
+    Exit Sub
+end sub
+
+sub ln_actnwing ()
+    dis_si = 1
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    ln_wingmove
+    Exit Sub
+end sub
+
+sub ln_actnwstf ()
+    dis_si = 1
+    blankcheck_str = "bldr"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        dis_si = 2
+        blankcheck_str = "____pwch"
+        ln_blankcheck
+        IF blankcheck_si > 0 THEN
+            temptx_si = Tx_si
+            tempty_si = Ty_si
+            Tx_si = Tx_si + d_sia(d_si, 1)
+            Ty_si = Ty_si + d_sia(d_si, 2)
+            dis_si = 1
+            ln_swapdata
+            Tx_si = temptx_si
+            Ty_si = tempty_si
+            Exit Sub
+        END IF
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkwstf
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnkey1 ()
+    dis_si = 1
+    blankcheck_str = "door"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        hasit_str = "loc1"
+        ln_hasit
+        IF hasit_si > 0 THEN
+            hashadit_str = "loc1"
+            ln_hashadit
+            havehadit_str = "key1"
+            ln_havehadit
+            ln_delete2
+        END IF
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnkey2 ()
+    dis_si = 1
+    blankcheck_str = "door"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        hasit_str = "loc2"
+        ln_hasit
+        IF hasit_si > 0 THEN
+            hashadit_str = "loc2"
+            ln_hashadit
+            havehadit_str = "key2"
+            ln_havehadit
+            ln_delete2
+        END IF
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnispt ()
+    dim as short tempt
+    dis_si = 1
+    ln_putaction
+    blankcheck_str = "____"
+    ln_blankcheck
+    IF blankcheck_si = -1 OR blankcheck_si > 0 THEN Exit Sub
+    IF e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0) = "Merchant" THEN
+        ln_merchant
+        Exit Sub
+    END IF
+    IF e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0) = "Poindexter" THEN
+        ln_talk0001
+        Exit Sub
+    END IF
+    blankcheck_str = "pwchchst"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_pillage
+        blankcheck_str = "pwch"
+        IF blankcheck_si > 0 THEN
+            ln_delete2
+        END IF
+        Exit Sub
+    END IF
+    blankcheck_str = "door"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        tempt=0
+        for T_si=1 to fix(len(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1))/4)
+            select case mid(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1),T_si*4-3,4)
+            case "loc1"
+                tempt=1
+            case "loc2"
+                tempt=1
+            case "loc3"
+                tempt=1
+            end select
+        next
+        if tempt=0 then
+            ln_delete2
+        END IF
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnfiremove ()
+    dis_si = 1
+    blankcheck_str = "____pwch"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN
+        ln_gone
+        Exit Sub
+    END IF
+    IF blankcheck_si > 0 THEN
+        ln_firemove
+        Exit Sub
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attkburn
+        ln_gone
+        Exit Sub
+    END IF
+    ln_gone
+    Exit Sub
+end sub
+
+sub ln_actndustmove ()
+    dis_si = 1
+    blankcheck_str = "____pwch"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN
+        ln_gone
+    Exit Sub
+    END IF
+    IF blankcheck_si > 0 THEN
+        ln_firemove
+    Exit Sub
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_useslep
+        ln_gone
+        Exit Sub
+    END IF
+    ln_gone
+    Exit Sub
+end sub
+
+sub ln_actnwebmove ()
+    dis_si = 1
+    blankcheck_str = "____pwch"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN Exit Sub
+    IF blankcheck_si > 0 THEN
+        ln_webmove
+        Exit Sub
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attktngl
+        ln_gone
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actngrpl ()
+    IF dis_si = 3 THEN
+        action_str = "rapl"
+        ln_putaction
+        ln_actnrapl
+        Exit Sub
+    END IF
+    IF dis_si = 0 AND G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) < 10 THEN
+        action_str = "____pwch"
+        ln_putaction
+        Exit Sub
+    END IF
+    IF dis_si = 0 THEN
+        G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 10
+    END IF
+    IF dis_si < 3 THEN
+        dis_si = dis_si + 1
+    END IF
+        blankcheck_str = "____pwch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
+        ln_blankcheck
+        IF blankcheck_si = -1 THEN
+            dis_si = dis_si - 1
+        Exit Sub
+    END IF
+    IF blankcheck_si > 0 THEN
+        ln_putaction
+        Exit Sub
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_putaction
+        action_str = "rapl"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
+        ln_putaction
+        ln_attklash
+        Exit Sub
+    END IF
+    blankcheck_str = "bldrchst"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        action_str = "rapl"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
+        ln_putaction
+        Exit Sub
+    END IF
+    Exit Sub
+end sub
+
+sub ln_actnrapl ()
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
+    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
+    IF dis_si = 1 THEN
+        action_str = "____pwch"
+        dis_si = 0
+        ln_putaction
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
+        Exit Sub
+    END IF
+    blankcheck_str = "____pwch"
+    ln_blankcheck
+    IF blankcheck_si = -1 THEN
+        IF dis_si > 1 THEN
+            dis_si = dis_si - 1
+            ln_putaction
+        END IF
+        Exit Sub
+    END IF
+    IF blankcheck_si > 0 THEN
+        IF dis_si > 1 THEN
+            dis_si = dis_si - 1
+            ln_putaction
+        END IF
+    END IF
+    blankcheck_str = attackthem_str
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        ln_attklash
+        dis_si = dis_si - 1
+        ln_putaction
+        Exit Sub
+    END IF
+    blankcheck_str = "bldrchst"
+    ln_blankcheck
+    IF blankcheck_si > 0 THEN
+        dis_si = 1
+        blankcheck_str = "____pwch"
+        ln_blankcheck
+        IF blankcheck_si = 0 THEN
+            dis_si = dis_si - 1
+            ln_putaction
+            Exit Sub
+        END IF
+        IF blankcheck_si > 0 THEN
+            IF Tx_si = ex_si AND Ty_si = dy_si THEN
+                am_str = ctrl_str
+                ln_am
+                IF am_si > 0 THEN
+                    ex_si = Tx_si + d_sia(d_si, 1) * dis_si
+                    dy_si = Ty_si + d_sia(d_si, 2) * dis_si
+                END IF
+            END IF
+            ln_swapdata
+            temptx_si = Tx_si
+            tempty_si = Ty_si
+            Tx_si = Tx_si + d_sia(d_si, 1)
+            Ty_si = Ty_si + d_sia(d_si, 2)
+            ln_getaction
+            dis_si = dis_si - 1
+            ln_putaction
+            Tx_si = temptx_si
+            Ty_si = tempty_si
+            Exit Sub
+        END IF
+    END IF
+    Exit Sub
+end sub
