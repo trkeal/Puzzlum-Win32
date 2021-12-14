@@ -5,7 +5,7 @@
  It is important that you read these
  instructions VERY carefully. Also it
  is important that you read the entire
- instructions by pressing the SPACE BAR
+ instructions by clicking on CONTINUE
  **AFTER** you have completed your
  comprehension of each page of
  information. Otherwise you may lead
@@ -27,10 +27,51 @@
  ¯¯¯THE [Esc] KEY QUITS THIS PROGRAM.®®®
 þ COLOR 11
 
- The Esc key is the only keyboard key
+ The Esc key is not the only keyboard key
  used by this program.
 þ page end
 þ page start
+þ COLOR 15
+ === Key Presses 1 of 3 ===
+ These key presses are for general
+ operation within the puzzlum menu
+ system.
+þ COLOR 11
+
+ [ H ] Help              [+/-] Select
+ [ C ] Continue          [Esc] Exit
+ [ T ] Title             [Spc] Ok 
+ [ R ] Restart           
+ [ Q ] Quit              [ L ] Level Up
+ [ D ] Debug             [ C ] Cancel
+þ page end
+þ page start
+þ COLOR 15
+ === Key Presses 2 of 3 ===
+ These key presses are for general
+ navigation within the encounter system.
+þ COLOR 11
+
+ [+/-] Select
+ [Esc] Exit
+ [Spc] Ok 
+ [ L ] Level Up
+ [ C ] Cancel
+þ page end
+þ page start
+þ COLOR 15
+ === Key Presses 3 of 3 ===
+ These key presses are for the in-game 
+ save/load and shop system.
+þ COLOR 11
+
+ [F1] Save
+ [F2] Load
+ [F3] Shop 
+þ page end
+þ page start
+þ COLOR 15
+ === Frames 1 of 4: View Portal ===
 þ COLOR 11
  The blue frame is called the view
  portal. The map is displayed on it
@@ -43,6 +84,8 @@
  border with the left mouse button.
 þ page end
 þ page start
+þ COLOR 15
+ === Frames 2 of 4: Action Portal ===
 þ COLOR 11
  If a creature that you may control
  is centered in the view portal
@@ -58,6 +101,8 @@
  buttons to press.
 þ page end
 þ page start
+þ COLOR 15
+ === Frames 3 of 4: Level-Up Portal ===
 þ COLOR 11
  On the action portal is a button in
  the upper left that takes you to a
@@ -69,6 +114,8 @@
  abilities.
 þ page end
 þ page start
+þ COLOR 15
+ === Frames 4 of 4: Battle Portal ===
 þ COLOR 11
  Any time one of your characters does
  battle with another creature
@@ -81,15 +128,240 @@
  which its strength is weakened.
 þ page end
 þ page start
+þ COLOR 15
+ === Attacks "Inspect" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         .        .         .  
+ Damage       .        .         .  
+ Bonus        .        .         .   
+ 
+              LV   |   $     |
+ Cost         1        0             
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Move" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         .        .         .  
+ Damage       .        .         .  
+ Bonus        .        .         .   
+ 
+              LV   |   $     |
+ Cost         1        0             
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Bite" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        10        0  
+ Damage       5        2         0  
+ Bonus        L/4      none      none
+ 
+              LV   |   $     |
+ Cost         1        2             
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Punch" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        12        0 
+ Damage       3        2         0 
+ Bonus        L/6      L/8       none
+ 
+              LV   |   $     |
+ Cost         1        2             
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Wooden Staff" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        20        0 
+ Damage       5        4         0 
+ Bonus        L/4      L/6       none
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant              10              
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Kick" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        14        0 
+ Damage       4        3         0 
+ Bonus        L/5      L/7       none
+ 
+              LV   |   $     |
+ Cost         2        10            
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Venom" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        0         15
+ Damage       7        10        0 
+ Bonus        L/4      L/4       none
+ 
+              LV   |   $     |
+ Cost         7        30            
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Cure" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         .        .         . 
+ Damage       .        .         . 
+ Bonus        .        .         .   
+ 
+              LV   |   $     |
+ Cost         3        20            
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Dagger" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        18        0 
+ Damage       8        1         0 
+ Bonus        L/4      L/10      none
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant              5             
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Pike" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        24        0 
+ Damage       12       8         0 
+ Bonus        L/3      L/5       none
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant              20            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Burn" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        5         5    
+ Damage       12       15        0      
+ Bonus        L/2      L/4       none        
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Fire" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        5         20 
+ Damage       15       20        0  
+ Bonus        L/2      L/4       none
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Web" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        22        0  
+ Damage       none     L/5       none
+ Bonus                             
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Tangle" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        0         0 
+ Damage       0        10        0 
+ Bonus        none     L/6       none
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Lash" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         0        0         0 
+ Damage       5        8         0 
+ Bonus        L/5      L/7       none
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant                            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Grapple" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         .        .         . 
+ Damage       .        .         . 
+ Bonus        .        .         .   
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant              15            
+þ page end
+þ page start
+þ COLOR 15
+ === Attacks "Cactus Seed" ===
+þ COLOR 11
+              Hp   |   Str   |   Ess
+ Uses         .        .         . 
+ Damage       .        .         . 
+ Bonus        .        .         .   
+ 
+              LV   |   $     |
+ Cost                                
+ Merchant              15            
+þ page end
+þ page start
+þ COLOR 15
+ === Battle 1 of 2: Offensive ===
 þ COLOR 11
  To do battle simply target any
  creature with any of your characters
- with any offensive command. If the
+ with any offensive þcommand. If the
  character has enough strength and
  essence then it will carry out the
  action.
 þ page end
 þ page start
+þ COLOR 15
+ === Battle: Defeat 1 of 2 ===
 þ COLOR 11
  After defeating a creature in battle
  your character may receive one of the
@@ -101,26 +373,40 @@
  also receives its strength.
 þ page end
 þ page start
+þ COLOR 15
+ === Battle: Defeat 2 of 2 ===
+þ COLOR 11
+ Slain creatures will drop a pouch
+ where their corpse fell, of which
+ may be pillaged using "þInspect".
+ page end
+þ page start
+þ COLOR 15
+ === Action Portal: Stats 1 of 2 ===
 þ COLOR 11
  ~ action portal ~
-
- HP - health points:
- amount of life power
-
- STR - strength:
- amount of muscle power
-
- ESS - essence:
- amount of magic power
+þ COLOR 15
+ HP - amount of health
+ (If reaches zero, you die.)
+þ COLOR 15
+ STR - amount of stamina
+ (If reaches zero, you faint.)
+þ COLOR 15
+ ESS - amount of mana force
+ (If reaches zero, you silence.)
 þ page end
 þ page start
+þ COLOR 15
+ === Action Portal: Stats 2 of 2 ===
 þ COLOR 11
  ~ level-up portal ~
 
  LV - level:
  amount of ability degrees
+ (doubles as in-game prerequisites)
 
  EXP - experience:
  amount of skill points
+ (doubles as in-game shop currency)
 þ page end
 þ end
