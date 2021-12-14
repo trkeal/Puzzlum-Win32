@@ -10,16 +10,34 @@
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
 #include once "crt\math.bi"
-#include once "fbgfx.bi"
-'''#inclib "zlib.dll"
+''#include once ".\inc\FBImage.bi"
 #include once ".\inc\TRK-PNG-Support-Win32-Static.bi"
 
-'''#include once ".\inc\zlib.bi"
-'''#include once ".\inc\fbimage.bi"
+#define __TRK_PNG_Alias__
 
-#include once ".\inc\const.bi"
-#include once ".\inc\names.bi"
-#include once ".\inc\clv.bi"
+#ifdef __TRK_PNG_Alias__
+
+Declare Function png_load alias "trk_png_load"  ( Filename As String = "Screenshot.png" ) As FB.Image Ptr
+
+Declare Function png_save alias "trk_png_save" ( Image As FB.Image Ptr, Filename As String = "Screenshot.png", saveAlpha As Boolean = false ) As Boolean
+
+Declare Sub png_destroy alias "trk_png_destroy" ( Image As FB.Image Ptr )
+
+#endif
+
+
+#include once "fbgfx.bi"
+#include ".\inc\FBImage.bi"
+
+'''#inclib "fbpng"
+
+'''#inclib "zlib.dll"
+
+'''#include once ".\inc\zlib.bi"
+
+#include once ".\inc\Const.bi"
+#include once ".\inc\Names.bi"
+#include once ".\inc\CLV.bi"
 
 	redim shared as names_type DB_Names(any), DB_Input( any ), DB_Map( any ), DB_Queue( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
     

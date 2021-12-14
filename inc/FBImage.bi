@@ -17,7 +17,7 @@
 # inclib "FBImage-64-static"
 #endif
 
-
+#include once "fbgfx.bi"
 ' Load BMP, PNG, JPG, TGA, DDS from file or memory as FBImage
 
 ' screenres 640,480,32 ' <--- RGBA
@@ -49,12 +49,6 @@ declare function GetLastResult() as const zstring ptr
 declare function SavePNGFile (byval img as any ptr, byval filename as const zstring ptr,byval saveAlpha as boolean=false) as boolean
 
 end extern
-
-declare function png_load( filename as string ) as fb.image ptr
-
-declare function png_save( image as fb.image ptr, filename as string, bsaveAlpha as boolean = false ) as boolean
-
-declare sub png_destroy( image as fb.image ptr )
 
 ' load (32bit) RGBA image and convert it for 16 bit RGB mode
 function Load16BitRGB(filename as const zstring ptr) as any ptr
@@ -133,18 +127,3 @@ namespace Base64
 end namespace  
 
 #endif ' __FBImage_bi__
-
-''' Refer to: http://Puzzlum.Net/
-''' TRK-PNG-Support-Win32-Static (.bi .bas)
-
-#define __fbimage_override__
-
-#ifndef __fbimage_override__
-
-	declare function png_load( filename as string ) as fb.image ptr
-
-	declare function png_save( image as fb.image ptr, filename as string, bsaveAlpha as boolean = false ) as boolean
-
-	declare sub png_destroy( image as fb.image ptr )
-
-#endif

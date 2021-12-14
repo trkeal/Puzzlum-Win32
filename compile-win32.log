@@ -1,0 +1,84 @@
+=== Roe 068 Win32 x86 Compiler === 
+ 
+=== Const Library === 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    const.bas -o const.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "const.asm" -o "const.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libconst.a" "__fb_ct.inf" "const.o" 
+ 
+=== Names Library === 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    names.bas -o names.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "names.asm" -o "names.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libnames.a" "__fb_ct.inf" "names.o" 
+ 
+=== CLV Library === 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    clv.bas -o clv.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "clv.asm" -o "clv.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libclv.a" "__fb_ct.inf" "clv.o" 
+ 
+=== FBImage Library === 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    fbimage.bas -o fbimage.asm
+fbimage.bas(134) error 14: Expected identifier, found 'fb' in 'function png_load( filename as string ) as fb.image ptr'
+fbimage.bas(135) warning 5(1): Implicit conversion
+fbimage.bas(138) error 59: Illegal specification, at parameter 1 (image) of png_save() in 'function png_save( image as fb.image ptr, filename as string, bsaveAlpha as boolean = false ) as boolean'
+fbimage.bas(139) warning 1(2): Passing scalar as pointer, at parameter 1 of SAVEPNGFILE()
+fbimage.bas(142) error 59: Illegal specification, at parameter 1 (image) of png_destroy() in 'sub png_destroy( image as fb.image ptr )'
+fbimage.bas(143) warning 1(2): Passing scalar as pointer, at parameter 1 of IMAGEDESTROY()
+ 
+=== TRK-PNG-Support-Win32-Static Library === 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    TRK-PNG-Support-Win32-Static.bas -o TRK-PNG-Support-Win32-Static.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "TRK-PNG-Support-Win32-Static.asm" -o "TRK-PNG-Support-Win32-Static.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libTRK-PNG-Support-Win32-Static.a" "__fb_ct.inf" "TRK-PNG-Support-Win32-Static.o" 
+ 
+=== Roe 068 Copy As 32bit === 
+        1 file(s) copied.
+ 
+=== Roe 068 32bit Windows Binary === 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    Roe068-fbc32.bas -o Roe068-fbc32.asm (main module)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "Roe068-fbc32.asm" -o "Roe068-fbc32.o"
+compiling rc:               C:\FreeBASIC\bin\win32\GoRC.exe /ni /nw /o /fo ".\win32\rc\puzzlum.obj" ".\win32\rc\puzzlum.rc"
+linking:      C:\FreeBASIC\bin\win32\ld.exe -m i386pe -o "Roe068-fbc32.exe" -subsystem windows -T "C:\FreeBASIC\lib\win32\fbextra.x" --stack 1048576,1048576 -s -L "lib/win" -L "C:\FreeBASIC\lib\win32" -L "." "C:\FreeBASIC\lib\win32\crt2.o" "C:\FreeBASIC\lib\win32\crtbegin.o" "C:\FreeBASIC\lib\win32\fbrt0.o" "Roe068-fbc32.o" ".\win32\rc\puzzlum.obj" "-(" -lfbgfx -lgdi32 -lwinmm -luser32 -lfbimage -lFBImage-32-static -lTRK-PNG-Support-Win32-Static -lconst -lnames -lclv -ladvapi32 -lfb -lgcc -lmsvcrt -lkernel32 -lmingw32 -lmingwex -lmoldname -lgcc_eh "-)" "C:\FreeBASIC\lib\win32\crtend.o" 
+linking failed: 'C:\FreeBASIC\bin\win32\ld.exe' terminated with exit code 1
+ 
+=== Execute Roe 068 32bit Binary === 

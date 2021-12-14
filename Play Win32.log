@@ -1,0 +1,54 @@
+
+C:\ag\Roe 068>del "compile-win32.log" 
+
+C:\ag\Roe 068>echo === Roe 068 Win32 x86 Compiler ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo === Const Library ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "const.bas" -lib -v -RR  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo === Names Library ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "names.bas" -lib -v -RR  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo === CLV Library ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "clv.bas" -lib -v -RR  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo === FBImage Library ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "fbimage.bas" -lib -v -RR  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo === TRK-PNG-Support-Win32-Static Library ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "TRK-PNG-Support-Win32-Static.bas" -lib -v -RR  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo === Roe 068 Copy As 32bit ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>copy "puzzlum-fbc068.bas" "Roe068-fbc32.bas"  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo === Roe 068 32bit Windows Binary ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "Roe068-fbc32.bas" -v -RR -s gui ".\win32\rc\puzzlum.rc"  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>echo === Execute Roe 068 32bit Binary ===  1>>"compile-win32.log" 
+
+C:\ag\Roe 068>"puzzlum-fbc068.exe"
+
+C:\ag\Roe 068>exit

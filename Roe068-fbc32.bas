@@ -12,14 +12,15 @@
 #include once "crt\math.bi"
 #include once "fbgfx.bi"
 '''#inclib "zlib.dll"
+
+#include once ".\inc\FBImage.bi"
 #include once ".\inc\TRK-PNG-Support-Win32-Static.bi"
 
 '''#include once ".\inc\zlib.bi"
-'''#include once ".\inc\fbimage.bi"
 
-#include once ".\inc\const.bi"
-#include once ".\inc\names.bi"
-#include once ".\inc\clv.bi"
+#include once ".\inc\Const.bi"
+#include once ".\inc\Names.bi"
+#include once ".\inc\CLV.bi"
 
 	redim shared as names_type DB_Names(any), DB_Input( any ), DB_Map( any ), DB_Queue( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
     
