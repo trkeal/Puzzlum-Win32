@@ -1,6 +1,5 @@
 
-'puzzlum-fbc068.bas
-'Puzzlum: Roe ( Build "068" )
+'puzzlum-win32.bi
 '
 'Puzzlum is Copyright (C) 1997, 2010, 2021 Timothy Robert Keal
 'Released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
@@ -13,334 +12,19 @@
 
 '=====
 
-#include once "fbgfx.bi"
-#include once ".\inc\FBImage.bi"
-#include once ".\inc\fbpngs.bi"
+	#include once "crt\math.bi"
+	#include once ".\inc\Const.bi"
+	#include once ".\inc\Names.bi"
 
-#include once "crt\math.bi"
+	#include once "fbgfx.bi"
+	#include once ".\inc\fbimage.bi"
+	#include once ".\inc\fbpngs.bi"
 
-#inclib "z"
+	#include once ".\inc\CLV.bi"
 
-#include once ".\inc\Const.bi"
-#include once ".\inc\Names.bi"
-#include once ".\inc\CLV.bi"
-
-	redim shared as names_type Bundle_Table( any )
-	redim shared as names_type Input_Table( any )
-	redim shared as names_type Names_Table(any)
-	redim shared as names_type Levels_Table()
-	redim shared as names_type Maps_Table( any )
-	redim shared as names_type Save_Table( any )
-	redim shared as names_type Queue_Table( any )
-	redim shared as names_type Attack_Table( any )
-	    
-    declare sub clv_glyph_ini (clv_glyph() as integer)
-    declare sub input_text (Index as integer, Src as integer, _
-        Row as short, Col as short, W as short, H as short, byref Text_str as string)
-
-    declare SUB suspend (byref start_sf as single, byref delay as short)
-    declare SUB graphicput (clv_buffer() as fb.image ptr, Index as integer, _
-        byref yy1_si as short, byref xx1_si as short, ss1_str as string, dpath_str as string)
-    DECLARE SUB MouseDriver (ax_si as short, bx_si as short, CX_si as short, dx_si as short)
-    declare SUB MouseStatus (byref LBi AS short, byref RBi AS short, byref Mouse_X AS short, byref Mouse_Y AS short)
-    declare sub progress_put (clv_buffer() as fb.image ptr, Index as integer, Caption as string, _
-        byref Cur as integer, Max as integer, _
-        X1 as integer, Y1 as integer, X2 as integer, Y2 as integer, _
-        Switch as integer, ARGB as uinteger, Increment as integer, Progress as string, _
-        byref LastSec as double, DelaySec as double)
-    DECLARE SUB cursorput ()
-    DECLARE SUB cinput ()
-    declare sub cls2
-    declare sub file_put_contents(filename as string, dat as string)
-    declare function file_get_contents(filename as string) as string
-    declare sub pal_load(filepath as string, pal() as uinteger)
-    declare sub frame_status(Row as short, Col as short)
-    declare sub frame_inventory (Row as short, Col as short)
-    declare sub frame_title (Row as short, Col as short)
-    declare sub frame_put (clv_buffer() as fb.image ptr, Index as integer, _
-        X1 as short, Y1 as short, X2 as short, Y2 as short, C1 as short,C2 as short)
-    declare sub clv_buffer_stack (clv_buffer() as fb.image ptr)
-
-    declare sub ln_roe ()
-    declare sub ln_startup ()
-    declare sub ln_starttitle ()
-    declare sub ln_starthelp ()
-    declare sub ln_main ()
-    declare sub ln_command ()
-    declare sub ln_command2 ()
-    declare sub ln_command3 ()
-    declare sub ln_swapdata ()
-    declare sub ln_attack ()
-    declare sub ln_battle ()
-    
-	declare sub ln_attkbite ()
-    declare sub ln_attkpnch ()
-    declare sub ln_attkwstf ()
-    declare sub ln_attkkick ()
-    declare sub ln_attkvnom ()
-    declare sub ln_attkdggr ()
-    declare sub ln_attkpike ()
-    declare sub ln_attkburn ()
-    declare sub ln_attkfire ()
-    declare sub ln_attkweb ()
-    declare sub ln_attktngl ()
-    declare sub ln_attklash ()
-    
-	declare Sub ln_attk_table ( attk as string = "%%", Attack_Table( Any ) As Names_Type )
+	#include once ".\inc\puzzlum-subs.bi"
+	#include once ".\inc\puzzlum-vars.bi"
 	
-	declare sub ln_usecure ()
-    declare sub ln_attkslep ()
-    declare sub ln_victory ()
-    declare sub ln_pillage ()
-    declare sub ln_paylevelup ()
-    'declare sub ln_reshow1 ()
-    'declare sub ln_wwait0 ()
-    declare sub ln_merchant ()
-    'declare sub ln_wwait1 ()
-    declare sub ln_talk0001 ()
-    'declare sub ln_reshow3 ()
-    'declare sub ln_wwait2 ()
-    declare sub ln_abilitygain ()
-    declare sub ln_levelup ()
-    declare sub ln_gain ()
-    declare sub ln_getit ()
-    declare sub ln_attackusing ()
-    declare sub ln_battleattack ()
-    declare sub ln_defeated ()
-    declare sub ln_portal ()
-    declare sub ln_title (clv_buffer() as fb.image ptr, Index as integer)
-    declare sub ln_status ()
-    declare sub ln_framstts ()
-    declare sub ln_framsttsitms ()
-    declare sub ln_stts (clv_buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
-    declare sub ln_sttsgpic ()
-    declare sub ln_sttsitms ()
-    declare sub ln_names ()
-    declare sub ln_move ()
-    declare sub ln_wingmove ()
-    declare sub ln_firemove ()
-    declare sub ln_webmove ()
-    declare sub ln_castfire ()
-    declare sub ln_castdust ()
-    declare sub ln_castweb ()
-    declare sub ln_castspdr ()
-    declare sub ln_castccts ()
-    declare sub ln_castdtby ()
-    declare sub ln_gone ()
-    declare sub ln_delete2 ()
-    declare sub ln_autolevelup ()
-    declare sub ln_statgain ()
-    declare sub ln_statmax ()
-    declare sub ln_nextaction ()
-    declare sub ln_newaction ()
-    declare sub ln_randomaction ()
-    declare sub ln_getaction ()
-    declare sub ln_putaction ()
-    declare sub ln_tempget ()
-    declare sub ln_tempput ()
-    declare sub ln_inbounds ()
-    declare sub ln_haveit ()
-    declare sub ln_hasit ()
-    declare sub ln_havehadit ()
-    declare sub ln_hashadit ()
-    declare sub ln_havegotit ()
-    declare sub ln_hasgotit ()
-    declare sub ln_winexp ()
-    declare sub ln_windggr ()
-    declare sub ln_winpike ()
-    declare sub ln_wingrpl ()
-    declare sub ln_winseed ()
-    declare sub ln_winkey1 ()
-    declare sub ln_winkey2 ()
-    declare sub ln_winit ()
-    declare sub ln_am ()
-    declare sub ln_are ()
-    declare sub ln_here ()
-    declare sub ln_there ()
-    declare sub ln_blankcheck ()
-    declare sub ln_okbutton ()
-    declare sub ln_wwait ()
-    declare sub ln_buttonwait ()
-    declare sub ln_commandwait ()
-    declare sub ln_frameput ()
-    declare sub ln_avgframe ()
-    declare sub ln_screenset ()
-    declare sub ln_findcrsr ()
-    declare sub ln_showtext (clv_buffer() as fb.image ptr, Index as integer)
-    declare sub ln_prflblnk ()
-    declare sub ln_prflset ()
-    declare sub ln_prflmake ()
-    
-	declare sub ln_actncure ()
-    declare sub ln_actnbite ()
-    declare sub ln_actnpnch ()
-    declare sub ln_actnkick ()
-    declare sub ln_actndggr ()
-    declare sub ln_actnpike ()
-    declare sub ln_actnvnom ()
-    declare sub ln_actnfire ()
-    declare sub ln_actndust ()
-    declare sub ln_actnweb ()
-    declare sub ln_actnspdr ()
-    declare sub ln_actnccts ()
-    declare sub ln_actndtby ()
-    declare sub ln_actnmove ()
-    declare sub ln_actnwing ()
-    declare sub ln_actnwstf ()
-    declare sub ln_actnkey1 ()
-    declare sub ln_actnkey2 ()
-    declare sub ln_actnispt ()
-
-    declare sub ln_actnfiremove ()
-    declare sub ln_actndustmove ()
-    declare sub ln_actnwebmove ()
-
-    declare sub ln_actngrpl ()
-    declare sub ln_actnrapl ()
-    
-	declare sub ln_crtnimp ()
-    declare sub ln_crtnfire ()
-    declare sub ln_crtndust ()
-    declare sub ln_crtnshkt ()
-    declare sub ln_crtnemgd ()
-    declare sub ln_crtnspdr ()
-    declare sub ln_crtnweb ()
-    declare sub ln_crtndtby ()
-    declare sub ln_crtngrml ()
-    declare sub ln_crtnpndx ()
-    declare sub ln_crtnccts ()
-    declare sub ln_crtnbldr ()
-    
-	declare sub savegame_save( filename as string = "", Save_Table( any ) as names_type )
-	declare sub savegame_load( filename as string = "", Save_Table( any ) as names_type )
-
-	declare function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
-	declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
-
-	ScreenRes 640, 480, 32, 16
-
-    COMMON SHARED as short win_si
-    COMMON SHARED as string mappath_str, map_str, lvuppath_str, lvup_str, mapid_str
-    COMMON SHARED as string thispath_str, fontpath_str, logopath_str, spritepath_str, palpath_str, helppath_str, helpfilename_str
-	
-    dim shared as string bundle_filename, help_filename, map_filename, levels_filename, input_filename, palette_filename, attack_filename
-
-    dim shared as double progress_delay=0.2
-    
-    DIM SHARED as string e_stra(256 * 256, 8) 'grid identity_str
-    DIM SHARED as double G_dfa(256 * 256, 16) 'grid statistics
-    DIM SHARED as short d_sia(4, 2) 'direction (n,e,s,w)
-    DIM SHARED as short t_sia(64 * 64 + 8) 'clv_text image
-    DIM SHARED as short l_sia(64) 'level up
-    DIM SHARED as short win_sia(-win_si TO 2 * win_si)
-    redim shared as fb.image ptr fontsheets(&H00 to &HFF)
-    dim shared as uinteger pal(&H00 to &HFF)
-    dim shared as fb.image ptr pages(0 to 15,0 to 1)
-    
-    dim shared as fb.image ptr gtmp, gtmpt
-    DIM SHARED as string mouse_str
-    dim shared as short ex_si, dy_si, mdx_si, mdy_si
-    dim shared as single textdelay_sf
-    dim shared as short textcolor_si
-    dim shared as string c_str, clast_str, texts_str, temp1_str, temp2_str, rr_str
-    dim shared as short I_si
-    dim shared as string a_str, H_str
-    dim shared as short ttt_si 
-    dim shared as short MS_si
-    dim shared as short t_si
-    dim shared as string ctrl_str
-    dim shared as short Ty_si, DD_si, Tx_si, AA_si
-    dim shared as string R_str, bg_str, fg_str, rg_str
-    dim shared as string rbg_str, rfg_str
-    dim shared as single rid_sf
-    dim shared as string prflidty_str, prflactn_str, prflactnct_str, prflgpic_str, prflcmnd_str, prflgpicactn_str
-    dim shared as single prflidty_sf, prflhp_sf, prflstr_sf, prfless_sf
-    dim shared as single prflspd_sf, prflarmr_sf, prflexp_sf, prflvalu_sf, prflpirc_sf, prflchck_sf
-    dim shared as single prfllv_sf, prflhpmax_sf, prflstrmax_sf, prflessmax_sf
-    dim shared as single prflessspd_sf, prflevad_sf, prflblnk_sf
-    dim shared as string mapname_str
-    dim shared as single rr_sf
-    dim shared as short colr_si
-    dim shared as string text_str
-    dim shared as short a_si, d_si, dis_si
-    dim shared as short statx_si, viewx_si, framec1_si, framec2_si
-    dim shared as single framex1_sf, framex2_sf, framey1_sf, framey2_sf
-    dim shared as short titled_si
-    dim shared as string am_str
-    dim shared as short am, xm_si, ym_si
-    dim shared as short Mouse_Width, Mouse_Height, Screen_Width, Screen_Height, Display_Width, Display_Height
-    dim shared as short Ax, Bx, Cx, Dx
-    dim shared as short XXmouse_si, YYmouse_si, Lb_si, Rb_si, XMouse_si, Ymouse_si
-    dim shared as short jsx_si, jsy_si, jsa_si, jsb_si
-    dim shared as short llb_si, rrb_si, l1b_si, r1b_si
-    dim shared as string action_str, AA_str
-    dim shared as single st_sf
-    dim shared as short tempx_si, tempy_si
-    dim shared as short evadeattack, attackblocked
-    dim shared as short hp_use_si, str_use_si, ess_use_si
-    dim shared as short hp_dmg_si, str_dmg_si, ess_dmg_si
-    dim shared as string hp_dmg_bonus_str, str_dmg_bonus_str, ess_dmg_bonus_str
-    dim shared as short hp_dmg_bonus_si, str_dmg_bonus_si, ess_dmg_bonus_si
-    dim shared as short entity_count, entity_index
-    dim shared as string attk_pict_str, attk_name_str
-    dim shared as short temptx_si, tempty_si, tempdis_si, slepadd_si
-    dim shared as short lvgain_si, valugain_si, expgain_si, strgain_si, essgain_si
-    dim shared as short menuitem_si, menuselect_si
-    dim shared as string menu_str, haveit_str
-    dim shared as short menusize_si, inmenu_si, menucost_si
-    dim shared as string menuitem_str, menuselect_str
-    dim shared as string hashadit_str
-    dim shared as string getit_str
-    dim shared as short am_si, are_si
-    dim shared as string are_str
-    dim shared as short dx1_si, dy1_si, dx2_si, dy2_si
-    dim shared as short ttx, tty
-    dim shared as single tt_sf, tempx_sf, tempy_sf
-    dim shared as short tempd_si
-    dim shared as string there_str
-    dim shared as short there_si
-    dim shared as short move_si
-    dim shared as string tempaction_str
-    dim shared as short inbounds_si
-    dim shared as short haveit_si
-    dim shared as string t_str, tt_str
-    dim shared as string havegotit_str
-    dim shared as short getit_si
-    dim shared as string winit_str
-    dim shared as string hasit_str
-    dim shared as short hasit_si
-    dim shared as short here_si
-    dim shared as string blankcheck_str
-    dim shared as short blankcheck_si
-    dim shared as short crsrx_si, crsry_si
-    dim shared as string attackthem_str
-    dim shared as string havehadit_str
-    dim shared as short r1_si, r2_si, r3_si, r4_si, r5_si
-    dim shared as integer exitcommand3, exitcommand2, exitcommand, restart_roe
-    dim shared as single tempx1_sf, tempy1_sf, tempx2_sf, tempy2_sf
-    dim shared as short t_sf, R_si, tt_si
-    dim shared as string here_str, hasgotit_str
-
-    dim shared as integer clv_buffer_portal=2, clv_buffer_status=3, clv_buffer_playbyplay=4
-    dim shared as integer clv_buffer_expshop=5, clv_buffer_merchant=6, clv_buffer_menu=7
-    dim shared as integer clv_buffer_title=8, clv_buffer_help=9, clv_buffer_cursor=10
-    dim shared as integer clv_buffer_splash=11, clv_buffer_bar=12, clv_buffer_progress=13
-    
-    clv_buffer_focus=clv_buffer_visible
-
-    'dir axis info '[!] um? proper documentation, please.
-    
-	DATA  1, 1
-    DATA  1, 4
-    DATA  1, 8
-    DATA  1,12
-    DATA  1,16
-
-ln_roe
-
-end
-
-
 
 sub ln_roe ()
     
@@ -843,12 +527,12 @@ sub ln_starthelp ()
     OPEN thispath_str + helppath_str + helpfilename_str FOR INPUT AS Filemode
     do while not eof(Filemode)
         LINE INPUT #Filemode, R_str
-        IF R_str = "þ page start" THEN
+        IF R_str = "Ã¾ page start" THEN
             clv_buffer_cls clv_buffer(), clv_buffer_help
             ln_title clv_buffer(), clv_buffer_help
             R_Str=chr(0)
         END IF
-        IF R_str = "þ page end" THEN
+        IF R_str = "Ã¾ page end" THEN
             LOCATE 22, 1
             colr_si = 9
             texts_str = " (C)ontinue"
@@ -866,12 +550,12 @@ sub ln_starthelp ()
             loop while NOT (Compare_Key( c_str, "Continue", Input_Table() )) OR (ym_si = 22 AND xm_si = 3 AND Lb_si = -1)
             R_Str=chr(0)
         end if
-        IF R_str = "þ end" THEN
+        IF R_str = "Ã¾ end" THEN
             CLOSE Filemode            
             R_Str=chr(0)
             exit sub
         END IF
-        IF LEFT(R_str, 7) = "þ COLOR" THEN
+        IF LEFT(R_str, 7) = "Ã¾ COLOR" THEN
             colr_si = VAL(RIGHT(R_str, LEN(R_str) - 7))
             R_str=chr(0)
         END IF
@@ -1633,10 +1317,10 @@ ln_reshow1:
             R_str = menuitem_str
             ln_names
             IF menucost_si > 0 THEN
-            clv_draw_text clv_buffer(), clv_font(), clv_buffer_expshop, clv_glyph(), (X1+1-1) shl 3,(Y1+6+menuitem_si-1) shl 3,  "ú" + rr_str + " " + STRING((40 - 15) - LEN(rr_str) - 7, "-") + RIGHT("----" + STR(menucost_si) + "$", 5)
+            clv_draw_text clv_buffer(), clv_font(), clv_buffer_expshop, clv_glyph(), (X1+1-1) shl 3,(Y1+6+menuitem_si-1) shl 3,  "Ãº" + rr_str + " " + STRING((40 - 15) - LEN(rr_str) - 7, "-") + RIGHT("----" + STR(menucost_si) + "$", 5)
             END IF
             IF menucost_si = 0 THEN
-                clv_draw_text clv_buffer(), clv_font(), clv_buffer_expshop, clv_glyph(), (X1+1-1) shl 3, (Y1+6+menuitem_si-1) shl 3, "ú" + rr_str
+                clv_draw_text clv_buffer(), clv_font(), clv_buffer_expshop, clv_glyph(), (X1+1-1) shl 3, (Y1+6+menuitem_si-1) shl 3, "Ãº" + rr_str
             END IF
         NEXT menuitem_si
 ln_wwait0:
@@ -1730,10 +1414,10 @@ ln_merchant1:
             R_str = menuitem_str
             ln_names
             IF menucost_si > 0 THEN
-                clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (viewx_si-1) shl 3, (12 + menuitem_si-1) shl 3, "ú" + rr_str + " " + STRING((40 - viewx_si) - LEN(rr_str) - 7, "-") + RIGHT("----" + RIGHT(STR(menucost_si), LEN(STR(menucost_si)) - 1) + "$", 5)
+                clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (viewx_si-1) shl 3, (12 + menuitem_si-1) shl 3, "Ãº" + rr_str + " " + STRING((40 - viewx_si) - LEN(rr_str) - 7, "-") + RIGHT("----" + RIGHT(STR(menucost_si), LEN(STR(menucost_si)) - 1) + "$", 5)
             END IF
             IF menucost_si = 0 THEN
-                clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (viewx_si-1) shl 3, (12 + menuitem_si-1) shl 3, "ú" + rr_str
+                clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (viewx_si-1) shl 3, (12 + menuitem_si-1) shl 3, "Ãº" + rr_str
             END IF
         NEXT menuitem_si
 'end sub
@@ -1820,10 +1504,10 @@ sub ln_talk0001 ()
             R_str = menuitem_str
             ln_names
             IF menucost_si > 0 THEN
-                clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (Col-1) shl 3, (row+7+menuitem_si-1) shl 3, "ú" + rr_str + " =" + STR(menucost_si)
+                clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (Col-1) shl 3, (row+7+menuitem_si-1) shl 3, "Ãº" + rr_str + " =" + STR(menucost_si)
             END IF
             IF menucost_si = 0 THEN
-                clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (Col-1) shl 3, (row+7+menuitem_si-1) shl 3, "ú" + rr_str
+                clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (Col-1) shl 3, (row+7+menuitem_si-1) shl 3, "Ãº" + rr_str
             END IF
         NEXT menuitem_si
 'end sub
@@ -2264,7 +1948,7 @@ sub ln_stts (clv_buffer() as fb.image ptr, Index as integer, Row as short, Col a
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+1-1) shl 3, "LV"
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+3-1) shl 3, (Row+1-1) shl 3, RIGHT(STR(100 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)), 2)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+9-1) shl 3, (Row+1-1) shl 3, (RIGHT("     " + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 6)), 5) + "$")
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+2-1) shl 3, (Row+1-1) shl 3, "ú"
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+2-1) shl 3, (Row+1-1) shl 3, "Ãº"
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+2-1) shl 3, "HP"
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+4-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 1))), 4)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+9-1) shl 3, (Row+2-1) shl 3, "/"
@@ -2859,7 +2543,7 @@ sub ln_okbutton ()
     'clv_buffer_focus=clv_buffer_menu
     clv_buffer_cls clv_buffer(), clv_buffer_menu
     
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_menu, clv_glyph(), (25-1) shl 3,(23-1) shl 3, "úOk"
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_menu, clv_glyph(), (25-1) shl 3,(23-1) shl 3, "ÃºOk"
     ln_wwait
 
     clv_buffer_cls clv_buffer(), clv_buffer_menu
@@ -4053,7 +3737,7 @@ sub frame_status(Row as short, Col as short)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (col-1) shl 3, (Row+1-1) shl 3, "LV"
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+3-1) shl 3, (Row+1-1) shl 3, RIGHT(STR(100 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)), 2)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (col+9-1) shl 3, (Row+1-1) shl 3, (RIGHT("     " + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 6)), 5) + "$")
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+2-1) shl 3, (Row+1-1) shl 3, "ú"
+    clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+2-1) shl 3, (Row+1-1) shl 3, "Ãº"
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col-1) shl 3, (Row+2-1) shl 3, "HP"
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+4-1) shl 3, (Row+2-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 1))), 4)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+9-1) shl 3, (Row+2-1) shl 3, "/"

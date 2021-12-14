@@ -1,6 +1,6 @@
-=== Roe 068 Win32 x86 Compiler === 
+===[ Puzzlum-Win32 ]==[ FreeBASIC x86 Linker Utility ]=== 
  
-=== Const Library === 
+===[ Constants ]==[ "Win32 Static Library" ]=== 
 FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
 Copyright (C) 2004-2021 The FreeBASIC development team.
 standalone
@@ -13,7 +13,7 @@ compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
 assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
 archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libconst.a" "__fb_ct.inf" "const.o" 
  
-=== Names Library === 
+===[ Names Table ]==[ "Win32 Static Library" ]=== 
 FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
 Copyright (C) 2004-2021 The FreeBASIC development team.
 standalone
@@ -26,7 +26,7 @@ compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
 assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
 archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libnames.a" "__fb_ct.inf" "names.o" 
  
-=== CLV Library === 
+===[ Composite Layer Video ]==[ "Win32 Static Library" ]=== 
 FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
 Copyright (C) 2004-2021 The FreeBASIC development team.
 standalone
@@ -39,7 +39,7 @@ compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
 assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
 archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libclv.a" "__fb_ct.inf" "clv.o" 
  
-=== FBImage Library === 
+===[ FBImage ]==[ "Win32 Static Library" ]=== 
 FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
 Copyright (C) 2004-2021 The FreeBASIC development team.
 standalone
@@ -52,18 +52,55 @@ compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
 assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
 archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libfbimage.a" "__fb_ct.inf" "fbimage.o" 
  
-=== Roe 068 Copy As 32bit === 
-        1 file(s) copied.
- 
-=== Roe 068 32bit Windows Binary === 
+===[ Puzzlum / Vars ]==[ "Win32 Static Library" ]=== 
 FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
 Copyright (C) 2004-2021 The FreeBASIC development team.
 standalone
 target:       win32, 486, 32bit
 backend:      gas
-compiling:    Roe068-fbc32.bas -o Roe068-fbc32.asm (main module)
-assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "Roe068-fbc32.asm" -o "Roe068-fbc32.o"
-compiling rc:               C:\FreeBASIC\bin\win32\GoRC.exe /ni /nw /o /fo ".\win32\rc\puzzlum.obj" ".\win32\rc\puzzlum.rc"
-linking:      C:\FreeBASIC\bin\win32\ld.exe -m i386pe -o "Roe068-fbc32.exe" -subsystem windows -T "C:\FreeBASIC\lib\win32\fbextra.x" --stack 1048576,1048576 -s -L "lib/win" -L "C:\FreeBASIC\lib\win32" -L "." "C:\FreeBASIC\lib\win32\crt2.o" "C:\FreeBASIC\lib\win32\crtbegin.o" "C:\FreeBASIC\lib\win32\fbrt0.o" "Roe068-fbc32.o" ".\win32\rc\puzzlum.obj" "-(" -lfbgfx -lgdi32 -lwinmm -luser32 -lfbimage -lFBImage-32-static -lz -lfbpngs -lconst -lnames -lclv -ladvapi32 -lmsvcrt -lfbpng -lfb -lgcc -lkernel32 -lmingw32 -lmingwex -lmoldname -lgcc_eh "-)" "C:\FreeBASIC\lib\win32\crtend.o" 
+compiling:    puzzlum-vars.bas -o puzzlum-vars.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "puzzlum-vars.asm" -o "puzzlum-vars.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libpuzzlum-vars.a" "__fb_ct.inf" "puzzlum-vars.o" 
  
-=== Execute Roe 068 32bit Binary === 
+===[ Puzzlum / Subs ]==[ "Win32 Static Library" ]=== 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    puzzlum-subs.bas -o puzzlum-subs.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "puzzlum-subs.asm" -o "puzzlum-subs.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libpuzzlum-subs.a" "__fb_ct.inf" "puzzlum-subs.o" 
+ 
+===[ Puzzlum / Task Manager ]==[ "Win32 Static Library" ]=== 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    puzzlum-task.bas -o puzzlum-task.asm
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "puzzlum-task.asm" -o "puzzlum-task.o"
+creating:     __fb_ct.inf.bas
+compiling:    __fb_ct.inf.bas -o __fb_ct.asm (FB compile-time info)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "__fb_ct.asm" -o "__fb_ct.inf"
+archiving:    C:\FreeBASIC\bin\win32\ar.exe -rsc "libpuzzlum-task.a" "__fb_ct.inf" "puzzlum-task.o" 
+ 
+===[ Puzzlum / Main ]==[ "32bit Windows Binary" ]=== 
+FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
+Copyright (C) 2004-2021 The FreeBASIC development team.
+standalone
+target:       win32, 486, 32bit
+backend:      gas
+compiling:    puzzlum-win32.bas -o puzzlum-win32.asm (main module)
+assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "puzzlum-win32.asm" -o "puzzlum-win32.o"
+compiling rc:               C:\FreeBASIC\bin\win32\GoRC.exe /ni /nw /o /fo ".\win32\rc\puzzlum.obj" ".\win32\rc\puzzlum.rc"
+linking:      C:\FreeBASIC\bin\win32\ld.exe -m i386pe -o "puzzlum-win32.exe" -subsystem windows -T "C:\FreeBASIC\lib\win32\fbextra.x" --stack 1048576,1048576 -s -L "lib/win" -L "C:\FreeBASIC\lib\win32" -L "." "C:\FreeBASIC\lib\win32\crt2.o" "C:\FreeBASIC\lib\win32\crtbegin.o" "C:\FreeBASIC\lib\win32\fbrt0.o" "puzzlum-win32.o" ".\win32\rc\puzzlum.obj" "-(" -lpuzzlum-subs -lconst -lnames -lfbgfx -lgdi32 -lwinmm -luser32 -lfbimage -lFBImage-32-static -lz -lfbpngs -lclv -lpuzzlum-vars -lpuzzlum-win32 -lpuzzlum-task -ladvapi32 -lmath -lmsvcrt -lfbpng -lfbgfx.bi -l.incbimage.bi -l.incbpngs.bi -lcrtmath.bi -l.incConst.bi -l.incNames.bi -l.incpuzzlum-vars.bi -lfb -lgcc -lkernel32 -lmingw32 -lmingwex -lmoldname -lgcc_eh "-)" "C:\FreeBASIC\lib\win32\crtend.o" 
+linking failed: 'C:\FreeBASIC\bin\win32\ld.exe' terminated with exit code 1
+ 
+===[ Now attempting to load the "puzzlum-win32" executable.. ]=== 

@@ -14,14 +14,19 @@
 '=====
 
 	#inclib "clv"
-	#include once ".\inc\clv.bi"
-	#include once "fbgfx.bi"
+
 	#include once "crt\math.bi"
+	#include once ".\inc\Const.bi"
+	#include once ".\inc\Names.bi"
+
+	#include once "fbgfx.bi"
+	#include once ".\inc\fbimage.bi"
+	#include once ".\inc\fbpngs.bi"
 	
 	const clv_math_Pi = 4 * ATN(1)
     
-	dim shared as const ulong clv_flag_and=0, clv_flag_or=1
-    
+	dim shared as const ulong clv_flag_and=0, clv_flag_or=1	
+
 	const clv_buffer_and=0, clv_buffer_or=1
     const clv_buffer_visible=0, clv_buffer_draw=1
     const clv_flag_default=0, clv_flag_b=1, clv_flag_bf=2
@@ -29,6 +34,8 @@
     const clv_font_flag_load=1, clv_font_flag_destroy=2
 
     dim shared as integer clv_buffer_focus
+
+	clv_buffer_focus=clv_buffer_visible
 
 	redim shared clv_buffer( 0 to 16, 0 to 1 ) as fb.image ptr
 
