@@ -28,6 +28,7 @@ Declare Sub png_destroy alias "trk_png_destroy" ( Image As FB.Image Ptr )
 
 #include once "fbgfx.bi"
 #include ".\inc\FBImage.bi"
+#include ".\inc\TRK-PNG-Support-Win32-Static.bi"
 
 '''#inclib "fbpng"
 
