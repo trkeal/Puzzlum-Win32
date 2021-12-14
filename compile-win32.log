@@ -74,8 +74,6 @@ standalone
 target:       win32, 486, 32bit
 backend:      gas
 compiling:    Roe068-fbc32.bas -o Roe068-fbc32.asm (main module)
-assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "Roe068-fbc32.asm" -o "Roe068-fbc32.o"
-compiling rc:               C:\FreeBASIC\bin\win32\GoRC.exe /ni /nw /o /fo ".\win32\rc\puzzlum.obj" ".\win32\rc\puzzlum.rc"
-linking:      C:\FreeBASIC\bin\win32\ld.exe -m i386pe -o "Roe068-fbc32.exe" -subsystem windows -T "C:\FreeBASIC\lib\win32\fbextra.x" --stack 1048576,1048576 -s -L "lib/win" -L "C:\FreeBASIC\lib\win32" -L "." "C:\FreeBASIC\lib\win32\crt2.o" "C:\FreeBASIC\lib\win32\crtbegin.o" "C:\FreeBASIC\lib\win32\fbrt0.o" "Roe068-fbc32.o" ".\win32\rc\puzzlum.obj" "-(" -lfbgfx -lgdi32 -lwinmm -luser32 -lfbimage -lFBImage-32-static -lz -lfbpngs -lconst -lnames -lclv -ladvapi32 -lmsvcrt -lfbpng -lfb -lgcc -lkernel32 -lmingw32 -lmingwex -lmoldname -lgcc_eh "-)" "C:\FreeBASIC\lib\win32\crtend.o" 
+Roe068-fbc32.bas(436) error 42: Variable not declared, mapid_str in 'mapid_str = sync_names( "map/id", Maps_Table() )'
  
 === Execute Roe 068 32bit Binary === 

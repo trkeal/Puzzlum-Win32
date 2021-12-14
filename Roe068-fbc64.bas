@@ -1,25 +1,30 @@
 '"Puzzlum : Realm of Existence"
-'Build: puzzlum-fbc068.200908170813
+'Build: puzzlum-fbc068.202112132028
 
 'Puzzlum is Copyright (C) 1989-2021 Timothy Robert Keal alias jargon
-'Puzzlum is released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" (Attribution, Education / Charity)
+'Released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
 'http://puzzlum.net/
 'mailto:trkeal@gmail.com
 
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
-#include once "crt\math.bi"
+'=====
+
 #include once "fbgfx.bi"
-'''#inclib "zlib.dll"
-#include once ".\inc\TRK-PNG-Support-Win32-Static.bi"
+#include once ".\inc\FBImage.bi"
+#include once ".\inc\fbpngs.bi"
 
-'''#include once ".\inc\zlib.bi"
-'''#include once ".\inc\fbimage.bi"
+#include once "crt\math.bi"
 
-#include once ".\inc\const.bi"
-#include once ".\inc\names.bi"
-#include once ".\inc\clv.bi"
+#include once "fbgfx.bi"
+#include ".\inc\FBImage.bi"
+
+#inclib "z"
+
+#include once ".\inc\Const.bi"
+#include once ".\inc\Names.bi"
+#include once ".\inc\CLV.bi"
 
 	redim shared as names_type DB_Names(any), DB_Input( any ), DB_Map( any ), DB_Queue( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
     

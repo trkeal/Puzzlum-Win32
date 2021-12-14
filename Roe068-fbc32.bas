@@ -1,5 +1,5 @@
 '"Puzzlum : Realm of Existence"
-'Build: puzzlum-fbc068.200908170813
+'Build: puzzlum-fbc068.202112132028
 
 'Puzzlum is Copyright (C) 1989-2021 Timothy Robert Keal alias jargon
 'Released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
@@ -16,25 +16,17 @@
 #include once ".\inc\fbpngs.bi"
 
 #include once "crt\math.bi"
-''#include once ".\inc\FBImage.bi"
-'#include once ".\inc\TRK-PNG-Support-Win32-Static.bi"
 
 #include once "fbgfx.bi"
 #include ".\inc\FBImage.bi"
-'#include ".\inc\TRK-PNG-Support-Win32-Static.bi"
-
-'''#inclib "fbpng"
-
-'''#inclib "zlib.dll"
 
 #inclib "z"
-'#include once "zlib.bi"
 
 #include once ".\inc\Const.bi"
 #include once ".\inc\Names.bi"
 #include once ".\inc\CLV.bi"
 
-	redim shared as names_type DB_Names(any), DB_Input( any ), DB_Map( any ), DB_Queue( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
+	redim shared as names_type DB_Names(any), DB_Input( any ), Maps_Table( any ), Levels_Table(), Input_Table( any ), Names_Buffer( any ), Data_Table( any ), Queue_Table( any ), map_buffer( any )
     
     declare sub clv_glyph_ini (clv_glyph() as integer)
     declare sub input_text (Index as integer, Src as integer, _
@@ -345,13 +337,13 @@ sub ln_roe ()
     'netoutmode_li = 67
     helppath_str="help\"
     helpfilename_str = "roe4help.hlp"
-    map_str = "demo.vds"
+    map_str = "Dire Dungeon 1.dat"
     lvuppath_str = "lvup\"
     lvup_str = "roe_lvup.dat"
     	
 	wipe_table( DB_Input() )
     
-    load_names_from_file ( ".\dict\input.txt", DB_Queue() )
+    load_names_from_file ( ".\dict\input.dat", Input_Table() )
 	
 	'Timothy_memory_queue_load queue(), ".\dict\input.txt", 'Timothy_Write, Timothy_Write
     'Timothy_memory_queue_exec DB_Input(),queue(),Timothy_Write
@@ -426,12 +418,26 @@ sub ln_startup ()
 	wipe_table( DB_Names() )
 	wipe_table( Names_Buffer() )
 
-	load_names_from_file( ".\dict\names.txt" , Names_Buffer() )
-  
-    OPEN thispath_str + mappath_str + map_str FOR INPUT AS 1
-    INPUT #1, mapname_str
-    INPUT #1, AA_si
-    INPUT #1, DD_si
+	load_names_from_file( ".\dict\names.dat" , Names_Buffer() )
+		
+	'level up data
+    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
+        l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
+    NEXT t_si
+
+  	load_names_from_file( thispath_str + mappath_str + map_str, Maps_Table() )
+
+    'OPEN thispath_str + mappath_str + map_str FOR INPUT AS 1
+    
+	
+	'INPUT #1, 
+	mapname_str = sync_names( "map/name", Maps_Table() )
+
+	mapid_str = sync_names( "map/id", Maps_Table() )
+    'INPUT #1, 
+	AA_si = val( sync_names( "map/AA", Maps_Table() ) )
+    'INPUT #1, 
+	DD_si = val( sync_names( "map/DD", Maps_Table() ) )
 
     'directional axis matrix
     d_sia(0, 1) = 0: d_sia(0, 2) = 0 'self
@@ -449,52 +455,36 @@ sub ln_startup ()
     textdelay_sf = 2.5: '.8 '.55
     win_si = 4
 
- 
     RANDOMIZE TIMER
-    RESTORE
-  
-    'mouse_str = SPACE(57)
-    'FOR I_si = 1 TO 57
-    '    READ a_str
-    '    H_str = CHR(VAL("&H" + a_str))
-    '    MID(mouse_str, I_si, 1) = H_str
-    'NEXT I_si
-  
-    'DATA 55,89,E5,8B,5E,0C,8B,07,50,8B,5E,0A,8B,07,50,8B
-    'DATA 5E,08,8B,0F,8B,5E,06,8B,17,5B,58,1E,07,CD,33,53
-    'DATA 8B,5E,0C,89,07,58,8B,5E,0A,89,07,8B,5E,08,89,0F
-    'DATA 8B,5E,06,89,17,5D,CA,08,00
-  
+    RESTORE  
+
     FOR ttt_si = 0 TO win_si
         READ win_sia(1 + (ttt_si - 1) * 2)
         READ win_sia(2 + (ttt_si - 1) * 2)
     NEXT ttt_si
-     
-    'MS_si = MouseInit
-    'IF NOT MS_si THEN
-    '    'PRINT "Mouse not found"
-    '    AMOUSE_str = "NO"
-    'END IF
-    'IF MS_si THEN
-    '    'PRINT "Mouse found and initialized"
-    '    AMOUSE_str = "YES"
-    '    'mouseshow
-    'END IF
+         
     
-    'level up data
-    OPEN thispath_str + lvuppath_str + lvup_str FOR INPUT AS 2
-    FOR t_si = 0 TO 64
-        INPUT #2, l_sia(t_si)
+	load_names_from_file( thispath_str + lvuppath_str + lvup_str, Levels_Table() )
+	'level up data
+    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
+        l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
     NEXT t_si
-    CLOSE 2
     
     ctrl_str = "pndximp_"
     IF INT(RND(1) * 2) + 1 = 2 THEN ctrl_str = ctrl_str + "dust"
     FOR Ty_si = 1 TO DD_si
-        INPUT #1, R_str
-        LINE INPUT #1, bg_str
-        LINE INPUT #1, fg_str
-        LINE INPUT #1, rg_str
+        
+		bg_str = sync_names( "map/row/bg" + ltrim$( str$( Ty_si ) ), Maps_Table() )
+		fg_str = sync_names( "map/row/fg" + ltrim$( str$( Ty_si ) ), Maps_Table() )
+		rg_str = sync_names( "map/row/rg" + ltrim$( str$( Ty_si ) ), Maps_Table() )
+		
+		'INPUT #1, 
+		
+		R_str = ltrim$( str$( Ty_si ) )
+        
+		'LINE INPUT #1, bg_str
+        'LINE INPUT #1, fg_str
+        'LINE INPUT #1, rg_str
         FOR Tx_si = 1 TO AA_si
             rbg_str = MID(bg_str, (Tx_si - 1) * 5 + 1, 4)
             rfg_str = MID(fg_str, (Tx_si - 1) * 5 + 1, 4)
