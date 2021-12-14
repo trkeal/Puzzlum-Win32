@@ -2,39 +2,33 @@
 'Build: puzzlum-fbc068.200908170813
 
 'Puzzlum is Copyright (C) 1989-2021 Timothy Robert Keal alias jargon
-'Puzzlum is released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" (Attribution, Education / Charity)
+'Released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
 'http://puzzlum.net/
 'mailto:trkeal@gmail.com
 
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
+'=====
+
+#include once "fbgfx.bi"
+#include once ".\inc\FBImage.bi"
+#include once ".\inc\fbpngs.bi"
+
 #include once "crt\math.bi"
 ''#include once ".\inc\FBImage.bi"
-#include once ".\inc\TRK-PNG-Support-Win32-Static.bi"
-
-#define __TRK_PNG_Alias__
-
-#ifdef __TRK_PNG_Alias__
-
-Declare Function png_load alias "trk_png_load"  ( Filename As String = "Screenshot.png" ) As FB.Image Ptr
-
-Declare Function png_save alias "trk_png_save" ( Image As FB.Image Ptr, Filename As String = "Screenshot.png", saveAlpha As Boolean = false ) As Boolean
-
-Declare Sub png_destroy alias "trk_png_destroy" ( Image As FB.Image Ptr )
-
-#endif
-
+'#include once ".\inc\TRK-PNG-Support-Win32-Static.bi"
 
 #include once "fbgfx.bi"
 #include ".\inc\FBImage.bi"
-#include ".\inc\TRK-PNG-Support-Win32-Static.bi"
+'#include ".\inc\TRK-PNG-Support-Win32-Static.bi"
 
 '''#inclib "fbpng"
 
 '''#inclib "zlib.dll"
 
-'''#include once ".\inc\zlib.bi"
+#inclib "z"
+'#include once "zlib.bi"
 
 #include once ".\inc\Const.bi"
 #include once ".\inc\Names.bi"

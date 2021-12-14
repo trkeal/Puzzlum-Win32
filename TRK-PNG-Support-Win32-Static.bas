@@ -6,17 +6,13 @@
 ''' Refer to: http://Puzzlum.Net/
 ''' TRK-PNG-Support-Win32-Static (.bi .bas)
 
-#inclib "TRK-PNG-Support-Win32-Static"
+#define __TRK_PNG_Direct__
+#define __TRK_PNG_Alias__
 
 #include once "fbgfx.bi"
+'''#include once "FBImage.bi"
 #inclib "fbimage"
 #inclib "fbpng"
-''#include once ".\inc\FBImage.bi"
-
-''#define __TRK_PNG_Direct__
-''#define __TRK_PNG_Alias__
-
-'''#include once ".\inc\TRK-PNG-Support-Win32-Static.bi"
 
 #ifdef __TRK_PNG_Direct__
 
@@ -33,7 +29,31 @@ Function TRK_PNG_Save( Image As FB.Image ptr, Filename As String = "Screenshot.p
 End Function
 
 Sub TRK_PNG_Destroy( Image As FB.Image ptr )
+	
 	ImageDestroy( Image )
+	
+End Sub
+
+#endif
+
+#ifdef __TRK_PNG_Alias__
+
+Function PNG_Load( Filename As String = "Screenshot.png" ) As FB.Image ptr
+
+	PNG_Load = TRK_PNG_Load( Filename )
+	
+End Function
+
+Function PNG_Save( Image As FB.Image ptr, Filename As String = "Screenshot.png", saveAlpha As Boolean = False ) As Boolean
+	
+	PNG_Save = TRK_PNG_Save( Image, Filename, saveAlpha )
+
+End Function
+
+Sub PNG_Destroy( Image As FB.Image ptr )
+	
+	TRK_PNG_Destroy( Image )
+	
 End Sub
 
 #endif

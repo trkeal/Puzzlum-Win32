@@ -1,4 +1,5 @@
 
+#pragma once
 #inclib "fbimage"
 
 #ifndef __FBImage_bi__

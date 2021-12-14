@@ -489,6 +489,11 @@ pop ebx
 mov esp, ebp
 pop ebp
 ret 8
+.balign 16
+_fb_ctor__fbimage:
+.Lt_0002:
+.Lt_0003:
+ret
 
 .section .data
 .balign 4
@@ -498,3 +503,6 @@ __ZN6BASE643B64E:
 .ascii "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\0"
 .balign 4
 _Lt_0021:	.ascii	"=\0"
+
+.section .ctors
+.int _fb_ctor__fbimage
