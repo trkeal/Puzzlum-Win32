@@ -1,0 +1,6 @@
+Bundle=.\gamedata\Bundle.dat
+Help=.\gamedata\Help\Help.hlp
+Map=.\gamedata\Maps\Dire Dungeon 1.dat
+Levels=.\gamedata\Levels.dat
+Input=.\gamedata\Input.dat
+Palette=.\gamedata\QBPALVGA.BIN
