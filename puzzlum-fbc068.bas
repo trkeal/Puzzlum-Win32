@@ -32,6 +32,7 @@
 	redim shared as names_type Maps_Table( any )
 	redim shared as names_type Save_Table( any )
 	redim shared as names_type Queue_Table( any )
+	redim shared as names_type Attack_Table( any )
 	    
     declare sub clv_glyph_ini (clv_glyph() as integer)
     declare sub input_text (Index as integer, Src as integer, _
@@ -71,7 +72,8 @@
     declare sub ln_swapdata ()
     declare sub ln_attack ()
     declare sub ln_battle ()
-    declare sub ln_attkbite ()
+    
+	declare sub ln_attkbite ()
     declare sub ln_attkpnch ()
     declare sub ln_attkwstf ()
     declare sub ln_attkkick ()
@@ -83,7 +85,10 @@
     declare sub ln_attkweb ()
     declare sub ln_attktngl ()
     declare sub ln_attklash ()
-    declare sub ln_usecure ()
+    
+	declare Sub ln_attk_table ( attk as string = "%%", Attack_Table( Any ) As Names_Type )
+	
+	declare sub ln_usecure ()
     declare sub ln_attkslep ()
     declare sub ln_victory ()
     declare sub ln_pillage ()
@@ -214,7 +219,7 @@
     COMMON SHARED as string mappath_str, map_str, lvuppath_str, lvup_str, mapid_str
     COMMON SHARED as string thispath_str, fontpath_str, logopath_str, spritepath_str, palpath_str, helppath_str, helpfilename_str
 	
-    dim shared as string bundle_filename, help_filename, map_filename, levels_filename, input_filename, palette_filename
+    dim shared as string bundle_filename, help_filename, map_filename, levels_filename, input_filename, palette_filename, attack_filename
 
     dim shared as double progress_delay=0.2
     
@@ -366,6 +371,7 @@ sub ln_roe ()
     load_names_from_file ( input_filename, Input_Table() )
     load_names_from_file ( levels_filename, Levels_Table() )
     load_names_from_file ( map_filename, Maps_Table() )
+    load_names_from_file ( attack_filename, Attack_Table() )
 	
     'pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
     
@@ -446,6 +452,7 @@ sub ln_startup ()
     levels_filename = sync_names( "Levels", Bundle_Table() ) 
     input_filename = sync_names( "Input", Bundle_Table() ) 
     palette_filename = sync_names( "Palette", Bundle_Table() ) 
+    attack_filename = sync_names( "Attack", Bundle_Table() ) 
 
 	load_names_from_file( ".\dat\Names.dat" , Names_Table() )
 	load_names_from_file( ".\dat\Levels.dat" , Levels_Table() )
@@ -1174,7 +1181,21 @@ sub ln_swapdata ()
 end sub
 
 sub ln_attack ()
-    SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4))
+    
+	dim as string attk = string$( 0,0 )
+	
+	attk = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)
+	
+	select case sync_names( "attk/"+MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)+"/valid", Attack_Table())
+	case "%%"
+		MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+		MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
+	case else
+		ln_attk_table ( attk, Attack_Table() )
+	end select
+	
+	#ifdef __old__
+	SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4))
     CASE CVL("bite")
         ln_attkbite
     CASE CVL("pnch")
@@ -1195,6 +1216,8 @@ sub ln_attack ()
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
     END SELECT
+	#endif
+	
     Exit Sub
 end sub
 

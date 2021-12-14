@@ -1,4 +1,5 @@
 
+attk/bite/valid=bite
 attk/bite/pict=bite
 attk/bite/name=bite
 
@@ -11,6 +12,7 @@ attk/bite/str/dmg=2
 attk/bite/hp/dmg/bonus=Level/4
 attk/bite/str/dmg/bonus=none
 
+attk/pnch/valid=pnch
 attk/pnch/pict=pnch
 attk/pnch/name=pnch
 
@@ -23,6 +25,7 @@ attk/pnch/str/dmg=2
 attk/pnch/hp/dmg/bonus=Level/6
 attk/pnch/str/dmg/bonus=Level/8
 
+attk/wstf/valid=wstf
 attk/wstf/pict=wstf
 attk/wstf/name=wstf
 
@@ -35,6 +38,7 @@ attk/wstf/str/dmg=4
 attk/wstf/hp/dmg/bonus=Level/4
 attk/wstf/str/dmg/bonus=Level/6
 
+attk/kick/valid=kick
 attk/kick/pict=kick
 attk/kick/name=kick
 
@@ -47,6 +51,7 @@ attk/kick/str/dmg=3
 attk/kick/hp/dmg/bonus=Level/5
 attk/kick/str/dmg/bonus=Level/7
 
+attk/vnom/valid=vnom
 attk/vnom/pict=vnom
 attk/vnom/name=vnom
 
@@ -59,6 +64,7 @@ attk/vnom/str/dmg=10
 attk/vnom/hp/dmg/bonus=Level/4
 attk/vnom/str/dmg/bonus=Level/4
 
+attk/dggr/valid=dggr
 attk/dggr/pict=dggr
 attk/dggr/name=dggr
 
@@ -71,6 +77,7 @@ attk/dggr/str/dmg=1
 attk/dggr/hp/dmg/bonus=Level/4 
 attk/dggr/str/dmg/bonus=Level/10
 
+attk/pike/valid=pike
 attk/pike/pict=pike
 attk/pike/name=pike
 
@@ -83,6 +90,7 @@ attk/pike/str/dmg=8
 attk/pike/hp/dmg/bonus=Level/3
 attk/pike/str/dmg/bonus=Level/5
 
+attk/burn/valid=burn
 attk/burn/pict=____
 attk/burn/name=burn
 
@@ -91,7 +99,7 @@ attk/burn/ess/use=5
 
 attk/burn/hp/dmg=12 
 attk/burn/str/dmg=15 
-
+ 
 attk/burn/hp/dmg/bonus=Level/2
 attk/burn/str/dmg/bonus=Level/4
 
@@ -99,18 +107,20 @@ attk/burn/entity/count=1
 attk/burn/entity/1/is=fire
 attk/burn/entity/1/now=gone
 
+attk/fire/valid=fire
 attk/fire/pict=____
 attk/fire/name=fire
 
 attk/fire/str/use=5
 attk/fire/ess/use=20
-
+ 
 attk/fire/hp/dmg=15 
 attk/fire/str/dmg=20 
 
 attk/fire/hp/dmg/bonus=Level/2
 attk/fire/str/dmg/bonus=Level/4
 
+attk/web/valid=web
 attk/web/pict=____
 attk/web/name=web_
 
@@ -123,6 +133,7 @@ attk/web/str/dmg=15
 attk/web/hp/dmg/bonus=none
 attk/web/str/dmg/bonus=Level/5
 
+attk/tngl/valid=tngl
 attk/tngl/pict=____
 attk/tngl/name=tngl
 
@@ -135,6 +146,7 @@ attk/tngl/str/dmg=10
 attk/tngl/hp/dmg/bonus=none
 attk/tngl/str/dmg/bonus=Level/6
 
+attk/lash/valid=lash
 attk/lash/pict=____
 attk/lash/name=lash
 

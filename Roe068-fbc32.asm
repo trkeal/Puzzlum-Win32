@@ -498,7 +498,7 @@ mov ebp, esp
 sub esp, 88
 push ebx
 push esi
-.Lt_006A:
+.Lt_006B:
 mov word ptr [_MOUSE_WIDTH], 320
 mov word ptr [_MOUSE_HEIGHT], 240
 mov word ptr [_SCREEN_WIDTH], 320
@@ -535,35 +535,35 @@ push offset _THISPATH_STR
 call _fb_StrAssign@20
 push 0
 push 17
-push offset _Lt_006C
+push offset _Lt_006D
 push -1
 push offset _FONTPATH_STR
 call _fb_StrAssign@20
 push 0
 push 17
-push offset _Lt_006D
+push offset _Lt_006E
 push -1
 push offset _LOGOPATH_STR
 call _fb_StrAssign@20
 push 0
 push 19
-push offset _Lt_006E
+push offset _Lt_006F
 push -1
 push offset _SPRITEPATH_STR
 call _fb_StrAssign@20
 push 0
 push 12
-push offset _Lt_006F
+push offset _Lt_0070
 push -1
 push offset _PALPATH_STR
 call _fb_StrAssign@20
 push 0
 push 17
-push offset _Lt_0070
+push offset _Lt_0071
 push -1
 push offset _MAPPATH_STR
 call _fb_StrAssign@20
-push offset _Lt_0054
+push offset _Lt_0055
 push offset _PALETTE_FILENAME
 call _PAL_LOAD@8
 push offset _INPUT_TABLE
@@ -575,6 +575,9 @@ call _LOAD_NAMES_FROM_FILE@8
 push offset _MAPS_TABLE
 push offset _MAP_FILENAME
 call _LOAD_NAMES_FROM_FILE@8
+push offset _ATTACK_TABLE
+push offset _ATTACK_FILENAME
+call _LOAD_NAMES_FROM_FILE@8
 push offset _CLV_GLYPH
 call _CLV_GLYPH_INI@4
 push offset _CLV_GLYPH
@@ -584,7 +587,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 26
-push offset _Lt_0071
+push offset _Lt_0072
 push -1
 lea eax, [ebp-12]
 push eax
@@ -603,7 +606,7 @@ mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
 push 0
 push 23
-push offset _Lt_0073
+push offset _Lt_0074
 push -1
 lea eax, [ebp-24]
 push eax
@@ -632,7 +635,7 @@ mov dword ptr [ebp-32], 0
 mov dword ptr [ebp-28], 0
 push 0
 push 31
-push offset _Lt_0075
+push offset _Lt_0076
 push -1
 lea eax, [ebp-36]
 push eax
@@ -674,7 +677,7 @@ mov dword ptr [ebp-44], 0
 mov dword ptr [ebp-40], 0
 push 0
 push 29
-push offset _Lt_0077
+push offset _Lt_0078
 push -1
 lea eax, [ebp-48]
 push eax
@@ -691,38 +694,38 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-48]
 push eax
 call _fb_StrDelete@4
-.Lt_0079:
+.Lt_007A:
 mov dword ptr [_RESTART_ROE], 0
 mov eax, dword ptr [_CLV_BUFFER_SPLASH]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
-.Lt_007C:
-push -1
-call _fb_Inkey@0
-push eax
-call _fb_StrLen@8
-test eax, eax
-jle .Lt_007D
-push offset _CLV_BUFFER
-call _CLV_BUFFER_STACK@4
-jmp .Lt_007C
 .Lt_007D:
-call _LN_STARTUP@0
-.Lt_007E:
 push -1
 call _fb_Inkey@0
 push eax
 call _fb_StrLen@8
 test eax, eax
-jne .Lt_007F
+jle .Lt_007E
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
-jmp .Lt_007E
+jmp .Lt_007D
+.Lt_007E:
+call _LN_STARTUP@0
 .Lt_007F:
+push -1
+call _fb_Inkey@0
+push eax
+call _fb_StrLen@8
+test eax, eax
+jne .Lt_0080
+push offset _CLV_BUFFER
+call _CLV_BUFFER_STACK@4
+jmp .Lt_007F
+.Lt_0080:
 push 0
 push -1
 push 0
 push 1
-push offset _Lt_0080
+push offset _Lt_0081
 call _fb_StrAllocTempDescZEx@8
 push eax
 call _fb_StrLcase2@8
@@ -730,18 +733,18 @@ push eax
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-.Lt_0081:
+.Lt_0082:
 cmp dword ptr [_RESTART_ROE], 0
-je .Lt_0085
-jmp .Lt_0082
-.Lt_0085:
+je .Lt_0086
+jmp .Lt_0083
+.Lt_0086:
 push offset _INPUT_TABLE
 mov dword ptr [ebp-60], 0
 mov dword ptr [ebp-56], 0
 mov dword ptr [ebp-52], 0
 push 0
 push 6
-push offset _Lt_0086
+push offset _Lt_0087
 push -1
 lea eax, [ebp-60]
 push eax
@@ -775,20 +778,20 @@ lea eax, [ebp-60]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-64], 0
-je .Lt_0089
+je .Lt_008A
 mov eax, dword ptr [_CLV_BUFFER_TITLE]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 call _LN_STARTTITLE@0
+.Lt_008A:
 .Lt_0089:
-.Lt_0088:
 mov dword ptr [_EXITCOMMAND], 0
-.Lt_008B:
+.Lt_008C:
 call _LN_COMMAND@0
 mov dword ptr [_EXITCOMMAND3], 0
-.Lt_008E:
+.Lt_008F:
 call _LN_COMMAND3@0
 push 2
-push offset _Lt_0080
+push offset _Lt_0081
 push -1
 push 0
 push offset _C_STR
@@ -819,21 +822,21 @@ shr ecx, 1
 sbb ecx, ecx
 and ebx, ecx
 or eax, ebx
-je .Lt_0092
+je .Lt_0093
 mov dword ptr [_EXITCOMMAND3], -1
 mov dword ptr [_EXITCOMMAND], -1
+.Lt_0093:
 .Lt_0092:
-.Lt_0091:
 cmp dword ptr [_RESTART_ROE], 0
-je .Lt_0094
-jmp .Lt_008F
-.Lt_0094:
-.Lt_0090:
+je .Lt_0095
+jmp .Lt_0090
+.Lt_0095:
+.Lt_0091:
 push 1
 push -1
 push offset _C_STR
 push 2
-push offset _Lt_0096
+push offset _Lt_0097
 mov dword ptr [ebp-88], 0
 mov dword ptr [ebp-84], 0
 mov dword ptr [ebp-80], 0
@@ -844,7 +847,7 @@ push eax
 call _fb_RIGHT@8
 push eax
 push 4
-push offset _Lt_0095
+push offset _Lt_0096
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 1
@@ -856,18 +859,18 @@ sbb eax, eax
 mov ebx, dword ptr [_EXITCOMMAND3]
 not ebx
 and eax, ebx
-jne .Lt_008E
-.Lt_008F:
+jne .Lt_008F
+.Lt_0090:
 cmp dword ptr [_RESTART_ROE], 0
-je .Lt_0099
-jmp .Lt_008C
-.Lt_0099:
-.Lt_008D:
+je .Lt_009A
+jmp .Lt_008D
+.Lt_009A:
+.Lt_008E:
 push 1
 push -1
 push offset _C_STR
 push 2
-push offset _Lt_0096
+push offset _Lt_0097
 mov dword ptr [ebp-76], 0
 mov dword ptr [ebp-72], 0
 mov dword ptr [ebp-68], 0
@@ -878,30 +881,30 @@ push eax
 call _fb_RIGHT@8
 push eax
 push 3
-push offset _Lt_009A
+push offset _Lt_009B
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 1
 call _fb_StrInstr@12
 test eax, eax
-jg .Lt_008B
-.Lt_008C:
+jg .Lt_008C
+.Lt_008D:
 cmp dword ptr [_RESTART_ROE], 0
-je .Lt_009D
-jmp .Lt_0082
-.Lt_009D:
+je .Lt_009E
+jmp .Lt_0083
+.Lt_009E:
 call _LN_MAIN@0
 cmp dword ptr [_RESTART_ROE], 0
-je .Lt_009F
+je .Lt_00A0
+jmp .Lt_0083
+.Lt_00A0:
+.Lt_0084:
 jmp .Lt_0082
-.Lt_009F:
 .Lt_0083:
-jmp .Lt_0081
-.Lt_0082:
+.Lt_007C:
+jmp .Lt_007A
 .Lt_007B:
-jmp .Lt_0079
-.Lt_007A:
-.Lt_006B:
+.Lt_006C:
 pop esi
 pop ebx
 mov esp, ebp
@@ -913,9 +916,9 @@ ret
 _LN_STARTUP@0:
 push ebp
 mov ebp, esp
-sub esp, 320
+sub esp, 332
 push ebx
-.Lt_00A8:
+.Lt_00A9:
 push offset _BUNDLE_TABLE
 call _WIPE_TABLE@4
 push offset _NAMES_TABLE
@@ -926,7 +929,7 @@ push offset _MAPS_TABLE
 call _WIPE_TABLE@4
 push 0
 push 22
-push offset _Lt_00AA
+push offset _Lt_00AB
 push -1
 push offset _BUNDLE_FILENAME
 call _fb_StrAssign@20
@@ -941,7 +944,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 5
-push offset _Lt_00AB
+push offset _Lt_00AC
 push -1
 lea eax, [ebp-12]
 push eax
@@ -964,7 +967,7 @@ mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
 push 0
 push 4
-push offset _Lt_00AD
+push offset _Lt_00AE
 push -1
 lea eax, [ebp-24]
 push eax
@@ -987,7 +990,7 @@ mov dword ptr [ebp-32], 0
 mov dword ptr [ebp-28], 0
 push 0
 push 7
-push offset _Lt_00AF
+push offset _Lt_00B0
 push -1
 lea eax, [ebp-36]
 push eax
@@ -1010,7 +1013,7 @@ mov dword ptr [ebp-44], 0
 mov dword ptr [ebp-40], 0
 push 0
 push 6
-push offset _Lt_00B1
+push offset _Lt_00B2
 push -1
 lea eax, [ebp-48]
 push eax
@@ -1033,7 +1036,7 @@ mov dword ptr [ebp-56], 0
 mov dword ptr [ebp-52], 0
 push 0
 push 8
-push offset _Lt_00B3
+push offset _Lt_00B4
 push -1
 lea eax, [ebp-60]
 push eax
@@ -1048,30 +1051,36 @@ call _fb_StrAssign@20
 lea eax, [ebp-60]
 push eax
 call _fb_StrDelete@4
-push offset _NAMES_TABLE
+push 0
+push -1
+push offset _BUNDLE_TABLE
 mov dword ptr [ebp-72], 0
 mov dword ptr [ebp-68], 0
 mov dword ptr [ebp-64], 0
 push 0
-push 16
-push offset _Lt_00B5
+push 7
+push offset _Lt_00B6
 push -1
 lea eax, [ebp-72]
 push eax
 call _fb_StrAssign@20
 lea eax, [ebp-72]
 push eax
-call _LOAD_NAMES_FROM_FILE@8
+call _SYNC_NAMES@8
+push eax
+push -1
+push offset _ATTACK_FILENAME
+call _fb_StrAssign@20
 lea eax, [ebp-72]
 push eax
 call _fb_StrDelete@4
-push offset _LEVELS_TABLE
+push offset _NAMES_TABLE
 mov dword ptr [ebp-84], 0
 mov dword ptr [ebp-80], 0
 mov dword ptr [ebp-76], 0
 push 0
-push 17
-push offset _Lt_00B7
+push 16
+push offset _Lt_00B8
 push -1
 lea eax, [ebp-84]
 push eax
@@ -1082,33 +1091,50 @@ call _LOAD_NAMES_FROM_FILE@8
 lea eax, [ebp-84]
 push eax
 call _fb_StrDelete@4
-mov word ptr [_T_SI], 0
 push offset _LEVELS_TABLE
-mov dword ptr [ebp-216], 0
-mov dword ptr [ebp-212], 0
-mov dword ptr [ebp-208], 0
+mov dword ptr [ebp-96], 0
+mov dword ptr [ebp-92], 0
+mov dword ptr [ebp-88], 0
 push 0
-push 13
-push offset _Lt_00B9
+push 17
+push offset _Lt_00BA
 push -1
-lea eax, [ebp-216]
+lea eax, [ebp-96]
 push eax
 call _fb_StrAssign@20
-lea eax, [ebp-216]
+lea eax, [ebp-96]
+push eax
+call _LOAD_NAMES_FROM_FILE@8
+lea eax, [ebp-96]
+push eax
+call _fb_StrDelete@4
+mov word ptr [_T_SI], 0
+push offset _LEVELS_TABLE
+mov dword ptr [ebp-228], 0
+mov dword ptr [ebp-224], 0
+mov dword ptr [ebp-220], 0
+push 0
+push 13
+push offset _Lt_00BC
+push -1
+lea eax, [ebp-228]
+push eax
+call _fb_StrAssign@20
+lea eax, [ebp-228]
 push eax
 call _SYNC_NAMES@8
 push eax
 call _fb_VAL@4
-fistp word ptr [ebp-220]
-lea eax, [ebp-216]
+fistp word ptr [ebp-232]
+lea eax, [ebp-228]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_00BC
-.Lt_00BF:
+jmp .Lt_00BF
+.Lt_00C2:
 push offset _LEVELS_TABLE
-mov dword ptr [ebp-244], 0
-mov dword ptr [ebp-240], 0
-mov dword ptr [ebp-236], 0
+mov dword ptr [ebp-256], 0
+mov dword ptr [ebp-252], 0
+mov dword ptr [ebp-248], 0
 push 0
 push -1
 push -1
@@ -1119,42 +1145,42 @@ push eax
 call _fb_LTRIM@4
 push eax
 push 8
-push offset _Lt_00C0
-mov dword ptr [ebp-232], 0
-mov dword ptr [ebp-228], 0
-mov dword ptr [ebp-224], 0
-lea eax, [ebp-232]
+push offset _Lt_00C3
+mov dword ptr [ebp-244], 0
+mov dword ptr [ebp-240], 0
+mov dword ptr [ebp-236], 0
+lea eax, [ebp-244]
 push eax
 call _fb_StrConcat@20
 push eax
 push -1
-lea eax, [ebp-244]
+lea eax, [ebp-256]
 push eax
 call _fb_StrAssign@20
-lea eax, [ebp-244]
+lea eax, [ebp-256]
 push eax
 call _SYNC_NAMES@8
 push eax
 call _fb_VAL@4
 movsx eax, word ptr [_T_SI]
 fistp word ptr [_L_SIA+eax*2]
-lea eax, [ebp-244]
+lea eax, [ebp-256]
 push eax
 call _fb_StrDelete@4
-.Lt_00BD:
+.Lt_00C0:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_00BC:
+.Lt_00BF:
 movsx eax, word ptr [_T_SI]
-movsx ebx, word ptr [ebp-220]
+movsx ebx, word ptr [ebp-232]
 cmp eax, ebx
-jle .Lt_00BF
-.Lt_00BE:
+jle .Lt_00C2
+.Lt_00C1:
 push offset _MAPS_TABLE
-mov dword ptr [ebp-120], 0
-mov dword ptr [ebp-116], 0
-mov dword ptr [ebp-112], 0
+mov dword ptr [ebp-132], 0
+mov dword ptr [ebp-128], 0
+mov dword ptr [ebp-124], 0
 push 0
 push -1
 push -1
@@ -1164,50 +1190,27 @@ push -1
 push offset _MAPPATH_STR
 push -1
 push offset _THISPATH_STR
-mov dword ptr [ebp-96], 0
-mov dword ptr [ebp-92], 0
-mov dword ptr [ebp-88], 0
-lea ebx, [ebp-96]
-push ebx
-call _fb_StrConcat@20
-push eax
 mov dword ptr [ebp-108], 0
 mov dword ptr [ebp-104], 0
 mov dword ptr [ebp-100], 0
-lea eax, [ebp-108]
+lea ebx, [ebp-108]
+push ebx
+call _fb_StrConcat@20
+push eax
+mov dword ptr [ebp-120], 0
+mov dword ptr [ebp-116], 0
+mov dword ptr [ebp-112], 0
+lea eax, [ebp-120]
 push eax
 call _fb_StrConcat@20
 push eax
 push -1
-lea eax, [ebp-120]
+lea eax, [ebp-132]
 push eax
 call _fb_StrAssign@20
-lea eax, [ebp-120]
+lea eax, [ebp-132]
 push eax
 call _LOAD_NAMES_FROM_FILE@8
-lea eax, [ebp-120]
-push eax
-call _fb_StrDelete@4
-push 0
-push -1
-push offset _MAPS_TABLE
-mov dword ptr [ebp-132], 0
-mov dword ptr [ebp-128], 0
-mov dword ptr [ebp-124], 0
-push 0
-push 9
-push offset _Lt_00C6
-push -1
-lea eax, [ebp-132]
-push eax
-call _fb_StrAssign@20
-lea eax, [ebp-132]
-push eax
-call _SYNC_NAMES@8
-push eax
-push -1
-push offset _MAPNAME_STR
-call _fb_StrAssign@20
 lea eax, [ebp-132]
 push eax
 call _fb_StrDelete@4
@@ -1218,8 +1221,8 @@ mov dword ptr [ebp-144], 0
 mov dword ptr [ebp-140], 0
 mov dword ptr [ebp-136], 0
 push 0
-push 7
-push offset _Lt_00C8
+push 9
+push offset _Lt_00C9
 push -1
 lea eax, [ebp-144]
 push eax
@@ -1229,18 +1232,20 @@ push eax
 call _SYNC_NAMES@8
 push eax
 push -1
-push offset _MAPID_STR
+push offset _MAPNAME_STR
 call _fb_StrAssign@20
 lea eax, [ebp-144]
 push eax
 call _fb_StrDelete@4
+push 0
+push -1
 push offset _MAPS_TABLE
 mov dword ptr [ebp-156], 0
 mov dword ptr [ebp-152], 0
 mov dword ptr [ebp-148], 0
 push 0
 push 7
-push offset _Lt_00CA
+push offset _Lt_00CB
 push -1
 lea eax, [ebp-156]
 push eax
@@ -1249,8 +1254,9 @@ lea eax, [ebp-156]
 push eax
 call _SYNC_NAMES@8
 push eax
-call _fb_VAL@4
-fistp word ptr [_AA_SI]
+push -1
+push offset _MAPID_STR
+call _fb_StrAssign@20
 lea eax, [ebp-156]
 push eax
 call _fb_StrDelete@4
@@ -1260,7 +1266,7 @@ mov dword ptr [ebp-164], 0
 mov dword ptr [ebp-160], 0
 push 0
 push 7
-push offset _Lt_00CC
+push offset _Lt_00CD
 push -1
 lea eax, [ebp-168]
 push eax
@@ -1270,8 +1276,28 @@ push eax
 call _SYNC_NAMES@8
 push eax
 call _fb_VAL@4
-fistp word ptr [_DD_SI]
+fistp word ptr [_AA_SI]
 lea eax, [ebp-168]
+push eax
+call _fb_StrDelete@4
+push offset _MAPS_TABLE
+mov dword ptr [ebp-180], 0
+mov dword ptr [ebp-176], 0
+mov dword ptr [ebp-172], 0
+push 0
+push 7
+push offset _Lt_00CF
+push -1
+lea eax, [ebp-180]
+push eax
+call _fb_StrAssign@20
+lea eax, [ebp-180]
+push eax
+call _SYNC_NAMES@8
+push eax
+call _fb_VAL@4
+fistp word ptr [_DD_SI]
+lea eax, [ebp-180]
 push eax
 call _fb_StrDelete@4
 mov word ptr [_D_SIA+2], 0
@@ -1288,7 +1314,7 @@ movsx eax, word ptr [_AA_SI]
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -1304,7 +1330,7 @@ movsx eax, word ptr [_DD_SI]
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -1319,7 +1345,7 @@ fistp word ptr [_DY_SI]
 mov word ptr [_MDX_SI], 20
 mov word ptr [_MDY_SI], 15
 mov word ptr [_TEXTCOLOR_SI], 0
-push dword ptr [_Lt_0154]
+push dword ptr [_Lt_0157]
 pop dword ptr [_TEXTDELAY_SF]
 mov word ptr [_WIN_SI], 4
 push 0
@@ -1327,13 +1353,13 @@ call _fb_Timer@0
 sub esp,8
 fstp qword ptr [esp]
 call _fb_Randomize@12
-push offset _.Lt_0057
+push offset _.Lt_0058
 call _fb_DataRestore@4
 mov word ptr [_TTT_SI], 0
 mov ax, word ptr [_WIN_SI]
-mov word ptr [ebp-208], ax
-jmp .Lt_00CF
-.Lt_00D2:
+mov word ptr [ebp-220], ax
+jmp .Lt_00D2
+.Lt_00D5:
 movsx eax, word ptr [_TTT_SI]
 sal eax, 2
 add eax, dword ptr [_WIN_SIA]
@@ -1346,20 +1372,20 @@ add ebx, dword ptr [_WIN_SIA]
 lea eax, [ebx]
 push eax
 call _fb_DataReadShort@4
-.Lt_00D0:
+.Lt_00D3:
 movsx eax, word ptr [_TTT_SI]
 inc eax
 mov word ptr [_TTT_SI], ax
-.Lt_00CF:
+.Lt_00D2:
 movsx eax, word ptr [_TTT_SI]
-movsx ebx, word ptr [ebp-208]
+movsx ebx, word ptr [ebp-220]
 cmp eax, ebx
-jle .Lt_00D2
-.Lt_00D1:
+jle .Lt_00D5
+.Lt_00D4:
 push offset _LEVELS_TABLE
-mov dword ptr [ebp-204], 0
-mov dword ptr [ebp-200], 0
-mov dword ptr [ebp-196], 0
+mov dword ptr [ebp-216], 0
+mov dword ptr [ebp-212], 0
+mov dword ptr [ebp-208], 0
 push 0
 push -1
 push -1
@@ -1369,57 +1395,57 @@ push -1
 push offset _LVUPPATH_STR
 push -1
 push offset _THISPATH_STR
-mov dword ptr [ebp-180], 0
-mov dword ptr [ebp-176], 0
-mov dword ptr [ebp-172], 0
-lea ebx, [ebp-180]
-push ebx
-call _fb_StrConcat@20
-push eax
 mov dword ptr [ebp-192], 0
 mov dword ptr [ebp-188], 0
 mov dword ptr [ebp-184], 0
-lea eax, [ebp-192]
+lea ebx, [ebp-192]
+push ebx
+call _fb_StrConcat@20
+push eax
+mov dword ptr [ebp-204], 0
+mov dword ptr [ebp-200], 0
+mov dword ptr [ebp-196], 0
+lea eax, [ebp-204]
 push eax
 call _fb_StrConcat@20
 push eax
 push -1
-lea eax, [ebp-204]
+lea eax, [ebp-216]
 push eax
 call _fb_StrAssign@20
-lea eax, [ebp-204]
+lea eax, [ebp-216]
 push eax
 call _LOAD_NAMES_FROM_FILE@8
-lea eax, [ebp-204]
+lea eax, [ebp-216]
 push eax
 call _fb_StrDelete@4
 mov word ptr [_T_SI], 0
 push offset _LEVELS_TABLE
-mov dword ptr [ebp-216], 0
-mov dword ptr [ebp-212], 0
-mov dword ptr [ebp-208], 0
+mov dword ptr [ebp-228], 0
+mov dword ptr [ebp-224], 0
+mov dword ptr [ebp-220], 0
 push 0
 push 13
-push offset _Lt_00B9
+push offset _Lt_00BC
 push -1
-lea eax, [ebp-216]
+lea eax, [ebp-228]
 push eax
 call _fb_StrAssign@20
-lea eax, [ebp-216]
+lea eax, [ebp-228]
 push eax
 call _SYNC_NAMES@8
 push eax
 call _fb_VAL@4
-fistp word ptr [ebp-220]
-lea eax, [ebp-216]
+fistp word ptr [ebp-232]
+lea eax, [ebp-228]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_00D8
-.Lt_00DB:
+jmp .Lt_00DB
+.Lt_00DE:
 push offset _LEVELS_TABLE
-mov dword ptr [ebp-244], 0
-mov dword ptr [ebp-240], 0
-mov dword ptr [ebp-236], 0
+mov dword ptr [ebp-256], 0
+mov dword ptr [ebp-252], 0
+mov dword ptr [ebp-248], 0
 push 0
 push -1
 push -1
@@ -1430,47 +1456,47 @@ push eax
 call _fb_LTRIM@4
 push eax
 push 8
-push offset _Lt_00C0
-mov dword ptr [ebp-232], 0
-mov dword ptr [ebp-228], 0
-mov dword ptr [ebp-224], 0
-lea eax, [ebp-232]
+push offset _Lt_00C3
+mov dword ptr [ebp-244], 0
+mov dword ptr [ebp-240], 0
+mov dword ptr [ebp-236], 0
+lea eax, [ebp-244]
 push eax
 call _fb_StrConcat@20
 push eax
 push -1
-lea eax, [ebp-244]
+lea eax, [ebp-256]
 push eax
 call _fb_StrAssign@20
-lea eax, [ebp-244]
+lea eax, [ebp-256]
 push eax
 call _SYNC_NAMES@8
 push eax
 call _fb_VAL@4
 movsx eax, word ptr [_T_SI]
 fistp word ptr [_L_SIA+eax*2]
-lea eax, [ebp-244]
+lea eax, [ebp-256]
 push eax
 call _fb_StrDelete@4
-.Lt_00D9:
+.Lt_00DC:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_00D8:
+.Lt_00DB:
 movsx eax, word ptr [_T_SI]
-movsx ebx, word ptr [ebp-220]
+movsx ebx, word ptr [ebp-232]
 cmp eax, ebx
-jle .Lt_00DB
-.Lt_00DA:
+jle .Lt_00DE
+.Lt_00DD:
 push 0
 push 9
-push offset _Lt_00DE
+push offset _Lt_00E1
 push -1
 push offset _CTRL_STR
 call _fb_StrAssign@20
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
-fmul qword ptr [_Lt_0153]
+fmul qword ptr [_Lt_0156]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -1482,29 +1508,29 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0156]
-fcomp qword ptr [_Lt_0153]
+fadd qword ptr [_Lt_0159]
+fcomp qword ptr [_Lt_0156]
 fnstsw ax
 test ah, 0b01000000
-jz .Lt_00E0
+jz .Lt_00E3
 push 0
 push 5
-push offset _Lt_00E1
+push offset _Lt_00E4
 push -1
 push offset _CTRL_STR
 call _fb_StrConcatAssign@20
-.Lt_00E0:
+.Lt_00E3:
 mov word ptr [_TY_SI], 1
 mov bx, word ptr [_DD_SI]
-mov word ptr [ebp-208], bx
-jmp .Lt_00E3
-.Lt_00E6:
+mov word ptr [ebp-220], bx
+jmp .Lt_00E6
+.Lt_00E9:
 push 0
 push -1
 push offset _MAPS_TABLE
-mov dword ptr [ebp-232], 0
-mov dword ptr [ebp-228], 0
-mov dword ptr [ebp-224], 0
+mov dword ptr [ebp-244], 0
+mov dword ptr [ebp-240], 0
+mov dword ptr [ebp-236], 0
 push 0
 push -1
 push -1
@@ -1515,72 +1541,34 @@ push eax
 call _fb_LTRIM@4
 push eax
 push 11
-push offset _Lt_00E7
-mov dword ptr [ebp-220], 0
-mov dword ptr [ebp-216], 0
-mov dword ptr [ebp-212], 0
-lea eax, [ebp-220]
+push offset _Lt_00EA
+mov dword ptr [ebp-232], 0
+mov dword ptr [ebp-228], 0
+mov dword ptr [ebp-224], 0
+lea eax, [ebp-232]
 push eax
 call _fb_StrConcat@20
 push eax
 push -1
-lea eax, [ebp-232]
+lea eax, [ebp-244]
 push eax
 call _fb_StrAssign@20
-lea eax, [ebp-232]
+lea eax, [ebp-244]
 push eax
 call _SYNC_NAMES@8
 push eax
 push -1
 push offset _BG_STR
 call _fb_StrAssign@20
-lea eax, [ebp-232]
-push eax
-call _fb_StrDelete@4
-push 0
-push -1
-push offset _MAPS_TABLE
-mov dword ptr [ebp-256], 0
-mov dword ptr [ebp-252], 0
-mov dword ptr [ebp-248], 0
-push 0
-push -1
-push -1
-movsx eax, word ptr [_TY_SI]
-push eax
-call _fb_IntToStr@4
-push eax
-call _fb_LTRIM@4
-push eax
-push 11
-push offset _Lt_00EA
-mov dword ptr [ebp-244], 0
-mov dword ptr [ebp-240], 0
-mov dword ptr [ebp-236], 0
 lea eax, [ebp-244]
 push eax
-call _fb_StrConcat@20
-push eax
-push -1
-lea eax, [ebp-256]
-push eax
-call _fb_StrAssign@20
-lea eax, [ebp-256]
-push eax
-call _SYNC_NAMES@8
-push eax
-push -1
-push offset _FG_STR
-call _fb_StrAssign@20
-lea eax, [ebp-256]
-push eax
 call _fb_StrDelete@4
 push 0
 push -1
 push offset _MAPS_TABLE
-mov dword ptr [ebp-280], 0
-mov dword ptr [ebp-276], 0
-mov dword ptr [ebp-272], 0
+mov dword ptr [ebp-268], 0
+mov dword ptr [ebp-264], 0
+mov dword ptr [ebp-260], 0
 push 0
 push -1
 push -1
@@ -1592,25 +1580,63 @@ call _fb_LTRIM@4
 push eax
 push 11
 push offset _Lt_00ED
-mov dword ptr [ebp-268], 0
-mov dword ptr [ebp-264], 0
-mov dword ptr [ebp-260], 0
-lea eax, [ebp-268]
+mov dword ptr [ebp-256], 0
+mov dword ptr [ebp-252], 0
+mov dword ptr [ebp-248], 0
+lea eax, [ebp-256]
 push eax
 call _fb_StrConcat@20
 push eax
 push -1
-lea eax, [ebp-280]
+lea eax, [ebp-268]
 push eax
 call _fb_StrAssign@20
+lea eax, [ebp-268]
+push eax
+call _SYNC_NAMES@8
+push eax
+push -1
+push offset _FG_STR
+call _fb_StrAssign@20
+lea eax, [ebp-268]
+push eax
+call _fb_StrDelete@4
+push 0
+push -1
+push offset _MAPS_TABLE
+mov dword ptr [ebp-292], 0
+mov dword ptr [ebp-288], 0
+mov dword ptr [ebp-284], 0
+push 0
+push -1
+push -1
+movsx eax, word ptr [_TY_SI]
+push eax
+call _fb_IntToStr@4
+push eax
+call _fb_LTRIM@4
+push eax
+push 11
+push offset _Lt_00F0
+mov dword ptr [ebp-280], 0
+mov dword ptr [ebp-276], 0
+mov dword ptr [ebp-272], 0
 lea eax, [ebp-280]
+push eax
+call _fb_StrConcat@20
+push eax
+push -1
+lea eax, [ebp-292]
+push eax
+call _fb_StrAssign@20
+lea eax, [ebp-292]
 push eax
 call _SYNC_NAMES@8
 push eax
 push -1
 push offset _RG_STR
 call _fb_StrAssign@20
-lea eax, [ebp-280]
+lea eax, [ebp-292]
 push eax
 call _fb_StrDelete@4
 push 0
@@ -1626,9 +1652,9 @@ push offset _R_STR
 call _fb_StrAssign@20
 mov word ptr [_TX_SI], 1
 mov ax, word ptr [_AA_SI]
-mov word ptr [ebp-284], ax
-jmp .Lt_00F1
-.Lt_00F4:
+mov word ptr [ebp-296], ax
+jmp .Lt_00F4
+.Lt_00F7:
 push 0
 push -1
 push 4
@@ -1667,7 +1693,7 @@ call _fb_VAL@4
 fstp dword ptr [_RID_SF]
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -1708,7 +1734,7 @@ push ebx
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 movsx ebx, word ptr [_TY_SI]
 push ebx
@@ -1736,7 +1762,7 @@ push ebx
 call _fb_StrConcatAssign@20
 push 0
 push 9
-push offset _Lt_00F6
+push offset _Lt_00F9
 push -1
 movsx ebx, word ptr [_TY_SI]
 push ebx
@@ -1748,36 +1774,171 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssign@20
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_00F8
-.Lt_00F9:
+jne .Lt_00FB
+.Lt_00FC:
 call _LN_PRFLBLNK@0
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_00F8:
+jmp .Lt_00FA
+.Lt_00FB:
 push 5
-push offset _Lt_00FB
+push offset _Lt_00FE
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_00FA
-.Lt_00FC:
+jne .Lt_00FD
+.Lt_00FF:
 call _LN_PRFLBLNK@0
 push 0
 push 7
-push offset _Lt_00FD
+push offset _Lt_0100
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 13
+push offset _Lt_0101
+push -1
+push offset _PRFLACTN_STR
+call _fb_StrAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
+call _fb_StrAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
+call _fb_StrConcatAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
+call _fb_StrConcatAssign@20
+push 0
+push 5
+push offset _Lt_00FE
+push -1
+push offset _PRFLGPIC_STR
+call _fb_StrAssign@20
+push dword ptr [_RID_SF]
+pop dword ptr [_PRFLIDTY_SF]
+push dword ptr [_Lt_015A]
+pop dword ptr [_PRFLHP_SF]
+push dword ptr [_Lt_015B]
+pop dword ptr [_PRFLSTR_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLSPD_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLARMR_SF]
+push dword ptr [_Lt_015C]
+pop dword ptr [_PRFLVALU_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLPIRC_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLLV_SF]
+push dword ptr [_Lt_015A]
+pop dword ptr [_PRFLHPMAX_SF]
+push dword ptr [_Lt_015B]
+pop dword ptr [_PRFLSTRMAX_SF]
+push dword ptr [_Lt_015D]
+pop dword ptr [_PRFLESSMAX_SF]
+push dword ptr [_Lt_015E]
+pop dword ptr [_PRFLESSSPD_SF]
+push 5
+push offset _Lt_0104
+push -1
+push offset _MAPNAME_STR
+call _fb_StrCompare@16
+test eax, eax
+jne .Lt_0103
+.Lt_0105:
+fld dword ptr [_PRFLIDTY_SF]
+fcomp dword ptr [_Lt_0158]
+fnstsw ax
+test ah, 0b01000000
+jz .Lt_0107
+push 0
+push 5
+push offset _Lt_0108
+push -1
+push offset _PRFLACTN_STR
+call _fb_StrConcatAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
+call _fb_StrConcatAssign@20
+.Lt_0107:
+.Lt_0106:
+.Lt_0103:
+.Lt_0102:
+call _LN_PRFLSET@0
+jmp .Lt_00FA
+.Lt_00FD:
+push 5
+push offset _Lt_010A
+push -1
+push offset _RFG_STR
+call _fb_StrCompare@16
+test eax, eax
+jne .Lt_0109
+.Lt_010B:
+call _LN_PRFLBLNK@0
+push 0
+push 5
+push offset _Lt_010A
+push -1
+push offset _PRFLIDTY_STR
+call _fb_StrAssign@20
+push 0
+push 5
+push offset _Lt_010A
+push -1
+push offset _PRFLGPIC_STR
+call _fb_StrAssign@20
+push dword ptr [_Lt_015F]
+pop dword ptr [_PRFLIDTY_SF]
+call _LN_PRFLSET@0
+jmp .Lt_00FA
+.Lt_0109:
+push 5
+push offset _Lt_010D
+push -1
+push offset _RFG_STR
+call _fb_StrCompare@16
+test eax, eax
+jne .Lt_010C
+.Lt_010E:
+call _LN_PRFLBLNK@0
+push 0
+push 4
+push offset _Lt_010F
+push -1
+push offset _PRFLIDTY_STR
+call _fb_StrAssign@20
+push 0
+push 5
 push offset _Lt_00FE
 push -1
 push offset _PRFLACTN_STR
@@ -1791,225 +1952,70 @@ push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
 push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrConcatAssign@20
-push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrConcatAssign@20
-push 0
 push 5
-push offset _Lt_00FB
+push offset _Lt_010D
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0157]
+push dword ptr [_Lt_0160]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0158]
+push dword ptr [_Lt_0161]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0159]
-pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0157]
-pop dword ptr [_PRFLHPMAX_SF]
 push dword ptr [_Lt_0158]
-pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_015A]
-pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_015B]
-pop dword ptr [_PRFLESSSPD_SF]
-push 5
-push offset _Lt_0101
-push -1
-push offset _MAPNAME_STR
-call _fb_StrCompare@16
-test eax, eax
-jne .Lt_0100
-.Lt_0102:
-fld dword ptr [_PRFLIDTY_SF]
-fcomp dword ptr [_Lt_0155]
-fnstsw ax
-test ah, 0b01000000
-jz .Lt_0104
-push 0
-push 5
-push offset _Lt_0105
-push -1
-push offset _PRFLACTN_STR
-call _fb_StrConcatAssign@20
-push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrConcatAssign@20
-.Lt_0104:
-.Lt_0103:
-.Lt_0100:
-.Lt_00FF:
-call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_00FA:
-push 5
-push offset _Lt_0107
-push -1
-push offset _RFG_STR
-call _fb_StrCompare@16
-test eax, eax
-jne .Lt_0106
-.Lt_0108:
-call _LN_PRFLBLNK@0
-push 0
-push 5
-push offset _Lt_0107
-push -1
-push offset _PRFLIDTY_STR
-call _fb_StrAssign@20
-push 0
-push 5
-push offset _Lt_0107
-push -1
-push offset _PRFLGPIC_STR
-call _fb_StrAssign@20
-push dword ptr [_Lt_015C]
-pop dword ptr [_PRFLIDTY_SF]
-call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_0106:
-push 5
-push offset _Lt_010A
-push -1
-push offset _RFG_STR
-call _fb_StrCompare@16
-test eax, eax
-jne .Lt_0109
-.Lt_010B:
-call _LN_PRFLBLNK@0
-push 0
-push 4
-push offset _Lt_010C
-push -1
-push offset _PRFLIDTY_STR
-call _fb_StrAssign@20
-push 0
-push 5
-push offset _Lt_00FB
-push -1
-push offset _PRFLACTN_STR
-call _fb_StrAssign@20
-push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrAssign@20
-push 0
-push 5
-push offset _Lt_010A
-push -1
-push offset _PRFLGPIC_STR
-call _fb_StrAssign@20
-push dword ptr [_RID_SF]
-pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_015D]
-pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_015E]
-pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0155]
 pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_015D]
+push dword ptr [_Lt_0160]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_015E]
+push dword ptr [_Lt_0161]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_015A]
+push dword ptr [_Lt_015D]
 pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_015C]
+push dword ptr [_Lt_015F]
 pop dword ptr [_PRFLESSSPD_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_0109:
+jmp .Lt_00FA
+.Lt_010C:
 push 5
-push offset _Lt_010E
+push offset _Lt_0111
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_010D
-.Lt_010F:
+jne .Lt_0110
+.Lt_0112:
 call _LN_PRFLBLNK@0
 push 0
 push 8
-push offset _Lt_0110
+push offset _Lt_0113
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 13
-push offset _Lt_0111
-push -1
-push offset _PRFLACTN_STR
-call _fb_StrAssign@20
-push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrAssign@20
-push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrConcatAssign@20
-push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrConcatAssign@20
-push dword ptr [_Lt_0155]
-call _fb_Rnd@4
-fcomp qword ptr [_Lt_015F]
-fnstsw ax
-test ah, 0b01000001
-jnz .Lt_0113
-push 0
-push 5
 push offset _Lt_0114
 push -1
 push offset _PRFLACTN_STR
+call _fb_StrAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
+call _fb_StrAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
 push 0
 push -1
@@ -2019,167 +2025,187 @@ push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
-.Lt_0113:
-.Lt_0112:
+push dword ptr [_Lt_0158]
+call _fb_Rnd@4
+fcomp qword ptr [_Lt_0162]
+fnstsw ax
+test ah, 0b01000001
+jnz .Lt_0116
 push 0
 push 5
-push offset _Lt_010E
+push offset _Lt_0117
+push -1
+push offset _PRFLACTN_STR
+call _fb_StrConcatAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
+call _fb_StrConcatAssign@20
+.Lt_0116:
+.Lt_0115:
+push 0
+push 5
+push offset _Lt_0111
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0160]
+push dword ptr [_Lt_0163]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0161]
+push dword ptr [_Lt_0164]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0159]
-pop dword ptr [_PRFLVALU_SF]
 push dword ptr [_Lt_015C]
+pop dword ptr [_PRFLVALU_SF]
+push dword ptr [_Lt_015F]
 pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0160]
+push dword ptr [_Lt_0163]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_0161]
+push dword ptr [_Lt_0164]
 pop dword ptr [_PRFLSTRMAX_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_010D:
+jmp .Lt_00FA
+.Lt_0110:
 push 5
-push offset _Lt_0116
+push offset _Lt_0119
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0115
-.Lt_0117:
+jne .Lt_0118
+.Lt_011A:
 call _LN_PRFLBLNK@0
 push 0
 push 11
-push offset _Lt_0118
+push offset _Lt_011B
 push -1
 push offset _PRFLIDTY_STR
+call _fb_StrAssign@20
+push 0
+push 5
+push offset _Lt_011C
+push -1
+push offset _PRFLACTN_STR
 call _fb_StrAssign@20
 push 0
 push 5
 push offset _Lt_0119
 push -1
-push offset _PRFLACTN_STR
-call _fb_StrAssign@20
-push 0
-push 5
-push offset _Lt_0116
-push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0162]
-pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0161]
-pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0163]
-pop dword ptr [_PRFLESS_SF]
-push dword ptr [_Lt_015B]
-pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_015C]
-pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0157]
-pop dword ptr [_PRFLEXP_SF]
-push dword ptr [_Lt_0164]
-pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_015C]
-pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0162]
-pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_0161]
-pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_0162]
-pop dword ptr [_PRFLESSMAX_SF]
 push dword ptr [_Lt_0165]
-pop dword ptr [_PRFLESSSPD_SF]
+pop dword ptr [_PRFLHP_SF]
+push dword ptr [_Lt_0164]
+pop dword ptr [_PRFLSTR_SF]
 push dword ptr [_Lt_0166]
+pop dword ptr [_PRFLESS_SF]
+push dword ptr [_Lt_015E]
+pop dword ptr [_PRFLSPD_SF]
+push dword ptr [_Lt_015F]
+pop dword ptr [_PRFLARMR_SF]
+push dword ptr [_Lt_015A]
+pop dword ptr [_PRFLEXP_SF]
+push dword ptr [_Lt_0167]
+pop dword ptr [_PRFLVALU_SF]
+push dword ptr [_Lt_015F]
+pop dword ptr [_PRFLPIRC_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLLV_SF]
+push dword ptr [_Lt_0165]
+pop dword ptr [_PRFLHPMAX_SF]
+push dword ptr [_Lt_0164]
+pop dword ptr [_PRFLSTRMAX_SF]
+push dword ptr [_Lt_0165]
+pop dword ptr [_PRFLESSMAX_SF]
+push dword ptr [_Lt_0168]
+pop dword ptr [_PRFLESSSPD_SF]
+push dword ptr [_Lt_0169]
 pop dword ptr [_PRFLEVAD_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_0115:
+jmp .Lt_00FA
+.Lt_0118:
 push 5
-push offset _Lt_011B
+push offset _Lt_011E
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_011A
-.Lt_011C:
+jne .Lt_011D
+.Lt_011F:
 call _LN_PRFLBLNK@0
 push 0
 push 11
-push offset _Lt_011D
+push offset _Lt_0120
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 21
-push offset _Lt_011E
+push offset _Lt_0121
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_011B
+push offset _Lt_011E
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0164]
-pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0158]
-pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0159]
-pop dword ptr [_PRFLESS_SF]
 push dword ptr [_Lt_0167]
-pop dword ptr [_PRFLSPD_SF]
+pop dword ptr [_PRFLHP_SF]
+push dword ptr [_Lt_015B]
+pop dword ptr [_PRFLSTR_SF]
 push dword ptr [_Lt_015C]
+pop dword ptr [_PRFLESS_SF]
+push dword ptr [_Lt_016A]
+pop dword ptr [_PRFLSPD_SF]
+push dword ptr [_Lt_015F]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0164]
-pop dword ptr [_PRFLHPMAX_SF]
 push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLLV_SF]
+push dword ptr [_Lt_0167]
+pop dword ptr [_PRFLHPMAX_SF]
+push dword ptr [_Lt_015B]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_0168]
+push dword ptr [_Lt_016B]
 pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLESSSPD_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_011A:
+jmp .Lt_00FA
+.Lt_011D:
 push 5
-push offset _Lt_0120
+push offset _Lt_0123
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_011F
-.Lt_0121:
+jne .Lt_0122
+.Lt_0124:
 call _LN_PRFLBLNK@0
 push 0
 push 13
-push offset _Lt_0122
+push offset _Lt_0125
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 13
-push offset _Lt_0123
+push offset _Lt_0126
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -2209,55 +2235,55 @@ push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
 push 0
 push 5
-push offset _Lt_0120
+push offset _Lt_0123
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0169]
-pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_016A]
-pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_016B]
-pop dword ptr [_PRFLARMR_SF]
 push dword ptr [_Lt_016C]
-pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_015B]
-pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0169]
-pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_016A]
-pop dword ptr [_PRFLSTRMAX_SF]
+pop dword ptr [_PRFLHP_SF]
 push dword ptr [_Lt_016D]
-pop dword ptr [_PRFLESSMAX_SF]
+pop dword ptr [_PRFLSTR_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLSPD_SF]
 push dword ptr [_Lt_016E]
+pop dword ptr [_PRFLARMR_SF]
+push dword ptr [_Lt_016F]
+pop dword ptr [_PRFLVALU_SF]
+push dword ptr [_Lt_015E]
+pop dword ptr [_PRFLPIRC_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLLV_SF]
+push dword ptr [_Lt_016C]
+pop dword ptr [_PRFLHPMAX_SF]
+push dword ptr [_Lt_016D]
+pop dword ptr [_PRFLSTRMAX_SF]
+push dword ptr [_Lt_0170]
+pop dword ptr [_PRFLESSMAX_SF]
+push dword ptr [_Lt_0171]
 pop dword ptr [_PRFLEVAD_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_011F:
+jmp .Lt_00FA
+.Lt_0122:
 push 5
-push offset _Lt_0125
+push offset _Lt_0128
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0124
-.Lt_0126:
+jne .Lt_0127
+.Lt_0129:
 call _LN_PRFLBLNK@0
 push 0
 push 14
-push offset _Lt_0127
+push offset _Lt_012A
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 13
-push offset _Lt_0123
+push offset _Lt_0126
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -2285,18 +2311,18 @@ push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
 fstp dword ptr [_RR_SF]
 fld dword ptr [_RR_SF]
-fcomp qword ptr [_Lt_016F]
+fcomp qword ptr [_Lt_0172]
 fnstsw ax
 test ah, 0b01000001
 setz al
 shr eax, 1
 sbb eax, eax
 fld dword ptr [_RR_SF]
-fcomp qword ptr [_Lt_0170]
+fcomp qword ptr [_Lt_0173]
 push eax
 fnstsw ax
 test ah, 0b01000001
@@ -2305,10 +2331,10 @@ setnz bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_0129
+je .Lt_012C
 push 0
 push 5
-push offset _Lt_0114
+push offset _Lt_0117
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrConcatAssign@20
@@ -2320,118 +2346,96 @@ push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
-.Lt_0129:
-.Lt_0128:
-fld dword ptr [_RR_SF]
-fcomp qword ptr [_Lt_0170]
-fnstsw ax
-test ah, 0b01000001
-setz al
-shr eax, 1
-sbb eax, eax
-fld dword ptr [_RR_SF]
-fcomp dword ptr [_Lt_0155]
-push eax
-fnstsw ax
-test ah, 0b01000001
-pop eax
-setnz bl
-shr ebx, 1
-sbb ebx, ebx
-and eax, ebx
-je .Lt_012B
-push 0
-push 5
-push offset _Lt_012C
-push -1
-push offset _PRFLACTN_STR
-call _fb_StrConcatAssign@20
-push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrConcatAssign@20
+.Lt_012C:
 .Lt_012B:
-.Lt_012A:
+fld dword ptr [_RR_SF]
+fcomp qword ptr [_Lt_0173]
+fnstsw ax
+test ah, 0b01000001
+setz al
+shr eax, 1
+sbb eax, eax
+fld dword ptr [_RR_SF]
+fcomp dword ptr [_Lt_0158]
+push eax
+fnstsw ax
+test ah, 0b01000001
+pop eax
+setnz bl
+shr ebx, 1
+sbb ebx, ebx
+and eax, ebx
+je .Lt_012E
 push 0
 push 5
-push offset _Lt_0125
+push offset _Lt_012F
+push -1
+push offset _PRFLACTN_STR
+call _fb_StrConcatAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
+call _fb_StrConcatAssign@20
+.Lt_012E:
+.Lt_012D:
+push 0
+push 5
+push offset _Lt_0128
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_015D]
+push dword ptr [_Lt_0160]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0171]
+push dword ptr [_Lt_0174]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_015C]
+push dword ptr [_Lt_015F]
 pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0159]
+push dword ptr [_Lt_015C]
 pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_016C]
+push dword ptr [_Lt_016F]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_015B]
+push dword ptr [_Lt_015E]
 pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_015D]
+push dword ptr [_Lt_0160]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_0171]
+push dword ptr [_Lt_0174]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_0172]
+push dword ptr [_Lt_0175]
 pop dword ptr [_PRFLEVAD_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_0124:
+jmp .Lt_00FA
+.Lt_0127:
 push 5
-push offset _Lt_012E
+push offset _Lt_0131
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_012D
-.Lt_012F:
+jne .Lt_0130
+.Lt_0132:
 call _LN_PRFLBLNK@0
 push 0
 push 5
-push offset _Lt_0130
+push offset _Lt_0133
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_012E
+push offset _Lt_0131
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 fld dword ptr [_RID_SF]
-fcomp dword ptr [_Lt_0155]
-fnstsw ax
-test ah, 0b01000000
-jz .Lt_0132
-.Lt_0133:
-push 0
-push 5
-push offset _Lt_0134
-push -1
-push offset _PRFLACTN_STR
-call _fb_StrAssign@20
-push 0
-push -1
-push 1
-call _fb_MKL@4
-push eax
-push -1
-push offset _PRFLACTNCT_STR
-call _fb_StrAssign@20
-jmp .Lt_0131
-.Lt_0132:
-fld dword ptr [_RID_SF]
-fcomp dword ptr [_Lt_015C]
+fcomp dword ptr [_Lt_0158]
 fnstsw ax
 test ah, 0b01000000
 jz .Lt_0135
@@ -2450,10 +2454,10 @@ push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
-jmp .Lt_0131
+jmp .Lt_0134
 .Lt_0135:
 fld dword ptr [_RID_SF]
-fcomp dword ptr [_Lt_015B]
+fcomp dword ptr [_Lt_015F]
 fnstsw ax
 test ah, 0b01000000
 jz .Lt_0138
@@ -2472,45 +2476,67 @@ push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
+jmp .Lt_0134
 .Lt_0138:
-.Lt_0131:
+fld dword ptr [_RID_SF]
+fcomp dword ptr [_Lt_015E]
+fnstsw ax
+test ah, 0b01000000
+jz .Lt_013B
+.Lt_013C:
+push 0
+push 5
+push offset _Lt_013D
+push -1
+push offset _PRFLACTN_STR
+call _fb_StrAssign@20
+push 0
+push -1
+push 1
+call _fb_MKL@4
+push eax
+push -1
+push offset _PRFLACTNCT_STR
+call _fb_StrAssign@20
+.Lt_013B:
+.Lt_0134:
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0171]
+push dword ptr [_Lt_0174]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0171]
+push dword ptr [_Lt_0174]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0159]
+push dword ptr [_Lt_015C]
 pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0171]
+push dword ptr [_Lt_0174]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_0171]
+push dword ptr [_Lt_0174]
 pop dword ptr [_PRFLSTRMAX_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_012D:
+jmp .Lt_00FA
+.Lt_0130:
 push 5
-push offset _Lt_013C
+push offset _Lt_013F
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_013B
-.Lt_013D:
+jne .Lt_013E
+.Lt_0140:
 call _LN_PRFLBLNK@0
 push 0
 push 11
-push offset _Lt_013E
+push offset _Lt_0141
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 13
-push offset _Lt_013F
+push offset _Lt_0142
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -2538,9 +2564,9 @@ push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
-fmul qword ptr [_Lt_0153]
+fmul qword ptr [_Lt_0156]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -2552,20 +2578,20 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0156]
-fcomp qword ptr [_Lt_0153]
+fadd qword ptr [_Lt_0159]
+fcomp qword ptr [_Lt_0156]
 fnstsw ax
 test ah, 0b01000000
-jz .Lt_0141
+jz .Lt_0144
 push 0
 push 9
-push offset _Lt_0142
+push offset _Lt_0145
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 13
-push offset _Lt_0143
+push offset _Lt_0146
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrConcatAssign@20
@@ -2587,13 +2613,6 @@ call _fb_MKL@4
 push eax
 push -1
 push offset _PRFLACTNCT_STR
-mov dword ptr [ebp-296], 0
-mov dword ptr [ebp-292], 0
-mov dword ptr [ebp-288], 0
-lea eax, [ebp-296]
-push eax
-call _fb_StrConcat@20
-push eax
 mov dword ptr [ebp-308], 0
 mov dword ptr [ebp-304], 0
 mov dword ptr [ebp-300], 0
@@ -2608,66 +2627,73 @@ lea eax, [ebp-320]
 push eax
 call _fb_StrConcat@20
 push eax
+mov dword ptr [ebp-332], 0
+mov dword ptr [ebp-328], 0
+mov dword ptr [ebp-324], 0
+lea eax, [ebp-332]
+push eax
+call _fb_StrConcat@20
+push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
-.Lt_0141:
-.Lt_0140:
+.Lt_0144:
+.Lt_0143:
 push 0
 push 5
-push offset _Lt_013C
+push offset _Lt_013F
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0162]
+push dword ptr [_Lt_0165]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0162]
+push dword ptr [_Lt_0165]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0162]
+push dword ptr [_Lt_0165]
 pop dword ptr [_PRFLESS_SF]
-push dword ptr [_Lt_0159]
+push dword ptr [_Lt_015C]
 pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0173]
+push dword ptr [_Lt_0176]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0162]
+push dword ptr [_Lt_0165]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_0162]
+push dword ptr [_Lt_0165]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_0161]
+push dword ptr [_Lt_0164]
 pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_015B]
+push dword ptr [_Lt_015E]
 pop dword ptr [_PRFLESSSPD_SF]
-push dword ptr [_Lt_0174]
+push dword ptr [_Lt_0177]
 pop dword ptr [_PRFLEVAD_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_013B:
+jmp .Lt_00FA
+.Lt_013E:
 push 5
-push offset _Lt_0148
+push offset _Lt_014B
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0147
-.Lt_0149:
+jne .Lt_014A
+.Lt_014C:
 call _LN_PRFLBLNK@0
 push 0
 push 15
-push offset _Lt_014A
+push offset _Lt_014D
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
-fmul qword ptr [_Lt_0153]
+fmul qword ptr [_Lt_0156]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -2679,13 +2705,13 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fcomp qword ptr [_Lt_0156]
+fcomp qword ptr [_Lt_0159]
 fnstsw ax
 test ah, 0b01000000
-jz .Lt_014C
+jz .Lt_014F
 push 0
 push 5
-push offset _Lt_014D
+push offset _Lt_0150
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -2697,11 +2723,11 @@ push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
-jmp .Lt_014B
-.Lt_014C:
+jmp .Lt_014E
+.Lt_014F:
 push 0
 push 5
-push offset _Lt_014E
+push offset _Lt_0151
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -2713,36 +2739,36 @@ push eax
 push -1
 push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
-.Lt_014B:
+.Lt_014E:
 push 0
 push 5
-push offset _Lt_0148
+push offset _Lt_014B
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0175]
+push dword ptr [_Lt_0178]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0175]
+push dword ptr [_Lt_0178]
 pop dword ptr [_PRFLHPMAX_SF]
 call _LN_PRFLSET@0
-jmp .Lt_00F7
-.Lt_0147:
+jmp .Lt_00FA
+.Lt_014A:
 push 5
-push offset _Lt_0150
+push offset _Lt_0153
 push -1
 push offset _RFG_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_014F
-.Lt_0151:
+jne .Lt_0152
+.Lt_0154:
 call _LN_PRFLBLNK@0
 push 0
 push 12
-push offset _Lt_0152
+push offset _Lt_0155
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
@@ -2754,46 +2780,46 @@ push offset _PRFLACTN_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_0150
+push offset _Lt_0153
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
 push dword ptr [_RID_SF]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0176]
+push dword ptr [_Lt_0179]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0157]
+push dword ptr [_Lt_015A]
 pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0176]
+push dword ptr [_Lt_0179]
 pop dword ptr [_PRFLHPMAX_SF]
 call _LN_PRFLSET@0
-.Lt_014F:
-.Lt_00F7:
-.Lt_00F2:
+.Lt_0152:
+.Lt_00FA:
+.Lt_00F5:
 movsx eax, word ptr [_TX_SI]
 inc eax
 mov word ptr [_TX_SI], ax
-.Lt_00F1:
+.Lt_00F4:
 movsx eax, word ptr [_TX_SI]
-movsx ebx, word ptr [ebp-284]
+movsx ebx, word ptr [ebp-296]
 cmp eax, ebx
-jle .Lt_00F4
-.Lt_00F3:
-.Lt_00E4:
+jle .Lt_00F7
+.Lt_00F6:
+.Lt_00E7:
 movsx ebx, word ptr [_TY_SI]
 inc ebx
 mov word ptr [_TY_SI], bx
-.Lt_00E3:
+.Lt_00E6:
 movsx ebx, word ptr [_TY_SI]
-movsx eax, word ptr [ebp-208]
+movsx eax, word ptr [ebp-220]
 cmp ebx, eax
-jle .Lt_00E6
-.Lt_00E5:
+jle .Lt_00E9
+.Lt_00E8:
 push 1
 call _fb_FileClose@4
-.Lt_00A9:
+.Lt_00AA:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -2806,8 +2832,8 @@ push ebp
 mov ebp, esp
 sub esp, 64
 push ebx
-.Lt_017B:
-.Lt_017D:
+.Lt_017E:
+.Lt_0180:
 mov eax, dword ptr [_CLV_BUFFER_TITLE]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 push dword ptr [_CLV_BUFFER_TITLE]
@@ -2828,60 +2854,6 @@ push offset _TEXTS_STR
 call _fb_StrAssign@20
 push 0
 push 29
-push offset _Lt_0180
-push -1
-push offset _TEXTS_STR
-call _fb_StrConcatAssign@20
-push dword ptr [_CLV_BUFFER_TITLE]
-push offset _CLV_BUFFER
-call _LN_SHOWTEXT@8
-push 0
-push -1
-push 1
-call _fb_SPACE@4
-push eax
-push -1
-push offset _TEXTS_STR
-call _fb_StrAssign@20
-push 0
-push 35
-push offset _Lt_0181
-push -1
-push offset _TEXTS_STR
-call _fb_StrConcatAssign@20
-push dword ptr [_CLV_BUFFER_TITLE]
-push offset _CLV_BUFFER
-call _LN_SHOWTEXT@8
-push 1
-push 0
-call _fb_PrintVoid@8
-push 0
-push -1
-push 1
-call _fb_SPACE@4
-push eax
-push -1
-push offset _TEXTS_STR
-call _fb_StrAssign@20
-push 0
-push 38
-push offset _Lt_0182
-push -1
-push offset _TEXTS_STR
-call _fb_StrConcatAssign@20
-push dword ptr [_CLV_BUFFER_TITLE]
-push offset _CLV_BUFFER
-call _LN_SHOWTEXT@8
-push 0
-push -1
-push 1
-call _fb_SPACE@4
-push eax
-push -1
-push offset _TEXTS_STR
-call _fb_StrAssign@20
-push 0
-push 38
 push offset _Lt_0183
 push -1
 push offset _TEXTS_STR
@@ -2898,17 +2870,17 @@ push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
 push 0
-push 37
+push 35
 push offset _Lt_0184
 push -1
 push offset _TEXTS_STR
 call _fb_StrConcatAssign@20
-push 1
-push 0
-call _fb_PrintVoid@8
 push dword ptr [_CLV_BUFFER_TITLE]
 push offset _CLV_BUFFER
 call _LN_SHOWTEXT@8
+push 1
+push 0
+call _fb_PrintVoid@8
 push 0
 push -1
 push 1
@@ -2918,7 +2890,7 @@ push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
 push 0
-push 37
+push 38
 push offset _Lt_0185
 push -1
 push offset _TEXTS_STR
@@ -2935,7 +2907,7 @@ push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
 push 0
-push 32
+push 38
 push offset _Lt_0186
 push -1
 push offset _TEXTS_STR
@@ -2952,8 +2924,62 @@ push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
 push 0
-push 23
+push 37
 push offset _Lt_0187
+push -1
+push offset _TEXTS_STR
+call _fb_StrConcatAssign@20
+push 1
+push 0
+call _fb_PrintVoid@8
+push dword ptr [_CLV_BUFFER_TITLE]
+push offset _CLV_BUFFER
+call _LN_SHOWTEXT@8
+push 0
+push -1
+push 1
+call _fb_SPACE@4
+push eax
+push -1
+push offset _TEXTS_STR
+call _fb_StrAssign@20
+push 0
+push 37
+push offset _Lt_0188
+push -1
+push offset _TEXTS_STR
+call _fb_StrConcatAssign@20
+push dword ptr [_CLV_BUFFER_TITLE]
+push offset _CLV_BUFFER
+call _LN_SHOWTEXT@8
+push 0
+push -1
+push 1
+call _fb_SPACE@4
+push eax
+push -1
+push offset _TEXTS_STR
+call _fb_StrAssign@20
+push 0
+push 32
+push offset _Lt_0189
+push -1
+push offset _TEXTS_STR
+call _fb_StrConcatAssign@20
+push dword ptr [_CLV_BUFFER_TITLE]
+push offset _CLV_BUFFER
+call _LN_SHOWTEXT@8
+push 0
+push -1
+push 1
+call _fb_SPACE@4
+push eax
+push -1
+push offset _TEXTS_STR
+call _fb_StrAssign@20
+push 0
+push 23
+push offset _Lt_018A
 push -1
 push offset _TEXTS_STR
 call _fb_StrConcatAssign@20
@@ -2969,7 +2995,7 @@ call _fb_Locate@20
 mov word ptr [_COLR_SI], 9
 push 0
 push 8
-push offset _Lt_0188
+push offset _Lt_018B
 push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
@@ -2981,7 +3007,7 @@ push 0
 call _fb_PrintVoid@8
 push 0
 push 12
-push offset _Lt_0189
+push offset _Lt_018C
 push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
@@ -2993,7 +3019,7 @@ push 0
 call _fb_PrintVoid@8
 push 0
 push 11
-push offset _Lt_018A
+push offset _Lt_018D
 push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
@@ -3005,7 +3031,7 @@ push 0
 call _fb_PrintVoid@8
 push 0
 push 8
-push offset _Lt_018B
+push offset _Lt_018E
 push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
@@ -3021,7 +3047,7 @@ mov dword ptr [ebp-24], 0
 mov dword ptr [ebp-20], 0
 push 0
 push 8
-push offset _Lt_018C
+push offset _Lt_018F
 push -1
 lea eax, [ebp-28]
 push eax
@@ -3053,19 +3079,19 @@ lea eax, [ebp-28]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-32], 0
-je .Lt_018F
+je .Lt_0192
 call _LN_SCREENSET@0
 mov dword ptr [_RESTART_ROE], 1
-jmp .Lt_017E
-.Lt_018F:
-.Lt_018E:
+jmp .Lt_0181
+.Lt_0192:
+.Lt_0191:
 push offset _INPUT_TABLE
 mov dword ptr [ebp-44], 0
 mov dword ptr [ebp-40], 0
 mov dword ptr [ebp-36], 0
 push 0
 push 5
-push offset _Lt_0191
+push offset _Lt_0194
 push -1
 lea eax, [ebp-44]
 push eax
@@ -3097,19 +3123,19 @@ lea eax, [ebp-44]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-48], 0
-je .Lt_0194
+je .Lt_0197
 call _LN_SCREENSET@0
 push 0
 call _fb_End@4
-.Lt_0194:
-.Lt_0193:
+.Lt_0197:
+.Lt_0196:
 push offset _INPUT_TABLE
 mov dword ptr [ebp-60], 0
 mov dword ptr [ebp-56], 0
 mov dword ptr [ebp-52], 0
 push 0
 push 5
-push offset _Lt_00AB
+push offset _Lt_00AC
 push -1
 lea eax, [ebp-60]
 push eax
@@ -3141,18 +3167,18 @@ lea eax, [ebp-60]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-64], 0
-je .Lt_0198
+je .Lt_019B
 call _LN_STARTHELP@0
-.Lt_0198:
-.Lt_0197:
-.Lt_017F:
+.Lt_019B:
+.Lt_019A:
+.Lt_0182:
 push offset _INPUT_TABLE
 mov dword ptr [ebp-12], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 9
-push offset _Lt_019A
+push offset _Lt_019D
 push -1
 lea eax, [ebp-12]
 push eax
@@ -3185,9 +3211,9 @@ lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-16], 0
-jne .Lt_017D
-.Lt_017E:
-.Lt_017C:
+jne .Lt_0180
+.Lt_0181:
+.Lt_017F:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -3200,7 +3226,7 @@ push ebp
 mov ebp, esp
 sub esp, 60
 push ebx
-.Lt_01A9:
+.Lt_01AC:
 call _fb_FileFree@0
 mov dword ptr [ebp-4], eax
 mov eax, dword ptr [_CLV_BUFFER_HELP]
@@ -3232,24 +3258,24 @@ push eax
 call _fb_StrConcat@20
 push eax
 call _fb_FileOpen@24
-.Lt_01AD:
+.Lt_01B0:
 push dword ptr [ebp-4]
 call _fb_FileEof@4
 not eax
 test eax, eax
-je .Lt_01AE
+je .Lt_01B1
 push 0
 push -1
 push offset _R_STR
 push dword ptr [ebp-4]
 call _fb_FileLineInput@16
 push 13
-push offset _Lt_01AF
+push offset _Lt_01B2
 push -1
 push offset _R_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_01B1
+jne .Lt_01B4
 push dword ptr [_CLV_BUFFER_HELP]
 push offset _CLV_BUFFER
 call _CLV_BUFFER_CLS@8
@@ -3266,15 +3292,15 @@ push eax
 push -1
 push offset _R_STR
 call _fb_StrAssign@20
-.Lt_01B1:
-.Lt_01B0:
+.Lt_01B4:
+.Lt_01B3:
 push 11
-push offset _Lt_01B2
+push offset _Lt_01B5
 push -1
 push offset _R_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_01B4
+jne .Lt_01B7
 push 0
 push 0
 push -1
@@ -3284,7 +3310,7 @@ call _fb_Locate@20
 mov word ptr [_COLR_SI], 9
 push 0
 push 12
-push offset _Lt_0189
+push offset _Lt_018C
 push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
@@ -3296,14 +3322,14 @@ push 0
 call _fb_PrintVoid@8
 push 0
 push 9
-push offset _Lt_01B5
+push offset _Lt_01B8
 push -1
 push offset _TEXTS_STR
 call _fb_StrAssign@20
 push dword ptr [_CLV_BUFFER_HELP]
 push offset _CLV_BUFFER
 call _LN_SHOWTEXT@8
-.Lt_01B6:
+.Lt_01B9:
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
 call _LN_COMMANDWAIT@0
@@ -3313,7 +3339,7 @@ mov dword ptr [ebp-52], 0
 mov dword ptr [ebp-48], 0
 push 0
 push 6
-push offset _Lt_0086
+push offset _Lt_0087
 push -1
 lea eax, [ebp-56]
 push eax
@@ -3345,20 +3371,20 @@ lea eax, [ebp-56]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-60], 0
-je .Lt_01BB
+je .Lt_01BE
 push dword ptr [ebp-4]
 call _fb_FileClose@4
-jmp .Lt_01AA
+jmp .Lt_01AD
+.Lt_01BE:
+.Lt_01BD:
 .Lt_01BB:
-.Lt_01BA:
-.Lt_01B8:
 push offset _INPUT_TABLE
 mov dword ptr [ebp-40], 0
 mov dword ptr [ebp-36], 0
 mov dword ptr [ebp-32], 0
 push 0
 push 9
-push offset _Lt_019A
+push offset _Lt_019D
 push -1
 lea eax, [ebp-40]
 push eax
@@ -3391,8 +3417,8 @@ lea eax, [ebp-40]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-44], 0
-jne .Lt_01B6
-.Lt_01B7:
+jne .Lt_01B9
+.Lt_01BA:
 push 0
 push -1
 push 0
@@ -3403,15 +3429,15 @@ push eax
 push -1
 push offset _R_STR
 call _fb_StrAssign@20
-.Lt_01B4:
-.Lt_01B3:
+.Lt_01B7:
+.Lt_01B6:
 push 6
-push offset _Lt_01BF
+push offset _Lt_01C2
 push -1
 push offset _R_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_01C1
+jne .Lt_01C4
 push dword ptr [ebp-4]
 call _fb_FileClose@4
 push 0
@@ -3424,11 +3450,11 @@ push eax
 push -1
 push offset _R_STR
 call _fb_StrAssign@20
-jmp .Lt_01AA
-.Lt_01C1:
-.Lt_01C0:
+jmp .Lt_01AD
+.Lt_01C4:
+.Lt_01C3:
 push 8
-push offset _Lt_01C2
+push offset _Lt_01C5
 push -1
 push 7
 push offset _R_STR
@@ -3436,7 +3462,7 @@ call _fb_LEFT@8
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_01C4
+jne .Lt_01C7
 push -1
 push offset _R_STR
 call _fb_StrLen@8
@@ -3457,8 +3483,8 @@ push eax
 push -1
 push offset _R_STR
 call _fb_StrAssign@20
-.Lt_01C4:
-.Lt_01C3:
+.Lt_01C7:
+.Lt_01C6:
 push 0
 push -1
 push offset _R_STR
@@ -3475,7 +3501,7 @@ push -1
 push offset _R_STR
 call _fb_StrCompare@16
 test eax, eax
-je .Lt_01C6
+je .Lt_01C9
 push -1
 push 0
 call _fb_SPACE@4
@@ -3484,26 +3510,26 @@ push -1
 push offset _R_STR
 call _fb_StrCompare@16
 test eax, eax
-je .Lt_01C8
+je .Lt_01CB
 push dword ptr [_CLV_BUFFER_HELP]
 push offset _CLV_BUFFER
 call _LN_SHOWTEXT@8
-jmp .Lt_01C7
-.Lt_01C8:
+jmp .Lt_01CA
+.Lt_01CB:
 push 1
 push 0
 call _fb_PrintVoid@8
-.Lt_01C7:
-.Lt_01C6:
-.Lt_01C5:
-jmp .Lt_01AD
-.Lt_01AE:
+.Lt_01CA:
+.Lt_01C9:
+.Lt_01C8:
+jmp .Lt_01B0
+.Lt_01B1:
 push dword ptr [ebp-4]
 call _fb_FileClose@4
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
 call _CINPUT@0
-.Lt_01AA:
+.Lt_01AD:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -3516,17 +3542,17 @@ push ebp
 mov ebp, esp
 sub esp, 12
 push ebx
-.Lt_01CF:
+.Lt_01D2:
 mov word ptr [_TX_SI], 1
 mov ax, word ptr [_AA_SI]
 mov word ptr [ebp-4], ax
-jmp .Lt_01D2
-.Lt_01D5:
+jmp .Lt_01D5
+.Lt_01D8:
 mov word ptr [_TY_SI], 1
 mov ax, word ptr [_DD_SI]
 mov word ptr [ebp-8], ax
-jmp .Lt_01D7
-.Lt_01DA:
+jmp .Lt_01DA
+.Lt_01DD:
 mov word ptr [_A_SI], 0
 mov word ptr [_D_SI], 0
 movsx eax, word ptr [_TY_SI]
@@ -3536,22 +3562,22 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+72]
-fcomp qword ptr [_Lt_0208]
+fcomp qword ptr [_Lt_020B]
 fnstsw ax
 test ah, 0b01000000
-jz .Lt_01DC
+jz .Lt_01DF
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
 push eax
 call _ROSE_CALC@8
 imul eax, 136
-push dword ptr [_Lt_0156]
-push dword ptr [_Lt_0156+4]
+push dword ptr [_Lt_0159]
+push dword ptr [_Lt_0159+4]
 pop dword ptr [_G_DFA+eax+76]
 pop dword ptr [_G_DFA+eax+72]
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -3567,7 +3593,7 @@ push ebx
 call _fb_StrAssignMid@16
 call _LN_GETACTION@0
 push 5
-push offset _Lt_01DD
+push offset _Lt_01E0
 push -1
 push offset _ACTION_STR
 call _fb_StrCompare@16
@@ -3581,13 +3607,13 @@ setg bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_01DF
+je .Lt_01E2
 movsx ebx, word ptr [_DIS_SI]
 dec ebx
 mov word ptr [_DIS_SI], bx
 call _LN_PUTACTION@0
-.Lt_01DF:
-.Lt_01DE:
+.Lt_01E2:
+.Lt_01E1:
 push 4
 push 1
 movsx ebx, word ptr [_TY_SI]
@@ -3603,145 +3629,145 @@ push eax
 call _fb_CVL@4
 mov dword ptr [ebp-12], eax
 cmp dword ptr [ebp-12], 1819042167
-jne .Lt_01E2
-.Lt_01E3:
-jmp .Lt_01E0
-.Lt_01E2:
-cmp dword ptr [ebp-12], 1919185011
-jne .Lt_01E4
-.Lt_01E5:
-call _LN_CRTNSPDR@0
-jmp .Lt_01E0
-.Lt_01E4:
-cmp dword ptr [ebp-12], 1600284023
-jne .Lt_01E6
-.Lt_01E7:
-call _LN_CRTNWEB@0
-jmp .Lt_01E0
+jne .Lt_01E5
 .Lt_01E6:
-cmp dword ptr [ebp-12], 2036495460
-jne .Lt_01E8
-.Lt_01E9:
-call _LN_CRTNDTBY@0
-jmp .Lt_01E0
+jmp .Lt_01E3
+.Lt_01E5:
+cmp dword ptr [ebp-12], 1919185011
+jne .Lt_01E7
 .Lt_01E8:
-cmp dword ptr [ebp-12], 1819112039
-jne .Lt_01EA
-.Lt_01EB:
-call _LN_CRTNGRML@0
-jmp .Lt_01E0
+call _LN_CRTNSPDR@0
+jmp .Lt_01E3
+.Lt_01E7:
+cmp dword ptr [ebp-12], 1600284023
+jne .Lt_01E9
 .Lt_01EA:
-cmp dword ptr [ebp-12], 1953196147
-jne .Lt_01EC
-.Lt_01ED:
-call _LN_CRTNSHKT@0
-jmp .Lt_01E0
+call _LN_CRTNWEB@0
+jmp .Lt_01E3
+.Lt_01E9:
+cmp dword ptr [ebp-12], 2036495460
+jne .Lt_01EB
 .Lt_01EC:
-cmp dword ptr [ebp-12], 1684499813
-jne .Lt_01EE
-.Lt_01EF:
-call _LN_CRTNEMGD@0
-jmp .Lt_01E0
+call _LN_CRTNDTBY@0
+jmp .Lt_01E3
+.Lt_01EB:
+cmp dword ptr [ebp-12], 1819112039
+jne .Lt_01ED
 .Lt_01EE:
-cmp dword ptr [ebp-12], 1601203561
-jne .Lt_01F0
-.Lt_01F1:
-call _LN_CRTNIMP@0
-jmp .Lt_01E0
+call _LN_CRTNGRML@0
+jmp .Lt_01E3
+.Lt_01ED:
+cmp dword ptr [ebp-12], 1953196147
+jne .Lt_01EF
 .Lt_01F0:
-cmp dword ptr [ebp-12], 1701996902
-jne .Lt_01F2
-.Lt_01F4:
-call _LN_CRTNFIRE@0
-jmp .Lt_01E0
+call _LN_CRTNSHKT@0
+jmp .Lt_01E3
+.Lt_01EF:
+cmp dword ptr [ebp-12], 1684499813
+jne .Lt_01F1
 .Lt_01F2:
-cmp dword ptr [ebp-12], 2019847792
+call _LN_CRTNEMGD@0
+jmp .Lt_01E3
+.Lt_01F1:
+cmp dword ptr [ebp-12], 1601203561
+jne .Lt_01F3
+.Lt_01F4:
+call _LN_CRTNIMP@0
+jmp .Lt_01E3
+.Lt_01F3:
+cmp dword ptr [ebp-12], 1701996902
 jne .Lt_01F5
-.Lt_01F6:
-call _LN_CRTNPNDX@0
-jmp .Lt_01E0
-.Lt_01F5:
-cmp dword ptr [ebp-12], 1937007459
-jne .Lt_01F7
-.Lt_01F9:
-call _LN_CRTNCCTS@0
-jmp .Lt_01E0
 .Lt_01F7:
-cmp dword ptr [ebp-12], 1919183970
+call _LN_CRTNFIRE@0
+jmp .Lt_01E3
+.Lt_01F5:
+cmp dword ptr [ebp-12], 2019847792
+jne .Lt_01F8
+.Lt_01F9:
+call _LN_CRTNPNDX@0
+jmp .Lt_01E3
+.Lt_01F8:
+cmp dword ptr [ebp-12], 1937007459
 jne .Lt_01FA
-.Lt_01FB:
-call _LN_CRTNBLDR@0
-jmp .Lt_01E0
-.Lt_01FA:
-cmp dword ptr [ebp-12], 1953723748
-jne .Lt_01FC
-.Lt_01FD:
-call _LN_CRTNDUST@0
 .Lt_01FC:
-.Lt_01E0:
-.Lt_01DC:
+call _LN_CRTNCCTS@0
+jmp .Lt_01E3
+.Lt_01FA:
+cmp dword ptr [ebp-12], 1919183970
+jne .Lt_01FD
+.Lt_01FE:
+call _LN_CRTNBLDR@0
+jmp .Lt_01E3
+.Lt_01FD:
+cmp dword ptr [ebp-12], 1953723748
+jne .Lt_01FF
+.Lt_0200:
+call _LN_CRTNDUST@0
+.Lt_01FF:
+.Lt_01E3:
+.Lt_01DF:
+.Lt_01DE:
 .Lt_01DB:
-.Lt_01D8:
 movsx eax, word ptr [_TY_SI]
 inc eax
 mov word ptr [_TY_SI], ax
-.Lt_01D7:
+.Lt_01DA:
 movsx eax, word ptr [_TY_SI]
 movsx ebx, word ptr [ebp-8]
 cmp eax, ebx
-jle .Lt_01DA
-.Lt_01D9:
-.Lt_01D3:
+jle .Lt_01DD
+.Lt_01DC:
+.Lt_01D6:
 movsx ebx, word ptr [_TX_SI]
 inc ebx
 mov word ptr [_TX_SI], bx
-.Lt_01D2:
+.Lt_01D5:
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [ebp-4]
 cmp ebx, eax
-jle .Lt_01D5
-.Lt_01D4:
+jle .Lt_01D8
+.Lt_01D7:
 mov word ptr [_TX_SI], 1
 mov ax, word ptr [_AA_SI]
 mov word ptr [ebp-4], ax
-jmp .Lt_01FF
-.Lt_0202:
+jmp .Lt_0202
+.Lt_0205:
 mov word ptr [_TY_SI], 1
 mov ax, word ptr [_DD_SI]
 mov word ptr [ebp-8], ax
-jmp .Lt_0204
-.Lt_0207:
+jmp .Lt_0207
+.Lt_020A:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
 push eax
 call _ROSE_CALC@8
 imul eax, 136
-push dword ptr [_Lt_0208]
-push dword ptr [_Lt_0208+4]
+push dword ptr [_Lt_020B]
+push dword ptr [_Lt_020B+4]
 pop dword ptr [_G_DFA+eax+76]
 pop dword ptr [_G_DFA+eax+72]
-.Lt_0205:
+.Lt_0208:
 movsx eax, word ptr [_TY_SI]
 inc eax
 mov word ptr [_TY_SI], ax
-.Lt_0204:
+.Lt_0207:
 movsx eax, word ptr [_TY_SI]
 movsx ebx, word ptr [ebp-8]
 cmp eax, ebx
-jle .Lt_0207
-.Lt_0206:
-.Lt_0200:
+jle .Lt_020A
+.Lt_0209:
+.Lt_0203:
 movsx ebx, word ptr [_TX_SI]
 inc ebx
 mov word ptr [_TX_SI], bx
-.Lt_01FF:
+.Lt_0202:
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [ebp-4]
 cmp ebx, eax
-jle .Lt_0202
-.Lt_0201:
-.Lt_01D0:
+jle .Lt_0205
+.Lt_0204:
+.Lt_01D3:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -3750,7 +3776,7 @@ ret
 
 .globl _LN_COMMAND@0
 _LN_COMMAND@0:
-.Lt_020B:
+.Lt_020E:
 mov eax, dword ptr [_CLV_BUFFER_PORTAL]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 mov ax, word ptr [_EX_SI]
@@ -3764,13 +3790,13 @@ call _LN_PORTAL@0
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
 call _LN_COMMAND2@0
-.Lt_020C:
+.Lt_020F:
 ret
 .balign 16
 
 .globl _LN_COMMAND2@0
 _LN_COMMAND2@0:
-.Lt_020D:
+.Lt_0210:
 push dword ptr [_CLV_BUFFER_MENU]
 push offset _CLV_BUFFER
 call _CLV_BUFFER_CLS@8
@@ -3786,14 +3812,14 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_0210
+jle .Lt_0213
 mov eax, dword ptr [_CLV_BUFFER_STATUS]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 mov word ptr [_STATX_SI], 24
 call _LN_STATUS@0
-.Lt_0210:
-.Lt_020F:
-.Lt_020E:
+.Lt_0213:
+.Lt_0212:
+.Lt_0211:
 ret
 .balign 16
 
@@ -3804,7 +3830,7 @@ mov ebp, esp
 sub esp, 208
 push ebx
 push esi
-.Lt_0211:
+.Lt_0214:
 push 0
 push -1
 push 0
@@ -3817,7 +3843,7 @@ push eax
 call _fb_StrInit@20
 push 0
 push 5
-push offset _Lt_0213
+push offset _Lt_0216
 push -1
 lea eax, [ebp-12]
 push eax
@@ -3915,49 +3941,17 @@ setle bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_0217
+je .Lt_021A
 mov word ptr [_TITLED_SI], 1
 call _LN_COMMAND2@0
-jmp .Lt_0216
-.Lt_0217:
+jmp .Lt_0219
+.Lt_021A:
 mov word ptr [_TITLED_SI], 0
 call _LN_COMMAND2@0
-.Lt_0216:
+.Lt_0219:
 call _CURSORPUT@0
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
-push 7
-push offset _Lt_021A
-push -1
-push offset _C_STR
-call _fb_StrCompare@16
-test eax, eax
-jne .Lt_0219
-.Lt_021B:
-push offset _SAVE_TABLE
-lea eax, [ebp-12]
-push eax
-call _SAVEGAME_SAVE@8
-push 0
-push 2
-push offset _Lt_0080
-push -1
-push offset _C_STR
-call _fb_StrAssign@20
-call _LN_STARTTITLE@0
-mov dword ptr [_EXITCOMMAND3], -1
-lea eax, [ebp-168]
-push eax
-call _fb_ArrayDestructStr@4
-lea eax, [ebp-60]
-push eax
-call _fb_ArrayStrErase@4
-lea eax, [ebp-12]
-push eax
-call _fb_StrDelete@4
-jmp .Lt_0212
-jmp .Lt_0218
-.Lt_0219:
 push 7
 push offset _Lt_021D
 push -1
@@ -3969,10 +3963,10 @@ jne .Lt_021C
 push offset _SAVE_TABLE
 lea eax, [ebp-12]
 push eax
-call _SAVEGAME_LOAD@8
+call _SAVEGAME_SAVE@8
 push 0
 push 2
-push offset _Lt_0080
+push offset _Lt_0081
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
@@ -3987,12 +3981,44 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0212
+jmp .Lt_0215
+jmp .Lt_021B
 .Lt_021C:
-.Lt_0218:
+push 7
+push offset _Lt_0220
+push -1
+push offset _C_STR
+call _fb_StrCompare@16
+test eax, eax
+jne .Lt_021F
+.Lt_0221:
+push offset _SAVE_TABLE
+lea eax, [ebp-12]
+push eax
+call _SAVEGAME_LOAD@8
+push 0
+push 2
+push offset _Lt_0081
+push -1
+push offset _C_STR
+call _fb_StrAssign@20
+call _LN_STARTTITLE@0
+mov dword ptr [_EXITCOMMAND3], -1
+lea eax, [ebp-168]
+push eax
+call _fb_ArrayDestructStr@4
+lea eax, [ebp-60]
+push eax
+call _fb_ArrayStrErase@4
+lea eax, [ebp-12]
+push eax
+call _fb_StrDelete@4
+jmp .Lt_0215
+.Lt_021F:
+.Lt_021B:
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_0220
+jle .Lt_0223
 mov word ptr [_STATX_SI], 24
 call _LN_GETACTION@0
 push offset _INPUT_TABLE
@@ -4001,7 +4027,7 @@ mov dword ptr [ebp-192], 0
 mov dword ptr [ebp-188], 0
 push 0
 push 5
-push offset _Lt_0221
+push offset _Lt_0224
 push -1
 lea eax, [ebp-196]
 push eax
@@ -4033,10 +4059,10 @@ lea eax, [ebp-196]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-200], 0
-je .Lt_0224
+je .Lt_0227
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
@@ -4051,17 +4077,17 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0212
-.Lt_0224:
-.Lt_0223:
+jmp .Lt_0215
+.Lt_0227:
+.Lt_0226:
 push 5
-push offset _Lt_0229
+push offset _Lt_022C
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0228
-.Lt_022A:
+jne .Lt_022B
+.Lt_022D:
 mov word ptr [_D_SI], 0
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
@@ -4075,17 +4101,17 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0212
-jmp .Lt_0227
-.Lt_0228:
+jmp .Lt_0215
+jmp .Lt_022A
+.Lt_022B:
 push 7
-push offset _Lt_022C
+push offset _Lt_022F
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_022B
-.Lt_022D:
+jne .Lt_022E
+.Lt_0230:
 mov word ptr [_D_SI], 1
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
@@ -4099,17 +4125,17 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0212
-jmp .Lt_0227
-.Lt_022B:
+jmp .Lt_0215
+jmp .Lt_022A
+.Lt_022E:
 push 7
-push offset _Lt_022F
+push offset _Lt_0232
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_022E
-.Lt_0230:
+jne .Lt_0231
+.Lt_0233:
 mov word ptr [_D_SI], 2
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
@@ -4123,17 +4149,17 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0212
-jmp .Lt_0227
-.Lt_022E:
+jmp .Lt_0215
+jmp .Lt_022A
+.Lt_0231:
 push 7
-push offset _Lt_0232
+push offset _Lt_0235
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0231
-.Lt_0233:
+jne .Lt_0234
+.Lt_0236:
 mov word ptr [_D_SI], 3
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
@@ -4147,17 +4173,17 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0212
-jmp .Lt_0227
-.Lt_0231:
+jmp .Lt_0215
+jmp .Lt_022A
+.Lt_0234:
 push 7
-push offset _Lt_0235
+push offset _Lt_0238
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0234
-.Lt_0236:
+jne .Lt_0237
+.Lt_0239:
 mov word ptr [_D_SI], 4
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
@@ -4171,9 +4197,9 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0212
-.Lt_0234:
-.Lt_0227:
+jmp .Lt_0215
+.Lt_0237:
+.Lt_022A:
 movsx eax, word ptr [_YM_SI]
 cmp eax, 10
 sete al
@@ -4199,13 +4225,13 @@ setne bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_0238
+je .Lt_023B
 mov word ptr [_D_SI], 0
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
 call _LN_COMMAND2@0
-.Lt_0238:
-.Lt_0237:
+.Lt_023B:
+.Lt_023A:
 movsx ebx, word ptr [_YM_SI]
 cmp ebx, 9
 sete bl
@@ -4231,13 +4257,13 @@ setne al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_023A
+je .Lt_023D
 mov word ptr [_D_SI], 1
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
 call _LN_COMMAND2@0
-.Lt_023A:
-.Lt_0239:
+.Lt_023D:
+.Lt_023C:
 movsx eax, word ptr [_YM_SI]
 cmp eax, 10
 sete al
@@ -4263,13 +4289,13 @@ setne bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_023C
+je .Lt_023F
 mov word ptr [_D_SI], 2
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
 call _LN_COMMAND2@0
-.Lt_023C:
-.Lt_023B:
+.Lt_023F:
+.Lt_023E:
 movsx ebx, word ptr [_YM_SI]
 cmp ebx, 11
 sete bl
@@ -4295,13 +4321,13 @@ setne al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_023E
+je .Lt_0241
 mov word ptr [_D_SI], 3
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
 call _LN_COMMAND2@0
-.Lt_023E:
-.Lt_023D:
+.Lt_0241:
+.Lt_0240:
 movsx eax, word ptr [_YM_SI]
 cmp eax, 10
 sete al
@@ -4326,15 +4352,15 @@ setne bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_0240
+je .Lt_0243
 mov word ptr [_D_SI], 4
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
 call _LN_COMMAND2@0
-.Lt_0240:
-.Lt_023F:
+.Lt_0243:
+.Lt_0242:
 push 5
-push offset _Lt_01DD
+push offset _Lt_01E0
 push -1
 push offset _ACTION_STR
 call _fb_StrCompare@16
@@ -4350,10 +4376,10 @@ sbb ebx, ebx
 and eax, ebx
 not eax
 test eax, eax
-je .Lt_0242
+je .Lt_0245
 movsx eax, word ptr [_LB_SI]
 cmp eax, -1
-jne .Lt_0244
+jne .Lt_0247
 movsx eax, word ptr [_XM_SI]
 movsx ebx, word ptr [_STATX_SI]
 cmp eax, ebx
@@ -4380,14 +4406,14 @@ setle bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_0246
+je .Lt_0249
 movsx ebx, word ptr [_XM_SI]
 movsx eax, word ptr [_STATX_SI]
 sub ebx, eax
 push ebx
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027C]
+fdiv qword ptr [_Lt_027F]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -4404,7 +4430,7 @@ add ebx, -14
 push ebx
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027C]
+fdiv qword ptr [_Lt_027F]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -4445,7 +4471,7 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fld qword ptr [ebp-208]
 fcompp
 fnstsw ax
@@ -4454,7 +4480,7 @@ setnz al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_0248
+je .Lt_024B
 push 0
 push -1
 push 4
@@ -4481,34 +4507,34 @@ push -1
 push offset _ACTION_STR
 call _fb_StrCompare@16
 test eax, eax
-je .Lt_024A
+je .Lt_024D
 push 0
 push -1
 push offset _AA_STR
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
-jmp .Lt_0249
-.Lt_024A:
+jmp .Lt_024C
+.Lt_024D:
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
-.Lt_0249:
+.Lt_024C:
 push 0
 push 3
-push offset _Lt_024B
+push offset _Lt_024E
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
+.Lt_024B:
+.Lt_024A:
+.Lt_0249:
 .Lt_0248:
+jmp .Lt_0246
 .Lt_0247:
-.Lt_0246:
-.Lt_0245:
-jmp .Lt_0243
-.Lt_0244:
 push 0
 push -1
 push offset _ACTION_STR
@@ -4548,7 +4574,7 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 sub esp, 4
 fistp dword ptr [esp]
 pop eax
@@ -4563,14 +4589,14 @@ lea eax, [ebp-96]
 push eax
 call _fb_CVL@4
 test eax, eax
-jle .Lt_024D
+jle .Lt_0250
 mov word ptr [ebp-72], 1
 lea eax, [ebp-96]
 push eax
 call _fb_CVL@4
 mov word ptr [ebp-204], ax
-jmp .Lt_024F
-.Lt_0252:
+jmp .Lt_0252
+.Lt_0255:
 push 0
 push -1
 push 4
@@ -4592,7 +4618,7 @@ push -1
 push offset _AA_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0254
+jne .Lt_0257
 push 0
 push -1
 movsx eax, word ptr [ebp-72]
@@ -4608,78 +4634,23 @@ push eax
 call _fb_CVL@4
 inc eax
 mov word ptr [ebp-72], ax
-.Lt_0254:
+.Lt_0257:
+.Lt_0256:
 .Lt_0253:
-.Lt_0250:
 movsx eax, word ptr [ebp-72]
 inc eax
 mov word ptr [ebp-72], ax
-.Lt_024F:
+.Lt_0252:
 movsx eax, word ptr [ebp-72]
 movsx ebx, word ptr [ebp-204]
 cmp eax, ebx
-jle .Lt_0252
-.Lt_0251:
+jle .Lt_0255
+.Lt_0254:
 lea ebx, [ebp-120]
 push ebx
 call _fb_CVL@4
 test eax, eax
-jle .Lt_0256
-push 7
-push offset _Lt_0259
-push -1
-push offset _C_STR
-call _fb_StrCompare@16
-test eax, eax
-jne .Lt_0258
-.Lt_025A:
-push 0
-push -1
-lea eax, [ebp-120]
-push eax
-call _fb_CVL@4
-dec eax
-push eax
-fild dword ptr [esp]
-add esp, 4
-fdiv qword ptr [_Lt_027F]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-or eax, 0b0000110000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fmul qword ptr [_Lt_027F]
-lea eax, [ebp-120]
-push eax
-fstp qword ptr [ebp-208]
-call _fb_CVL@4
-add eax, 8
-mov ecx, 5
-cdq
-idiv ecx
-mov eax, edx
-push eax
-fild dword ptr [esp]
-add esp, 4
-fadd qword ptr [ebp-208]
-fadd qword ptr [_Lt_0156]
-sub esp, 4
-fistp dword ptr [esp]
-pop eax
-push eax
-call _fb_MKL@4
-push eax
-push -1
-lea eax, [ebp-120]
-push eax
-call _fb_StrAssign@20
-jmp .Lt_0257
-.Lt_0258:
+jle .Lt_0259
 push 7
 push offset _Lt_025C
 push -1
@@ -4697,7 +4668,7 @@ dec eax
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027F]
+fdiv qword ptr [_Lt_0282]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -4708,7 +4679,62 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fmul qword ptr [_Lt_027F]
+fmul qword ptr [_Lt_0282]
+lea eax, [ebp-120]
+push eax
+fstp qword ptr [ebp-208]
+call _fb_CVL@4
+add eax, 8
+mov ecx, 5
+cdq
+idiv ecx
+mov eax, edx
+push eax
+fild dword ptr [esp]
+add esp, 4
+fadd qword ptr [ebp-208]
+fadd qword ptr [_Lt_0159]
+sub esp, 4
+fistp dword ptr [esp]
+pop eax
+push eax
+call _fb_MKL@4
+push eax
+push -1
+lea eax, [ebp-120]
+push eax
+call _fb_StrAssign@20
+jmp .Lt_025A
+.Lt_025B:
+push 7
+push offset _Lt_025F
+push -1
+push offset _C_STR
+call _fb_StrCompare@16
+test eax, eax
+jne .Lt_025E
+.Lt_0260:
+push 0
+push -1
+lea eax, [ebp-120]
+push eax
+call _fb_CVL@4
+dec eax
+push eax
+fild dword ptr [esp]
+add esp, 4
+fdiv qword ptr [_Lt_0282]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+or eax, 0b0000110000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fmul qword ptr [_Lt_0282]
 lea eax, [ebp-120]
 push eax
 fstp qword ptr [ebp-208]
@@ -4722,7 +4748,7 @@ push eax
 fild dword ptr [esp]
 add esp, 4
 fadd qword ptr [ebp-208]
-fadd qword ptr [_Lt_0156]
+fadd qword ptr [_Lt_0159]
 sub esp, 4
 fistp dword ptr [esp]
 pop eax
@@ -4733,16 +4759,16 @@ push -1
 lea eax, [ebp-120]
 push eax
 call _fb_StrAssign@20
-jmp .Lt_0257
-.Lt_025B:
+jmp .Lt_025A
+.Lt_025E:
 push 7
-push offset _Lt_025F
+push offset _Lt_0262
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_025E
-.Lt_0260:
+jne .Lt_0261
+.Lt_0263:
 push 0
 push -1
 lea eax, [ebp-120]
@@ -4760,7 +4786,7 @@ lea eax, [ebp-120]
 push eax
 call _fb_CVL@4
 cmp eax, 1
-jge .Lt_0262
+jge .Lt_0265
 push 0
 push -1
 lea eax, [ebp-120]
@@ -4778,18 +4804,18 @@ push -1
 lea eax, [ebp-120]
 push eax
 call _fb_StrAssign@20
-.Lt_0262:
+.Lt_0265:
+.Lt_0264:
+jmp .Lt_025A
 .Lt_0261:
-jmp .Lt_0257
-.Lt_025E:
 push 7
-push offset _Lt_0264
+push offset _Lt_0267
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0263
-.Lt_0265:
+jne .Lt_0266
+.Lt_0268:
 push 0
 push -1
 lea eax, [ebp-120]
@@ -4811,7 +4837,7 @@ push ebx
 mov ebx, eax
 call _fb_CVL@4
 cmp ebx, eax
-jle .Lt_0267
+jle .Lt_026A
 push 0
 push -1
 lea eax, [ebp-120]
@@ -4829,10 +4855,10 @@ push -1
 lea eax, [ebp-120]
 push eax
 call _fb_StrAssign@20
-.Lt_0267:
+.Lt_026A:
+.Lt_0269:
 .Lt_0266:
-.Lt_0263:
-.Lt_0257:
+.Lt_025A:
 push 0
 push -1
 push 4
@@ -4849,18 +4875,18 @@ push eax
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
-.Lt_0256:
-.Lt_0255:
-.Lt_024D:
-.Lt_024C:
-.Lt_0243:
-.Lt_0242:
-.Lt_0241:
+.Lt_0259:
+.Lt_0258:
+.Lt_0250:
+.Lt_024F:
+.Lt_0246:
+.Lt_0245:
+.Lt_0244:
 call _LN_PUTACTION@0
 call _fb_Timer@0
 fstp dword ptr [_ST_SF]
-.Lt_0220:
-.Lt_021F:
+.Lt_0223:
+.Lt_0222:
 mov word ptr [_STATX_SI], 24
 push offset _INPUT_TABLE
 mov dword ptr [ebp-180], 0
@@ -4868,7 +4894,7 @@ mov dword ptr [ebp-176], 0
 mov dword ptr [ebp-172], 0
 push 0
 push 6
-push offset _Lt_0086
+push offset _Lt_0087
 push -1
 lea eax, [ebp-180]
 push eax
@@ -4909,7 +4935,7 @@ lea eax, [ebp-180]
 push eax
 call _fb_StrDelete@4
 cmp dword ptr [ebp-184], 0
-je .Lt_026A
+je .Lt_026D
 call _LN_STARTTITLE@0
 lea eax, [ebp-168]
 push eax
@@ -4920,9 +4946,9 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0212
-.Lt_026A:
-.Lt_0269:
+jmp .Lt_0215
+.Lt_026D:
+.Lt_026C:
 movsx eax, word ptr [_LB_SI]
 cmp eax, -1
 sete al
@@ -4940,7 +4966,7 @@ setle bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_026D
+je .Lt_0270
 movsx ebx, word ptr [_XM_SI]
 cmp ebx, 2
 setge bl
@@ -4952,13 +4978,13 @@ setle al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_026F
+je .Lt_0272
 movsx eax, word ptr [_YM_SI]
 add eax, -2
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027C]
+fdiv qword ptr [_Lt_027F]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -4975,14 +5001,14 @@ fild dword ptr [esp]
 add esp, 4
 fxch st(1)
 faddp
-fadd qword ptr [_Lt_0282]
+fadd qword ptr [_Lt_0285]
 fistp word ptr [_TEMPY_SI]
 movsx eax, word ptr [_XM_SI]
 add eax, -2
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027C]
+fdiv qword ptr [_Lt_027F]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -4999,7 +5025,7 @@ fild dword ptr [esp]
 add esp, 4
 fxch st(1)
 faddp
-fadd qword ptr [_Lt_0282]
+fadd qword ptr [_Lt_0285]
 fistp word ptr [_TEMPX_SI]
 mov ax, word ptr [_TEMPY_SI]
 mov word ptr [_DY_SI], ax
@@ -5007,57 +5033,57 @@ mov ax, word ptr [_TEMPX_SI]
 mov word ptr [_EX_SI], ax
 push 0
 push 3
-push offset _Lt_024B
+push offset _Lt_024E
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
+.Lt_0272:
+.Lt_0271:
+.Lt_0270:
 .Lt_026F:
-.Lt_026E:
-.Lt_026D:
-.Lt_026C:
 movsx eax, word ptr [_EX_SI]
 cmp eax, 1
-jge .Lt_0271
-.Lt_0272:
+jge .Lt_0274
+.Lt_0275:
 mov word ptr [_EX_SI], 1
-jmp .Lt_0270
-.Lt_0271:
+jmp .Lt_0273
+.Lt_0274:
 movsx eax, word ptr [_EX_SI]
 movsx ebx, word ptr [_AA_SI]
 cmp eax, ebx
-jle .Lt_0273
-.Lt_0274:
+jle .Lt_0276
+.Lt_0277:
 mov bx, word ptr [_AA_SI]
 mov word ptr [_EX_SI], bx
+.Lt_0276:
 .Lt_0273:
-.Lt_0270:
 movsx ebx, word ptr [_DY_SI]
 cmp ebx, 1
-jge .Lt_0276
-.Lt_0277:
+jge .Lt_0279
+.Lt_027A:
 mov word ptr [_DY_SI], 1
-jmp .Lt_0275
-.Lt_0276:
+jmp .Lt_0278
+.Lt_0279:
 movsx ebx, word ptr [_DY_SI]
 movsx eax, word ptr [_DD_SI]
 cmp ebx, eax
-jle .Lt_0278
-.Lt_0279:
+jle .Lt_027B
+.Lt_027C:
 mov ax, word ptr [_DD_SI]
 mov word ptr [_DY_SI], ax
+.Lt_027B:
 .Lt_0278:
-.Lt_0275:
 movsx eax, word ptr [_RB_SI]
 cmp eax, -1
-jne .Lt_027B
+jne .Lt_027E
 push 0
 push 2
-push offset _Lt_0096
+push offset _Lt_0097
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-.Lt_027B:
-.Lt_027A:
+.Lt_027E:
+.Lt_027D:
 lea eax, [ebp-168]
 push eax
 call _fb_ArrayDestructStr@4
@@ -5067,7 +5093,7 @@ call _fb_ArrayStrErase@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-.Lt_0212:
+.Lt_0215:
 pop esi
 pop ebx
 mov esp, ebp
@@ -5077,8 +5103,8 @@ ret
 
 .globl _LN_NAMES@0
 _LN_NAMES@0:
-.Lt_02AE:
-.Lt_02AF:
+.Lt_02B1:
+.Lt_02B2:
 ret
 .balign 16
 
@@ -5089,9 +5115,9 @@ mov ebp, esp
 sub esp, 4
 push ebx
 push esi
-.Lt_02B0:
+.Lt_02B3:
 mov word ptr [_T_SI], 0
-.Lt_02B5:
+.Lt_02B8:
 push 0
 push -1
 movsx eax, word ptr [_TX_SI]
@@ -5132,15 +5158,15 @@ imul eax, 12
 lea ecx, [_E_STRA+eax]
 push ecx
 call _fb_StrSwap@24
-.Lt_02B3:
+.Lt_02B6:
 movsx ecx, word ptr [_T_SI]
 inc ecx
 mov word ptr [_T_SI], cx
-.Lt_02B2:
+.Lt_02B5:
 movsx ecx, word ptr [_T_SI]
 cmp ecx, 1
-jle .Lt_02B5
-.Lt_02B4:
+jle .Lt_02B8
+.Lt_02B7:
 push 0
 push -1
 push 4
@@ -5233,7 +5259,7 @@ lea ebx, [_E_STRA+esi+24]
 push ebx
 call _fb_StrAssignMid@16
 mov word ptr [_T_SI], 3
-.Lt_02B9:
+.Lt_02BC:
 push 0
 push -1
 movsx ebx, word ptr [_TX_SI]
@@ -5274,17 +5300,17 @@ imul eax, 12
 lea ecx, [_E_STRA+eax]
 push ecx
 call _fb_StrSwap@24
-.Lt_02B7:
+.Lt_02BA:
 movsx ecx, word ptr [_T_SI]
 inc ecx
 mov word ptr [_T_SI], cx
-.Lt_02B6:
+.Lt_02B9:
 movsx ecx, word ptr [_T_SI]
 cmp ecx, 4
-jle .Lt_02B9
-.Lt_02B8:
+jle .Lt_02BC
+.Lt_02BB:
 mov word ptr [_T_SI], 0
-.Lt_02BD:
+.Lt_02C0:
 movsx ecx, word ptr [_TY_SI]
 push ecx
 movsx ecx, word ptr [_TX_SI]
@@ -5347,16 +5373,16 @@ movsx esi, word ptr [_T_SI]
 add ecx, esi
 pop dword ptr [_G_DFA+ecx*8]
 pop dword ptr [_G_DFA+ecx*8+4]
-.Lt_02BB:
+.Lt_02BE:
 movsx ecx, word ptr [_T_SI]
 inc ecx
 mov word ptr [_T_SI], cx
-.Lt_02BA:
+.Lt_02BD:
 movsx ecx, word ptr [_T_SI]
 cmp ecx, 16
-jle .Lt_02BD
-.Lt_02BC:
-.Lt_02B1:
+jle .Lt_02C0
+.Lt_02BF:
+.Lt_02B4:
 pop esi
 pop ebx
 mov esp, ebp
@@ -5368,9 +5394,21 @@ ret
 _LN_ATTACK@0:
 push ebp
 mov ebp, esp
-sub esp, 4
+sub esp, 60
 push ebx
-.Lt_02BF:
+.Lt_02C2:
+push 0
+push -1
+push 0
+push 0
+call _fb_StrFill1@8
+push eax
+push -1
+lea eax, [ebp-12]
+push eax
+call _fb_StrInit@20
+push 0
+push -1
 push 4
 push 5
 movsx eax, word ptr [_TY_SI]
@@ -5383,58 +5421,76 @@ lea ebx, [_E_STRA+eax+36]
 push ebx
 call _fb_StrMid@12
 push eax
-call _fb_CVL@4
-mov dword ptr [ebp-4], eax
-cmp dword ptr [ebp-4], 1702127970
-jne .Lt_02C3
-.Lt_02C5:
-call _LN_ATTKBITE@0
-jmp .Lt_02C1
-.Lt_02C3:
-cmp dword ptr [ebp-4], 1751346800
-jne .Lt_02C6
-.Lt_02C8:
-call _LN_ATTKPNCH@0
-jmp .Lt_02C1
-.Lt_02C6:
-cmp dword ptr [ebp-4], 1801677163
-jne .Lt_02C9
-.Lt_02CB:
-call _LN_ATTKKICK@0
-jmp .Lt_02C1
-.Lt_02C9:
-cmp dword ptr [ebp-4], 1836019318
-jne .Lt_02CC
-.Lt_02CD:
-call _LN_ATTKVNOM@0
-jmp .Lt_02C1
-.Lt_02CC:
-cmp dword ptr [ebp-4], 1919379300
-jne .Lt_02CE
-.Lt_02CF:
-call _LN_ATTKDGGR@0
-jmp .Lt_02C1
-.Lt_02CE:
-cmp dword ptr [ebp-4], 1701538160
-jne .Lt_02D0
-.Lt_02D1:
-call _LN_ATTKPIKE@0
-jmp .Lt_02C1
-.Lt_02D0:
-cmp dword ptr [ebp-4], 1701999971
-jne .Lt_02D2
-.Lt_02D4:
-call _LN_USECURE@0
-jmp .Lt_02C1
-.Lt_02D2:
-cmp dword ptr [ebp-4], 1701996902
-jne .Lt_02D5
-.Lt_02D6:
-call _LN_ATTKFIRE@0
-jmp .Lt_02C1
-.Lt_02D5:
+push -1
+lea eax, [ebp-12]
+push eax
+call _fb_StrAssign@20
+push 0
+push -1
+push offset _ATTACK_TABLE
+mov dword ptr [ebp-48], 0
+mov dword ptr [ebp-44], 0
+mov dword ptr [ebp-40], 0
+push 0
+push -1
+push 7
+push offset _Lt_02C5
+push -1
+push -1
 push 4
-push offset _Lt_00F5
+push 5
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 108
+lea ebx, [_E_STRA+eax+36]
+push ebx
+call _fb_StrMid@12
+push eax
+push 6
+push offset _Lt_02C4
+mov dword ptr [ebp-24], 0
+mov dword ptr [ebp-20], 0
+mov dword ptr [ebp-16], 0
+lea eax, [ebp-24]
+push eax
+call _fb_StrConcat@20
+push eax
+mov dword ptr [ebp-36], 0
+mov dword ptr [ebp-32], 0
+mov dword ptr [ebp-28], 0
+lea eax, [ebp-36]
+push eax
+call _fb_StrConcat@20
+push eax
+push -1
+lea eax, [ebp-48]
+push eax
+call _fb_StrAssign@20
+lea eax, [ebp-48]
+push eax
+call _SYNC_NAMES@8
+push eax
+push -1
+lea eax, [ebp-60]
+push eax
+call _fb_StrInit@20
+lea eax, [ebp-48]
+push eax
+call _fb_StrDelete@4
+push 3
+push offset _Lt_004F
+push -1
+lea eax, [ebp-60]
+push eax
+call _fb_StrCompare@16
+test eax, eax
+jne .Lt_02CB
+.Lt_02CC:
+push 4
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -5449,7 +5505,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -5463,9 +5519,25 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
-.Lt_02D7:
-.Lt_02C1:
-.Lt_02C0:
+jmp .Lt_02C9
+.Lt_02CB:
+push offset _ATTACK_TABLE
+lea ebx, [ebp-12]
+push ebx
+call _LN_ATTK_TABLE@8
+.Lt_02CD:
+.Lt_02C9:
+lea ebx, [ebp-60]
+push ebx
+call _fb_StrDelete@4
+lea ebx, [ebp-12]
+push ebx
+call _fb_StrDelete@4
+jmp .Lt_02C3
+lea ebx, [ebp-12]
+push ebx
+call _fb_StrDelete@4
+.Lt_02C3:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -5479,7 +5551,7 @@ mov ebp, esp
 sub esp, 24
 push ebx
 push esi
-.Lt_02D8:
+.Lt_02CE:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -5516,7 +5588,7 @@ setae al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_02DB
+je .Lt_02D1
 push offset _ATTK_PICT_STR
 push 4
 push 1
@@ -5612,7 +5684,7 @@ movsx eax, word ptr [_EVADEATTACK]
 push eax
 fild dword ptr [esp]
 add esp, 4
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 fstp qword ptr [ebp-24]
 call _fb_Rnd@4
 movsx eax, word ptr [_EVADEATTACK]
@@ -5654,9 +5726,9 @@ fsub qword ptr [_G_DFA+eax+40]
 fistp word ptr [_ATTACKBLOCKED]
 movsx eax, word ptr [_ATTACKBLOCKED]
 test eax, eax
-jge .Lt_02DF
+jge .Lt_02D5
 mov word ptr [_ATTACKBLOCKED], 0
-.Lt_02DF:
+.Lt_02D5:
 movsx eax, word ptr [_HP_DMG_SI]
 movsx esi, word ptr [_EVADEATTACK]
 neg esi
@@ -5731,19 +5803,19 @@ imul esi, ebx
 add eax, esi
 imul eax, 136
 fld qword ptr [_G_DFA+eax+8]
-fcomp qword ptr [_Lt_0208]
+fcomp qword ptr [_Lt_020B]
 fnstsw ax
 test ah, 0b01000001
-jz .Lt_02E1
+jz .Lt_02D7
 call _LN_VICTORY@0
-.Lt_02E1:
-.Lt_02E0:
-.Lt_02DD:
-.Lt_02DC:
-jmp .Lt_02DA
-.Lt_02DB:
+.Lt_02D7:
+.Lt_02D6:
+.Lt_02D3:
+.Lt_02D2:
+jmp .Lt_02D0
+.Lt_02D1:
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -5758,7 +5830,7 @@ lea esi, [_E_STRA+eax+48]
 push esi
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -5772,8 +5844,8 @@ imul eax, 108
 lea esi, [_E_STRA+eax+48]
 push esi
 call _fb_StrAssignMid@16
-.Lt_02DA:
-.Lt_02D9:
+.Lt_02D0:
+.Lt_02CF:
 pop esi
 pop ebx
 mov esp, ebp
@@ -5783,16 +5855,16 @@ ret
 
 .globl _LN_ATTKBITE@0
 _LN_ATTKBITE@0:
-.Lt_02E7:
+.Lt_02DD:
 push 0
 push 5
-push offset _Lt_02C4
+push offset _Lt_02DF
 push -1
 push offset _ATTK_PICT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_02C4
+push offset _Lt_02DF
 push -1
 push offset _ATTK_NAME_STR
 call _fb_StrAssign@20
@@ -5805,7 +5877,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -5817,26 +5889,26 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_027F]
+fadd qword ptr [_Lt_0282]
 fistp word ptr [_HP_DMG_SI]
 mov word ptr [_STR_DMG_SI], 2
 call _LN_BATTLE@0
-.Lt_02E8:
+.Lt_02DE:
 ret
 .balign 16
 
 .globl _LN_ATTKPNCH@0
 _LN_ATTKPNCH@0:
-.Lt_02E9:
+.Lt_02E0:
 push 0
 push 5
-push offset _Lt_02C7
+push offset _Lt_02E2
 push -1
 push offset _ATTK_PICT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_02C7
+push offset _Lt_02E2
 push -1
 push offset _ATTK_NAME_STR
 call _fb_StrAssign@20
@@ -5849,71 +5921,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_02EB]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-and eax, 0b1111001111111111
-or eax, 0b0000010000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fadd qword ptr [_Lt_027C]
-fistp word ptr [_HP_DMG_SI]
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_02EC]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-and eax, 0b1111001111111111
-or eax, 0b0000010000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fadd qword ptr [_Lt_0153]
-fistp word ptr [_STR_DMG_SI]
-call _LN_BATTLE@0
-.Lt_02EA:
-ret
-.balign 16
-
-.globl _LN_ATTKWSTF@0
-_LN_ATTKWSTF@0:
-.Lt_02ED:
-push 0
-push 5
-push offset _Lt_0119
-push -1
-push offset _ATTK_PICT_STR
-call _fb_StrAssign@20
-push 0
-push 5
-push offset _Lt_0119
-push -1
-push offset _ATTK_NAME_STR
-call _fb_StrAssign@20
-mov word ptr [_STR_USE_SI], 20
-mov word ptr [_ESS_USE_SI], 0
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_02E3]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -5934,199 +5942,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_02EB]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-and eax, 0b1111001111111111
-or eax, 0b0000010000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fadd qword ptr [_Lt_027D]
-fistp word ptr [_STR_DMG_SI]
-call _LN_BATTLE@0
-.Lt_02EE:
-ret
-.balign 16
-
-.globl _LN_ATTKKICK@0
-_LN_ATTKKICK@0:
-.Lt_02EF:
-push 0
-push 5
-push offset _Lt_02CA
-push -1
-push offset _ATTK_PICT_STR
-call _fb_StrAssign@20
-push 0
-push 5
-push offset _Lt_02CA
-push -1
-push offset _ATTK_NAME_STR
-call _fb_StrAssign@20
-mov word ptr [_STR_USE_SI], 14
-mov word ptr [_ESS_USE_SI], 0
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027F]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-and eax, 0b1111001111111111
-or eax, 0b0000010000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fadd qword ptr [_Lt_027D]
-fistp word ptr [_HP_DMG_SI]
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_02F1]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-and eax, 0b1111001111111111
-or eax, 0b0000010000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fadd qword ptr [_Lt_027C]
-fistp word ptr [_STR_DMG_SI]
-call _LN_BATTLE@0
-.Lt_02F0:
-ret
-.balign 16
-
-.globl _LN_ATTKVNOM@0
-_LN_ATTKVNOM@0:
-.Lt_02F2:
-push 0
-push 5
-push offset _Lt_0105
-push -1
-push offset _ATTK_PICT_STR
-call _fb_StrAssign@20
-push 0
-push 5
-push offset _Lt_0105
-push -1
-push offset _ATTK_NAME_STR
-call _fb_StrAssign@20
-mov word ptr [_STR_USE_SI], 0
-mov word ptr [_ESS_USE_SI], 15
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027D]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-and eax, 0b1111001111111111
-or eax, 0b0000010000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fadd qword ptr [_Lt_02F1]
-fistp word ptr [_HP_DMG_SI]
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027D]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-and eax, 0b1111001111111111
-or eax, 0b0000010000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fadd qword ptr [_Lt_02F4]
-fistp word ptr [_STR_DMG_SI]
-call _LN_BATTLE@0
-.Lt_02F3:
-ret
-.balign 16
-
-.globl _LN_ATTKDGGR@0
-_LN_ATTKDGGR@0:
-.Lt_02F5:
-push 0
-push 5
-push offset _Lt_0114
-push -1
-push offset _ATTK_PICT_STR
-call _fb_StrAssign@20
-push 0
-push 5
-push offset _Lt_0114
-push -1
-push offset _ATTK_NAME_STR
-call _fb_StrAssign@20
-mov word ptr [_STR_USE_SI], 18
-mov word ptr [_ESS_USE_SI], 0
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027D]
-sub esp, 4
-fnstcw [esp]
-mov eax, [esp]
-and eax, 0b1111001111111111
-or eax, 0b0000010000000000
-push eax
-fldcw [esp]
-add esp, 4
-frndint
-fldcw [esp]
-add esp, 4
-fadd qword ptr [_Lt_02EC]
-fistp word ptr [_HP_DMG_SI]
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_02F4]
+fdiv qword ptr [_Lt_02E4]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6141,26 +5957,26 @@ add esp, 4
 fadd qword ptr [_Lt_0156]
 fistp word ptr [_STR_DMG_SI]
 call _LN_BATTLE@0
-.Lt_02F6:
+.Lt_02E1:
 ret
 .balign 16
 
-.globl _LN_ATTKPIKE@0
-_LN_ATTKPIKE@0:
-.Lt_02F7:
+.globl _LN_ATTKWSTF@0
+_LN_ATTKWSTF@0:
+.Lt_02E5:
 push 0
 push 5
-push offset _Lt_012C
+push offset _Lt_011C
 push -1
 push offset _ATTK_PICT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_012C
+push offset _Lt_011C
 push -1
 push offset _ATTK_NAME_STR
 call _fb_StrAssign@20
-mov word ptr [_STR_USE_SI], 24
+mov word ptr [_STR_USE_SI], 20
 mov word ptr [_ESS_USE_SI], 0
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -6169,7 +5985,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027C]
+fdiv qword ptr [_Lt_0280]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6181,8 +5997,243 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_02F9]
+fadd qword ptr [_Lt_0282]
 fistp word ptr [_HP_DMG_SI]
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fdiv qword ptr [_Lt_02E3]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+and eax, 0b1111001111111111
+or eax, 0b0000010000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fadd qword ptr [_Lt_0280]
+fistp word ptr [_STR_DMG_SI]
+call _LN_BATTLE@0
+.Lt_02E6:
+ret
+.balign 16
+
+.globl _LN_ATTKKICK@0
+_LN_ATTKKICK@0:
+.Lt_02E7:
+push 0
+push 5
+push offset _Lt_02E9
+push -1
+push offset _ATTK_PICT_STR
+call _fb_StrAssign@20
+push 0
+push 5
+push offset _Lt_02E9
+push -1
+push offset _ATTK_NAME_STR
+call _fb_StrAssign@20
+mov word ptr [_STR_USE_SI], 14
+mov word ptr [_ESS_USE_SI], 0
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fdiv qword ptr [_Lt_0282]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+and eax, 0b1111001111111111
+or eax, 0b0000010000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fadd qword ptr [_Lt_0280]
+fistp word ptr [_HP_DMG_SI]
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fdiv qword ptr [_Lt_02EA]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+and eax, 0b1111001111111111
+or eax, 0b0000010000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fadd qword ptr [_Lt_027F]
+fistp word ptr [_STR_DMG_SI]
+call _LN_BATTLE@0
+.Lt_02E8:
+ret
+.balign 16
+
+.globl _LN_ATTKVNOM@0
+_LN_ATTKVNOM@0:
+.Lt_02EB:
+push 0
+push 5
+push offset _Lt_0108
+push -1
+push offset _ATTK_PICT_STR
+call _fb_StrAssign@20
+push 0
+push 5
+push offset _Lt_0108
+push -1
+push offset _ATTK_NAME_STR
+call _fb_StrAssign@20
+mov word ptr [_STR_USE_SI], 0
+mov word ptr [_ESS_USE_SI], 15
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fdiv qword ptr [_Lt_0280]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+and eax, 0b1111001111111111
+or eax, 0b0000010000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fadd qword ptr [_Lt_02EA]
+fistp word ptr [_HP_DMG_SI]
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fdiv qword ptr [_Lt_0280]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+and eax, 0b1111001111111111
+or eax, 0b0000010000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fadd qword ptr [_Lt_02ED]
+fistp word ptr [_STR_DMG_SI]
+call _LN_BATTLE@0
+.Lt_02EC:
+ret
+.balign 16
+
+.globl _LN_ATTKDGGR@0
+_LN_ATTKDGGR@0:
+.Lt_02EE:
+push 0
+push 5
+push offset _Lt_0117
+push -1
+push offset _ATTK_PICT_STR
+call _fb_StrAssign@20
+push 0
+push 5
+push offset _Lt_0117
+push -1
+push offset _ATTK_NAME_STR
+call _fb_StrAssign@20
+mov word ptr [_STR_USE_SI], 18
+mov word ptr [_ESS_USE_SI], 0
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fdiv qword ptr [_Lt_0280]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+and eax, 0b1111001111111111
+or eax, 0b0000010000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fadd qword ptr [_Lt_02E4]
+fistp word ptr [_HP_DMG_SI]
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fdiv qword ptr [_Lt_02ED]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+and eax, 0b1111001111111111
+or eax, 0b0000010000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fadd qword ptr [_Lt_0159]
+fistp word ptr [_STR_DMG_SI]
+call _LN_BATTLE@0
+.Lt_02EF:
+ret
+.balign 16
+
+.globl _LN_ATTKPIKE@0
+_LN_ATTKPIKE@0:
+.Lt_02F0:
+push 0
+push 5
+push offset _Lt_012F
+push -1
+push offset _ATTK_PICT_STR
+call _fb_StrAssign@20
+push 0
+push 5
+push offset _Lt_012F
+push -1
+push offset _ATTK_NAME_STR
+call _fb_StrAssign@20
+mov word ptr [_STR_USE_SI], 24
+mov word ptr [_ESS_USE_SI], 0
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -6202,26 +6253,47 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_02EC]
+fadd qword ptr [_Lt_02F2]
+fistp word ptr [_HP_DMG_SI]
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fdiv qword ptr [_Lt_0282]
+sub esp, 4
+fnstcw [esp]
+mov eax, [esp]
+and eax, 0b1111001111111111
+or eax, 0b0000010000000000
+push eax
+fldcw [esp]
+add esp, 4
+frndint
+fldcw [esp]
+add esp, 4
+fadd qword ptr [_Lt_02E4]
 fistp word ptr [_STR_DMG_SI]
 call _LN_BATTLE@0
-.Lt_02F8:
+.Lt_02F1:
 ret
 .balign 16
 
 .globl _LN_ATTKBURN@0
 _LN_ATTKBURN@0:
 push ebx
-.Lt_02FA:
+.Lt_02F3:
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _ATTK_PICT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_02FC
+push offset _Lt_02F5
 push -1
 push offset _ATTK_NAME_STR
 call _fb_StrAssign@20
@@ -6234,7 +6306,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6246,7 +6318,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_02F9]
+fadd qword ptr [_Lt_02F2]
 fistp word ptr [_HP_DMG_SI]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -6255,7 +6327,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6267,11 +6339,11 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_02FF]
+fadd qword ptr [_Lt_02F8]
 fistp word ptr [_STR_DMG_SI]
 call _LN_BATTLE@0
 push 5
-push offset _Lt_01F3
+push offset _Lt_01F6
 push -1
 push 4
 push 1
@@ -6287,27 +6359,27 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_02FE
+jne .Lt_02F7
 call _LN_GONE@0
-.Lt_02FE:
-.Lt_02FD:
-.Lt_02FB:
+.Lt_02F7:
+.Lt_02F6:
+.Lt_02F4:
 pop ebx
 ret
 .balign 16
 
 .globl _LN_ATTKFIRE@0
 _LN_ATTKFIRE@0:
-.Lt_0300:
+.Lt_02F9:
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _ATTK_PICT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_01F3
+push offset _Lt_01F6
 push -1
 push offset _ATTK_NAME_STR
 call _fb_StrAssign@20
@@ -6320,7 +6392,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6332,7 +6404,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_02FF]
+fadd qword ptr [_Lt_02F8]
 fistp word ptr [_HP_DMG_SI]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -6341,7 +6413,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6353,25 +6425,25 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0302]
+fadd qword ptr [_Lt_02FB]
 fistp word ptr [_STR_DMG_SI]
 call _LN_BATTLE@0
-.Lt_0301:
+.Lt_02FA:
 ret
 .balign 16
 
 .globl _LN_ATTKWEB@0
 _LN_ATTKWEB@0:
-.Lt_0303:
+.Lt_02FC:
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _ATTK_PICT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_010A
+push offset _Lt_010D
 push -1
 push offset _ATTK_NAME_STR
 call _fb_StrAssign@20
@@ -6385,7 +6457,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027F]
+fdiv qword ptr [_Lt_0282]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6397,25 +6469,25 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_02FF]
+fadd qword ptr [_Lt_02F8]
 fistp word ptr [_STR_DMG_SI]
 call _LN_BATTLE@0
-.Lt_0304:
+.Lt_02FD:
 ret
 .balign 16
 
 .globl _LN_ATTKTNGL@0
 _LN_ATTKTNGL@0:
-.Lt_0305:
+.Lt_02FE:
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _ATTK_PICT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_0307
+push offset _Lt_0300
 push -1
 push offset _ATTK_NAME_STR
 call _fb_StrAssign@20
@@ -6429,7 +6501,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_02EB]
+fdiv qword ptr [_Lt_02E3]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6441,25 +6513,25 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_02F4]
+fadd qword ptr [_Lt_02ED]
 fistp word ptr [_STR_DMG_SI]
 call _LN_BATTLE@0
-.Lt_0306:
+.Lt_02FF:
 ret
 .balign 16
 
 .globl _LN_ATTKLASH@0
 _LN_ATTKLASH@0:
-.Lt_0308:
+.Lt_0301:
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _ATTK_PICT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_030A
+push offset _Lt_0303
 push -1
 push offset _ATTK_NAME_STR
 call _fb_StrAssign@20
@@ -6472,7 +6544,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_027F]
+fdiv qword ptr [_Lt_0282]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6484,7 +6556,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_027F]
+fadd qword ptr [_Lt_0282]
 fistp word ptr [_HP_DMG_SI]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -6493,7 +6565,7 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_02F1]
+fdiv qword ptr [_Lt_02EA]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -6505,10 +6577,10 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_02EC]
+fadd qword ptr [_Lt_02E4]
 fistp word ptr [_STR_DMG_SI]
 call _LN_BATTLE@0
-.Lt_0309:
+.Lt_0302:
 ret
 .balign 16
 
@@ -6518,7 +6590,7 @@ push ebp
 mov ebp, esp
 sub esp, 584
 push ebx
-.Lt_030C:
+.Lt_0304:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -6536,12 +6608,12 @@ mov dword ptr [ebp-32], 0
 push 0
 push -1
 push 6
-push offset _Lt_030F
+push offset _Lt_0306
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-16], 0
 mov dword ptr [ebp-12], 0
 mov dword ptr [ebp-8], 0
@@ -6579,12 +6651,12 @@ mov dword ptr [ebp-68], 0
 push 0
 push -1
 push 6
-push offset _Lt_0313
+push offset _Lt_030A
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-52], 0
 mov dword ptr [ebp-48], 0
 mov dword ptr [ebp-44], 0
@@ -6620,12 +6692,12 @@ mov dword ptr [ebp-104], 0
 push 0
 push -1
 push 8
-push offset _Lt_0317
+push offset _Lt_030E
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-88], 0
 mov dword ptr [ebp-84], 0
 mov dword ptr [ebp-80], 0
@@ -6660,12 +6732,12 @@ mov dword ptr [ebp-140], 0
 push 0
 push -1
 push 9
-push offset _Lt_031B
+push offset _Lt_0312
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-124], 0
 mov dword ptr [ebp-120], 0
 mov dword ptr [ebp-116], 0
@@ -6700,12 +6772,12 @@ mov dword ptr [ebp-176], 0
 push 0
 push -1
 push 9
-push offset _Lt_031F
+push offset _Lt_0316
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-160], 0
 mov dword ptr [ebp-156], 0
 mov dword ptr [ebp-152], 0
@@ -6740,12 +6812,12 @@ mov dword ptr [ebp-212], 0
 push 0
 push -1
 push 8
-push offset _Lt_0323
+push offset _Lt_031A
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-196], 0
 mov dword ptr [ebp-192], 0
 mov dword ptr [ebp-188], 0
@@ -6780,12 +6852,12 @@ mov dword ptr [ebp-248], 0
 push 0
 push -1
 push 9
-push offset _Lt_0327
+push offset _Lt_031E
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-232], 0
 mov dword ptr [ebp-228], 0
 mov dword ptr [ebp-224], 0
@@ -6820,12 +6892,12 @@ mov dword ptr [ebp-284], 0
 push 0
 push -1
 push 9
-push offset _Lt_032B
+push offset _Lt_0322
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-268], 0
 mov dword ptr [ebp-264], 0
 mov dword ptr [ebp-260], 0
@@ -6862,12 +6934,12 @@ mov dword ptr [ebp-320], 0
 push 0
 push -1
 push 14
-push offset _Lt_032F
+push offset _Lt_0326
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-304], 0
 mov dword ptr [ebp-300], 0
 mov dword ptr [ebp-296], 0
@@ -6905,12 +6977,12 @@ mov dword ptr [ebp-356], 0
 push 0
 push -1
 push 15
-push offset _Lt_0333
+push offset _Lt_032A
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-340], 0
 mov dword ptr [ebp-336], 0
 mov dword ptr [ebp-332], 0
@@ -6948,12 +7020,12 @@ mov dword ptr [ebp-392], 0
 push 0
 push -1
 push 15
-push offset _Lt_0337
+push offset _Lt_032E
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-376], 0
 mov dword ptr [ebp-372], 0
 mov dword ptr [ebp-368], 0
@@ -6983,7 +7055,7 @@ lea eax, [ebp-400]
 push eax
 call _fb_StrDelete@4
 push 7
-push offset _Lt_033B
+push offset _Lt_0332
 push -1
 push 6
 push offset _HP_DMG_BONUS_STR
@@ -6991,7 +7063,7 @@ call _fb_LEFT@8
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_033D
+jne .Lt_0334
 movsx eax, word ptr [_HP_DMG_SI]
 push eax
 fild dword ptr [esp]
@@ -7009,13 +7081,13 @@ fld qword ptr [ebp-444]
 fdivrp
 fadd qword ptr [ebp-452]
 fistp word ptr [_HP_DMG_SI]
-jmp .Lt_033C
-.Lt_033D:
+jmp .Lt_0333
+.Lt_0334:
 movsx eax, word ptr [_HP_DMG_SI]
 mov word ptr [_HP_DMG_SI], ax
-.Lt_033C:
+.Lt_0333:
 push 7
-push offset _Lt_033B
+push offset _Lt_0332
 push -1
 push 6
 push offset _STR_DMG_BONUS_STR
@@ -7023,7 +7095,7 @@ call _fb_LEFT@8
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_033F
+jne .Lt_0336
 movsx eax, word ptr [_STR_DMG_SI]
 push eax
 fild dword ptr [esp]
@@ -7041,13 +7113,13 @@ fld qword ptr [ebp-444]
 fdivrp
 fadd qword ptr [ebp-452]
 fistp word ptr [_STR_DMG_SI]
-jmp .Lt_033E
-.Lt_033F:
+jmp .Lt_0335
+.Lt_0336:
 movsx eax, word ptr [_STR_DMG_SI]
 mov word ptr [_STR_DMG_SI], ax
-.Lt_033E:
+.Lt_0335:
 push 7
-push offset _Lt_033B
+push offset _Lt_0332
 push -1
 push 6
 push offset _ESS_DMG_BONUS_STR
@@ -7055,7 +7127,7 @@ call _fb_LEFT@8
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0341
+jne .Lt_0338
 movsx eax, word ptr [_ESS_DMG_SI]
 push eax
 fild dword ptr [esp]
@@ -7073,11 +7145,11 @@ fld qword ptr [ebp-444]
 fdivrp
 fadd qword ptr [ebp-452]
 fistp word ptr [_ESS_DMG_SI]
-jmp .Lt_0340
-.Lt_0341:
+jmp .Lt_0337
+.Lt_0338:
 movsx eax, word ptr [_ESS_DMG_SI]
 mov word ptr [_ESS_DMG_SI], ax
-.Lt_0340:
+.Lt_0337:
 call _LN_BATTLE@0
 push dword ptr [ebp+12]
 mov dword ptr [ebp-436], 0
@@ -7086,12 +7158,12 @@ mov dword ptr [ebp-428], 0
 push 0
 push -1
 push 14
-push offset _Lt_0342
+push offset _Lt_0339
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-412], 0
 mov dword ptr [ebp-408], 0
 mov dword ptr [ebp-404], 0
@@ -7122,8 +7194,8 @@ call _fb_StrDelete@4
 mov word ptr [_ENTITY_INDEX], 1
 mov ax, word ptr [_ENTITY_COUNT]
 mov word ptr [ebp-440], ax
-jmp .Lt_0347
-.Lt_034A:
+jmp .Lt_033E
+.Lt_0341:
 push 0
 push -1
 push dword ptr [ebp+12]
@@ -7133,7 +7205,7 @@ mov dword ptr [ebp-492], 0
 push 0
 push -1
 push 4
-push offset _Lt_034C
+push offset _Lt_0343
 push -1
 push -1
 movsx eax, word ptr [_ENTITY_INDEX]
@@ -7144,12 +7216,12 @@ call _fb_LTRIM@4
 push eax
 push -1
 push 9
-push offset _Lt_034B
+push offset _Lt_0342
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-452], 0
 mov dword ptr [ebp-448], 0
 mov dword ptr [ebp-444], 0
@@ -7211,8 +7283,8 @@ lea eax, [ebp-512]
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0354
-.Lt_0355:
+jne .Lt_034B
+.Lt_034C:
 push 0
 push -1
 push dword ptr [ebp+12]
@@ -7222,7 +7294,7 @@ mov dword ptr [ebp-564], 0
 push 0
 push -1
 push 5
-push offset _Lt_0356
+push offset _Lt_034D
 push -1
 push -1
 movsx eax, word ptr [_ENTITY_INDEX]
@@ -7233,12 +7305,12 @@ call _fb_LTRIM@4
 push eax
 push -1
 push 9
-push offset _Lt_034B
+push offset _Lt_0342
 push -1
 push -1
 push dword ptr [ebp+8]
 push 6
-push offset _Lt_030E
+push offset _Lt_02C4
 mov dword ptr [ebp-524], 0
 mov dword ptr [ebp-520], 0
 mov dword ptr [ebp-516], 0
@@ -7283,14 +7355,14 @@ lea eax, [ebp-572]
 push eax
 call _fb_StrDelete@4
 push 5
-push offset _Lt_035F
+push offset _Lt_0356
 push -1
 lea eax, [ebp-584]
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_035E
-.Lt_0360:
+jne .Lt_0355
+.Lt_0357:
 call _LN_GONE@0
 lea eax, [ebp-584]
 push eax
@@ -7298,28 +7370,28 @@ call _fb_StrDelete@4
 lea eax, [ebp-512]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_030D
-.Lt_035E:
-.Lt_035C:
+jmp .Lt_0305
+.Lt_0355:
+.Lt_0353:
 lea eax, [ebp-584]
 push eax
 call _fb_StrDelete@4
-.Lt_0354:
-.Lt_0352:
+.Lt_034B:
+.Lt_0349:
 lea eax, [ebp-512]
 push eax
 call _fb_StrDelete@4
-.Lt_0348:
+.Lt_033F:
 movsx eax, word ptr [_ENTITY_INDEX]
 inc eax
 mov word ptr [_ENTITY_INDEX], ax
-.Lt_0347:
+.Lt_033E:
 movsx eax, word ptr [_ENTITY_INDEX]
 movsx ebx, word ptr [ebp-440]
 cmp eax, ebx
-jle .Lt_034A
-.Lt_0349:
-.Lt_030D:
+jle .Lt_0341
+.Lt_0340:
+.Lt_0305:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -7333,7 +7405,7 @@ mov ebp, esp
 sub esp, 8
 push ebx
 push esi
-.Lt_0367:
+.Lt_035E:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -7341,12 +7413,12 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+24]
-fcomp qword ptr [_Lt_02EC]
+fcomp qword ptr [_Lt_02E4]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_036A
+jnz .Lt_0361
 push 4
-push offset _Lt_02D3
+push offset _Lt_0364
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7361,7 +7433,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_02D3
+push offset _Lt_0364
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7377,7 +7449,7 @@ push ebx
 call _fb_StrAssignMid@16
 push 0
 push 5
-push offset _Lt_02D3
+push offset _Lt_0364
 push -1
 push offset _AA_STR
 call _fb_StrAssign@20
@@ -7388,7 +7460,7 @@ movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0373]
+fld qword ptr [_Lt_036B]
 fadd qword ptr [_G_DFA+eax+24]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -7429,7 +7501,7 @@ call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
 fadd qword ptr [_G_DFA+ebx+8]
-fadd qword ptr [_Lt_02F9]
+fadd qword ptr [_Lt_02F2]
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_D_SI]
 imul eax, 6
@@ -7477,7 +7549,7 @@ call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
 fadd qword ptr [_G_DFA+ebx+16]
-fadd qword ptr [_Lt_02FF]
+fadd qword ptr [_Lt_02F8]
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_D_SI]
 imul eax, 6
@@ -7518,10 +7590,10 @@ imul ecx, eax
 add ebx, ecx
 imul ebx, 136
 fld qword ptr [_G_DFA+ebx+16]
-fcomp qword ptr [_Lt_0208]
+fcomp qword ptr [_Lt_020B]
 fnstsw ax
 test ah, 0b01000001
-jz .Lt_036E
+jz .Lt_0366
 movsx ebx, word ptr [_TX_SI]
 movsx ecx, word ptr [_D_SI]
 imul ecx, 6
@@ -7541,12 +7613,12 @@ movsx esi, word ptr [_AA_SI]
 imul eax, esi
 add ebx, eax
 imul ebx, 136
-push dword ptr [_Lt_0208]
-push dword ptr [_Lt_0208+4]
+push dword ptr [_Lt_020B]
+push dword ptr [_Lt_020B+4]
 pop dword ptr [_G_DFA+ebx+20]
 pop dword ptr [_G_DFA+ebx+16]
-.Lt_036E:
-.Lt_036D:
+.Lt_0366:
+.Lt_0365:
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_D_SI]
 imul eax, 6
@@ -7567,19 +7639,19 @@ imul esi, ecx
 add ebx, esi
 imul ebx, 136
 fld qword ptr [_G_DFA+ebx+8]
-fcomp qword ptr [_Lt_0208]
+fcomp qword ptr [_Lt_020B]
 fnstsw ax
 test ah, 0b01000001
-jz .Lt_0370
+jz .Lt_0368
 call _LN_VICTORY@0
-.Lt_0370:
-.Lt_036F:
-.Lt_036C:
-.Lt_036B:
-jmp .Lt_0369
-.Lt_036A:
+.Lt_0368:
+.Lt_0367:
+.Lt_0363:
+.Lt_0362:
+jmp .Lt_0360
+.Lt_0361:
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7594,7 +7666,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7608,10 +7680,10 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
-.Lt_0372:
-.Lt_0371:
+.Lt_036A:
 .Lt_0369:
-.Lt_0368:
+.Lt_0360:
+.Lt_035F:
 pop esi
 pop ebx
 mov esp, ebp
@@ -7626,7 +7698,7 @@ mov ebp, esp
 sub esp, 8
 push ebx
 push esi
-.Lt_0375:
+.Lt_036D:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -7634,12 +7706,12 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+24]
-fcomp qword ptr [_Lt_02EC]
+fcomp qword ptr [_Lt_02E4]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_0378
+jnz .Lt_0370
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7654,7 +7726,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_037B
+push offset _Lt_0373
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7670,7 +7742,7 @@ push ebx
 call _fb_StrAssignMid@16
 push 0
 push 5
-push offset _Lt_037B
+push offset _Lt_0373
 push -1
 push offset _AA_STR
 call _fb_StrAssign@20
@@ -7681,7 +7753,7 @@ movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0373]
+fld qword ptr [_Lt_036B]
 fadd qword ptr [_G_DFA+eax+24]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -7695,7 +7767,7 @@ push dword ptr [ebp-4]
 pop dword ptr [_G_DFA+eax+28]
 pop dword ptr [_G_DFA+eax+24]
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7723,7 +7795,7 @@ lea ecx, [_E_STRA+eax+48]
 push ecx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_01DD
+push offset _Lt_01E0
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7757,7 +7829,7 @@ push esi
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fdiv qword ptr [_Lt_02F4]
+fdiv qword ptr [_Lt_02ED]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -7792,21 +7864,21 @@ add eax, esi
 mov word ptr [_TY_SI], ax
 call _LN_TEMPGET@0
 push 5
-push offset _Lt_01DD
+push offset _Lt_01E0
 push -1
 push offset _TEMPACTION_STR
 call _fb_StrCompare@16
 test eax, eax
-je .Lt_037D
+je .Lt_0375
 push 0
 push 5
-push offset _Lt_01DD
+push offset _Lt_01E0
 push -1
 push offset _TEMPACTION_STR
 call _fb_StrAssign@20
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
-fmul qword ptr [_Lt_02EB]
+fmul qword ptr [_Lt_02E3]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -7824,11 +7896,11 @@ fild dword ptr [esp]
 add esp, 4
 fxch st(1)
 faddp
-fadd qword ptr [_Lt_027F]
+fadd qword ptr [_Lt_0282]
 fistp word ptr [_TEMPDIS_SI]
 call _LN_TEMPPUT@0
-.Lt_037D:
-.Lt_037C:
+.Lt_0375:
+.Lt_0374:
 mov ax, word ptr [_TEMPTX_SI]
 mov word ptr [_TX_SI], ax
 mov ax, word ptr [_TEMPTY_SI]
@@ -7852,7 +7924,7 @@ movsx ecx, word ptr [_AA_SI]
 imul ebx, ecx
 add eax, ebx
 imul eax, 136
-fld qword ptr [_Lt_0385]
+fld qword ptr [_Lt_037D]
 fadd qword ptr [_G_DFA+eax+16]
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_D_SI]
@@ -7894,10 +7966,10 @@ imul esi, ebx
 add eax, esi
 imul eax, 136
 fld qword ptr [_G_DFA+eax+16]
-fcomp qword ptr [_Lt_0208]
+fcomp qword ptr [_Lt_020B]
 fnstsw ax
 test ah, 0b01000001
-jz .Lt_037F
+jz .Lt_0377
 movsx eax, word ptr [_TX_SI]
 movsx esi, word ptr [_D_SI]
 imul esi, 6
@@ -7917,12 +7989,12 @@ movsx ecx, word ptr [_AA_SI]
 imul ebx, ecx
 add eax, ebx
 imul eax, 136
-push dword ptr [_Lt_0208]
-push dword ptr [_Lt_0208+4]
+push dword ptr [_Lt_020B]
+push dword ptr [_Lt_020B+4]
 pop dword ptr [_G_DFA+eax+20]
 pop dword ptr [_G_DFA+eax+16]
-.Lt_037F:
-.Lt_037E:
+.Lt_0377:
+.Lt_0376:
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_D_SI]
 imul ebx, 6
@@ -7943,19 +8015,19 @@ imul ecx, esi
 add eax, ecx
 imul eax, 136
 fld qword ptr [_G_DFA+eax+8]
-fcomp qword ptr [_Lt_0208]
+fcomp qword ptr [_Lt_020B]
 fnstsw ax
 test ah, 0b01000001
-jz .Lt_0381
+jz .Lt_0379
 call _LN_VICTORY@0
-.Lt_0381:
-.Lt_0380:
-.Lt_037A:
 .Lt_0379:
-jmp .Lt_0377
 .Lt_0378:
+.Lt_0372:
+.Lt_0371:
+jmp .Lt_036F
+.Lt_0370:
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7970,7 +8042,7 @@ lea ecx, [_E_STRA+eax+48]
 push ecx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -7984,10 +8056,10 @@ imul eax, 108
 lea ecx, [_E_STRA+eax+48]
 push ecx
 call _fb_StrAssignMid@16
-.Lt_0383:
-.Lt_0382:
-.Lt_0377:
-.Lt_0376:
+.Lt_037B:
+.Lt_037A:
+.Lt_036F:
+.Lt_036E:
 pop esi
 pop ebx
 mov esp, ebp
@@ -7999,11 +8071,11 @@ ret
 _LN_VICTORY@0:
 push ebx
 push esi
-.Lt_0386:
+.Lt_037E:
 call _LN_PRFLBLNK@0
 push 0
 push 6
-push offset _Lt_0388
+push offset _Lt_0380
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
@@ -8035,7 +8107,7 @@ push offset _PRFLACTN_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_0389
+push offset _Lt_0381
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
@@ -8144,12 +8216,12 @@ add ecx, ebx
 imul ecx, 136
 fld qword ptr [_G_DFA+ecx+56]
 fstp dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_038A]
+push dword ptr [_Lt_0382]
 pop dword ptr [_PRFLHPMAX_SF]
 call _LN_PRFLMAKE@0
-.Lt_0387:
+.Lt_037F:
 pop esi
 pop ebx
 ret
@@ -8162,7 +8234,7 @@ mov ebp, esp
 sub esp, 8
 push ebx
 push esi
-.Lt_038B:
+.Lt_0383:
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_D_SI]
 imul ebx, 6
@@ -8279,7 +8351,7 @@ call _LN_WINGRPL@0
 call _LN_WINSEED@0
 call _LN_WINKEY1@0
 call _LN_WINKEY2@0
-.Lt_038C:
+.Lt_0384:
 pop esi
 pop ebx
 mov esp, ebp
@@ -8293,7 +8365,7 @@ push ebp
 mov ebp, esp
 sub esp, 168
 push ebx
-.Lt_038E:
+.Lt_0386:
 mov word ptr [ebp-4], 0
 mov word ptr [ebp-8], 0
 mov word ptr [ebp-12], 0
@@ -8313,13 +8385,13 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_0391
+jle .Lt_0389
 mov eax, dword ptr [_CLV_BUFFER_EXPSHOP]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 push dword ptr [_CLV_BUFFER_EXPSHOP]
 push offset _CLV_BUFFER
 call _CLV_BUFFER_CLS@8
-.Lt_0392:
+.Lt_038A:
 mov ax, word ptr [ebp-32]
 mov word ptr [ebp-4], ax
 movsx eax, word ptr [ebp-4]
@@ -8382,7 +8454,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_0393
+push offset _Lt_038B
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-44], 0
@@ -8403,7 +8475,7 @@ push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
 push 5
-push offset _Lt_0116
+push offset _Lt_0119
 push -1
 push 4
 push 1
@@ -8419,7 +8491,7 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0397
+jne .Lt_038F
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -8427,20 +8499,20 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fcomp qword ptr [_Lt_0156]
+fcomp qword ptr [_Lt_0159]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_0399
+jnz .Lt_0391
 push 0
 push 5
-push offset _Lt_039A
+push offset _Lt_0392
 push -1
 push offset _HAVEIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEIT@0
 movsx eax, word ptr [_HAVEIT_SI]
 test eax, eax
-jne .Lt_039C
+jne .Lt_0394
 push 0
 push -1
 push -1
@@ -8449,7 +8521,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_039A
+push offset _Lt_0392
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -8469,10 +8541,63 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_039C:
+.Lt_0394:
+.Lt_0393:
+.Lt_0391:
+.Lt_0390:
+movsx eax, word ptr [_TY_SI]
+push eax
+movsx eax, word ptr [_TX_SI]
+push eax
+call _ROSE_CALC@8
+imul eax, 136
+fld qword ptr [_G_DFA+eax+80]
+fcomp qword ptr [_Lt_0159]
+fnstsw ax
+test ah, 0b00000001
+jnz .Lt_0398
+push 0
+push 5
+push offset _Lt_0399
+push -1
+push offset _HAVEIT_STR
+call _fb_StrAssign@20
+call _LN_HAVEIT@0
+movsx eax, word ptr [_HAVEIT_SI]
+test eax, eax
+jne .Lt_039B
+push 0
+push -1
+push -1
+push 0
+call _fb_MKL@4
+push eax
+push -1
+push 5
+push offset _Lt_0399
+push -1
+push offset _MENU_STR
+mov dword ptr [ebp-92], 0
+mov dword ptr [ebp-88], 0
+mov dword ptr [ebp-84], 0
+lea eax, [ebp-92]
+push eax
+call _fb_StrConcat@20
+push eax
+mov dword ptr [ebp-104], 0
+mov dword ptr [ebp-100], 0
+mov dword ptr [ebp-96], 0
+lea eax, [ebp-104]
+push eax
+call _fb_StrConcat@20
+push eax
+push -1
+push offset _MENU_STR
+call _fb_StrAssign@20
 .Lt_039B:
-.Lt_0399:
+.Lt_039A:
 .Lt_0398:
+.Lt_0397:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -8480,29 +8605,29 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fcomp qword ptr [_Lt_0156]
+fcomp qword ptr [_Lt_0159]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_03A0
+jnz .Lt_039F
 push 0
 push 5
-push offset _Lt_03A1
+push offset _Lt_02DF
 push -1
 push offset _HAVEIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEIT@0
 movsx eax, word ptr [_HAVEIT_SI]
 test eax, eax
-jne .Lt_03A3
+jne .Lt_03A1
 push 0
 push -1
 push -1
-push 0
+push 2
 call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_03A1
+push offset _Lt_02DF
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -8522,10 +8647,10 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_03A3:
-.Lt_03A2:
+.Lt_03A1:
 .Lt_03A0:
 .Lt_039F:
+.Lt_039E:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -8533,20 +8658,20 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fcomp qword ptr [_Lt_0156]
+fcomp qword ptr [_Lt_0159]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_03A7
+jnz .Lt_03A5
 push 0
 push 5
-push offset _Lt_02C4
+push offset _Lt_02E2
 push -1
 push offset _HAVEIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEIT@0
 movsx eax, word ptr [_HAVEIT_SI]
 test eax, eax
-jne .Lt_03A9
+jne .Lt_03A7
 push 0
 push -1
 push -1
@@ -8555,7 +8680,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_02C4
+push offset _Lt_02E2
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -8575,10 +8700,10 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_03A9:
-.Lt_03A8:
 .Lt_03A7:
 .Lt_03A6:
+.Lt_03A5:
+.Lt_03A4:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -8589,70 +8714,17 @@ fld qword ptr [_G_DFA+eax+80]
 fcomp qword ptr [_Lt_0156]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_03AD
+jnz .Lt_03AB
 push 0
 push 5
-push offset _Lt_02C7
+push offset _Lt_02E9
 push -1
 push offset _HAVEIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEIT@0
 movsx eax, word ptr [_HAVEIT_SI]
 test eax, eax
-jne .Lt_03AF
-push 0
-push -1
-push -1
-push 2
-call _fb_MKL@4
-push eax
-push -1
-push 5
-push offset _Lt_02C7
-push -1
-push offset _MENU_STR
-mov dword ptr [ebp-92], 0
-mov dword ptr [ebp-88], 0
-mov dword ptr [ebp-84], 0
-lea eax, [ebp-92]
-push eax
-call _fb_StrConcat@20
-push eax
-mov dword ptr [ebp-104], 0
-mov dword ptr [ebp-100], 0
-mov dword ptr [ebp-96], 0
-lea eax, [ebp-104]
-push eax
-call _fb_StrConcat@20
-push eax
-push -1
-push offset _MENU_STR
-call _fb_StrAssign@20
-.Lt_03AF:
-.Lt_03AE:
-.Lt_03AD:
-.Lt_03AC:
-movsx eax, word ptr [_TY_SI]
-push eax
-movsx eax, word ptr [_TX_SI]
-push eax
-call _ROSE_CALC@8
-imul eax, 136
-fld qword ptr [_G_DFA+eax+80]
-fcomp qword ptr [_Lt_0153]
-fnstsw ax
-test ah, 0b00000001
-jnz .Lt_03B3
-push 0
-push 5
-push offset _Lt_02CA
-push -1
-push offset _HAVEIT_STR
-call _fb_StrAssign@20
-call _LN_HAVEIT@0
-movsx eax, word ptr [_HAVEIT_SI]
-test eax, eax
-jne .Lt_03B5
+jne .Lt_03AD
 push 0
 push -1
 push -1
@@ -8661,7 +8733,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_02CA
+push offset _Lt_02E9
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -8681,10 +8753,10 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_03B5:
-.Lt_03B4:
-.Lt_03B3:
-.Lt_03B2:
+.Lt_03AD:
+.Lt_03AC:
+.Lt_03AB:
+.Lt_03AA:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -8692,20 +8764,20 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fcomp qword ptr [_Lt_027C]
+fcomp qword ptr [_Lt_027F]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_03B9
+jnz .Lt_03B1
 push 0
 push 5
-push offset _Lt_02D3
+push offset _Lt_0364
 push -1
 push offset _HAVEIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEIT@0
 movsx eax, word ptr [_HAVEIT_SI]
 test eax, eax
-jne .Lt_03BB
+jne .Lt_03B3
 push 0
 push -1
 push -1
@@ -8714,7 +8786,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_02D3
+push offset _Lt_0364
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -8734,10 +8806,10 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_03BB:
-.Lt_03BA:
-.Lt_03B9:
-.Lt_03B8:
+.Lt_03B3:
+.Lt_03B2:
+.Lt_03B1:
+.Lt_03B0:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -8745,20 +8817,20 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fcomp qword ptr [_Lt_02F1]
+fcomp qword ptr [_Lt_02EA]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_03BF
+jnz .Lt_03B7
 push 0
 push 5
-push offset _Lt_0105
+push offset _Lt_0108
 push -1
 push offset _HAVEIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEIT@0
 movsx eax, word ptr [_HAVEIT_SI]
 test eax, eax
-jne .Lt_03C1
+jne .Lt_03B9
 push 0
 push -1
 push -1
@@ -8767,7 +8839,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_0105
+push offset _Lt_0108
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -8787,12 +8859,12 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_03C1:
-.Lt_03C0:
-.Lt_03BF:
-.Lt_03BE:
-.Lt_0397:
-.Lt_0396:
+.Lt_03B9:
+.Lt_03B8:
+.Lt_03B7:
+.Lt_03B6:
+.Lt_038F:
+.Lt_038E:
 push 0
 push -1
 push -1
@@ -8801,7 +8873,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_03C4
+push offset _Lt_03BC
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-68], 0
@@ -8827,14 +8899,14 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_02EC]
+fdiv qword ptr [_Lt_02E4]
 fistp word ptr [_MENUSIZE_SI]
 mov word ptr [_INMENU_SI], 0
 mov word ptr [_MENUITEM_SI], 1
 mov ax, word ptr [_MENUSIZE_SI]
 mov word ptr [ebp-84], ax
-jmp .Lt_03C8
-.Lt_03CB:
+jmp .Lt_03C0
+.Lt_03C3:
 push 0
 push -1
 push 4
@@ -8867,7 +8939,7 @@ call _fb_StrAssign@20
 call _LN_NAMES@0
 movsx eax, word ptr [_MENUCOST_SI]
 test eax, eax
-jle .Lt_03CD
+jle .Lt_03C5
 mov dword ptr [ebp-168], 0
 mov dword ptr [ebp-164], 0
 mov dword ptr [ebp-160], 0
@@ -8876,7 +8948,7 @@ push -1
 push -1
 push 5
 push 2
-push offset _Lt_03D1
+push offset _Lt_03C9
 push -1
 push -1
 movsx eax, word ptr [_MENUCOST_SI]
@@ -8884,7 +8956,7 @@ push eax
 call _fb_IntToStr@4
 push eax
 push 5
-push offset _Lt_03D0
+push offset _Lt_03C8
 mov dword ptr [ebp-96], 0
 mov dword ptr [ebp-92], 0
 mov dword ptr [ebp-88], 0
@@ -8904,7 +8976,7 @@ push eax
 push -1
 push -1
 push 1
-push offset _Lt_03CF
+push offset _Lt_03C7
 call _fb_StrAllocTempDescZEx@8
 push eax
 push -1
@@ -8917,12 +8989,12 @@ call _fb_StrFill2@8
 push eax
 push -1
 push 2
-push offset _Lt_0096
+push offset _Lt_0097
 push -1
 push -1
 push offset _RR_STR
 push 2
-push offset _Lt_03CE
+push offset _Lt_03C6
 mov dword ptr [ebp-120], 0
 mov dword ptr [ebp-116], 0
 mov dword ptr [ebp-112], 0
@@ -8974,11 +9046,11 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-168]
 push eax
 call _fb_StrDelete@4
-.Lt_03CD:
-.Lt_03CC:
+.Lt_03C5:
+.Lt_03C4:
 movsx eax, word ptr [_MENUCOST_SI]
 test eax, eax
-jne .Lt_03DA
+jne .Lt_03D2
 mov dword ptr [ebp-108], 0
 mov dword ptr [ebp-104], 0
 mov dword ptr [ebp-100], 0
@@ -8987,7 +9059,7 @@ push -1
 push -1
 push offset _RR_STR
 push 2
-push offset _Lt_03CE
+push offset _Lt_03C6
 mov dword ptr [ebp-96], 0
 mov dword ptr [ebp-92], 0
 mov dword ptr [ebp-88], 0
@@ -9018,33 +9090,33 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-108]
 push eax
 call _fb_StrDelete@4
-.Lt_03DA:
-.Lt_03D9:
-.Lt_03C9:
+.Lt_03D2:
+.Lt_03D1:
+.Lt_03C1:
 movsx eax, word ptr [_MENUITEM_SI]
 inc eax
 mov word ptr [_MENUITEM_SI], ax
-.Lt_03C8:
+.Lt_03C0:
 movsx eax, word ptr [_MENUITEM_SI]
 movsx ebx, word ptr [ebp-84]
 cmp eax, ebx
-jle .Lt_03CB
-.Lt_03CA:
-.Lt_03DD:
+jle .Lt_03C3
+.Lt_03C2:
+.Lt_03D5:
 call _LN_BUTTONWAIT@0
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrAssign@20
 mov word ptr [_MENUCOST_SI], 0
 movsx ebx, word ptr [_LB_SI]
 cmp ebx, -1
-jne .Lt_03DF
+jne .Lt_03D7
 movsx ebx, word ptr [_XM_SI]
 cmp ebx, 15
-jne .Lt_03E1
+jne .Lt_03D9
 movsx ebx, word ptr [_YM_SI]
 cmp ebx, 11
 setge bl
@@ -9058,7 +9130,7 @@ setle al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_03E3
+je .Lt_03DB
 movsx eax, word ptr [_YM_SI]
 add eax, -10
 mov word ptr [_MENUSELECT_SI], ax
@@ -9085,14 +9157,14 @@ call _fb_StrMid@12
 push eax
 call _fb_CVL@4
 mov word ptr [_MENUCOST_SI], ax
-.Lt_03E3:
-.Lt_03E2:
-.Lt_03E1:
-.Lt_03E0:
-.Lt_03DF:
-.Lt_03DE:
+.Lt_03DB:
+.Lt_03DA:
+.Lt_03D9:
+.Lt_03D8:
+.Lt_03D7:
+.Lt_03D6:
 push 5
-push offset _Lt_0393
+push offset _Lt_038B
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
@@ -9101,7 +9173,7 @@ setne al
 shr eax, 1
 sbb eax, eax
 push 5
-push offset _Lt_03C4
+push offset _Lt_03BC
 push -1
 push offset _MENUSELECT_STR
 mov ebx, eax
@@ -9112,7 +9184,7 @@ shr eax, 1
 sbb eax, eax
 and ebx, eax
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
@@ -9121,7 +9193,7 @@ setne al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_03E5
+je .Lt_03DD
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -9136,28 +9208,28 @@ fld qword ptr [_G_DFA+eax+48]
 fcompp
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_03E7
+jnz .Lt_03DF
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
 call _LN_ABILITYGAIN@0
 mov eax, dword ptr [_CLV_BUFFER_EXPSHOP]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
-.Lt_03E7:
-.Lt_03E6:
-jmp .Lt_0392
-.Lt_03E5:
-.Lt_03E4:
+.Lt_03DF:
+.Lt_03DE:
+jmp .Lt_038A
+.Lt_03DD:
+.Lt_03DC:
 push 5
-push offset _Lt_0393
+push offset _Lt_038B
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_03E9
+jne .Lt_03E1
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -9172,41 +9244,41 @@ fld qword ptr [_G_DFA+eax+48]
 fcompp
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_03EB
+jnz .Lt_03E3
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
 call _LN_LEVELUP@0
 mov eax, dword ptr [_CLV_BUFFER_EXPSHOP]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
-.Lt_03EB:
-.Lt_03EA:
-jmp .Lt_0392
-.Lt_03E9:
-.Lt_03E8:
+.Lt_03E3:
+.Lt_03E2:
+jmp .Lt_038A
+.Lt_03E1:
+.Lt_03E0:
 push 5
-push offset _Lt_03C4
+push offset _Lt_03BC
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_03ED
+jne .Lt_03E5
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-jmp .Lt_03EC
-.Lt_03ED:
-jmp .Lt_03DD
-.Lt_03EC:
-.Lt_0391:
-.Lt_0390:
-.Lt_038F:
+jmp .Lt_03E4
+.Lt_03E5:
+jmp .Lt_03D5
+.Lt_03E4:
+.Lt_0389:
+.Lt_0388:
+.Lt_0387:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -9220,8 +9292,8 @@ mov ebp, esp
 sub esp, 168
 push ebx
 push esi
-.Lt_03F3:
-.Lt_03F5:
+.Lt_03EB:
+.Lt_03ED:
 push 0
 push -1
 push offset _CTRL_STR
@@ -9231,7 +9303,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_03F7
+jle .Lt_03EF
 mov eax, dword ptr [_CLV_BUFFER_MERCHANT]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 push dword ptr [_CLV_BUFFER_MERCHANT]
@@ -9249,14 +9321,14 @@ push offset _MENU_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_0114
+push offset _Lt_0117
 push -1
 push offset _HASIT_STR
 call _fb_StrAssign@20
 call _LN_HASIT@0
 movsx eax, word ptr [_HASIT_SI]
 test eax, eax
-jle .Lt_03F9
+jle .Lt_03F1
 push 0
 push -1
 push -1
@@ -9265,7 +9337,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_0114
+push offset _Lt_0117
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -9285,18 +9357,18 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_03F9:
-.Lt_03F8:
+.Lt_03F1:
+.Lt_03F0:
 push 0
 push 5
-push offset _Lt_012C
+push offset _Lt_012F
 push -1
 push offset _HASIT_STR
 call _fb_StrAssign@20
 call _LN_HASIT@0
 movsx eax, word ptr [_HASIT_SI]
 test eax, eax
-jle .Lt_03FD
+jle .Lt_03F5
 push 0
 push -1
 push -1
@@ -9305,7 +9377,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_012C
+push offset _Lt_012F
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -9325,18 +9397,18 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_03FD:
-.Lt_03FC:
+.Lt_03F5:
+.Lt_03F4:
 push 0
 push 5
-push offset _Lt_0400
+push offset _Lt_03F8
 push -1
 push offset _HASIT_STR
 call _fb_StrAssign@20
 call _LN_HASIT@0
 movsx eax, word ptr [_HASIT_SI]
 test eax, eax
-jle .Lt_0402
+jle .Lt_03FA
 push 0
 push -1
 push -1
@@ -9345,7 +9417,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_0400
+push offset _Lt_03F8
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -9365,18 +9437,18 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_0402:
-.Lt_0401:
+.Lt_03FA:
+.Lt_03F9:
 push 0
 push 5
-push offset _Lt_0405
+push offset _Lt_03FD
 push -1
 push offset _HASIT_STR
 call _fb_StrAssign@20
 call _LN_HASIT@0
 movsx eax, word ptr [_HASIT_SI]
 test eax, eax
-jle .Lt_0407
+jle .Lt_03FF
 push 0
 push -1
 push -1
@@ -9385,7 +9457,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_0405
+push offset _Lt_03FD
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -9405,18 +9477,18 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_0407:
-.Lt_0406:
+.Lt_03FF:
+.Lt_03FE:
 push 0
 push 5
-push offset _Lt_0119
+push offset _Lt_011C
 push -1
 push offset _HASIT_STR
 call _fb_StrAssign@20
 call _LN_HASIT@0
 movsx eax, word ptr [_HASIT_SI]
 test eax, eax
-jle .Lt_040B
+jle .Lt_0403
 push 0
 push -1
 push -1
@@ -9425,7 +9497,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_0119
+push offset _Lt_011C
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-92], 0
@@ -9445,8 +9517,8 @@ push eax
 push -1
 push offset _MENU_STR
 call _fb_StrAssign@20
-.Lt_040B:
-.Lt_040A:
+.Lt_0403:
+.Lt_0402:
 push 0
 push -1
 push -1
@@ -9455,7 +9527,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_03C4
+push offset _Lt_03BC
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-12], 0
@@ -9481,7 +9553,7 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_02EC]
+fdiv qword ptr [_Lt_02E4]
 fistp word ptr [_MENUSIZE_SI]
 mov word ptr [_INMENU_SI], 0
 mov dword ptr [ebp-36], 0
@@ -9489,7 +9561,7 @@ mov dword ptr [ebp-32], 0
 mov dword ptr [ebp-28], 0
 push 0
 push 9
-push offset _Lt_0142
+push offset _Lt_0145
 push -1
 lea eax, [ebp-36]
 push eax
@@ -9514,7 +9586,7 @@ mov dword ptr [ebp-44], 0
 mov dword ptr [ebp-40], 0
 push 0
 push 13
-push offset _Lt_0411
+push offset _Lt_0409
 push -1
 lea eax, [ebp-48]
 push eax
@@ -9541,7 +9613,7 @@ mov dword ptr [ebp-72], 0
 push 0
 push -1
 push 8
-push offset _Lt_0415
+push offset _Lt_040D
 push -1
 push 4
 push 1
@@ -9598,8 +9670,8 @@ call _fb_StrDelete@4
 mov word ptr [_MENUITEM_SI], 1
 mov ax, word ptr [_MENUSIZE_SI]
 mov word ptr [ebp-84], ax
-jmp .Lt_0419
-.Lt_041C:
+jmp .Lt_0411
+.Lt_0414:
 push 0
 push -1
 push 4
@@ -9632,7 +9704,7 @@ call _fb_StrAssign@20
 call _LN_NAMES@0
 movsx eax, word ptr [_MENUCOST_SI]
 test eax, eax
-jle .Lt_041E
+jle .Lt_0416
 mov dword ptr [ebp-168], 0
 mov dword ptr [ebp-164], 0
 mov dword ptr [ebp-160], 0
@@ -9641,7 +9713,7 @@ push -1
 push -1
 push 5
 push 2
-push offset _Lt_03D1
+push offset _Lt_03C9
 push -1
 push -1
 push -1
@@ -9659,7 +9731,7 @@ push eax
 call _fb_RIGHT@8
 push eax
 push 5
-push offset _Lt_03D0
+push offset _Lt_03C8
 mov dword ptr [ebp-96], 0
 mov dword ptr [ebp-92], 0
 mov dword ptr [ebp-88], 0
@@ -9679,7 +9751,7 @@ push eax
 push -1
 push -1
 push 1
-push offset _Lt_03CF
+push offset _Lt_03C7
 call _fb_StrAllocTempDescZEx@8
 push eax
 movsx eax, word ptr [_VIEWX_SI]
@@ -9695,12 +9767,12 @@ call _fb_StrFill2@8
 push eax
 push -1
 push 2
-push offset _Lt_0096
+push offset _Lt_0097
 push -1
 push -1
 push offset _RR_STR
 push 2
-push offset _Lt_03CE
+push offset _Lt_03C6
 mov dword ptr [ebp-120], 0
 mov dword ptr [ebp-116], 0
 mov dword ptr [ebp-112], 0
@@ -9751,11 +9823,11 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-168]
 push eax
 call _fb_StrDelete@4
-.Lt_041E:
-.Lt_041D:
+.Lt_0416:
+.Lt_0415:
 movsx eax, word ptr [_MENUCOST_SI]
 test eax, eax
-jne .Lt_0427
+jne .Lt_041F
 mov dword ptr [ebp-108], 0
 mov dword ptr [ebp-104], 0
 mov dword ptr [ebp-100], 0
@@ -9764,7 +9836,7 @@ push -1
 push -1
 push offset _RR_STR
 push 2
-push offset _Lt_03CE
+push offset _Lt_03C6
 mov dword ptr [ebp-96], 0
 mov dword ptr [ebp-92], 0
 mov dword ptr [ebp-88], 0
@@ -9794,34 +9866,34 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-108]
 push eax
 call _fb_StrDelete@4
-.Lt_0427:
-.Lt_0426:
-.Lt_041A:
+.Lt_041F:
+.Lt_041E:
+.Lt_0412:
 movsx eax, word ptr [_MENUITEM_SI]
 inc eax
 mov word ptr [_MENUITEM_SI], ax
-.Lt_0419:
+.Lt_0411:
 movsx eax, word ptr [_MENUITEM_SI]
 movsx ebx, word ptr [ebp-84]
 cmp eax, ebx
-jle .Lt_041C
-.Lt_041B:
-.Lt_042A:
+jle .Lt_0414
+.Lt_0413:
+.Lt_0422:
 call _LN_BUTTONWAIT@0
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrAssign@20
 mov word ptr [_MENUCOST_SI], 0
 movsx ebx, word ptr [_LB_SI]
 cmp ebx, -1
-jne .Lt_042C
+jne .Lt_0424
 movsx ebx, word ptr [_XM_SI]
 movsx eax, word ptr [_VIEWX_SI]
 cmp ebx, eax
-jne .Lt_042E
+jne .Lt_0426
 movsx eax, word ptr [_YM_SI]
 cmp eax, 13
 setge al
@@ -9835,7 +9907,7 @@ setle bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_0430
+je .Lt_0428
 movsx ebx, word ptr [_YM_SI]
 add ebx, -12
 mov word ptr [_MENUSELECT_SI], bx
@@ -9862,14 +9934,14 @@ call _fb_StrMid@12
 push eax
 call _fb_CVL@4
 mov word ptr [_MENUCOST_SI], ax
-.Lt_0430:
-.Lt_042F:
-.Lt_042E:
-.Lt_042D:
-.Lt_042C:
-.Lt_042B:
+.Lt_0428:
+.Lt_0427:
+.Lt_0426:
+.Lt_0425:
+.Lt_0424:
+.Lt_0423:
 push 5
-push offset _Lt_0393
+push offset _Lt_038B
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
@@ -9878,7 +9950,7 @@ setne al
 shr eax, 1
 sbb eax, eax
 push 5
-push offset _Lt_03C4
+push offset _Lt_03BC
 push -1
 push offset _MENUSELECT_STR
 mov ebx, eax
@@ -9889,7 +9961,7 @@ shr eax, 1
 sbb eax, eax
 and ebx, eax
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
@@ -9898,7 +9970,7 @@ setne al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_0432
+je .Lt_042A
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -9913,10 +9985,10 @@ fld qword ptr [_G_DFA+eax+48]
 fcompp
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_0434
+jnz .Lt_042C
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
@@ -9974,19 +10046,19 @@ imul esi, ebx
 add eax, esi
 imul eax, 136
 fstp qword ptr [_G_DFA+eax+48]
-jmp .Lt_03F5
-.Lt_0434:
-.Lt_0433:
-jmp .Lt_03F5
-.Lt_0432:
-.Lt_0431:
+jmp .Lt_03ED
+.Lt_042C:
+.Lt_042B:
+jmp .Lt_03ED
+.Lt_042A:
+.Lt_0429:
 push 5
-push offset _Lt_0393
+push offset _Lt_038B
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0436
+jne .Lt_042E
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -10001,42 +10073,42 @@ fld qword ptr [_G_DFA+eax+48]
 fcompp
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_0438
+jnz .Lt_0430
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
 call _LN_LEVELUP@0
 mov eax, dword ptr [_CLV_BUFFER_MERCHANT]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
-jmp .Lt_03F5
-.Lt_0438:
-.Lt_0437:
-jmp .Lt_03F5
-.Lt_0436:
-.Lt_0435:
+jmp .Lt_03ED
+.Lt_0430:
+.Lt_042F:
+jmp .Lt_03ED
+.Lt_042E:
+.Lt_042D:
 push 5
-push offset _Lt_03C4
+push offset _Lt_03BC
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_043A
+jne .Lt_0432
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-jmp .Lt_0439
-.Lt_043A:
-jmp .Lt_042A
-.Lt_0439:
-.Lt_03F7:
-.Lt_03F6:
-.Lt_03F4:
+jmp .Lt_0431
+.Lt_0432:
+jmp .Lt_0422
+.Lt_0431:
+.Lt_03EF:
+.Lt_03EE:
+.Lt_03EC:
 pop esi
 pop ebx
 mov esp, ebp
@@ -10051,7 +10123,7 @@ mov ebp, esp
 sub esp, 200
 push ebx
 push esi
-.Lt_0440:
+.Lt_0438:
 mov word ptr [ebp-4], 0
 mov word ptr [ebp-8], 0
 mov word ptr [ebp-12], 0
@@ -10069,7 +10141,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_0443
+jle .Lt_043B
 mov eax, dword ptr [_CLV_BUFFER_MERCHANT]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 push dword ptr [_CLV_BUFFER_MERCHANT]
@@ -10095,7 +10167,7 @@ call _fb_MKL@4
 push eax
 push -1
 push 5
-push offset _Lt_0444
+push offset _Lt_043C
 push -1
 push offset _MENU_STR
 mov dword ptr [ebp-44], 0
@@ -10121,7 +10193,7 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_02EC]
+fdiv qword ptr [_Lt_02E4]
 fistp word ptr [_MENUSIZE_SI]
 mov word ptr [_INMENU_SI], 0
 mov dword ptr [ebp-68], 0
@@ -10129,7 +10201,7 @@ mov dword ptr [ebp-64], 0
 mov dword ptr [ebp-60], 0
 push 0
 push 12
-push offset _Lt_0447
+push offset _Lt_043F
 push -1
 lea eax, [ebp-68]
 push eax
@@ -10157,7 +10229,7 @@ mov dword ptr [ebp-76], 0
 mov dword ptr [ebp-72], 0
 push 0
 push 20
-push offset _Lt_0449
+push offset _Lt_0441
 push -1
 lea eax, [ebp-80]
 push eax
@@ -10184,7 +10256,7 @@ mov dword ptr [ebp-88], 0
 mov dword ptr [ebp-84], 0
 push 0
 push 22
-push offset _Lt_044B
+push offset _Lt_0443
 push -1
 lea eax, [ebp-92]
 push eax
@@ -10212,7 +10284,7 @@ mov dword ptr [ebp-100], 0
 mov dword ptr [ebp-96], 0
 push 0
 push 22
-push offset _Lt_044D
+push offset _Lt_0445
 push -1
 lea eax, [ebp-104]
 push eax
@@ -10240,7 +10312,7 @@ mov dword ptr [ebp-112], 0
 mov dword ptr [ebp-108], 0
 push 0
 push 23
-push offset _Lt_044F
+push offset _Lt_0447
 push -1
 lea eax, [ebp-116]
 push eax
@@ -10270,7 +10342,7 @@ mov dword ptr [ebp-140], 0
 push 0
 push -1
 push 8
-push offset _Lt_0415
+push offset _Lt_040D
 push -1
 push 4
 push 1
@@ -10329,8 +10401,8 @@ call _fb_StrDelete@4
 mov word ptr [_MENUITEM_SI], 1
 mov ax, word ptr [_MENUSIZE_SI]
 mov word ptr [ebp-152], ax
-jmp .Lt_0456
-.Lt_0459:
+jmp .Lt_044E
+.Lt_0451:
 push 0
 push -1
 push 4
@@ -10363,7 +10435,7 @@ call _fb_StrAssign@20
 call _LN_NAMES@0
 movsx eax, word ptr [_MENUCOST_SI]
 test eax, eax
-jle .Lt_045B
+jle .Lt_0453
 mov dword ptr [ebp-200], 0
 mov dword ptr [ebp-196], 0
 mov dword ptr [ebp-192], 0
@@ -10376,12 +10448,12 @@ call _fb_IntToStr@4
 push eax
 push -1
 push 3
-push offset _Lt_045C
+push offset _Lt_0454
 push -1
 push -1
 push offset _RR_STR
 push 2
-push offset _Lt_03CE
+push offset _Lt_03C6
 mov dword ptr [ebp-164], 0
 mov dword ptr [ebp-160], 0
 mov dword ptr [ebp-156], 0
@@ -10427,11 +10499,11 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-200]
 push eax
 call _fb_StrDelete@4
-.Lt_045B:
-.Lt_045A:
+.Lt_0453:
+.Lt_0452:
 movsx eax, word ptr [_MENUCOST_SI]
 test eax, eax
-jne .Lt_0462
+jne .Lt_045A
 mov dword ptr [ebp-176], 0
 mov dword ptr [ebp-172], 0
 mov dword ptr [ebp-168], 0
@@ -10440,7 +10512,7 @@ push -1
 push -1
 push offset _RR_STR
 push 2
-push offset _Lt_03CE
+push offset _Lt_03C6
 mov dword ptr [ebp-164], 0
 mov dword ptr [ebp-160], 0
 mov dword ptr [ebp-156], 0
@@ -10472,35 +10544,35 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-176]
 push eax
 call _fb_StrDelete@4
-.Lt_0462:
-.Lt_0461:
-.Lt_0457:
+.Lt_045A:
+.Lt_0459:
+.Lt_044F:
 movsx eax, word ptr [_MENUITEM_SI]
 inc eax
 mov word ptr [_MENUITEM_SI], ax
-.Lt_0456:
+.Lt_044E:
 movsx eax, word ptr [_MENUITEM_SI]
 movsx ecx, word ptr [ebp-152]
 cmp eax, ecx
-jle .Lt_0459
-.Lt_0458:
-.Lt_0465:
-.Lt_0466:
+jle .Lt_0451
+.Lt_0450:
+.Lt_045D:
+.Lt_045E:
 call _LN_BUTTONWAIT@0
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrAssign@20
 mov word ptr [_MENUCOST_SI], 0
 movsx ecx, word ptr [_LB_SI]
 cmp ecx, -1
-jne .Lt_046A
+jne .Lt_0462
 movsx ecx, word ptr [_XM_SI]
 movsx eax, word ptr [_VIEWX_SI]
 cmp ecx, eax
-jne .Lt_046C
+jne .Lt_0464
 movsx eax, word ptr [_YM_SI]
 cmp eax, 13
 setge al
@@ -10514,7 +10586,7 @@ setle cl
 shr ecx, 1
 sbb ecx, ecx
 and eax, ecx
-je .Lt_046E
+je .Lt_0466
 movsx ecx, word ptr [_YM_SI]
 add ecx, -12
 mov word ptr [_MENUSELECT_SI], cx
@@ -10541,41 +10613,41 @@ call _fb_StrMid@12
 push eax
 call _fb_CVL@4
 mov word ptr [_MENUCOST_SI], ax
-.Lt_046E:
-.Lt_046D:
-.Lt_046C:
-.Lt_046B:
-.Lt_046A:
-.Lt_0469:
-.Lt_0468:
+.Lt_0466:
+.Lt_0465:
+.Lt_0464:
+.Lt_0463:
+.Lt_0462:
+.Lt_0461:
+.Lt_0460:
 push 5
-push offset _Lt_0444
+push offset _Lt_043C
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0466
-.Lt_0467:
+jne .Lt_045E
+.Lt_045F:
 push 5
-push offset _Lt_0444
+push offset _Lt_043C
 push -1
 push offset _MENUSELECT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0470
+jne .Lt_0468
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-jmp .Lt_046F
-.Lt_0470:
+jmp .Lt_0467
+.Lt_0468:
 call _LN_MERCHANT@0
-.Lt_046F:
-.Lt_0443:
-.Lt_0442:
-.Lt_0441:
+.Lt_0467:
+.Lt_043B:
+.Lt_043A:
+.Lt_0439:
 pop esi
 pop ebx
 mov esp, ebp
@@ -10589,7 +10661,7 @@ push ebp
 mov ebp, esp
 sub esp, 32
 push ebx
-.Lt_0473:
+.Lt_046B:
 push 0
 push -1
 push -1
@@ -10652,7 +10724,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_0477
+jle .Lt_046F
 mov eax, dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 push dword ptr [_CLV_BUFFER_PLAYBYPLAY]
@@ -10680,7 +10752,7 @@ mov dword ptr [ebp-28], 0
 mov dword ptr [ebp-24], 0
 push 0
 push 7
-push offset _Lt_0478
+push offset _Lt_0470
 push -1
 lea ebx, [ebp-32]
 push ebx
@@ -10713,9 +10785,9 @@ push offset _CLV_FONT
 push offset _CLV_BUFFER
 call _CLV_DRAW_TEXT@28
 call _LN_OKBUTTON@0
-.Lt_0477:
-.Lt_0476:
-.Lt_0474:
+.Lt_046F:
+.Lt_046E:
+.Lt_046C:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -10728,14 +10800,14 @@ push ebp
 mov ebp, esp
 sub esp, 216
 push ebx
-.Lt_047B:
+.Lt_0473:
 mov eax, dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 push dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 push offset _CLV_BUFFER
 call _CLV_BUFFER_CLS@8
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push 4
 push 1
@@ -10751,7 +10823,7 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-je .Lt_047E
+je .Lt_0476
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -10777,7 +10849,7 @@ fld qword ptr [_G_DFA+ebx+48]
 fcompp
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_0480
+jnz .Lt_0478
 movsx ebx, word ptr [_TY_SI]
 push ebx
 movsx ebx, word ptr [_TX_SI]
@@ -10812,9 +10884,9 @@ push dword ptr [ebp-8]
 push dword ptr [ebp-4]
 pop dword ptr [_G_DFA+eax+52]
 pop dword ptr [_G_DFA+eax+48]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
-fmul qword ptr [_Lt_027F]
+fmul qword ptr [_Lt_0282]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -10826,7 +10898,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0156]
+fadd qword ptr [_Lt_0159]
 fistp word ptr [_R1_SI]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -10872,9 +10944,9 @@ push dword ptr [ebp-24]
 push dword ptr [ebp-20]
 pop dword ptr [_G_DFA+eax+12]
 pop dword ptr [_G_DFA+eax+8]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
-fmul qword ptr [_Lt_027F]
+fmul qword ptr [_Lt_0282]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -10886,7 +10958,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0156]
+fadd qword ptr [_Lt_0159]
 fistp word ptr [_R2_SI]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -10932,9 +11004,9 @@ push dword ptr [ebp-40]
 push dword ptr [ebp-36]
 pop dword ptr [_G_DFA+eax+20]
 pop dword ptr [_G_DFA+eax+16]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
-fmul qword ptr [_Lt_027F]
+fmul qword ptr [_Lt_0282]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -10946,7 +11018,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0156]
+fadd qword ptr [_Lt_0159]
 fistp word ptr [_R3_SI]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -11047,15 +11119,15 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_0482
+jle .Lt_047A
 push 0
 push 65535
 push 2
 push 4278190080
-push dword ptr [_Lt_04B4]
-push dword ptr [_Lt_04B5]
-push dword ptr [_Lt_0163]
-push dword ptr [_Lt_04B6]
+push dword ptr [_Lt_04AC]
+push dword ptr [_Lt_04AD]
+push dword ptr [_Lt_0166]
+push dword ptr [_Lt_04AE]
 push 0
 call _fb_GfxLine@36
 push 2
@@ -11083,7 +11155,7 @@ mov dword ptr [ebp-80], 0
 mov dword ptr [ebp-76], 0
 push 0
 push 16
-push offset _Lt_0483
+push offset _Lt_047B
 push -1
 lea ebx, [ebp-84]
 push ebx
@@ -11105,7 +11177,7 @@ mov dword ptr [ebp-92], 0
 mov dword ptr [ebp-88], 0
 push 0
 push 8
-push offset _Lt_0485
+push offset _Lt_047D
 push -1
 lea ebx, [ebp-96]
 push ebx
@@ -11135,7 +11207,7 @@ call _fb_IntToStr@4
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -11171,7 +11243,7 @@ mov dword ptr [ebp-128], 0
 mov dword ptr [ebp-124], 0
 push 0
 push 9
-push offset _Lt_0489
+push offset _Lt_0481
 push -1
 lea eax, [ebp-132]
 push eax
@@ -11201,7 +11273,7 @@ call _fb_IntToStr@4
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -11237,7 +11309,7 @@ mov dword ptr [ebp-164], 0
 mov dword ptr [ebp-160], 0
 push 0
 push 9
-push offset _Lt_048D
+push offset _Lt_0485
 push -1
 lea eax, [ebp-168]
 push eax
@@ -11267,7 +11339,7 @@ call _fb_IntToStr@4
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -11303,7 +11375,7 @@ mov dword ptr [ebp-200], 0
 mov dword ptr [ebp-196], 0
 push 0
 push 11
-push offset _Lt_0491
+push offset _Lt_0489
 push -1
 lea eax, [ebp-204]
 push eax
@@ -11325,7 +11397,7 @@ mov dword ptr [ebp-212], 0
 mov dword ptr [ebp-208], 0
 push 0
 push 11
-push offset _Lt_0493
+push offset _Lt_048B
 push -1
 lea eax, [ebp-216]
 push eax
@@ -11342,8 +11414,8 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-216]
 push eax
 call _fb_StrDelete@4
-.Lt_0482:
-.Lt_0481:
+.Lt_047A:
+.Lt_0479:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -11351,17 +11423,17 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fcomp qword ptr [_Lt_04B7]
+fcomp qword ptr [_Lt_04AF]
 fnstsw ax
 sahf
-jae .Lt_0496
+jae .Lt_048E
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
 push eax
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0156]
+fld qword ptr [_Lt_0159]
 fadd qword ptr [_G_DFA+eax+80]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -11383,13 +11455,13 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_0498
+jle .Lt_0490
 mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
 mov dword ptr [ebp-12], 0
 push 0
 push 12
-push offset _Lt_0499
+push offset _Lt_0491
 push -1
 lea eax, [ebp-20]
 push eax
@@ -11425,7 +11497,7 @@ call _fb_DoubleToStr@8
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 3
@@ -11479,16 +11551,16 @@ call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [ebp-52]
 fsub qword ptr [_G_DFA+eax+48]
-fcomp qword ptr [_Lt_0208]
+fcomp qword ptr [_Lt_020B]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_049E
+jnz .Lt_0496
 mov dword ptr [ebp-64], 0
 mov dword ptr [ebp-60], 0
 mov dword ptr [ebp-56], 0
 push 0
 push 6
-push offset _Lt_049F
+push offset _Lt_0497
 push -1
 lea eax, [ebp-64]
 push eax
@@ -11511,7 +11583,7 @@ mov dword ptr [ebp-92], 0
 push 0
 push -1
 push 2
-push offset _Lt_03D1
+push offset _Lt_03C9
 push -1
 push 5
 push -1
@@ -11544,7 +11616,7 @@ call _fb_DoubleToStr@8
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -11582,12 +11654,12 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-100]
 push eax
 call _fb_StrDelete@4
-.Lt_049E:
-.Lt_049D:
-.Lt_0498:
-.Lt_0497:
 .Lt_0496:
 .Lt_0495:
+.Lt_0490:
+.Lt_048F:
+.Lt_048E:
+.Lt_048D:
 push 0
 push -1
 push offset _CTRL_STR
@@ -11597,10 +11669,10 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_04A5
+jle .Lt_049D
 call _LN_OKBUTTON@0
-.Lt_04A5:
-.Lt_04A4:
+.Lt_049D:
+.Lt_049C:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -11608,14 +11680,14 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+80]
-fcomp qword ptr [_Lt_0153]
+fcomp qword ptr [_Lt_0156]
 fnstsw ax
 sahf
 setae al
 shr eax, 1
 sbb eax, eax
 push 5
-push offset _Lt_00FB
+push offset _Lt_00FE
 push -1
 push 4
 push 1
@@ -11636,23 +11708,23 @@ sete al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_04A7
+je .Lt_049F
 push 0
 push 5
-push offset _Lt_0105
+push offset _Lt_0108
 push -1
 push offset _GETIT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_0105
+push offset _Lt_0108
 push -1
 push offset _HAVEIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEIT@0
 movsx eax, word ptr [_HAVEIT_SI]
 test eax, eax
-jne .Lt_04A9
+jne .Lt_04A1
 push 0
 push -1
 push -1
@@ -11684,15 +11756,15 @@ lea ebx, [_E_STRA+eax+12]
 push ebx
 call _fb_StrAssign@20
 call _LN_GAIN@0
-.Lt_04A9:
-.Lt_04A8:
-.Lt_04A7:
-.Lt_04A6:
-.Lt_0480:
-.Lt_047F:
-.Lt_047E:
-.Lt_047D:
-.Lt_047C:
+.Lt_04A1:
+.Lt_04A0:
+.Lt_049F:
+.Lt_049E:
+.Lt_0478:
+.Lt_0477:
+.Lt_0476:
+.Lt_0475:
+.Lt_0474:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -11705,7 +11777,7 @@ push ebp
 mov ebp, esp
 sub esp, 12
 push ebx
-.Lt_04BD:
+.Lt_04B5:
 push 0
 push -1
 push offset _CTRL_STR
@@ -11715,7 +11787,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_04C0
+jle .Lt_04B8
 mov eax, dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 push dword ptr [_CLV_BUFFER_PLAYBYPLAY]
@@ -11743,7 +11815,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 7
-push offset _Lt_0478
+push offset _Lt_0470
 push -1
 lea ebx, [ebp-12]
 push ebx
@@ -11776,9 +11848,9 @@ push offset _CLV_FONT
 push offset _CLV_BUFFER
 call _CLV_DRAW_TEXT@28
 call _LN_OKBUTTON@0
-.Lt_04C0:
-.Lt_04BF:
-.Lt_04BE:
+.Lt_04B8:
+.Lt_04B7:
+.Lt_04B6:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -11792,14 +11864,14 @@ mov ebp, esp
 sub esp, 60
 push ebx
 push esi
-.Lt_04C2:
+.Lt_04BA:
 push 1
 push offset _Lt_0000
 push -1
 push offset _GETIT_STR
 call _fb_StrCompare@16
 test eax, eax
-je .Lt_04C5
+je .Lt_04BD
 mov eax, dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 mov dword ptr [_CLV_BUFFER_FOCUS], eax
 push dword ptr [_CLV_BUFFER_PLAYBYPLAY]
@@ -11860,15 +11932,15 @@ setg al
 shr eax, 1
 sbb eax, eax
 or ebx, eax
-je .Lt_04C8
+je .Lt_04C0
 push 0
 push 65535
 push 2
 push 4278190080
-push dword ptr [_Lt_04B4]
-push dword ptr [_Lt_04B5]
-push dword ptr [_Lt_0163]
-push dword ptr [_Lt_04B6]
+push dword ptr [_Lt_04AC]
+push dword ptr [_Lt_04AD]
+push dword ptr [_Lt_0166]
+push dword ptr [_Lt_04AE]
 push 0
 call _fb_GfxLine@36
 push 2
@@ -11896,7 +11968,7 @@ mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
 push 0
 push 7
-push offset _Lt_0478
+push offset _Lt_0470
 push -1
 lea ebx, [ebp-24]
 push ebx
@@ -11933,7 +12005,7 @@ mov dword ptr [ebp-32], 0
 mov dword ptr [ebp-28], 0
 push 0
 push 5
-push offset _Lt_04CA
+push offset _Lt_04C2
 push -1
 lea ebx, [ebp-36]
 push ebx
@@ -11956,7 +12028,7 @@ mov dword ptr [ebp-52], 0
 push 0
 push -1
 push 2
-push offset _Lt_04CC
+push offset _Lt_04C4
 push -1
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_D_SI]
@@ -12003,11 +12075,11 @@ lea eax, [ebp-60]
 push eax
 call _fb_StrDelete@4
 call _LN_OKBUTTON@0
-.Lt_04C8:
-.Lt_04C7:
-.Lt_04C5:
-.Lt_04C4:
-.Lt_04C3:
+.Lt_04C0:
+.Lt_04BF:
+.Lt_04BD:
+.Lt_04BC:
+.Lt_04BB:
 pop esi
 pop ebx
 mov esp, ebp
@@ -12022,7 +12094,7 @@ mov ebp, esp
 sub esp, 24
 push ebx
 push esi
-.Lt_04D1:
+.Lt_04C9:
 push 0
 push -1
 push offset _CTRL_STR
@@ -12048,7 +12120,7 @@ setg bl
 shr ebx, 1
 sbb ebx, ebx
 or eax, ebx
-je .Lt_04D4
+je .Lt_04CC
 mov ebx, dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 mov dword ptr [_CLV_BUFFER_FOCUS], ebx
 push dword ptr [_CLV_BUFFER_PLAYBYPLAY]
@@ -12076,7 +12148,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 5
-push offset _Lt_04D5
+push offset _Lt_04CD
 push -1
 lea ebx, [ebp-12]
 push ebx
@@ -12113,7 +12185,7 @@ mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
 push 0
 push 3
-push offset _Lt_04D7
+push offset _Lt_04CF
 push -1
 lea ebx, [ebp-24]
 push ebx
@@ -12159,9 +12231,9 @@ push offset _CLV_FONT
 push offset _CLV_BUFFER
 call _CLV_DRAW_TEXT@28
 call _LN_OKBUTTON@0
-.Lt_04D4:
-.Lt_04D3:
-.Lt_04D2:
+.Lt_04CC:
+.Lt_04CB:
+.Lt_04CA:
 pop esi
 pop ebx
 mov esp, ebp
@@ -12176,7 +12248,7 @@ mov ebp, esp
 sub esp, 84
 push ebx
 push esi
-.Lt_04DB:
+.Lt_04D3:
 push 0
 push -1
 push offset _CTRL_STR
@@ -12202,7 +12274,7 @@ setg bl
 shr ebx, 1
 sbb ebx, ebx
 or eax, ebx
-je .Lt_04DE
+je .Lt_04D6
 mov ebx, dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 mov dword ptr [_CLV_BUFFER_FOCUS], ebx
 push dword ptr [_CLV_BUFFER_PLAYBYPLAY]
@@ -12230,7 +12302,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 5
-push offset _Lt_04D5
+push offset _Lt_04CD
 push -1
 lea ebx, [ebp-12]
 push ebx
@@ -12306,7 +12378,7 @@ mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
 push 0
 push 5
-push offset _Lt_04E0
+push offset _Lt_04D8
 push -1
 lea ecx, [ebp-24]
 push ecx
@@ -12336,7 +12408,7 @@ call _fb_IntToStr@4
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -12372,7 +12444,7 @@ mov dword ptr [ebp-56], 0
 mov dword ptr [ebp-52], 0
 push 0
 push 5
-push offset _Lt_04E4
+push offset _Lt_04DC
 push -1
 lea eax, [ebp-60]
 push eax
@@ -12402,7 +12474,7 @@ call _fb_IntToStr@4
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -12434,9 +12506,9 @@ lea eax, [ebp-84]
 push eax
 call _fb_StrDelete@4
 call _LN_OKBUTTON@0
-.Lt_04DE:
-.Lt_04DD:
-.Lt_04DC:
+.Lt_04D6:
+.Lt_04D5:
+.Lt_04D4:
 pop esi
 pop ebx
 mov esp, ebp
@@ -12451,7 +12523,7 @@ mov ebp, esp
 sub esp, 180
 push ebx
 push esi
-.Lt_04EA:
+.Lt_04E2:
 push 0
 push -1
 push offset _CTRL_STR
@@ -12477,7 +12549,7 @@ setg bl
 shr ebx, 1
 sbb ebx, ebx
 or eax, ebx
-je .Lt_04ED
+je .Lt_04E5
 mov ebx, dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 mov dword ptr [_CLV_BUFFER_FOCUS], ebx
 push dword ptr [_CLV_BUFFER_PLAYBYPLAY]
@@ -12505,7 +12577,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 9
-push offset _Lt_04EE
+push offset _Lt_04E6
 push -1
 lea ebx, [ebp-12]
 push ebx
@@ -12555,7 +12627,7 @@ mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
 push 0
 push 5
-push offset _Lt_04F0
+push offset _Lt_04E8
 push -1
 lea ecx, [ebp-24]
 push ecx
@@ -12578,7 +12650,7 @@ mov dword ptr [ebp-52], 0
 push 0
 push -1
 push 2
-push offset _Lt_03D1
+push offset _Lt_03C9
 push -1
 push 5
 push -1
@@ -12588,7 +12660,7 @@ call _fb_IntToStr@4
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -12631,7 +12703,7 @@ mov dword ptr [ebp-68], 0
 mov dword ptr [ebp-64], 0
 push 0
 push 5
-push offset _Lt_04F5
+push offset _Lt_04ED
 push -1
 lea eax, [ebp-72]
 push eax
@@ -12654,7 +12726,7 @@ mov dword ptr [ebp-100], 0
 push 0
 push -1
 push 2
-push offset _Lt_03D1
+push offset _Lt_03C9
 push -1
 push 5
 push -1
@@ -12670,7 +12742,7 @@ call _fb_DoubleToStr@8
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -12713,7 +12785,7 @@ mov dword ptr [ebp-116], 0
 mov dword ptr [ebp-112], 0
 push 0
 push 5
-push offset _Lt_04FA
+push offset _Lt_04F2
 push -1
 lea eax, [ebp-120]
 push eax
@@ -12743,7 +12815,7 @@ call _fb_IntToStr@4
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -12779,7 +12851,7 @@ mov dword ptr [ebp-152], 0
 mov dword ptr [ebp-148], 0
 push 0
 push 5
-push offset _Lt_04FE
+push offset _Lt_04F6
 push -1
 lea eax, [ebp-156]
 push eax
@@ -12815,7 +12887,7 @@ call _fb_DoubleToStr@8
 push eax
 push -1
 push 1
-push offset _Lt_0096
+push offset _Lt_0097
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 5
@@ -12847,9 +12919,9 @@ lea eax, [ebp-180]
 push eax
 call _fb_StrDelete@4
 call _LN_OKBUTTON@0
-.Lt_04ED:
-.Lt_04EC:
-.Lt_04EB:
+.Lt_04E5:
+.Lt_04E4:
+.Lt_04E3:
 pop esi
 pop ebx
 mov esp, ebp
@@ -12863,7 +12935,7 @@ push ebp
 mov ebp, esp
 sub esp, 200
 push ebx
-.Lt_0504:
+.Lt_04FC:
 mov word ptr [ebp-4], 0
 mov word ptr [ebp-8], 0
 mov word ptr [ebp-12], 0
@@ -12935,7 +13007,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0569]
+fadd qword ptr [_Lt_0561]
 fistp word ptr [ebp-4]
 movsx eax, word ptr [_TY_SI]
 imul eax, 21
@@ -12962,24 +13034,24 @@ add esp, 4
 fistp word ptr [ebp-8]
 movsx eax, word ptr [ebp-4]
 test eax, eax
-jge .Lt_0507
+jge .Lt_04FF
 mov word ptr [ebp-4], 0
-.Lt_0507:
+.Lt_04FF:
 movsx eax, word ptr [ebp-4]
 cmp eax, 20
-jle .Lt_0509
+jle .Lt_0501
 mov word ptr [ebp-4], 20
-.Lt_0509:
+.Lt_0501:
 movsx eax, word ptr [ebp-8]
 test eax, eax
-jge .Lt_050B
+jge .Lt_0503
 mov word ptr [ebp-8], 0
-.Lt_050B:
+.Lt_0503:
 movsx eax, word ptr [ebp-8]
 cmp eax, 21
-jle .Lt_050D
+jle .Lt_0505
 mov word ptr [ebp-8], 21
-.Lt_050D:
+.Lt_0505:
 movsx eax, word ptr [ebp-44]
 sal eax, 3
 mov word ptr [ebp-12], ax
@@ -13054,7 +13126,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0569]
+fadd qword ptr [_Lt_0561]
 fistp word ptr [ebp-4]
 movsx eax, word ptr [_TX_SI]
 imul eax, 21
@@ -13081,24 +13153,24 @@ add esp, 4
 fistp word ptr [ebp-8]
 movsx eax, word ptr [ebp-4]
 test eax, eax
-jge .Lt_050F
+jge .Lt_0507
 mov word ptr [ebp-4], 0
-.Lt_050F:
+.Lt_0507:
 movsx eax, word ptr [ebp-4]
 cmp eax, 20
-jle .Lt_0511
+jle .Lt_0509
 mov word ptr [ebp-4], 20
-.Lt_0511:
+.Lt_0509:
 movsx eax, word ptr [ebp-8]
 test eax, eax
-jge .Lt_0513
+jge .Lt_050B
 mov word ptr [ebp-8], 0
-.Lt_0513:
+.Lt_050B:
 movsx eax, word ptr [ebp-8]
 cmp eax, 21
-jle .Lt_0515
+jle .Lt_050D
 mov word ptr [ebp-8], 21
-.Lt_0515:
+.Lt_050D:
 movsx eax, word ptr [ebp-40]
 movsx ebx, word ptr [ebp-4]
 add eax, ebx
@@ -13165,44 +13237,44 @@ add eax, 3
 mov word ptr [_DY2_SI], ax
 movsx eax, word ptr [_DX1_SI]
 cmp eax, 1
-jge .Lt_0517
+jge .Lt_050F
 mov word ptr [_DX1_SI], 1
-.Lt_0517:
-.Lt_0516:
+.Lt_050F:
+.Lt_050E:
 movsx eax, word ptr [_DY1_SI]
 cmp eax, 1
-jge .Lt_0519
+jge .Lt_0511
 mov word ptr [_DY1_SI], 1
-.Lt_0519:
-.Lt_0518:
+.Lt_0511:
+.Lt_0510:
 movsx eax, word ptr [_DX2_SI]
 movsx ebx, word ptr [_AA_SI]
 cmp eax, ebx
-jle .Lt_051B
+jle .Lt_0513
 mov bx, word ptr [_AA_SI]
 mov word ptr [_DX2_SI], bx
-.Lt_051B:
-.Lt_051A:
+.Lt_0513:
+.Lt_0512:
 movsx ebx, word ptr [_DY2_SI]
 movsx eax, word ptr [_DD_SI]
 cmp ebx, eax
-jle .Lt_051D
+jle .Lt_0515
 mov ax, word ptr [_DD_SI]
 mov word ptr [_DY2_SI], ax
-.Lt_051D:
-.Lt_051C:
+.Lt_0515:
+.Lt_0514:
 mov ax, word ptr [_DX1_SI]
 mov word ptr [_TTX], ax
 mov ax, word ptr [_DX2_SI]
 mov word ptr [ebp-72], ax
-jmp .Lt_051F
-.Lt_0522:
+jmp .Lt_0517
+.Lt_051A:
 mov ax, word ptr [_DY1_SI]
 mov word ptr [_TTY], ax
 mov ax, word ptr [_DY2_SI]
 mov word ptr [ebp-76], ax
-jmp .Lt_0524
-.Lt_0527:
+jmp .Lt_051C
+.Lt_051F:
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-120], 0
 mov dword ptr [ebp-116], 0
@@ -13210,10 +13282,10 @@ mov dword ptr [ebp-112], 0
 push 0
 push -1
 push 4
-push offset _Lt_052A
+push offset _Lt_0522
 push -1
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push 4
 push 5
@@ -13281,7 +13353,7 @@ mov dword ptr [ebp-156], 0
 push 0
 push -1
 push 4
-push offset _Lt_052A
+push offset _Lt_0522
 push -1
 push -1
 push 4
@@ -13386,7 +13458,7 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -13398,8 +13470,8 @@ frndint
 fldcw [esp]
 add esp, 4
 fistp word ptr [ebp-168]
-jmp .Lt_0534
-.Lt_0537:
+jmp .Lt_052C
+.Lt_052F:
 push 0
 push -1
 push 4
@@ -13423,29 +13495,17 @@ lea eax, [ebp-180]
 push eax
 call _fb_StrInit@20
 push 5
-push offset _Lt_0134
-push -1
-lea eax, [ebp-180]
-push eax
-call _fb_StrCompare@16
-test eax, eax
-jne .Lt_053A
-.Lt_053B:
-mov word ptr [ebp-68], 1
-jmp .Lt_0538
-.Lt_053A:
-push 5
 push offset _Lt_0137
 push -1
 lea eax, [ebp-180]
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_053C
-.Lt_053D:
+jne .Lt_0532
+.Lt_0533:
 mov word ptr [ebp-68], 1
-jmp .Lt_0538
-.Lt_053C:
+jmp .Lt_0530
+.Lt_0532:
 push 5
 push offset _Lt_013A
 push -1
@@ -13453,17 +13513,29 @@ lea eax, [ebp-180]
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_053E
-.Lt_053F:
+jne .Lt_0534
+.Lt_0535:
 mov word ptr [ebp-68], 1
-.Lt_053E:
-.Lt_0538:
+jmp .Lt_0530
+.Lt_0534:
+push 5
+push offset _Lt_013D
+push -1
+lea eax, [ebp-180]
+push eax
+call _fb_StrCompare@16
+test eax, eax
+jne .Lt_0536
+.Lt_0537:
+mov word ptr [ebp-68], 1
+.Lt_0536:
+.Lt_0530:
 lea eax, [ebp-180]
 push eax
 call _fb_StrDelete@4
 movsx eax, word ptr [ebp-68]
 test eax, eax
-jle .Lt_0541
+jle .Lt_0539
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-200], 0
 mov dword ptr [ebp-196], 0
@@ -13471,7 +13543,7 @@ mov dword ptr [ebp-192], 0
 push 0
 push -1
 push 8
-push offset _Lt_0415
+push offset _Lt_040D
 push -1
 push 4
 movsx eax, word ptr [_T_SI]
@@ -13528,32 +13600,32 @@ call _GRAPHICPUT@24
 lea eax, [ebp-200]
 push eax
 call _fb_StrDelete@4
-.Lt_0541:
-.Lt_0540:
-.Lt_0535:
+.Lt_0539:
+.Lt_0538:
+.Lt_052D:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_0534:
+.Lt_052C:
 movsx eax, word ptr [_T_SI]
 movsx ebx, word ptr [ebp-168]
 cmp eax, ebx
-jle .Lt_0537
-.Lt_0536:
+jle .Lt_052F
+.Lt_052E:
 push 5
-push offset _Lt_01DD
+push offset _Lt_01E0
 push -1
 push offset _TEMPACTION_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0547
+jne .Lt_053F
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-184], 0
 mov dword ptr [ebp-180], 0
 mov dword ptr [ebp-176], 0
 push 0
 push 12
-push offset _Lt_054A
+push offset _Lt_0542
 push -1
 lea eax, [ebp-184]
 push eax
@@ -13586,40 +13658,40 @@ call _GRAPHICPUT@24
 lea eax, [ebp-184]
 push eax
 call _fb_StrDelete@4
-.Lt_0547:
-.Lt_0546:
-.Lt_0525:
+.Lt_053F:
+.Lt_053E:
+.Lt_051D:
 movsx eax, word ptr [_TTY]
 inc eax
 mov word ptr [_TTY], ax
-.Lt_0524:
+.Lt_051C:
 movsx eax, word ptr [_TTY]
 movsx ebx, word ptr [ebp-76]
 cmp eax, ebx
-jle .Lt_0527
-.Lt_0526:
-.Lt_0520:
+jle .Lt_051F
+.Lt_051E:
+.Lt_0518:
 movsx ebx, word ptr [_TTX]
 inc ebx
 mov word ptr [_TTX], bx
-.Lt_051F:
+.Lt_0517:
 movsx ebx, word ptr [_TTX]
 movsx eax, word ptr [ebp-72]
 cmp ebx, eax
-jle .Lt_0522
-.Lt_0521:
+jle .Lt_051A
+.Lt_0519:
 mov ax, word ptr [_DX1_SI]
 mov word ptr [_TTX], ax
 mov ax, word ptr [_DX2_SI]
 mov word ptr [ebp-72], ax
-jmp .Lt_054D
-.Lt_0550:
+jmp .Lt_0545
+.Lt_0548:
 mov ax, word ptr [_DY1_SI]
 mov word ptr [_TTY], ax
 mov ax, word ptr [_DY2_SI]
 mov word ptr [ebp-76], ax
-jmp .Lt_0552
-.Lt_0555:
+jmp .Lt_054A
+.Lt_054D:
 mov ax, word ptr [_TX_SI]
 mov word ptr [_TEMPTX_SI], ax
 mov ax, word ptr [_TY_SI]
@@ -13634,7 +13706,7 @@ mov word ptr [_TX_SI], ax
 mov ax, word ptr [_TEMPTY_SI]
 mov word ptr [_TY_SI], ax
 push 5
-push offset _Lt_0400
+push offset _Lt_03F8
 push -1
 push offset _TEMPACTION_STR
 call _fb_StrCompare@16
@@ -13643,7 +13715,7 @@ sete al
 shr eax, 1
 sbb eax, eax
 push 5
-push offset _Lt_0556
+push offset _Lt_054E
 push -1
 push offset _TEMPACTION_STR
 mov ebx, eax
@@ -13653,10 +13725,10 @@ sete al
 shr eax, 1
 sbb eax, eax
 or ebx, eax
-je .Lt_0558
+je .Lt_0550
 movsx eax, word ptr [_TEMPDIS_SI]
 test eax, eax
-jle .Lt_055A
+jle .Lt_0552
 movsx eax, word ptr [_TTY]
 movsx ebx, word ptr [_TY_SI]
 sub eax, ebx
@@ -13716,30 +13788,30 @@ fstp dword ptr [_TEMPX2_SF]
 push 0
 push 4278190080
 push 4290806528
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPY2_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop eax
 push eax
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPX2_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop eax
 push eax
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPY1_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop eax
 push eax
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPX1_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop eax
@@ -13754,7 +13826,7 @@ movsx eax, word ptr [_TEMPDIS_SI]
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_02EC]
+fdiv qword ptr [_Lt_02E4]
 fistp word ptr [ebp-84]
 movsx eax, word ptr [ebp-84]
 test eax, eax
@@ -13762,8 +13834,8 @@ setge al
 shr eax, 1
 sbb eax, eax
 mov dword ptr [ebp-88], eax
-jmp .Lt_055E
-.Lt_0561:
+jmp .Lt_0556
+.Lt_0559:
 movsx eax, word ptr [_TTY]
 movsx ebx, word ptr [_TY_SI]
 sub eax, ebx
@@ -13798,20 +13870,20 @@ fild word ptr [_T_SF]
 fstp dword ptr [_TT_SF]
 movsx eax, word ptr [_TEMPDIS_SI]
 cmp eax, 1
-jg .Lt_0563
+jg .Lt_055B
 fild word ptr [_T_SF]
 fstp dword ptr [_TT_SF]
-jmp .Lt_0562
-.Lt_0563:
+jmp .Lt_055A
+.Lt_055B:
 movsx eax, word ptr [_T_SF]
 movsx ebx, word ptr [_TEMPDIS_SI]
 dec ebx
 cmp eax, ebx
-jge .Lt_0565
-push dword ptr [_Lt_056B]
+jge .Lt_055D
+push dword ptr [_Lt_0563]
 pop dword ptr [_TT_SF]
-jmp .Lt_0564
-.Lt_0565:
+jmp .Lt_055C
+.Lt_055D:
 movsx ebx, word ptr [_T_SF]
 movsx eax, word ptr [_TEMPDIS_SI]
 sub ebx, eax
@@ -13820,26 +13892,26 @@ push ebx
 fild dword ptr [esp]
 add esp, 4
 fstp dword ptr [_TT_SF]
-.Lt_0564:
-.Lt_0562:
+.Lt_055C:
+.Lt_055A:
 fld dword ptr [_TT_SF]
-fcomp dword ptr [_Lt_0163]
+fcomp dword ptr [_Lt_0166]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_0567
+jnz .Lt_055F
 push 4278190080
 push 4290822336
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPY_SF]
 fsub dword ptr [_TT_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop ebx
 push ebx
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPX_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop ebx
@@ -13849,17 +13921,17 @@ push offset _CLV_BUFFER
 call _CLV_DRAW_PIXEL@24
 push 4278190080
 push 4290822336
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPY_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop ebx
 push ebx
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPX_SF]
 fadd dword ptr [_TT_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop ebx
@@ -13869,17 +13941,17 @@ push offset _CLV_BUFFER
 call _CLV_DRAW_PIXEL@24
 push 4278190080
 push 4290822336
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPY_SF]
 fadd dword ptr [_TT_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop ebx
 push ebx
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPX_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop ebx
@@ -13889,17 +13961,17 @@ push offset _CLV_BUFFER
 call _CLV_DRAW_PIXEL@24
 push 4278190080
 push 4290822336
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPY_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop ebx
 push ebx
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_TEMPX_SF]
 fsub dword ptr [_TT_SF]
-fadd dword ptr [_Lt_016B]
+fadd dword ptr [_Lt_016E]
 sub esp, 4
 fistp dword ptr [esp]
 pop ebx
@@ -13907,52 +13979,52 @@ push ebx
 push dword ptr [_CLV_BUFFER_PORTAL]
 push offset _CLV_BUFFER
 call _CLV_DRAW_PIXEL@24
-.Lt_0567:
-.Lt_0566:
 .Lt_055F:
+.Lt_055E:
+.Lt_0557:
 movsx ebx, word ptr [_T_SF]
 movsx eax, word ptr [ebp-84]
 add ebx, eax
 mov word ptr [_T_SF], bx
-.Lt_055E:
+.Lt_0556:
 cmp dword ptr [ebp-88], 0
-jne .Lt_0568
+jne .Lt_0560
 movsx ebx, word ptr [_T_SF]
 movsx eax, word ptr [ebp-80]
 cmp ebx, eax
-jge .Lt_0561
-jmp .Lt_0560
-.Lt_0568:
+jge .Lt_0559
+jmp .Lt_0558
+.Lt_0560:
 movsx eax, word ptr [_T_SF]
 movsx ebx, word ptr [ebp-80]
 cmp eax, ebx
-jle .Lt_0561
-.Lt_0560:
-.Lt_055A:
-.Lt_0559:
+jle .Lt_0559
 .Lt_0558:
-.Lt_0557:
-.Lt_0553:
+.Lt_0552:
+.Lt_0551:
+.Lt_0550:
+.Lt_054F:
+.Lt_054B:
 movsx ebx, word ptr [_TTY]
 inc ebx
 mov word ptr [_TTY], bx
-.Lt_0552:
+.Lt_054A:
 movsx ebx, word ptr [_TTY]
 movsx eax, word ptr [ebp-76]
 cmp ebx, eax
-jle .Lt_0555
-.Lt_0554:
-.Lt_054E:
+jle .Lt_054D
+.Lt_054C:
+.Lt_0546:
 movsx eax, word ptr [_TTX]
 inc eax
 mov word ptr [_TTX], ax
-.Lt_054D:
+.Lt_0545:
 movsx eax, word ptr [_TTX]
 movsx ebx, word ptr [ebp-72]
 cmp eax, ebx
-jle .Lt_0550
-.Lt_054F:
-.Lt_0505:
+jle .Lt_0548
+.Lt_0547:
+.Lt_04FD:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -13964,7 +14036,7 @@ _LN_TITLE@8:
 push ebp
 mov ebp, esp
 sub esp, 12
-.Lt_056F:
+.Lt_0567:
 push 1
 push dword ptr [ebp+8]
 call _CLV_BUFFER_CLS@8
@@ -13974,7 +14046,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 37
-push offset _Lt_0571
+push offset _Lt_0569
 push -1
 lea eax, [ebp-12]
 push eax
@@ -13997,7 +14069,7 @@ push -1
 push 1
 push 4
 call _fb_Locate@20
-.Lt_0570:
+.Lt_0568:
 mov esp, ebp
 pop ebp
 ret 8
@@ -14005,7 +14077,7 @@ ret 8
 
 .globl _LN_STATUS@0
 _LN_STATUS@0:
-.Lt_0573:
+.Lt_056B:
 push dword ptr [_CLV_BUFFER_STATUS]
 push offset _CLV_BUFFER
 call _CLV_BUFFER_CLS@8
@@ -14015,13 +14087,13 @@ call _FRAME_STATUS@8
 push 24
 push 14
 call _FRAME_INVENTORY@8
-.Lt_0574:
+.Lt_056C:
 ret
 .balign 16
 
 .globl _LN_FRAMSTTS@0
 _LN_FRAMSTTS@0:
-.Lt_0575:
+.Lt_056D:
 fild word ptr [_STATX_SI]
 fstp dword ptr [_FRAMEX1_SF]
 movsx eax, word ptr [_STATX_SI]
@@ -14030,20 +14102,20 @@ push eax
 fild dword ptr [esp]
 add esp, 4
 fstp dword ptr [_FRAMEX2_SF]
-push dword ptr [_Lt_016B]
+push dword ptr [_Lt_016E]
 pop dword ptr [_FRAMEY1_SF]
-push dword ptr [_Lt_016D]
+push dword ptr [_Lt_0170]
 pop dword ptr [_FRAMEY2_SF]
 mov word ptr [_FRAMEC1_SI], 4
 mov word ptr [_FRAMEC2_SI], 12
 call _LN_FRAMEPUT@0
-.Lt_0576:
+.Lt_056E:
 ret
 .balign 16
 
 .globl _LN_FRAMSTTSITMS@0
 _LN_FRAMSTTSITMS@0:
-.Lt_0577:
+.Lt_056F:
 fild word ptr [_STATX_SI]
 fstp dword ptr [_FRAMEX1_SF]
 movsx eax, word ptr [_STATX_SI]
@@ -14052,14 +14124,14 @@ push eax
 fild dword ptr [esp]
 add esp, 4
 fstp dword ptr [_FRAMEX2_SF]
-push dword ptr [_Lt_0579]
+push dword ptr [_Lt_0571]
 pop dword ptr [_FRAMEY1_SF]
-push dword ptr [_Lt_057A]
+push dword ptr [_Lt_0572]
 pop dword ptr [_FRAMEY2_SF]
 mov word ptr [_FRAMEC1_SI], 4
 mov word ptr [_FRAMEC2_SI], 12
 call _LN_FRAMEPUT@0
-.Lt_0578:
+.Lt_0570:
 ret
 .balign 16
 
@@ -14069,7 +14141,7 @@ push ebp
 mov ebp, esp
 sub esp, 216
 push ebx
-.Lt_057B:
+.Lt_0573:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -14096,7 +14168,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 3
-push offset _Lt_057D
+push offset _Lt_0575
 push -1
 lea ebx, [ebp-12]
 push ebx
@@ -14130,7 +14202,7 @@ movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0595]
+fld qword ptr [_Lt_058D]
 fadd qword ptr [_G_DFA+eax+80]
 sub esp,8
 fstp qword ptr [esp]
@@ -14165,7 +14237,7 @@ mov dword ptr [ebp-52], 0
 push 0
 push -1
 push 2
-push offset _Lt_03D1
+push offset _Lt_03C9
 push -1
 push 5
 push -1
@@ -14180,7 +14252,7 @@ push dword ptr [_G_DFA+eax+48]
 call _fb_DoubleToStr@8
 push eax
 push 6
-push offset _Lt_0580
+push offset _Lt_0578
 mov dword ptr [ebp-36], 0
 mov dword ptr [ebp-32], 0
 mov dword ptr [ebp-28], 0
@@ -14223,7 +14295,7 @@ mov dword ptr [ebp-68], 0
 mov dword ptr [ebp-64], 0
 push 0
 push 2
-push offset _Lt_03CE
+push offset _Lt_03C6
 push -1
 lea eax, [ebp-72]
 push eax
@@ -14250,7 +14322,7 @@ mov dword ptr [ebp-80], 0
 mov dword ptr [ebp-76], 0
 push 0
 push 3
-push offset _Lt_0585
+push offset _Lt_057D
 push -1
 lea eax, [ebp-84]
 push eax
@@ -14297,7 +14369,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -14331,7 +14403,7 @@ mov dword ptr [ebp-104], 0
 mov dword ptr [ebp-100], 0
 push 0
 push 2
-push offset _Lt_0588
+push offset _Lt_0580
 push -1
 lea eax, [ebp-108]
 push eax
@@ -14378,7 +14450,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -14412,7 +14484,7 @@ mov dword ptr [ebp-128], 0
 mov dword ptr [ebp-124], 0
 push 0
 push 4
-push offset _Lt_058B
+push offset _Lt_0583
 push -1
 lea eax, [ebp-132]
 push eax
@@ -14459,7 +14531,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -14493,7 +14565,7 @@ mov dword ptr [ebp-152], 0
 mov dword ptr [ebp-148], 0
 push 0
 push 2
-push offset _Lt_0588
+push offset _Lt_0580
 push -1
 lea eax, [ebp-156]
 push eax
@@ -14540,7 +14612,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -14574,7 +14646,7 @@ mov dword ptr [ebp-176], 0
 mov dword ptr [ebp-172], 0
 push 0
 push 4
-push offset _Lt_0590
+push offset _Lt_0588
 push -1
 lea eax, [ebp-180]
 push eax
@@ -14621,7 +14693,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -14655,7 +14727,7 @@ mov dword ptr [ebp-200], 0
 mov dword ptr [ebp-196], 0
 push 0
 push 2
-push offset _Lt_0588
+push offset _Lt_0580
 push -1
 lea eax, [ebp-204]
 push eax
@@ -14702,7 +14774,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -14731,7 +14803,7 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-216]
 push eax
 call _fb_StrDelete@4
-.Lt_057C:
+.Lt_0574:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -14740,15 +14812,15 @@ ret 16
 
 .globl _LN_STTSGPIC@0
 _LN_STTSGPIC@0:
-.Lt_0597:
-.Lt_0598:
+.Lt_058F:
+.Lt_0590:
 ret
 .balign 16
 
 .globl _LN_STTSITMS@0
 _LN_STTSITMS@0:
-.Lt_0599:
-.Lt_059A:
+.Lt_0591:
+.Lt_0592:
 ret
 .balign 16
 
@@ -14758,9 +14830,9 @@ push ebp
 mov ebp, esp
 sub esp, 8
 push ebx
-.Lt_059B:
+.Lt_0593:
 push 4
-push offset _Lt_03A1
+push offset _Lt_0399
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -14775,7 +14847,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_03A1
+push offset _Lt_0399
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -14791,7 +14863,7 @@ push ebx
 call _fb_StrAssignMid@16
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _ARE_STR
 call _fb_StrAssign@20
@@ -14803,7 +14875,7 @@ push ebx
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+16]
-fcomp qword ptr [_Lt_0156]
+fcomp qword ptr [_Lt_0159]
 fnstsw ax
 sahf
 setae al
@@ -14815,42 +14887,42 @@ setg bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_059F
+je .Lt_0597
 mov word ptr [_MOVE_SI], 1
 push 0
 push 5
-push offset _Lt_05A0
+push offset _Lt_0598
 push -1
 push offset _HERE_STR
 call _fb_StrAssign@20
 call _LN_HERE@0
 movsx ebx, word ptr [_HERE_SI]
 test ebx, ebx
-jle .Lt_05A2
+jle .Lt_059A
 mov word ptr [_MOVE_SI], 0
-.Lt_05A2:
+.Lt_059A:
 push 0
 push 5
-push offset _Lt_05A0
+push offset _Lt_0598
 push -1
 push offset _THERE_STR
 call _fb_StrAssign@20
 call _LN_THERE@0
 movsx ebx, word ptr [_THERE_SI]
 test ebx, ebx
-jle .Lt_05A4
+jle .Lt_059C
 mov word ptr [_MOVE_SI], 0
-.Lt_05A4:
+.Lt_059C:
 push 0
 push 5
-push offset _Lt_05A5
+push offset _Lt_059D
 push -1
 push offset _HERE_STR
 call _fb_StrAssign@20
 call _LN_HERE@0
 push 0
 push 13
-push offset _Lt_05A6
+push offset _Lt_059E
 push -1
 push offset _THERE_STR
 call _fb_StrAssign@20
@@ -14866,12 +14938,12 @@ setle al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_05A8
+je .Lt_05A0
 mov word ptr [_MOVE_SI], 0
-.Lt_05A8:
+.Lt_05A0:
 movsx eax, word ptr [_MOVE_SI]
 cmp eax, 1
-jne .Lt_05AA
+jne .Lt_05A2
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_EX_SI]
 cmp eax, ebx
@@ -14885,7 +14957,7 @@ sete bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_05AC
+je .Lt_05A4
 push 0
 push -1
 push offset _CTRL_STR
@@ -14895,7 +14967,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx ebx, word ptr [_AM_SI]
 test ebx, ebx
-jle .Lt_05AE
+jle .Lt_05A6
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_D_SI]
 imul eax, 6
@@ -14912,17 +14984,17 @@ movsx ecx, word ptr [_DIS_SI]
 imul eax, ecx
 add ebx, eax
 mov word ptr [_DY_SI], bx
-.Lt_05AE:
-.Lt_05AD:
-.Lt_05AC:
-.Lt_05AB:
+.Lt_05A6:
+.Lt_05A5:
+.Lt_05A4:
+.Lt_05A3:
 movsx ebx, word ptr [_TY_SI]
 push ebx
 movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0569]
+fld qword ptr [_Lt_0561]
 fadd qword ptr [_G_DFA+eax+16]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -14936,11 +15008,11 @@ push dword ptr [ebp-4]
 pop dword ptr [_G_DFA+eax+20]
 pop dword ptr [_G_DFA+eax+16]
 call _LN_SWAPDATA@0
-.Lt_05AA:
-.Lt_05A9:
-.Lt_059F:
-.Lt_059E:
-.Lt_059C:
+.Lt_05A2:
+.Lt_05A1:
+.Lt_0597:
+.Lt_0596:
+.Lt_0594:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -14953,9 +15025,9 @@ push ebp
 mov ebp, esp
 sub esp, 8
 push ebx
-.Lt_05B6:
+.Lt_05AE:
 push 4
-push offset _Lt_03A1
+push offset _Lt_0399
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -14970,7 +15042,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_03A1
+push offset _Lt_0399
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -14986,7 +15058,7 @@ push ebx
 call _fb_StrAssignMid@16
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _ARE_STR
 call _fb_StrAssign@20
@@ -14998,7 +15070,7 @@ push ebx
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+16]
-fcomp qword ptr [_Lt_027C]
+fcomp qword ptr [_Lt_027F]
 fnstsw ax
 sahf
 setae al
@@ -15010,11 +15082,11 @@ setg bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_05B9
+je .Lt_05B1
 mov word ptr [_MOVE_SI], 1
 movsx ebx, word ptr [_MOVE_SI]
 cmp ebx, 1
-jne .Lt_05BB
+jne .Lt_05B3
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_EX_SI]
 cmp ebx, eax
@@ -15028,7 +15100,7 @@ sete al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_05BD
+je .Lt_05B5
 push 0
 push -1
 push offset _CTRL_STR
@@ -15038,7 +15110,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_05BF
+jle .Lt_05B7
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_D_SI]
 imul ebx, 6
@@ -15055,17 +15127,17 @@ movsx ecx, word ptr [_DIS_SI]
 imul ebx, ecx
 add eax, ebx
 mov word ptr [_DY_SI], ax
-.Lt_05BF:
-.Lt_05BE:
-.Lt_05BD:
-.Lt_05BC:
+.Lt_05B7:
+.Lt_05B6:
+.Lt_05B5:
+.Lt_05B4:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
 push eax
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0282]
+fld qword ptr [_Lt_0285]
 fadd qword ptr [_G_DFA+eax+16]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -15079,11 +15151,11 @@ push dword ptr [ebp-4]
 pop dword ptr [_G_DFA+eax+20]
 pop dword ptr [_G_DFA+eax+16]
 call _LN_SWAPDATA@0
-.Lt_05BB:
-.Lt_05BA:
-.Lt_05B9:
-.Lt_05B8:
-.Lt_05B7:
+.Lt_05B3:
+.Lt_05B2:
+.Lt_05B1:
+.Lt_05B0:
+.Lt_05AF:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -15096,7 +15168,7 @@ push ebp
 mov ebp, esp
 sub esp, 8
 push ebx
-.Lt_05C5:
+.Lt_05BD:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -15104,10 +15176,10 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+16]
-fcomp qword ptr [_Lt_0156]
+fcomp qword ptr [_Lt_0159]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_05C8
+jnz .Lt_05C0
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_EX_SI]
 cmp eax, ebx
@@ -15121,7 +15193,7 @@ sete bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_05CC
+je .Lt_05C4
 push 0
 push -1
 push offset _CTRL_STR
@@ -15131,7 +15203,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx ebx, word ptr [_AM_SI]
 test ebx, ebx
-jle .Lt_05CE
+jle .Lt_05C6
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_D_SI]
 imul eax, 6
@@ -15148,12 +15220,12 @@ movsx ecx, word ptr [_DIS_SI]
 imul eax, ecx
 add ebx, eax
 mov word ptr [_DY_SI], bx
-.Lt_05CE:
-.Lt_05CD:
-.Lt_05CC:
-.Lt_05CB:
+.Lt_05C6:
+.Lt_05C5:
+.Lt_05C4:
+.Lt_05C3:
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -15168,7 +15240,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_03A1
+push offset _Lt_0399
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -15188,7 +15260,7 @@ movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0569]
+fld qword ptr [_Lt_0561]
 fadd qword ptr [_G_DFA+eax+16]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -15202,13 +15274,13 @@ push dword ptr [ebp-4]
 pop dword ptr [_G_DFA+eax+20]
 pop dword ptr [_G_DFA+eax+16]
 call _LN_SWAPDATA@0
-.Lt_05CA:
-.Lt_05C9:
-jmp .Lt_05C7
-.Lt_05C8:
+.Lt_05C2:
+.Lt_05C1:
+jmp .Lt_05BF
+.Lt_05C0:
 call _LN_GONE@0
-.Lt_05C7:
-.Lt_05C6:
+.Lt_05BF:
+.Lt_05BE:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -15221,7 +15293,7 @@ push ebp
 mov ebp, esp
 sub esp, 8
 push ebx
-.Lt_05D2:
+.Lt_05CA:
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_EX_SI]
 cmp eax, ebx
@@ -15235,7 +15307,7 @@ sete bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_05D5
+je .Lt_05CD
 push 0
 push -1
 push offset _CTRL_STR
@@ -15245,7 +15317,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx ebx, word ptr [_AM_SI]
 test ebx, ebx
-jle .Lt_05D7
+jle .Lt_05CF
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_D_SI]
 imul eax, 6
@@ -15262,12 +15334,12 @@ movsx ecx, word ptr [_DIS_SI]
 imul eax, ecx
 add ebx, eax
 mov word ptr [_DY_SI], bx
-.Lt_05D7:
-.Lt_05D6:
-.Lt_05D5:
-.Lt_05D4:
+.Lt_05CF:
+.Lt_05CE:
+.Lt_05CD:
+.Lt_05CC:
 push 4
-push offset _Lt_03A1
+push offset _Lt_0399
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -15282,7 +15354,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_03A1
+push offset _Lt_0399
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -15302,7 +15374,7 @@ movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0569]
+fld qword ptr [_Lt_0561]
 fadd qword ptr [_G_DFA+eax+16]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -15316,7 +15388,7 @@ push dword ptr [ebp-4]
 pop dword ptr [_G_DFA+eax+20]
 pop dword ptr [_G_DFA+eax+16]
 call _LN_SWAPDATA@0
-.Lt_05D3:
+.Lt_05CB:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -15329,7 +15401,7 @@ push ebp
 mov ebp, esp
 sub esp, 8
 push ebx
-.Lt_05DB:
+.Lt_05D3:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -15337,12 +15409,12 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+24]
-fcomp qword ptr [_Lt_0302]
+fcomp qword ptr [_Lt_02FB]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_05DE
+jnz .Lt_05D6
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -15357,7 +15429,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_01F3
+push offset _Lt_01F6
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -15377,7 +15449,7 @@ movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_05E1]
+fld qword ptr [_Lt_05D9]
 fadd qword ptr [_G_DFA+eax+24]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -15393,13 +15465,13 @@ pop dword ptr [_G_DFA+eax+24]
 call _LN_PRFLBLNK@0
 push 0
 push 6
-push offset _Lt_05DF
+push offset _Lt_05D7
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 9
-push offset _Lt_05E0
+push offset _Lt_05D8
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -15421,7 +15493,7 @@ push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
 push 0
 push 5
-push offset _Lt_01F3
+push offset _Lt_01F6
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
@@ -15436,7 +15508,7 @@ push offset _PRFLCMND_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_03A1
+push offset _Lt_0399
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
@@ -15448,32 +15520,32 @@ push eax
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
-push dword ptr [_Lt_05E2]
+push dword ptr [_Lt_05DA]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0157]
+push dword ptr [_Lt_015A]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0175]
+push dword ptr [_Lt_0178]
 pop dword ptr [_PRFLESS_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLCHCK_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_05E2]
+push dword ptr [_Lt_05DA]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_015E]
+push dword ptr [_Lt_0161]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_0175]
+push dword ptr [_Lt_0178]
 pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_0159]
+push dword ptr [_Lt_015C]
 pop dword ptr [_PRFLESSSPD_SF]
 call _LN_PRFLMAKE@0
-.Lt_05DE:
-.Lt_05DD:
-.Lt_05DC:
+.Lt_05D6:
+.Lt_05D5:
+.Lt_05D4:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -15486,7 +15558,7 @@ push ebp
 mov ebp, esp
 sub esp, 8
 push ebx
-.Lt_05E4:
+.Lt_05DC:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -15494,12 +15566,12 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+24]
-fcomp qword ptr [_Lt_02EC]
+fcomp qword ptr [_Lt_02E4]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_05E7
+jnz .Lt_05DF
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -15514,7 +15586,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_00E1
+push offset _Lt_00E4
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -15534,7 +15606,7 @@ movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0373]
+fld qword ptr [_Lt_036B]
 fadd qword ptr [_G_DFA+eax+24]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -15550,13 +15622,13 @@ pop dword ptr [_G_DFA+eax+24]
 call _LN_PRFLBLNK@0
 push 0
 push 12
-push offset _Lt_05E8
+push offset _Lt_05E0
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_03A1
+push offset _Lt_0399
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -15570,7 +15642,7 @@ push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_00E1
+push offset _Lt_00E4
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
@@ -15585,7 +15657,7 @@ push offset _PRFLCMND_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_03A1
+push offset _Lt_0399
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
@@ -15597,32 +15669,32 @@ push eax
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
-push dword ptr [_Lt_05E2]
+push dword ptr [_Lt_05DA]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0157]
+push dword ptr [_Lt_015A]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0175]
+push dword ptr [_Lt_0178]
 pop dword ptr [_PRFLESS_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLCHCK_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_05E2]
+push dword ptr [_Lt_05DA]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_015E]
+push dword ptr [_Lt_0161]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_0175]
+push dword ptr [_Lt_0178]
 pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_0159]
+push dword ptr [_Lt_015C]
 pop dword ptr [_PRFLESSSPD_SF]
 call _LN_PRFLMAKE@0
-.Lt_05E7:
-.Lt_05E6:
-.Lt_05E5:
+.Lt_05DF:
+.Lt_05DE:
+.Lt_05DD:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -15634,7 +15706,7 @@ _LN_CASTWEB@0:
 push ebp
 mov ebp, esp
 sub esp, 8
-.Lt_05EA:
+.Lt_05E2:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -15642,17 +15714,17 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+24]
-fcomp qword ptr [_Lt_05EE]
+fcomp qword ptr [_Lt_05E6]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_05ED
+jnz .Lt_05E5
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
 push eax
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_05EF]
+fld qword ptr [_Lt_05E7]
 fadd qword ptr [_G_DFA+eax+24]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -15668,13 +15740,13 @@ pop dword ptr [_G_DFA+eax+24]
 call _LN_PRFLBLNK@0
 push 0
 push 4
-push offset _Lt_010C
+push offset _Lt_010F
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_00FB
+push offset _Lt_00FE
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -15688,7 +15760,7 @@ push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_010A
+push offset _Lt_010D
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
@@ -15703,7 +15775,7 @@ push offset _PRFLCMND_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_03A1
+push offset _Lt_0399
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
@@ -15715,32 +15787,32 @@ push eax
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
-push dword ptr [_Lt_015B]
+push dword ptr [_Lt_015E]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_015D]
+push dword ptr [_Lt_0160]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_015E]
+push dword ptr [_Lt_0161]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLCHCK_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_015D]
+push dword ptr [_Lt_0160]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_015E]
+push dword ptr [_Lt_0161]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_015A]
+push dword ptr [_Lt_015D]
 pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_015C]
+push dword ptr [_Lt_015F]
 pop dword ptr [_PRFLESSSPD_SF]
 call _LN_PRFLMAKE@0
-.Lt_05ED:
-.Lt_05EC:
-.Lt_05EB:
+.Lt_05E5:
+.Lt_05E4:
+.Lt_05E3:
 mov esp, ebp
 pop ebp
 ret
@@ -15751,7 +15823,7 @@ _LN_CASTSPDR@0:
 push ebp
 mov ebp, esp
 sub esp, 8
-.Lt_05F1:
+.Lt_05E9:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -15759,17 +15831,17 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+24]
-fcomp qword ptr [_Lt_05F5]
+fcomp qword ptr [_Lt_05ED]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_05F4
+jnz .Lt_05EC
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
 push eax
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_05F6]
+fld qword ptr [_Lt_05EE]
 fadd qword ptr [_G_DFA+eax+24]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -15785,13 +15857,13 @@ pop dword ptr [_G_DFA+eax+24]
 call _LN_PRFLBLNK@0
 push 0
 push 7
-push offset _Lt_00FD
+push offset _Lt_0100
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 13
-push offset _Lt_00FE
+push offset _Lt_0101
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -15821,7 +15893,7 @@ push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
 push 0
 push 5
-push offset _Lt_00FB
+push offset _Lt_00FE
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
@@ -15835,7 +15907,7 @@ push offset _PRFLCMND_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_03A1
+push offset _Lt_0399
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
@@ -15847,34 +15919,34 @@ push eax
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0157]
-pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0158]
-pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0159]
-pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0157]
-pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_0158]
-pop dword ptr [_PRFLSTRMAX_SF]
 push dword ptr [_Lt_015A]
-pop dword ptr [_PRFLESSMAX_SF]
+pop dword ptr [_PRFLHP_SF]
 push dword ptr [_Lt_015B]
+pop dword ptr [_PRFLSTR_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLSPD_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLARMR_SF]
+push dword ptr [_Lt_015C]
+pop dword ptr [_PRFLVALU_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLPIRC_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLLV_SF]
+push dword ptr [_Lt_015A]
+pop dword ptr [_PRFLHPMAX_SF]
+push dword ptr [_Lt_015B]
+pop dword ptr [_PRFLSTRMAX_SF]
+push dword ptr [_Lt_015D]
+pop dword ptr [_PRFLESSMAX_SF]
+push dword ptr [_Lt_015E]
 pop dword ptr [_PRFLESSSPD_SF]
 call _LN_PRFLMAKE@0
-.Lt_05F4:
-.Lt_05F3:
-.Lt_05F2:
+.Lt_05EC:
+.Lt_05EB:
+.Lt_05EA:
 mov esp, ebp
 pop ebp
 ret
@@ -15882,48 +15954,48 @@ ret
 
 .globl _LN_CASTCCTS@0
 _LN_CASTCCTS@0:
-.Lt_05F8:
+.Lt_05F0:
 call _LN_PRFLBLNK@0
 push 0
 push 7
-push offset _Lt_05FA
+push offset _Lt_05F2
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_01F8
+push offset _Lt_01FB
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
-push dword ptr [_Lt_05FB]
+push dword ptr [_Lt_05F3]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0157]
-pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0158]
-pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0159]
-pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_015B]
-pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLCHCK_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0157]
-pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_0158]
-pop dword ptr [_PRFLSTRMAX_SF]
 push dword ptr [_Lt_015A]
-pop dword ptr [_PRFLESSMAX_SF]
+pop dword ptr [_PRFLHP_SF]
 push dword ptr [_Lt_015B]
+pop dword ptr [_PRFLSTR_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLSPD_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLARMR_SF]
+push dword ptr [_Lt_015C]
+pop dword ptr [_PRFLVALU_SF]
+push dword ptr [_Lt_015E]
+pop dword ptr [_PRFLPIRC_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLCHCK_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLLV_SF]
+push dword ptr [_Lt_015A]
+pop dword ptr [_PRFLHPMAX_SF]
+push dword ptr [_Lt_015B]
+pop dword ptr [_PRFLSTRMAX_SF]
+push dword ptr [_Lt_015D]
+pop dword ptr [_PRFLESSMAX_SF]
+push dword ptr [_Lt_015E]
 pop dword ptr [_PRFLESSSPD_SF]
 call _LN_PRFLMAKE@0
-.Lt_05F9:
+.Lt_05F1:
 ret
 .balign 16
 
@@ -15932,7 +16004,7 @@ _LN_CASTDTBY@0:
 push ebp
 mov ebp, esp
 sub esp, 8
-.Lt_05FC:
+.Lt_05F4:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -15940,17 +16012,17 @@ push eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+24]
-fcomp qword ptr [_Lt_0601]
+fcomp qword ptr [_Lt_05F9]
 fnstsw ax
 test ah, 0b00000001
-jnz .Lt_05FF
+jnz .Lt_05F7
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
 push eax
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0602]
+fld qword ptr [_Lt_05FA]
 fadd qword ptr [_G_DFA+eax+24]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -15966,13 +16038,13 @@ pop dword ptr [_G_DFA+eax+24]
 call _LN_PRFLBLNK@0
 push 0
 push 11
-push offset _Lt_011D
+push offset _Lt_0120
 push -1
 push offset _PRFLIDTY_STR
 call _fb_StrAssign@20
 push 0
 push 9
-push offset _Lt_0600
+push offset _Lt_05F8
 push -1
 push offset _PRFLACTN_STR
 call _fb_StrAssign@20
@@ -15994,7 +16066,7 @@ push offset _PRFLACTNCT_STR
 call _fb_StrConcatAssign@20
 push 0
 push 5
-push offset _Lt_011B
+push offset _Lt_011E
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
@@ -16008,7 +16080,7 @@ push offset _PRFLCMND_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_03A1
+push offset _Lt_0399
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
@@ -16020,34 +16092,34 @@ push eax
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
-push dword ptr [_Lt_0603]
+push dword ptr [_Lt_05FB]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0164]
-pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0158]
-pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0159]
-pop dword ptr [_PRFLESS_SF]
 push dword ptr [_Lt_0167]
-pop dword ptr [_PRFLSPD_SF]
+pop dword ptr [_PRFLHP_SF]
+push dword ptr [_Lt_015B]
+pop dword ptr [_PRFLSTR_SF]
 push dword ptr [_Lt_015C]
+pop dword ptr [_PRFLESS_SF]
+push dword ptr [_Lt_016A]
+pop dword ptr [_PRFLSPD_SF]
+push dword ptr [_Lt_015F]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLCHCK_SF]
-push dword ptr [_Lt_0155]
-pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0164]
-pop dword ptr [_PRFLHPMAX_SF]
 push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLCHCK_SF]
+push dword ptr [_Lt_0158]
+pop dword ptr [_PRFLLV_SF]
+push dword ptr [_Lt_0167]
+pop dword ptr [_PRFLHPMAX_SF]
+push dword ptr [_Lt_015B]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_0168]
+push dword ptr [_Lt_016B]
 pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 pop dword ptr [_PRFLESSSPD_SF]
 call _LN_PRFLMAKE@0
-.Lt_05FF:
-.Lt_05FE:
-.Lt_05FD:
+.Lt_05F7:
+.Lt_05F6:
+.Lt_05F5:
 mov esp, ebp
 pop ebp
 ret
@@ -16055,25 +16127,25 @@ ret
 
 .globl _LN_GONE@0
 _LN_GONE@0:
-.Lt_0605:
+.Lt_05FD:
 call _LN_PRFLBLNK@0
 call _LN_PRFLSET@0
-.Lt_0606:
+.Lt_05FE:
 ret
 .balign 16
 
 .globl _LN_DELETE2@0
 _LN_DELETE2@0:
-.Lt_0607:
+.Lt_05FF:
 call _LN_PRFLBLNK@0
 call _LN_PRFLMAKE@0
-.Lt_0608:
+.Lt_0600:
 ret
 .balign 16
 
 .globl _LN_AUTOLEVELUP@0
 _LN_AUTOLEVELUP@0:
-.Lt_0609:
+.Lt_0601:
 push 0
 push -1
 push offset _CTRL_STR
@@ -16083,11 +16155,11 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jne .Lt_060C
+jne .Lt_0604
 call _LN_LEVELUP@0
-.Lt_060C:
-.Lt_060B:
-.Lt_060A:
+.Lt_0604:
+.Lt_0603:
+.Lt_0602:
 ret
 .balign 16
 
@@ -16097,7 +16169,7 @@ push ebp
 mov ebp, esp
 sub esp, 16
 push ebx
-.Lt_060D:
+.Lt_0605:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -16150,7 +16222,7 @@ push dword ptr [ebp-16]
 push dword ptr [ebp-12]
 pop dword ptr [_G_DFA+eax+28]
 pop dword ptr [_G_DFA+eax+24]
-.Lt_060E:
+.Lt_0606:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -16160,7 +16232,7 @@ ret
 .globl _LN_STATMAX@0
 _LN_STATMAX@0:
 push ebx
-.Lt_0611:
+.Lt_0609:
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -16180,7 +16252,7 @@ push eax
 fnstsw ax
 test ah, 0b01000001
 pop eax
-jnz .Lt_0614
+jnz .Lt_060C
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -16198,8 +16270,8 @@ push dword ptr [_G_DFA+ebx+88]
 push dword ptr [_G_DFA+ebx+92]
 pop dword ptr [_G_DFA+eax+12]
 pop dword ptr [_G_DFA+eax+8]
-.Lt_0614:
-.Lt_0613:
+.Lt_060C:
+.Lt_060B:
 movsx ebx, word ptr [_TY_SI]
 push ebx
 movsx ebx, word ptr [_TX_SI]
@@ -16219,7 +16291,7 @@ push eax
 fnstsw ax
 test ah, 0b01000001
 pop eax
-jnz .Lt_0616
+jnz .Lt_060E
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -16237,8 +16309,8 @@ push dword ptr [_G_DFA+ebx+96]
 push dword ptr [_G_DFA+ebx+100]
 pop dword ptr [_G_DFA+eax+20]
 pop dword ptr [_G_DFA+eax+16]
-.Lt_0616:
-.Lt_0615:
+.Lt_060E:
+.Lt_060D:
 movsx ebx, word ptr [_TY_SI]
 push ebx
 movsx ebx, word ptr [_TX_SI]
@@ -16258,7 +16330,7 @@ push eax
 fnstsw ax
 test ah, 0b01000001
 pop eax
-jnz .Lt_0618
+jnz .Lt_0610
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
@@ -16276,16 +16348,16 @@ push dword ptr [_G_DFA+ebx+104]
 push dword ptr [_G_DFA+ebx+108]
 pop dword ptr [_G_DFA+eax+28]
 pop dword ptr [_G_DFA+eax+24]
-.Lt_0618:
-.Lt_0617:
-.Lt_0612:
+.Lt_0610:
+.Lt_060F:
+.Lt_060A:
 pop ebx
 ret
 .balign 16
 
 .globl _LN_NEXTACTION@0
 _LN_NEXTACTION@0:
-.Lt_0619:
+.Lt_0611:
 push 0
 push -1
 push offset _CTRL_STR
@@ -16295,26 +16367,26 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jne .Lt_061C
+jne .Lt_0614
 call _LN_NEWACTION@0
 call _LN_PUTACTION@0
-.Lt_061E:
-.Lt_061D:
-jmp .Lt_061B
-.Lt_061C:
+.Lt_0616:
+.Lt_0615:
+jmp .Lt_0613
+.Lt_0614:
 call _LN_GETACTION@0
-.Lt_061B:
-.Lt_061A:
+.Lt_0613:
+.Lt_0612:
 ret
 .balign 16
 
 .globl _LN_NEWACTION@0
 _LN_NEWACTION@0:
 push ebx
-.Lt_061F:
+.Lt_0617:
 call _LN_GETACTION@0
 push 5
-push offset _Lt_01DD
+push offset _Lt_01E0
 push -1
 push offset _ACTION_STR
 call _fb_StrCompare@16
@@ -16330,10 +16402,10 @@ sbb ebx, ebx
 and eax, ebx
 not eax
 test eax, eax
-je .Lt_0622
-push dword ptr [_Lt_0155]
+je .Lt_061A
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
-fmul qword ptr [_Lt_027D]
+fmul qword ptr [_Lt_0280]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -16345,13 +16417,13 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0156]
+fadd qword ptr [_Lt_0159]
 fistp word ptr [_D_SI]
 call _LN_RANDOMACTION@0
 mov word ptr [_DIS_SI], 0
-.Lt_0622:
-.Lt_0621:
-.Lt_0620:
+.Lt_061A:
+.Lt_0619:
+.Lt_0618:
 pop ebx
 ret
 .balign 16
@@ -16359,7 +16431,7 @@ ret
 .globl _LN_RANDOMACTION@0
 _LN_RANDOMACTION@0:
 push ebx
-.Lt_0625:
+.Lt_061D:
 push -1
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -16373,9 +16445,9 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [_R_SI]
-push dword ptr [_Lt_0155]
+push dword ptr [_Lt_0158]
 call _fb_Rnd@4
 movsx eax, word ptr [_R_SI]
 inc eax
@@ -16398,15 +16470,15 @@ add esp, 4
 fistp word ptr [_R_SI]
 movsx eax, word ptr [_R_SI]
 test eax, eax
-jne .Lt_0628
+jne .Lt_0620
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
-jmp .Lt_0627
-.Lt_0628:
+jmp .Lt_061F
+.Lt_0620:
 push 0
 push -1
 push 4
@@ -16427,8 +16499,8 @@ push eax
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
-.Lt_0627:
-.Lt_0626:
+.Lt_061F:
+.Lt_061E:
 pop ebx
 ret
 .balign 16
@@ -16436,7 +16508,7 @@ ret
 .globl _LN_GETACTION@0
 _LN_GETACTION@0:
 push ebx
-.Lt_0629:
+.Lt_0621:
 push 4
 push 1
 movsx eax, word ptr [_TY_SI]
@@ -16482,7 +16554,7 @@ call _fb_StrMid@12
 push eax
 call _fb_CVL@4
 mov word ptr [_DIS_SI], ax
-.Lt_062A:
+.Lt_0622:
 pop ebx
 ret
 .balign 16
@@ -16490,7 +16562,7 @@ ret
 .globl _LN_PUTACTION@0
 _LN_PUTACTION@0:
 push ebx
-.Lt_062B:
+.Lt_0623:
 movsx eax, word ptr [_D_SI]
 push eax
 call _fb_MKL@4
@@ -16533,7 +16605,7 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+36]
 push ebx
 call _fb_StrAssignMid@16
-.Lt_062C:
+.Lt_0624:
 pop ebx
 ret
 .balign 16
@@ -16541,7 +16613,7 @@ ret
 .globl _LN_TEMPGET@0
 _LN_TEMPGET@0:
 push ebx
-.Lt_062D:
+.Lt_0625:
 push 4
 push 1
 movsx eax, word ptr [_TY_SI]
@@ -16587,7 +16659,7 @@ call _fb_StrMid@12
 push eax
 call _fb_CVL@4
 mov word ptr [_TEMPDIS_SI], ax
-.Lt_062E:
+.Lt_0626:
 pop ebx
 ret
 .balign 16
@@ -16595,7 +16667,7 @@ ret
 .globl _LN_TEMPPUT@0
 _LN_TEMPPUT@0:
 push ebx
-.Lt_062F:
+.Lt_0627:
 movsx eax, word ptr [_TEMPD_SI]
 push eax
 call _fb_MKL@4
@@ -16638,7 +16710,7 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+36]
 push ebx
 call _fb_StrAssignMid@16
-.Lt_0630:
+.Lt_0628:
 pop ebx
 ret
 .balign 16
@@ -16647,7 +16719,7 @@ ret
 _LN_INBOUNDS@0:
 push ebx
 push esi
-.Lt_0631:
+.Lt_0629:
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_D_SI]
 imul ebx, 6
@@ -16697,13 +16769,13 @@ setle cl
 shr ecx, 1
 sbb ecx, ecx
 and eax, ecx
-je .Lt_0634
+je .Lt_062C
 mov word ptr [_INBOUNDS_SI], 1
-jmp .Lt_0633
-.Lt_0634:
+jmp .Lt_062B
+.Lt_062C:
 mov word ptr [_INBOUNDS_SI], 0
-.Lt_0633:
-.Lt_0632:
+.Lt_062B:
+.Lt_062A:
 pop esi
 pop ebx
 ret
@@ -16715,7 +16787,7 @@ push ebp
 mov ebp, esp
 sub esp, 4
 push ebx
-.Lt_0639:
+.Lt_0631:
 mov word ptr [_HAVEIT_SI], 0
 push 0
 push -1
@@ -16736,13 +16808,13 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [_T_SI]
 mov word ptr [_TT_SI], 1
 mov ax, word ptr [_T_SI]
 mov word ptr [ebp-4], ax
-jmp .Lt_063C
-.Lt_063F:
+jmp .Lt_0634
+.Lt_0637:
 push 0
 push -1
 push 4
@@ -16762,23 +16834,23 @@ push -1
 push offset _TT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0641
+jne .Lt_0639
 movsx eax, word ptr [_HAVEIT_SI]
 inc eax
 mov word ptr [_HAVEIT_SI], ax
-.Lt_0641:
-.Lt_0640:
-.Lt_063D:
+.Lt_0639:
+.Lt_0638:
+.Lt_0635:
 movsx eax, word ptr [_TT_SI]
 inc eax
 mov word ptr [_TT_SI], ax
-.Lt_063C:
+.Lt_0634:
 movsx eax, word ptr [_TT_SI]
 movsx ebx, word ptr [ebp-4]
 cmp eax, ebx
-jle .Lt_063F
-.Lt_063E:
-.Lt_063A:
+jle .Lt_0637
+.Lt_0636:
+.Lt_0632:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -16792,7 +16864,7 @@ mov ebp, esp
 sub esp, 4
 push ebx
 push esi
-.Lt_0642:
+.Lt_063A:
 mov word ptr [_HASIT_SI], 0
 push 0
 push -1
@@ -16826,13 +16898,13 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [_T_SI]
 mov word ptr [_TT_SI], 1
 mov ax, word ptr [_T_SI]
 mov word ptr [ebp-4], ax
-jmp .Lt_0645
-.Lt_0648:
+jmp .Lt_063D
+.Lt_0640:
 push 0
 push -1
 push 4
@@ -16852,23 +16924,23 @@ push -1
 push offset _TT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_064A
+jne .Lt_0642
 movsx eax, word ptr [_HASIT_SI]
 inc eax
 mov word ptr [_HASIT_SI], ax
-.Lt_064A:
-.Lt_0649:
-.Lt_0646:
+.Lt_0642:
+.Lt_0641:
+.Lt_063E:
 movsx eax, word ptr [_TT_SI]
 inc eax
 mov word ptr [_TT_SI], ax
-.Lt_0645:
+.Lt_063D:
 movsx eax, word ptr [_TT_SI]
 movsx ecx, word ptr [ebp-4]
 cmp eax, ecx
-jle .Lt_0648
-.Lt_0647:
-.Lt_0643:
+jle .Lt_0640
+.Lt_063F:
+.Lt_063B:
 pop esi
 pop ebx
 mov esp, ebp
@@ -16882,7 +16954,7 @@ push ebp
 mov ebp, esp
 sub esp, 16
 push ebx
-.Lt_064B:
+.Lt_0643:
 push 0
 push -1
 movsx eax, word ptr [_TY_SI]
@@ -16902,13 +16974,13 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [_T_SI]
 mov word ptr [_TT_SI], 1
 mov ax, word ptr [_T_SI]
 mov word ptr [ebp-4], ax
-jmp .Lt_064E
-.Lt_0651:
+jmp .Lt_0646
+.Lt_0649:
 push 0
 push -1
 push 4
@@ -16928,7 +17000,7 @@ push -1
 push offset _TT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0653
+jne .Lt_064B
 push 0
 push -1
 push -1
@@ -16961,18 +17033,18 @@ push offset _T_STR
 call _fb_StrAssign@20
 mov ax, word ptr [_T_SI]
 mov word ptr [_TT_SI], ax
-.Lt_0653:
-.Lt_0652:
-.Lt_064F:
+.Lt_064B:
+.Lt_064A:
+.Lt_0647:
 movsx eax, word ptr [_TT_SI]
 inc eax
 mov word ptr [_TT_SI], ax
-.Lt_064E:
+.Lt_0646:
 movsx eax, word ptr [_TT_SI]
 movsx ebx, word ptr [ebp-4]
 cmp eax, ebx
-jle .Lt_0651
-.Lt_0650:
+jle .Lt_0649
+.Lt_0648:
 push 0
 push -1
 push offset _T_STR
@@ -16986,7 +17058,7 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+12]
 push ebx
 call _fb_StrAssign@20
-.Lt_064C:
+.Lt_0644:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -17000,7 +17072,7 @@ mov ebp, esp
 sub esp, 16
 push ebx
 push esi
-.Lt_0655:
+.Lt_064D:
 push 0
 push -1
 movsx eax, word ptr [_TX_SI]
@@ -17033,13 +17105,13 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [_T_SI]
 mov word ptr [_TT_SI], 1
 mov ax, word ptr [_T_SI]
 mov word ptr [ebp-4], ax
-jmp .Lt_0658
-.Lt_065B:
+jmp .Lt_0650
+.Lt_0653:
 push 0
 push -1
 push 4
@@ -17059,7 +17131,7 @@ push -1
 push offset _TT_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_065D
+jne .Lt_0655
 push 0
 push -1
 push -1
@@ -17092,18 +17164,18 @@ push offset _T_STR
 call _fb_StrAssign@20
 mov ax, word ptr [_T_SI]
 mov word ptr [_TT_SI], ax
-.Lt_065D:
-.Lt_065C:
-.Lt_0659:
+.Lt_0655:
+.Lt_0654:
+.Lt_0651:
 movsx eax, word ptr [_TT_SI]
 inc eax
 mov word ptr [_TT_SI], ax
-.Lt_0658:
+.Lt_0650:
 movsx eax, word ptr [_TT_SI]
 movsx ecx, word ptr [ebp-4]
 cmp eax, ecx
-jle .Lt_065B
-.Lt_065A:
+jle .Lt_0653
+.Lt_0652:
 push 0
 push -1
 push offset _T_STR
@@ -17130,7 +17202,7 @@ imul ecx, 108
 lea esi, [_E_STRA+ecx+12]
 push esi
 call _fb_StrAssign@20
-.Lt_0656:
+.Lt_064E:
 pop esi
 pop ebx
 mov esp, ebp
@@ -17141,7 +17213,7 @@ ret
 .globl _LN_HAVEGOTIT@0
 _LN_HAVEGOTIT@0:
 push ebx
-.Lt_065F:
+.Lt_0657:
 push 0
 push -1
 movsx eax, word ptr [_TY_SI]
@@ -17181,7 +17253,7 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+12]
 push ebx
 call _fb_StrConcatAssign@20
-.Lt_0660:
+.Lt_0658:
 pop ebx
 ret
 .balign 16
@@ -17190,7 +17262,7 @@ ret
 _LN_HASGOTIT@0:
 push ebx
 push esi
-.Lt_0661:
+.Lt_0659:
 push 0
 push -1
 movsx eax, word ptr [_TX_SI]
@@ -17269,7 +17341,7 @@ imul esi, 108
 lea ebx, [_E_STRA+esi+12]
 push ebx
 call _fb_StrConcatAssign@20
-.Lt_0662:
+.Lt_065A:
 pop esi
 pop ebx
 ret
@@ -17282,7 +17354,7 @@ mov ebp, esp
 sub esp, 8
 push ebx
 push esi
-.Lt_0663:
+.Lt_065B:
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_D_SI]
 imul ebx, 6
@@ -17306,7 +17378,7 @@ fld qword ptr [_G_DFA+eax+48]
 fistp word ptr [_GETIT_SI]
 movsx eax, word ptr [_GETIT_SI]
 test eax, eax
-jle .Lt_0666
+jle .Lt_065E
 push 0
 push -1
 movsx eax, word ptr [_GETIT_SI]
@@ -17318,7 +17390,7 @@ push offset _GETIT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_0667
+push offset _Lt_065F
 push -1
 push offset _GETIT_STR
 call _fb_StrConcatAssign@20
@@ -17377,13 +17449,13 @@ movsx ebx, word ptr [_AA_SI]
 imul esi, ebx
 add eax, esi
 imul eax, 136
-push dword ptr [_Lt_0208]
-push dword ptr [_Lt_0208+4]
+push dword ptr [_Lt_020B]
+push dword ptr [_Lt_020B+4]
 pop dword ptr [_G_DFA+eax+52]
 pop dword ptr [_G_DFA+eax+48]
-.Lt_0666:
-.Lt_0665:
-.Lt_0664:
+.Lt_065E:
+.Lt_065D:
+.Lt_065C:
 pop esi
 pop ebx
 mov esp, ebp
@@ -17393,10 +17465,66 @@ ret
 
 .globl _LN_WINDGGR@0
 _LN_WINDGGR@0:
+.Lt_0661:
+push 0
+push 5
+push offset _Lt_0117
+push -1
+push offset _WINIT_STR
+call _fb_StrAssign@20
+call _LN_WINIT@0
+.Lt_0662:
+ret
+.balign 16
+
+.globl _LN_WINPIKE@0
+_LN_WINPIKE@0:
+.Lt_0663:
+push 0
+push 5
+push offset _Lt_012F
+push -1
+push offset _WINIT_STR
+call _fb_StrAssign@20
+call _LN_WINIT@0
+.Lt_0664:
+ret
+.balign 16
+
+.globl _LN_WINGRPL@0
+_LN_WINGRPL@0:
+.Lt_0665:
+push 0
+push 5
+push offset _Lt_03F8
+push -1
+push offset _WINIT_STR
+call _fb_StrAssign@20
+call _LN_WINIT@0
+.Lt_0666:
+ret
+.balign 16
+
+.globl _LN_WINSEED@0
+_LN_WINSEED@0:
+.Lt_0667:
+push 0
+push 5
+push offset _Lt_03FD
+push -1
+push offset _WINIT_STR
+call _fb_StrAssign@20
+call _LN_WINIT@0
+.Lt_0668:
+ret
+.balign 16
+
+.globl _LN_WINKEY1@0
+_LN_WINKEY1@0:
 .Lt_0669:
 push 0
 push 5
-push offset _Lt_0114
+push offset _Lt_0150
 push -1
 push offset _WINIT_STR
 call _fb_StrAssign@20
@@ -17405,12 +17533,12 @@ call _LN_WINIT@0
 ret
 .balign 16
 
-.globl _LN_WINPIKE@0
-_LN_WINPIKE@0:
+.globl _LN_WINKEY2@0
+_LN_WINKEY2@0:
 .Lt_066B:
 push 0
 push 5
-push offset _Lt_012C
+push offset _Lt_0151
 push -1
 push offset _WINIT_STR
 call _fb_StrAssign@20
@@ -17419,65 +17547,9 @@ call _LN_WINIT@0
 ret
 .balign 16
 
-.globl _LN_WINGRPL@0
-_LN_WINGRPL@0:
-.Lt_066D:
-push 0
-push 5
-push offset _Lt_0400
-push -1
-push offset _WINIT_STR
-call _fb_StrAssign@20
-call _LN_WINIT@0
-.Lt_066E:
-ret
-.balign 16
-
-.globl _LN_WINSEED@0
-_LN_WINSEED@0:
-.Lt_066F:
-push 0
-push 5
-push offset _Lt_0405
-push -1
-push offset _WINIT_STR
-call _fb_StrAssign@20
-call _LN_WINIT@0
-.Lt_0670:
-ret
-.balign 16
-
-.globl _LN_WINKEY1@0
-_LN_WINKEY1@0:
-.Lt_0671:
-push 0
-push 5
-push offset _Lt_014D
-push -1
-push offset _WINIT_STR
-call _fb_StrAssign@20
-call _LN_WINIT@0
-.Lt_0672:
-ret
-.balign 16
-
-.globl _LN_WINKEY2@0
-_LN_WINKEY2@0:
-.Lt_0673:
-push 0
-push 5
-push offset _Lt_014E
-push -1
-push offset _WINIT_STR
-call _fb_StrAssign@20
-call _LN_WINIT@0
-.Lt_0674:
-ret
-.balign 16
-
 .globl _LN_WINIT@0
 _LN_WINIT@0:
-.Lt_0675:
+.Lt_066D:
 push 0
 push -1
 push offset _WINIT_STR
@@ -17493,9 +17565,9 @@ call _fb_StrAssign@20
 call _LN_HASIT@0
 movsx eax, word ptr [_HASIT_SI]
 test eax, eax
-jne .Lt_0678
-jmp .Lt_0676
-.Lt_0678:
+jne .Lt_0670
+jmp .Lt_066E
+.Lt_0670:
 push 0
 push -1
 push offset _WINIT_STR
@@ -17505,9 +17577,9 @@ call _fb_StrAssign@20
 call _LN_HAVEIT@0
 movsx eax, word ptr [_HAVEIT_SI]
 test eax, eax
-jle .Lt_067A
-jmp .Lt_0676
-.Lt_067A:
+jle .Lt_0672
+jmp .Lt_066E
+.Lt_0672:
 call _LN_GETIT@0
 push 0
 push -1
@@ -17516,7 +17588,7 @@ push -1
 push offset _HASHADIT_STR
 call _fb_StrAssign@20
 call _LN_HASHADIT@0
-.Lt_0676:
+.Lt_066E:
 ret
 .balign 16
 
@@ -17526,7 +17598,7 @@ push ebp
 mov ebp, esp
 sub esp, 4
 push ebx
-.Lt_067B:
+.Lt_0673:
 mov word ptr [_AM_SI], 0
 mov word ptr [_T_SI], 1
 push -1
@@ -17535,10 +17607,10 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [ebp-4]
-jmp .Lt_067E
-.Lt_0681:
+jmp .Lt_0676
+.Lt_0679:
 push -1
 push 4
 push 1
@@ -17563,23 +17635,23 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0683
+jne .Lt_067B
 movsx eax, word ptr [_AM_SI]
 inc eax
 mov word ptr [_AM_SI], ax
-.Lt_0683:
-.Lt_0682:
-.Lt_067F:
+.Lt_067B:
+.Lt_067A:
+.Lt_0677:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_067E:
+.Lt_0676:
 movsx eax, word ptr [_T_SI]
 movsx ebx, word ptr [ebp-4]
 cmp eax, ebx
-jle .Lt_0681
-.Lt_0680:
-.Lt_067C:
+jle .Lt_0679
+.Lt_0678:
+.Lt_0674:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -17593,7 +17665,7 @@ mov ebp, esp
 sub esp, 4
 push ebx
 push esi
-.Lt_0684:
+.Lt_067C:
 mov word ptr [_ARE_SI], 0
 mov word ptr [_T_SI], 1
 push -1
@@ -17602,10 +17674,10 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [ebp-4]
-jmp .Lt_0687
-.Lt_068A:
+jmp .Lt_067F
+.Lt_0682:
 push -1
 push 4
 push 1
@@ -17643,23 +17715,23 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_068C
+jne .Lt_0684
 movsx eax, word ptr [_ARE_SI]
 inc eax
 mov word ptr [_ARE_SI], ax
-.Lt_068C:
-.Lt_068B:
-.Lt_0688:
+.Lt_0684:
+.Lt_0683:
+.Lt_0680:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_0687:
+.Lt_067F:
 movsx eax, word ptr [_T_SI]
 movsx ecx, word ptr [ebp-4]
 cmp eax, ecx
-jle .Lt_068A
-.Lt_0689:
-.Lt_0685:
+jle .Lt_0682
+.Lt_0681:
+.Lt_067D:
 pop esi
 pop ebx
 mov esp, ebp
@@ -17673,7 +17745,7 @@ push ebp
 mov ebp, esp
 sub esp, 4
 push ebx
-.Lt_068D:
+.Lt_0685:
 mov word ptr [_HERE_SI], 0
 mov word ptr [_T_SI], 1
 push -1
@@ -17682,10 +17754,10 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [ebp-4]
-jmp .Lt_0690
-.Lt_0693:
+jmp .Lt_0688
+.Lt_068B:
 push -1
 push 4
 push 5
@@ -17710,23 +17782,23 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0695
+jne .Lt_068D
 movsx eax, word ptr [_HERE_SI]
 inc eax
 mov word ptr [_HERE_SI], ax
-.Lt_0695:
-.Lt_0694:
-.Lt_0691:
+.Lt_068D:
+.Lt_068C:
+.Lt_0689:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_0690:
+.Lt_0688:
 movsx eax, word ptr [_T_SI]
 movsx ebx, word ptr [ebp-4]
 cmp eax, ebx
-jle .Lt_0693
-.Lt_0692:
-.Lt_068E:
+jle .Lt_068B
+.Lt_068A:
+.Lt_0686:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -17740,7 +17812,7 @@ mov ebp, esp
 sub esp, 4
 push ebx
 push esi
-.Lt_0696:
+.Lt_068E:
 mov word ptr [_THERE_SI], 0
 mov word ptr [_T_SI], 1
 push -1
@@ -17749,10 +17821,10 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [ebp-4]
-jmp .Lt_0699
-.Lt_069C:
+jmp .Lt_0691
+.Lt_0694:
 push -1
 push 4
 push 5
@@ -17790,23 +17862,23 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_069E
+jne .Lt_0696
 movsx eax, word ptr [_THERE_SI]
 inc eax
 mov word ptr [_THERE_SI], ax
-.Lt_069E:
-.Lt_069D:
-.Lt_069A:
+.Lt_0696:
+.Lt_0695:
+.Lt_0692:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_0699:
+.Lt_0691:
 movsx eax, word ptr [_T_SI]
 movsx ecx, word ptr [ebp-4]
 cmp eax, ecx
-jle .Lt_069C
-.Lt_069B:
-.Lt_0697:
+jle .Lt_0694
+.Lt_0693:
+.Lt_068F:
 pop esi
 pop ebx
 mov esp, ebp
@@ -17816,7 +17888,7 @@ ret
 
 .globl _LN_BLANKCHECK@0
 _LN_BLANKCHECK@0:
-.Lt_069F:
+.Lt_0697:
 push 0
 push -1
 push offset _BLANKCHECK_STR
@@ -17826,15 +17898,15 @@ call _fb_StrAssign@20
 call _LN_INBOUNDS@0
 movsx eax, word ptr [_INBOUNDS_SI]
 cmp eax, 1
-jne .Lt_06A2
+jne .Lt_069A
 call _LN_ARE@0
-jmp .Lt_06A1
-.Lt_06A2:
+jmp .Lt_0699
+.Lt_069A:
 mov word ptr [_ARE_SI], -1
-.Lt_06A1:
+.Lt_0699:
 mov ax, word ptr [_ARE_SI]
 mov word ptr [_BLANKCHECK_SI], ax
-.Lt_06A0:
+.Lt_0698:
 ret
 .balign 16
 
@@ -17843,7 +17915,7 @@ _LN_OKBUTTON@0:
 push ebp
 mov ebp, esp
 sub esp, 12
-.Lt_06A3:
+.Lt_069B:
 push dword ptr [_CLV_BUFFER_MENU]
 push offset _CLV_BUFFER
 call _CLV_BUFFER_CLS@8
@@ -17852,7 +17924,7 @@ mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
 push 0
 push 4
-push offset _Lt_06A5
+push offset _Lt_069D
 push -1
 lea eax, [ebp-12]
 push eax
@@ -17873,7 +17945,7 @@ call _LN_WWAIT@0
 push dword ptr [_CLV_BUFFER_MENU]
 push offset _CLV_BUFFER
 call _CLV_BUFFER_CLS@8
-.Lt_06A4:
+.Lt_069C:
 mov esp, ebp
 pop ebp
 ret
@@ -17882,12 +17954,12 @@ ret
 .globl _LN_WWAIT@0
 _LN_WWAIT@0:
 push ebx
-.Lt_06A7:
-.Lt_06A9:
+.Lt_069F:
+.Lt_06A1:
 call _LN_BUTTONWAIT@0
-.Lt_06AB:
+.Lt_06A3:
 push 5
-push offset _Lt_06AC
+push offset _Lt_06A4
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
@@ -17915,44 +17987,44 @@ and ebx, ecx
 or eax, ebx
 not eax
 test eax, eax
-jne .Lt_06A9
-.Lt_06AA:
+jne .Lt_06A1
+.Lt_06A2:
 push 0
 push 2
-push offset _Lt_0226
+push offset _Lt_0229
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-.Lt_06A8:
+.Lt_06A0:
 pop ebx
 ret
 .balign 16
 
 .globl _LN_BUTTONWAIT@0
 _LN_BUTTONWAIT@0:
-.Lt_06B1:
+.Lt_06A9:
 call _CINPUT@0
 call _CURSORPUT@0
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
-.Lt_06B2:
+.Lt_06AA:
 ret
 .balign 16
 
 .globl _LN_COMMANDWAIT@0
 _LN_COMMANDWAIT@0:
 push ebx
-.Lt_06B3:
+.Lt_06AB:
 push 0
 push 3
-push offset _Lt_030B
+push offset _Lt_004F
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
 mov word ptr [_LB_SI], 0
-.Lt_06B5:
+.Lt_06AD:
 push 3
-push offset _Lt_030B
+push offset _Lt_004F
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
@@ -17966,32 +18038,32 @@ sete bl
 shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
-je .Lt_06B6
+je .Lt_06AE
 call _CINPUT@0
 call _CURSORPUT@0
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
-jmp .Lt_06B5
-.Lt_06B6:
-.Lt_06B4:
+jmp .Lt_06AD
+.Lt_06AE:
+.Lt_06AC:
 pop ebx
 ret
 .balign 16
 
 .globl _LN_FRAMEPUT@0
 _LN_FRAMEPUT@0:
-.Lt_06B9:
+.Lt_06B1:
 push 0
 push 4
 push 4278190080
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY1_SF]
-fadd dword ptr [_Lt_06BB]
+fadd dword ptr [_Lt_06B3]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX1_SF]
-fadd dword ptr [_Lt_06BB]
+fadd dword ptr [_Lt_06B3]
 sub esp,4
 fstp dword ptr [esp]
 push 0
@@ -18000,64 +18072,31 @@ push 2
 push 65535
 push 2
 push 4278190080
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY2_SF]
-fadd dword ptr [_Lt_056B]
+fadd dword ptr [_Lt_0563]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX2_SF]
-fadd dword ptr [_Lt_056B]
+fadd dword ptr [_Lt_0563]
 sub esp,4
 fstp dword ptr [esp]
-push dword ptr [_Lt_0163]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
+push dword ptr [_Lt_0166]
 push 0
 call _fb_GfxLine@36
 push 0
 push 4
 push 4278190080
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY1_SF]
-fadd dword ptr [_Lt_06BC]
+fadd dword ptr [_Lt_06B4]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX1_SF]
-fadd dword ptr [_Lt_06BD]
-sub esp,4
-fstp dword ptr [esp]
-push 0
-call _fb_GfxPset@24
-push 2
-push 65535
-push 1
-push 4286808963
-fld dword ptr [_Lt_056A]
-fmul dword ptr [_FRAMEY2_SF]
-fadd dword ptr [_Lt_015C]
-sub esp,4
-fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
-fmul dword ptr [_FRAMEX2_SF]
-fadd dword ptr [_Lt_0163]
-sub esp,4
-fstp dword ptr [esp]
-push dword ptr [_Lt_0163]
-push dword ptr [_Lt_0163]
-push 0
-call _fb_GfxLine@36
-push 0
-push 4
-push 4278190080
-fld dword ptr [_Lt_056A]
-fmul dword ptr [_FRAMEY1_SF]
-fadd dword ptr [_Lt_06BD]
-sub esp,4
-fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
-fmul dword ptr [_FRAMEX1_SF]
-fadd dword ptr [_Lt_06BC]
+fadd dword ptr [_Lt_06B5]
 sub esp,4
 fstp dword ptr [esp]
 push 0
@@ -18066,31 +18105,64 @@ push 2
 push 65535
 push 1
 push 4286808963
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY2_SF]
-fadd dword ptr [_Lt_0163]
+fadd dword ptr [_Lt_015F]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX2_SF]
-fadd dword ptr [_Lt_015C]
+fadd dword ptr [_Lt_0166]
 sub esp,4
 fstp dword ptr [esp]
-push dword ptr [_Lt_0163]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
+push dword ptr [_Lt_0166]
 push 0
 call _fb_GfxLine@36
 push 0
 push 4
 push 4278190080
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY1_SF]
-fadd dword ptr [_Lt_06BE]
+fadd dword ptr [_Lt_06B5]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX1_SF]
-fadd dword ptr [_Lt_06BE]
+fadd dword ptr [_Lt_06B4]
+sub esp,4
+fstp dword ptr [esp]
+push 0
+call _fb_GfxPset@24
+push 2
+push 65535
+push 1
+push 4286808963
+fld dword ptr [_Lt_0562]
+fmul dword ptr [_FRAMEY2_SF]
+fadd dword ptr [_Lt_0166]
+sub esp,4
+fstp dword ptr [esp]
+fld dword ptr [_Lt_0562]
+fmul dword ptr [_FRAMEX2_SF]
+fadd dword ptr [_Lt_015F]
+sub esp,4
+fstp dword ptr [esp]
+push dword ptr [_Lt_0166]
+push dword ptr [_Lt_0166]
+push 0
+call _fb_GfxLine@36
+push 0
+push 4
+push 4278190080
+fld dword ptr [_Lt_0562]
+fmul dword ptr [_FRAMEY1_SF]
+fadd dword ptr [_Lt_06B6]
+sub esp,4
+fstp dword ptr [esp]
+fld dword ptr [_Lt_0562]
+fmul dword ptr [_FRAMEX1_SF]
+fadd dword ptr [_Lt_06B6]
 sub esp,4
 fstp dword ptr [esp]
 push 0
@@ -18099,31 +18171,31 @@ push 2
 push 65535
 push 1
 push 4290822336
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY2_SF]
-fadd dword ptr [_Lt_0155]
+fadd dword ptr [_Lt_0158]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX2_SF]
-fadd dword ptr [_Lt_0155]
+fadd dword ptr [_Lt_0158]
 sub esp,4
 fstp dword ptr [esp]
-push dword ptr [_Lt_0163]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
+push dword ptr [_Lt_0166]
 push 0
 call _fb_GfxLine@36
 push 0
 push 4
 push 4286808963
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY1_SF]
-fadd dword ptr [_Lt_06BE]
+fadd dword ptr [_Lt_06B6]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX1_SF]
-fadd dword ptr [_Lt_06BE]
+fadd dword ptr [_Lt_06B6]
 sub esp,4
 fstp dword ptr [esp]
 push 0
@@ -18131,14 +18203,14 @@ call _fb_GfxPset@24
 push 0
 push 4
 push 4286808963
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY2_SF]
-fadd dword ptr [_Lt_0155]
+fadd dword ptr [_Lt_0158]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX2_SF]
-fadd dword ptr [_Lt_0155]
+fadd dword ptr [_Lt_0158]
 sub esp,4
 fstp dword ptr [esp]
 push 0
@@ -18146,14 +18218,14 @@ call _fb_GfxPset@24
 push 0
 push 4
 push 4286808963
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY2_SF]
-fadd dword ptr [_Lt_06BF]
+fadd dword ptr [_Lt_06B7]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX1_SF]
-fadd dword ptr [_Lt_06BE]
+fadd dword ptr [_Lt_06B6]
 sub esp,4
 fstp dword ptr [esp]
 push 0
@@ -18161,19 +18233,19 @@ call _fb_GfxPset@24
 push 0
 push 4
 push 4286808963
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEY1_SF]
-fadd dword ptr [_Lt_06C0]
+fadd dword ptr [_Lt_06B8]
 sub esp,4
 fstp dword ptr [esp]
-fld dword ptr [_Lt_056A]
+fld dword ptr [_Lt_0562]
 fmul dword ptr [_FRAMEX2_SF]
-fadd dword ptr [_Lt_0155]
+fadd dword ptr [_Lt_0158]
 sub esp,4
 fstp dword ptr [esp]
 push 0
 call _fb_GfxPset@24
-.Lt_06BA:
+.Lt_06B2:
 ret
 .balign 16
 
@@ -18182,7 +18254,7 @@ _LN_AVGFRAME@0:
 push ebp
 mov ebp, esp
 sub esp, 32
-.Lt_06C1:
+.Lt_06B9:
 mov word ptr [ebp-4], 0
 mov word ptr [ebp-8], 0
 mov word ptr [ebp-12], 0
@@ -18220,7 +18292,7 @@ push eax
 push dword ptr [_CLV_BUFFER_MENU]
 push offset _CLV_BUFFER
 call _FRAME_PUT@32
-.Lt_06C2:
+.Lt_06BA:
 mov esp, ebp
 pop ebp
 ret
@@ -18228,22 +18300,22 @@ ret
 
 .globl _LN_SCREENSET@0
 _LN_SCREENSET@0:
-.Lt_06C3:
+.Lt_06BB:
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
-.Lt_06C4:
+.Lt_06BC:
 ret
 .balign 16
 
 .globl _LN_FINDCRSR@0
 _LN_FINDCRSR@0:
-.Lt_06C5:
+.Lt_06BD:
 call _fb_GetY@0
 mov word ptr [_CRSRY_SI], ax
 push 0
 call _fb_Pos@4
 mov word ptr [_CRSRX_SI], ax
-.Lt_06C6:
+.Lt_06BE:
 ret
 .balign 16
 
@@ -18251,7 +18323,7 @@ ret
 _LN_SHOWTEXT@8:
 push ebp
 mov ebp, esp
-.Lt_06C7:
+.Lt_06BF:
 call _LN_FINDCRSR@0
 push offset _TEXTS_STR
 movsx eax, word ptr [_CRSRY_SI]
@@ -18275,7 +18347,7 @@ movsx eax, word ptr [_CRSRY_SI]
 inc eax
 push eax
 call _fb_Locate@20
-.Lt_06C8:
+.Lt_06C0:
 mov esp, ebp
 pop ebp
 ret 8
@@ -18283,7 +18355,7 @@ ret 8
 
 .globl _LN_PRFLBLNK@0
 _LN_PRFLBLNK@0:
-.Lt_06C9:
+.Lt_06C1:
 push 0
 push 1
 push offset _Lt_0000
@@ -18304,7 +18376,7 @@ push offset _PRFLACTNCT_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _PRFLGPIC_STR
 call _fb_StrAssign@20
@@ -18318,7 +18390,7 @@ push offset _PRFLCMND_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
@@ -18332,52 +18404,52 @@ push offset _PRFLCMND_STR
 call _fb_StrConcatAssign@20
 push 0
 push 9
-push offset _Lt_00F6
+push offset _Lt_00F9
 push -1
 push offset _PRFLGPICACTN_STR
 call _fb_StrAssign@20
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLIDTY_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLHP_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLSTR_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLESS_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLSPD_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLARMR_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLEXP_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLVALU_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLPIRC_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLCHCK_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLLV_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLHPMAX_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLSTRMAX_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLESSMAX_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLESSSPD_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLEVAD_SF]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
 pop dword ptr [_PRFLBLNK_SF]
-.Lt_06CA:
+.Lt_06C2:
 ret
 .balign 16
 
 .globl _LN_PRFLSET@0
 _LN_PRFLSET@0:
 push ebx
-.Lt_06CB:
+.Lt_06C3:
 push 0
 push -1
 push offset _PRFLIDTY_STR
@@ -18591,7 +18663,7 @@ call _ROSE_CALC@8
 imul eax, 136
 fld dword ptr [_PRFLBLNK_SF]
 fstp qword ptr [_G_DFA+eax+128]
-.Lt_06CC:
+.Lt_06C4:
 pop ebx
 ret
 .balign 16
@@ -18600,7 +18672,7 @@ ret
 _LN_PRFLMAKE@0:
 push ebx
 push esi
-.Lt_06CD:
+.Lt_06C5:
 push 0
 push -1
 push offset _PRFLIDTY_STR
@@ -19113,7 +19185,7 @@ add esi, eax
 imul esi, 136
 fld dword ptr [_PRFLBLNK_SF]
 fstp qword ptr [_G_DFA+esi+128]
-.Lt_06CE:
+.Lt_06C6:
 pop esi
 pop ebx
 ret
@@ -19121,28 +19193,67 @@ ret
 
 .globl _LN_ACTNCURE@0
 _LN_ACTNCURE@0:
-.Lt_06CF:
+.Lt_06C7:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 cmp eax, -1
-jne .Lt_06D2
-jmp .Lt_06D0
-.Lt_06D2:
+jne .Lt_06CA
+jmp .Lt_06C8
+.Lt_06CA:
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_06D4
-jmp .Lt_06D0
-.Lt_06D4:
+jle .Lt_06CC
+jmp .Lt_06C8
+.Lt_06CC:
 push 0
 push 29
-push offset _Lt_06D5
+push offset _Lt_06CD
+push -1
+push offset _BLANKCHECK_STR
+call _fb_StrAssign@20
+call _LN_BLANKCHECK@0
+movsx eax, word ptr [_BLANKCHECK_SI]
+test eax, eax
+jle .Lt_06CF
+call _LN_USECURE@0
+jmp .Lt_06C8
+.Lt_06CF:
+.Lt_06CE:
+.Lt_06C8:
+ret
+.balign 16
+
+.globl _LN_ACTNBITE@0
+_LN_ACTNBITE@0:
+.Lt_06D0:
+mov word ptr [_DIS_SI], 1
+push 0
+push 5
+push offset _Lt_00F8
+push -1
+push offset _BLANKCHECK_STR
+call _fb_StrAssign@20
+call _LN_BLANKCHECK@0
+movsx eax, word ptr [_BLANKCHECK_SI]
+cmp eax, -1
+jne .Lt_06D3
+jmp .Lt_06D1
+.Lt_06D3:
+movsx eax, word ptr [_BLANKCHECK_SI]
+test eax, eax
+jle .Lt_06D5
+jmp .Lt_06D1
+.Lt_06D5:
+push 0
+push -1
+push offset _ATTACKTHEM_STR
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19150,21 +19261,21 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_06D7
-call _LN_USECURE@0
-jmp .Lt_06D0
+call _LN_ATTKBITE@0
+jmp .Lt_06D1
 .Lt_06D7:
 .Lt_06D6:
-.Lt_06D0:
+.Lt_06D1:
 ret
 .balign 16
 
-.globl _LN_ACTNBITE@0
-_LN_ACTNBITE@0:
+.globl _LN_ACTNPNCH@0
+_LN_ACTNPNCH@0:
 .Lt_06D8:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19189,7 +19300,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_06DF
-call _LN_ATTKBITE@0
+call _LN_ATTKPNCH@0
 jmp .Lt_06D9
 .Lt_06DF:
 .Lt_06DE:
@@ -19197,13 +19308,13 @@ jmp .Lt_06D9
 ret
 .balign 16
 
-.globl _LN_ACTNPNCH@0
-_LN_ACTNPNCH@0:
+.globl _LN_ACTNKICK@0
+_LN_ACTNKICK@0:
 .Lt_06E0:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19228,7 +19339,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_06E7
-call _LN_ATTKPNCH@0
+call _LN_ATTKKICK@0
 jmp .Lt_06E1
 .Lt_06E7:
 .Lt_06E6:
@@ -19236,13 +19347,13 @@ jmp .Lt_06E1
 ret
 .balign 16
 
-.globl _LN_ACTNKICK@0
-_LN_ACTNKICK@0:
+.globl _LN_ACTNDGGR@0
+_LN_ACTNDGGR@0:
 .Lt_06E8:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19267,7 +19378,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_06EF
-call _LN_ATTKKICK@0
+call _LN_ATTKDGGR@0
 jmp .Lt_06E9
 .Lt_06EF:
 .Lt_06EE:
@@ -19275,13 +19386,13 @@ jmp .Lt_06E9
 ret
 .balign 16
 
-.globl _LN_ACTNDGGR@0
-_LN_ACTNDGGR@0:
+.globl _LN_ACTNPIKE@0
+_LN_ACTNPIKE@0:
 .Lt_06F0:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19306,7 +19417,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_06F7
-call _LN_ATTKDGGR@0
+call _LN_ATTKPIKE@0
 jmp .Lt_06F1
 .Lt_06F7:
 .Lt_06F6:
@@ -19314,13 +19425,13 @@ jmp .Lt_06F1
 ret
 .balign 16
 
-.globl _LN_ACTNPIKE@0
-_LN_ACTNPIKE@0:
+.globl _LN_ACTNVNOM@0
+_LN_ACTNVNOM@0:
 .Lt_06F8:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19345,7 +19456,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_06FF
-call _LN_ATTKPIKE@0
+call _LN_ATTKVNOM@0
 jmp .Lt_06F9
 .Lt_06FF:
 .Lt_06FE:
@@ -19353,13 +19464,13 @@ jmp .Lt_06F9
 ret
 .balign 16
 
-.globl _LN_ACTNVNOM@0
-_LN_ACTNVNOM@0:
+.globl _LN_ACTNFIRE@0
+_LN_ACTNFIRE@0:
 .Lt_0700:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19372,8 +19483,10 @@ jmp .Lt_0701
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_0705
+call _LN_CASTFIRE@0
 jmp .Lt_0701
 .Lt_0705:
+.Lt_0704:
 push 0
 push -1
 push offset _ATTACKTHEM_STR
@@ -19384,7 +19497,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_0707
-call _LN_ATTKVNOM@0
+call _LN_ATTKFIRE@0
 jmp .Lt_0701
 .Lt_0707:
 .Lt_0706:
@@ -19392,13 +19505,13 @@ jmp .Lt_0701
 ret
 .balign 16
 
-.globl _LN_ACTNFIRE@0
-_LN_ACTNFIRE@0:
+.globl _LN_ACTNDUST@0
+_LN_ACTNDUST@0:
 .Lt_0708:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19411,7 +19524,7 @@ jmp .Lt_0709
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_070D
-call _LN_CASTFIRE@0
+call _LN_CASTDUST@0
 jmp .Lt_0709
 .Lt_070D:
 .Lt_070C:
@@ -19425,7 +19538,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_070F
-call _LN_ATTKFIRE@0
+call _LN_USESLEP@0
 jmp .Lt_0709
 .Lt_070F:
 .Lt_070E:
@@ -19433,13 +19546,13 @@ jmp .Lt_0709
 ret
 .balign 16
 
-.globl _LN_ACTNDUST@0
-_LN_ACTNDUST@0:
+.globl _LN_ACTNWEB@0
+_LN_ACTNWEB@0:
 .Lt_0710:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19452,7 +19565,7 @@ jmp .Lt_0711
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_0715
-call _LN_CASTDUST@0
+call _LN_CASTWEB@0
 jmp .Lt_0711
 .Lt_0715:
 .Lt_0714:
@@ -19466,7 +19579,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_0717
-call _LN_USESLEP@0
+call _LN_ATTKWEB@0
 jmp .Lt_0711
 .Lt_0717:
 .Lt_0716:
@@ -19474,13 +19587,13 @@ jmp .Lt_0711
 ret
 .balign 16
 
-.globl _LN_ACTNWEB@0
-_LN_ACTNWEB@0:
+.globl _LN_ACTNSPDR@0
+_LN_ACTNSPDR@0:
 .Lt_0718:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19493,177 +19606,136 @@ jmp .Lt_0719
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_071D
-call _LN_CASTWEB@0
+call _LN_CASTSPDR@0
 jmp .Lt_0719
 .Lt_071D:
 .Lt_071C:
-push 0
-push -1
-push offset _ATTACKTHEM_STR
-push -1
-push offset _BLANKCHECK_STR
-call _fb_StrAssign@20
-call _LN_BLANKCHECK@0
-movsx eax, word ptr [_BLANKCHECK_SI]
-test eax, eax
-jle .Lt_071F
-call _LN_ATTKWEB@0
-jmp .Lt_0719
-.Lt_071F:
-.Lt_071E:
 .Lt_0719:
-ret
-.balign 16
-
-.globl _LN_ACTNSPDR@0
-_LN_ACTNSPDR@0:
-.Lt_0720:
-mov word ptr [_DIS_SI], 1
-push 0
-push 5
-push offset _Lt_00F5
-push -1
-push offset _BLANKCHECK_STR
-call _fb_StrAssign@20
-call _LN_BLANKCHECK@0
-movsx eax, word ptr [_BLANKCHECK_SI]
-cmp eax, -1
-jne .Lt_0723
-jmp .Lt_0721
-.Lt_0723:
-movsx eax, word ptr [_BLANKCHECK_SI]
-test eax, eax
-jle .Lt_0725
-call _LN_CASTSPDR@0
-jmp .Lt_0721
-.Lt_0725:
-.Lt_0724:
-.Lt_0721:
 ret
 .balign 16
 
 .globl _LN_ACTNCCTS@0
 _LN_ACTNCCTS@0:
-.Lt_0726:
+.Lt_071E:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 cmp eax, -1
-jne .Lt_0729
-jmp .Lt_0727
-.Lt_0729:
+jne .Lt_0721
+jmp .Lt_071F
+.Lt_0721:
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_072B
+jle .Lt_0723
 call _LN_CASTCCTS@0
-jmp .Lt_0727
-.Lt_072B:
-.Lt_072A:
-.Lt_0727:
+jmp .Lt_071F
+.Lt_0723:
+.Lt_0722:
+.Lt_071F:
 ret
 .balign 16
 
 .globl _LN_ACTNDTBY@0
 _LN_ACTNDTBY@0:
-.Lt_072C:
+.Lt_0724:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 cmp eax, -1
-jne .Lt_072F
-jmp .Lt_072D
-.Lt_072F:
+jne .Lt_0727
+jmp .Lt_0725
+.Lt_0727:
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_0731
+jle .Lt_0729
 call _LN_CASTDTBY@0
-jmp .Lt_072D
-.Lt_0731:
-.Lt_0730:
-.Lt_072D:
+jmp .Lt_0725
+.Lt_0729:
+.Lt_0728:
+.Lt_0725:
 ret
 .balign 16
 
 .globl _LN_ACTNMOVE@0
 _LN_ACTNMOVE@0:
-.Lt_0732:
+.Lt_072A:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 cmp eax, -1
-jne .Lt_0735
-jmp .Lt_0733
-.Lt_0735:
+jne .Lt_072D
+jmp .Lt_072B
+.Lt_072D:
 call _LN_MOVE@0
-.Lt_0733:
+.Lt_072B:
 ret
 .balign 16
 
 .globl _LN_ACTNWING@0
 _LN_ACTNWING@0:
-.Lt_0736:
+.Lt_072E:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 cmp eax, -1
-jne .Lt_0739
-jmp .Lt_0737
-.Lt_0739:
+jne .Lt_0731
+jmp .Lt_072F
+.Lt_0731:
 call _LN_WINGMOVE@0
-.Lt_0737:
+.Lt_072F:
 ret
 .balign 16
 
 .globl _LN_ACTNWSTF@0
 _LN_ACTNWSTF@0:
 push ebx
-.Lt_073A:
+.Lt_0732:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_0150
+push offset _Lt_0153
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_073D
+jle .Lt_0735
 mov word ptr [_DIS_SI], 2
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_073F
+jle .Lt_0737
 mov ax, word ptr [_TX_SI]
 mov word ptr [_TEMPTX_SI], ax
 mov ax, word ptr [_TY_SI]
@@ -19686,11 +19758,11 @@ mov ax, word ptr [_TEMPTX_SI]
 mov word ptr [_TX_SI], ax
 mov ax, word ptr [_TEMPTY_SI]
 mov word ptr [_TY_SI], ax
-jmp .Lt_073B
-.Lt_073F:
-.Lt_073E:
-.Lt_073D:
-.Lt_073C:
+jmp .Lt_0733
+.Lt_0737:
+.Lt_0736:
+.Lt_0735:
+.Lt_0734:
 push 0
 push -1
 push offset _ATTACKTHEM_STR
@@ -19700,106 +19772,106 @@ call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_0741
+jle .Lt_0739
 call _LN_ATTKWSTF@0
-.Lt_0741:
-.Lt_0740:
-.Lt_073B:
+.Lt_0739:
+.Lt_0738:
+.Lt_0733:
 pop ebx
 ret
 .balign 16
 
 .globl _LN_ACTNKEY1@0
 _LN_ACTNKEY1@0:
-.Lt_0742:
+.Lt_073A:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_012E
+push offset _Lt_0131
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_0745
+jle .Lt_073D
 push 0
 push 5
-push offset _Lt_0134
+push offset _Lt_0137
 push -1
 push offset _HASIT_STR
 call _fb_StrAssign@20
 call _LN_HASIT@0
 movsx eax, word ptr [_HASIT_SI]
 test eax, eax
-jle .Lt_0747
+jle .Lt_073F
 push 0
 push 5
-push offset _Lt_0134
+push offset _Lt_0137
 push -1
 push offset _HASHADIT_STR
 call _fb_StrAssign@20
 call _LN_HASHADIT@0
 push 0
 push 5
-push offset _Lt_014D
+push offset _Lt_0150
 push -1
 push offset _HAVEHADIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEHADIT@0
 call _LN_DELETE2@0
-.Lt_0747:
-.Lt_0746:
-.Lt_0745:
-.Lt_0744:
-.Lt_0743:
+.Lt_073F:
+.Lt_073E:
+.Lt_073D:
+.Lt_073C:
+.Lt_073B:
 ret
 .balign 16
 
 .globl _LN_ACTNKEY2@0
 _LN_ACTNKEY2@0:
-.Lt_0748:
+.Lt_0740:
 mov word ptr [_DIS_SI], 1
 push 0
 push 5
-push offset _Lt_012E
+push offset _Lt_0131
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_074B
+jle .Lt_0743
 push 0
 push 5
-push offset _Lt_0137
+push offset _Lt_013A
 push -1
 push offset _HASIT_STR
 call _fb_StrAssign@20
 call _LN_HASIT@0
 movsx eax, word ptr [_HASIT_SI]
 test eax, eax
-jle .Lt_074D
+jle .Lt_0745
 push 0
 push 5
-push offset _Lt_0137
+push offset _Lt_013A
 push -1
 push offset _HASHADIT_STR
 call _fb_StrAssign@20
 call _LN_HASHADIT@0
 push 0
 push 5
-push offset _Lt_014E
+push offset _Lt_0151
 push -1
 push offset _HAVEHADIT_STR
 call _fb_StrAssign@20
 call _LN_HAVEHADIT@0
 call _LN_DELETE2@0
-.Lt_074D:
-.Lt_074C:
-.Lt_074B:
-.Lt_074A:
-.Lt_0749:
+.Lt_0745:
+.Lt_0744:
+.Lt_0743:
+.Lt_0742:
+.Lt_0741:
 ret
 .balign 16
 
@@ -19810,13 +19882,13 @@ mov ebp, esp
 sub esp, 20
 push ebx
 push esi
-.Lt_074E:
+.Lt_0746:
 mov word ptr [ebp-4], 0
 mov word ptr [_DIS_SI], 1
 call _LN_PUTACTION@0
 push 0
 push 5
-push offset _Lt_00F5
+push offset _Lt_00F8
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -19832,11 +19904,11 @@ setg bl
 shr ebx, 1
 sbb ebx, ebx
 or eax, ebx
-je .Lt_0751
-jmp .Lt_074F
-.Lt_0751:
+je .Lt_0749
+jmp .Lt_0747
+.Lt_0749:
 push 9
-push offset _Lt_0142
+push offset _Lt_0145
 push -1
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_D_SI]
@@ -19861,13 +19933,13 @@ lea ecx, [_E_STRA+ebx]
 push ecx
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0753
+jne .Lt_074B
 call _LN_MERCHANT@0
-jmp .Lt_074F
-.Lt_0753:
-.Lt_0752:
+jmp .Lt_0747
+.Lt_074B:
+.Lt_074A:
 push 11
-push offset _Lt_0118
+push offset _Lt_011B
 push -1
 movsx eax, word ptr [_TX_SI]
 movsx ecx, word ptr [_D_SI]
@@ -19892,47 +19964,47 @@ lea ebx, [_E_STRA+eax]
 push ebx
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0755
+jne .Lt_074D
 call _LN_TALK0001@0
-jmp .Lt_074F
-.Lt_0755:
-.Lt_0754:
+jmp .Lt_0747
+.Lt_074D:
+.Lt_074C:
 push 0
 push 9
-push offset _Lt_0756
+push offset _Lt_074E
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_0758
+jle .Lt_0750
 call _LN_PILLAGE@0
 push 0
 push 5
-push offset _Lt_0389
+push offset _Lt_0381
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_075A
+jle .Lt_0752
 call _LN_DELETE2@0
-.Lt_075A:
-.Lt_0759:
-jmp .Lt_074F
-.Lt_0758:
-.Lt_0757:
+.Lt_0752:
+.Lt_0751:
+jmp .Lt_0747
+.Lt_0750:
+.Lt_074F:
 push 0
 push 5
-push offset _Lt_012E
+push offset _Lt_0131
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
-jle .Lt_075C
+jle .Lt_0754
 mov word ptr [ebp-4], 0
 mov word ptr [_T_SI], 1
 push -1
@@ -19961,7 +20033,7 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -19973,8 +20045,8 @@ frndint
 fldcw [esp]
 add esp, 4
 fistp word ptr [ebp-8]
-jmp .Lt_075E
-.Lt_0761:
+jmp .Lt_0756
+.Lt_0759:
 push 0
 push -1
 push 4
@@ -20010,29 +20082,17 @@ lea eax, [ebp-20]
 push eax
 call _fb_StrInit@20
 push 5
-push offset _Lt_0134
-push -1
-lea eax, [ebp-20]
-push eax
-call _fb_StrCompare@16
-test eax, eax
-jne .Lt_0764
-.Lt_0765:
-mov word ptr [ebp-4], 1
-jmp .Lt_0762
-.Lt_0764:
-push 5
 push offset _Lt_0137
 push -1
 lea eax, [ebp-20]
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0766
-.Lt_0767:
+jne .Lt_075C
+.Lt_075D:
 mov word ptr [ebp-4], 1
-jmp .Lt_0762
-.Lt_0766:
+jmp .Lt_075A
+.Lt_075C:
 push 5
 push offset _Lt_013A
 push -1
@@ -20040,34 +20100,46 @@ lea eax, [ebp-20]
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0768
-.Lt_0769:
+jne .Lt_075E
+.Lt_075F:
 mov word ptr [ebp-4], 1
-.Lt_0768:
-.Lt_0762:
+jmp .Lt_075A
+.Lt_075E:
+push 5
+push offset _Lt_013D
+push -1
+lea eax, [ebp-20]
+push eax
+call _fb_StrCompare@16
+test eax, eax
+jne .Lt_0760
+.Lt_0761:
+mov word ptr [ebp-4], 1
+.Lt_0760:
+.Lt_075A:
 lea eax, [ebp-20]
 push eax
 call _fb_StrDelete@4
-.Lt_075F:
+.Lt_0757:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_075E:
+.Lt_0756:
 movsx eax, word ptr [_T_SI]
 movsx ecx, word ptr [ebp-8]
 cmp eax, ecx
-jle .Lt_0761
-.Lt_0760:
+jle .Lt_0759
+.Lt_0758:
 movsx ecx, word ptr [ebp-4]
 test ecx, ecx
-jne .Lt_076B
+jne .Lt_0763
 call _LN_DELETE2@0
-.Lt_076B:
-.Lt_076A:
-jmp .Lt_074F
-.Lt_075C:
-.Lt_075B:
-.Lt_074F:
+.Lt_0763:
+.Lt_0762:
+jmp .Lt_0747
+.Lt_0754:
+.Lt_0753:
+.Lt_0747:
 pop esi
 pop ebx
 mov esp, ebp
@@ -20077,11 +20149,56 @@ ret
 
 .globl _LN_ACTNFIREMOVE@0
 _LN_ACTNFIREMOVE@0:
+.Lt_0766:
+mov word ptr [_DIS_SI], 1
+push 0
+push 9
+push offset _Lt_0595
+push -1
+push offset _BLANKCHECK_STR
+call _fb_StrAssign@20
+call _LN_BLANKCHECK@0
+movsx eax, word ptr [_BLANKCHECK_SI]
+cmp eax, -1
+jne .Lt_0769
+call _LN_GONE@0
+jmp .Lt_0767
+.Lt_0769:
+.Lt_0768:
+movsx eax, word ptr [_BLANKCHECK_SI]
+test eax, eax
+jle .Lt_076B
+call _LN_FIREMOVE@0
+jmp .Lt_0767
+.Lt_076B:
+.Lt_076A:
+push 0
+push -1
+push offset _ATTACKTHEM_STR
+push -1
+push offset _BLANKCHECK_STR
+call _fb_StrAssign@20
+call _LN_BLANKCHECK@0
+movsx eax, word ptr [_BLANKCHECK_SI]
+test eax, eax
+jle .Lt_076D
+call _LN_ATTKBURN@0
+call _LN_GONE@0
+jmp .Lt_0767
+.Lt_076D:
+.Lt_076C:
+call _LN_GONE@0
+.Lt_0767:
+ret
+.balign 16
+
+.globl _LN_ACTNDUSTMOVE@0
+_LN_ACTNDUSTMOVE@0:
 .Lt_076E:
 mov word ptr [_DIS_SI], 1
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -20110,7 +20227,7 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_0775
-call _LN_ATTKBURN@0
+call _LN_USESLEP@0
 call _LN_GONE@0
 jmp .Lt_076F
 .Lt_0775:
@@ -20120,13 +20237,13 @@ call _LN_GONE@0
 ret
 .balign 16
 
-.globl _LN_ACTNDUSTMOVE@0
-_LN_ACTNDUSTMOVE@0:
+.globl _LN_ACTNWEBMOVE@0
+_LN_ACTNWEBMOVE@0:
 .Lt_0776:
 mov word ptr [_DIS_SI], 1
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
@@ -20134,14 +20251,12 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 cmp eax, -1
 jne .Lt_0779
-call _LN_GONE@0
 jmp .Lt_0777
 .Lt_0779:
-.Lt_0778:
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_077B
-call _LN_FIREMOVE@0
+call _LN_WEBMOVE@0
 jmp .Lt_0777
 .Lt_077B:
 .Lt_077A:
@@ -20155,55 +20270,12 @@ call _LN_BLANKCHECK@0
 movsx eax, word ptr [_BLANKCHECK_SI]
 test eax, eax
 jle .Lt_077D
-call _LN_USESLEP@0
+call _LN_ATTKTNGL@0
 call _LN_GONE@0
 jmp .Lt_0777
 .Lt_077D:
 .Lt_077C:
-call _LN_GONE@0
 .Lt_0777:
-ret
-.balign 16
-
-.globl _LN_ACTNWEBMOVE@0
-_LN_ACTNWEBMOVE@0:
-.Lt_077E:
-mov word ptr [_DIS_SI], 1
-push 0
-push 9
-push offset _Lt_059D
-push -1
-push offset _BLANKCHECK_STR
-call _fb_StrAssign@20
-call _LN_BLANKCHECK@0
-movsx eax, word ptr [_BLANKCHECK_SI]
-cmp eax, -1
-jne .Lt_0781
-jmp .Lt_077F
-.Lt_0781:
-movsx eax, word ptr [_BLANKCHECK_SI]
-test eax, eax
-jle .Lt_0783
-call _LN_WEBMOVE@0
-jmp .Lt_077F
-.Lt_0783:
-.Lt_0782:
-push 0
-push -1
-push offset _ATTACKTHEM_STR
-push -1
-push offset _BLANKCHECK_STR
-call _fb_StrAssign@20
-call _LN_BLANKCHECK@0
-movsx eax, word ptr [_BLANKCHECK_SI]
-test eax, eax
-jle .Lt_0785
-call _LN_ATTKTNGL@0
-call _LN_GONE@0
-jmp .Lt_077F
-.Lt_0785:
-.Lt_0784:
-.Lt_077F:
 ret
 .balign 16
 
@@ -20213,21 +20285,21 @@ push ebp
 mov ebp, esp
 sub esp, 8
 push ebx
-.Lt_0786:
+.Lt_077E:
 movsx eax, word ptr [_DIS_SI]
 cmp eax, 3
-jne .Lt_0789
+jne .Lt_0781
 push 0
 push 5
-push offset _Lt_0556
+push offset _Lt_054E
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
 call _LN_PUTACTION@0
 call _LN_ACTNRAPL@0
-jmp .Lt_0787
-.Lt_0789:
-.Lt_0788:
+jmp .Lt_077F
+.Lt_0781:
+.Lt_0780:
 movsx eax, word ptr [_DIS_SI]
 test eax, eax
 sete al
@@ -20241,34 +20313,34 @@ mov ebx, eax
 call _ROSE_CALC@8
 imul eax, 136
 fld qword ptr [_G_DFA+eax+16]
-fcomp qword ptr [_Lt_02F4]
+fcomp qword ptr [_Lt_02ED]
 fnstsw ax
 test ah, 0b00000001
 setnz al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_078B
+je .Lt_0783
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
 call _LN_PUTACTION@0
-jmp .Lt_0787
-.Lt_078B:
-.Lt_078A:
+jmp .Lt_077F
+.Lt_0783:
+.Lt_0782:
 movsx eax, word ptr [_DIS_SI]
 test eax, eax
-jne .Lt_078D
+jne .Lt_0785
 movsx eax, word ptr [_TY_SI]
 push eax
 movsx eax, word ptr [_TX_SI]
 push eax
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0799]
+fld qword ptr [_Lt_0791]
 fadd qword ptr [_G_DFA+eax+16]
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -20281,24 +20353,24 @@ push dword ptr [ebp-8]
 push dword ptr [ebp-4]
 pop dword ptr [_G_DFA+eax+20]
 pop dword ptr [_G_DFA+eax+16]
-.Lt_078D:
-.Lt_078C:
+.Lt_0785:
+.Lt_0784:
 movsx eax, word ptr [_DIS_SI]
 cmp eax, 3
-jge .Lt_078F
+jge .Lt_0787
 movsx eax, word ptr [_DIS_SI]
 inc eax
 mov word ptr [_DIS_SI], ax
-.Lt_078F:
-.Lt_078E:
+.Lt_0787:
+.Lt_0786:
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 push 4
-push offset _Lt_02C7
+push offset _Lt_02E2
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20313,7 +20385,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_0400
+push offset _Lt_03F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20330,20 +20402,20 @@ call _fb_StrAssignMid@16
 call _LN_BLANKCHECK@0
 movsx ebx, word ptr [_BLANKCHECK_SI]
 cmp ebx, -1
-jne .Lt_0791
+jne .Lt_0789
 movsx ebx, word ptr [_DIS_SI]
 dec ebx
 mov word ptr [_DIS_SI], bx
-jmp .Lt_0787
-.Lt_0791:
-.Lt_0790:
+jmp .Lt_077F
+.Lt_0789:
+.Lt_0788:
 movsx ebx, word ptr [_BLANKCHECK_SI]
 test ebx, ebx
-jle .Lt_0793
+jle .Lt_078B
 call _LN_PUTACTION@0
-jmp .Lt_0787
-.Lt_0793:
-.Lt_0792:
+jmp .Lt_077F
+.Lt_078B:
+.Lt_078A:
 push 0
 push -1
 push offset _ATTACKTHEM_STR
@@ -20353,16 +20425,16 @@ call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx ebx, word ptr [_BLANKCHECK_SI]
 test ebx, ebx
-jle .Lt_0795
+jle .Lt_078D
 call _LN_PUTACTION@0
 push 0
 push 5
-push offset _Lt_0556
+push offset _Lt_054E
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
 push 4
-push offset _Lt_02C7
+push offset _Lt_02E2
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20377,7 +20449,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_0400
+push offset _Lt_03F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20393,27 +20465,27 @@ push ebx
 call _fb_StrAssignMid@16
 call _LN_PUTACTION@0
 call _LN_ATTKLASH@0
-jmp .Lt_0787
-.Lt_0795:
-.Lt_0794:
+jmp .Lt_077F
+.Lt_078D:
+.Lt_078C:
 push 0
 push 9
-push offset _Lt_0796
+push offset _Lt_078E
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx ebx, word ptr [_BLANKCHECK_SI]
 test ebx, ebx
-jle .Lt_0798
+jle .Lt_0790
 push 0
 push 5
-push offset _Lt_0556
+push offset _Lt_054E
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
 push 4
-push offset _Lt_02C7
+push offset _Lt_02E2
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20428,7 +20500,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_0400
+push offset _Lt_03F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20443,10 +20515,10 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 call _LN_PUTACTION@0
-jmp .Lt_0787
-.Lt_0798:
-.Lt_0797:
-.Lt_0787:
+jmp .Lt_077F
+.Lt_0790:
+.Lt_078F:
+.Lt_077F:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -20456,9 +20528,9 @@ ret
 .globl _LN_ACTNRAPL@0
 _LN_ACTNRAPL@0:
 push ebx
-.Lt_079D:
+.Lt_0795:
 push 4
-push offset _Lt_02C7
+push offset _Lt_02E2
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20473,7 +20545,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_0400
+push offset _Lt_03F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20489,17 +20561,17 @@ push ebx
 call _fb_StrAssignMid@16
 movsx ebx, word ptr [_DIS_SI]
 cmp ebx, 1
-jne .Lt_07A0
+jne .Lt_0798
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _ACTION_STR
 call _fb_StrAssign@20
 mov word ptr [_DIS_SI], 0
 call _LN_PUTACTION@0
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20514,7 +20586,7 @@ lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
 push 4
-push offset _Lt_00F5
+push offset _Lt_00F8
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -20528,45 +20600,45 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+48]
 push ebx
 call _fb_StrAssignMid@16
-jmp .Lt_079E
-.Lt_07A0:
-.Lt_079F:
+jmp .Lt_0796
+.Lt_0798:
+.Lt_0797:
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx ebx, word ptr [_BLANKCHECK_SI]
 cmp ebx, -1
-jne .Lt_07A2
+jne .Lt_079A
 movsx ebx, word ptr [_DIS_SI]
 cmp ebx, 1
-jle .Lt_07A4
+jle .Lt_079C
 movsx ebx, word ptr [_DIS_SI]
 dec ebx
 mov word ptr [_DIS_SI], bx
 call _LN_PUTACTION@0
-.Lt_07A4:
-.Lt_07A3:
-jmp .Lt_079E
-.Lt_07A2:
-.Lt_07A1:
+.Lt_079C:
+.Lt_079B:
+jmp .Lt_0796
+.Lt_079A:
+.Lt_0799:
 movsx ebx, word ptr [_BLANKCHECK_SI]
 test ebx, ebx
-jle .Lt_07A6
+jle .Lt_079E
 movsx ebx, word ptr [_DIS_SI]
 cmp ebx, 1
-jle .Lt_07A8
+jle .Lt_07A0
 movsx ebx, word ptr [_DIS_SI]
 dec ebx
 mov word ptr [_DIS_SI], bx
 call _LN_PUTACTION@0
-.Lt_07A8:
-.Lt_07A7:
-.Lt_07A6:
-.Lt_07A5:
+.Lt_07A0:
+.Lt_079F:
+.Lt_079E:
+.Lt_079D:
 push 0
 push -1
 push offset _ATTACKTHEM_STR
@@ -20576,46 +20648,46 @@ call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx ebx, word ptr [_BLANKCHECK_SI]
 test ebx, ebx
-jle .Lt_07AA
+jle .Lt_07A2
 call _LN_ATTKLASH@0
 movsx ebx, word ptr [_DIS_SI]
 dec ebx
 mov word ptr [_DIS_SI], bx
 call _LN_PUTACTION@0
-jmp .Lt_079E
-.Lt_07AA:
-.Lt_07A9:
+jmp .Lt_0796
+.Lt_07A2:
+.Lt_07A1:
 push 0
 push 9
-push offset _Lt_0796
+push offset _Lt_078E
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx ebx, word ptr [_BLANKCHECK_SI]
 test ebx, ebx
-jle .Lt_07AC
+jle .Lt_07A4
 mov word ptr [_DIS_SI], 1
 push 0
 push 9
-push offset _Lt_059D
+push offset _Lt_0595
 push -1
 push offset _BLANKCHECK_STR
 call _fb_StrAssign@20
 call _LN_BLANKCHECK@0
 movsx ebx, word ptr [_BLANKCHECK_SI]
 test ebx, ebx
-jne .Lt_07AE
+jne .Lt_07A6
 movsx ebx, word ptr [_DIS_SI]
 dec ebx
 mov word ptr [_DIS_SI], bx
 call _LN_PUTACTION@0
-jmp .Lt_079E
-.Lt_07AE:
-.Lt_07AD:
+jmp .Lt_0796
+.Lt_07A6:
+.Lt_07A5:
 movsx ebx, word ptr [_BLANKCHECK_SI]
 test ebx, ebx
-jle .Lt_07B0
+jle .Lt_07A8
 movsx ebx, word ptr [_TX_SI]
 movsx eax, word ptr [_EX_SI]
 cmp ebx, eax
@@ -20629,7 +20701,7 @@ sete al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_07B2
+je .Lt_07AA
 push 0
 push -1
 push offset _CTRL_STR
@@ -20639,7 +20711,7 @@ call _fb_StrAssign@20
 call _LN_AM@0
 movsx eax, word ptr [_AM_SI]
 test eax, eax
-jle .Lt_07B4
+jle .Lt_07AC
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [_D_SI]
 imul ebx, 6
@@ -20656,10 +20728,10 @@ movsx ecx, word ptr [_DIS_SI]
 imul ebx, ecx
 add eax, ebx
 mov word ptr [_DY_SI], ax
-.Lt_07B4:
-.Lt_07B3:
-.Lt_07B2:
-.Lt_07B1:
+.Lt_07AC:
+.Lt_07AB:
+.Lt_07AA:
+.Lt_07A9:
 call _LN_SWAPDATA@0
 mov ax, word ptr [_TX_SI]
 mov word ptr [_TEMPTX_SI], ax
@@ -20686,12 +20758,12 @@ mov ax, word ptr [_TEMPTX_SI]
 mov word ptr [_TX_SI], ax
 mov ax, word ptr [_TEMPTY_SI]
 mov word ptr [_TY_SI], ax
-jmp .Lt_079E
-.Lt_07B0:
-.Lt_07AF:
-.Lt_07AC:
-.Lt_07AB:
-.Lt_079E:
+jmp .Lt_0796
+.Lt_07A8:
+.Lt_07A7:
+.Lt_07A4:
+.Lt_07A3:
+.Lt_0796:
 pop ebx
 ret
 .balign 16
@@ -20701,13 +20773,13 @@ _LN_CRTNIMP@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_07B7:
+.Lt_07AF:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
 push 0
 push 29
-push offset _Lt_07B9
+push offset _Lt_07B1
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -20715,31 +20787,31 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
-jne .Lt_07BC
-.Lt_07BD:
+jne .Lt_07B4
+.Lt_07B5:
 call _LN_ACTNMOVE@0
-jmp .Lt_07BA
-.Lt_07BC:
+jmp .Lt_07B2
+.Lt_07B4:
 cmp dword ptr [ebp-4], 1701996902
-jne .Lt_07BE
-.Lt_07BF:
+jne .Lt_07B6
+.Lt_07B7:
 call _LN_ACTNFIRE@0
-jmp .Lt_07BA
-.Lt_07BE:
+jmp .Lt_07B2
+.Lt_07B6:
 cmp dword ptr [ebp-4], 1953526633
-jne .Lt_07C0
-.Lt_07C1:
+jne .Lt_07B8
+.Lt_07B9:
 call _LN_ACTNISPT@0
-jmp .Lt_07BA
-.Lt_07C0:
-cmp dword ptr [ebp-4], 1735289207
-jne .Lt_07C2
-.Lt_07C4:
-call _LN_ACTNWING@0
-.Lt_07C2:
-.Lt_07BA:
-call _LN_AUTOLEVELUP@0
+jmp .Lt_07B2
 .Lt_07B8:
+cmp dword ptr [ebp-4], 1735289207
+jne .Lt_07BA
+.Lt_07BC:
+call _LN_ACTNWING@0
+.Lt_07BA:
+.Lt_07B2:
+call _LN_AUTOLEVELUP@0
+.Lt_07B0:
 mov esp, ebp
 pop ebp
 ret
@@ -20750,13 +20822,13 @@ _LN_CRTNFIRE@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_07C5:
+.Lt_07BD:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_GETACTION@0
 push 0
 push 29
-push offset _Lt_07C7
+push offset _Lt_07BF
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -20764,12 +20836,12 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
-jne .Lt_07CA
-.Lt_07CB:
+jne .Lt_07C2
+.Lt_07C3:
 call _LN_ACTNFIREMOVE@0
-.Lt_07CA:
-.Lt_07C8:
-.Lt_07C6:
+.Lt_07C2:
+.Lt_07C0:
+.Lt_07BE:
 mov esp, ebp
 pop ebp
 ret
@@ -20780,13 +20852,13 @@ _LN_CRTNDUST@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_07CC:
+.Lt_07C4:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_GETACTION@0
 push 0
 push 25
-push offset _Lt_07CE
+push offset _Lt_07C6
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -20794,12 +20866,12 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
-jne .Lt_07D1
-.Lt_07D2:
+jne .Lt_07C9
+.Lt_07CA:
 call _LN_ACTNDUSTMOVE@0
-.Lt_07D1:
-.Lt_07CF:
-.Lt_07CD:
+.Lt_07C9:
+.Lt_07C7:
+.Lt_07C5:
 mov esp, ebp
 pop ebp
 ret
@@ -20810,13 +20882,13 @@ _LN_CRTNSHKT@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_07D3:
+.Lt_07CB:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
 push 0
 push 25
-push offset _Lt_07D5
+push offset _Lt_07CD
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -20824,49 +20896,49 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
+jne .Lt_07D0
+.Lt_07D1:
+call _LN_ACTNMOVE@0
+jmp .Lt_07CE
+.Lt_07D0:
+cmp dword ptr [ebp-4], 1701996902
+jne .Lt_07D2
+.Lt_07D3:
+call _LN_ACTNFIRE@0
+jmp .Lt_07CE
+.Lt_07D2:
+cmp dword ptr [ebp-4], 1702127970
+jne .Lt_07D4
+.Lt_07D5:
+call _LN_ACTNBITE@0
+jmp .Lt_07CE
+.Lt_07D4:
+cmp dword ptr [ebp-4], 1751346800
+jne .Lt_07D6
+.Lt_07D7:
+call _LN_ACTNPNCH@0
+jmp .Lt_07CE
+.Lt_07D6:
+cmp dword ptr [ebp-4], 1801677163
 jne .Lt_07D8
 .Lt_07D9:
-call _LN_ACTNMOVE@0
-jmp .Lt_07D6
+call _LN_ACTNKICK@0
+jmp .Lt_07CE
 .Lt_07D8:
-cmp dword ptr [ebp-4], 1701996902
+cmp dword ptr [ebp-4], 1919379300
 jne .Lt_07DA
 .Lt_07DB:
-call _LN_ACTNFIRE@0
-jmp .Lt_07D6
+call _LN_ACTNDGGR@0
+jmp .Lt_07CE
 .Lt_07DA:
-cmp dword ptr [ebp-4], 1702127970
+cmp dword ptr [ebp-4], 1701538160
 jne .Lt_07DC
 .Lt_07DD:
-call _LN_ACTNBITE@0
-jmp .Lt_07D6
-.Lt_07DC:
-cmp dword ptr [ebp-4], 1751346800
-jne .Lt_07DE
-.Lt_07DF:
-call _LN_ACTNPNCH@0
-jmp .Lt_07D6
-.Lt_07DE:
-cmp dword ptr [ebp-4], 1801677163
-jne .Lt_07E0
-.Lt_07E1:
-call _LN_ACTNKICK@0
-jmp .Lt_07D6
-.Lt_07E0:
-cmp dword ptr [ebp-4], 1919379300
-jne .Lt_07E2
-.Lt_07E3:
-call _LN_ACTNDGGR@0
-jmp .Lt_07D6
-.Lt_07E2:
-cmp dword ptr [ebp-4], 1701538160
-jne .Lt_07E4
-.Lt_07E5:
 call _LN_ACTNPIKE@0
-.Lt_07E4:
-.Lt_07D6:
+.Lt_07DC:
+.Lt_07CE:
 call _LN_AUTOLEVELUP@0
-.Lt_07D4:
+.Lt_07CC:
 mov esp, ebp
 pop ebp
 ret
@@ -20877,13 +20949,13 @@ _LN_CRTNEMGD@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_07E6:
+.Lt_07DE:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
 push 0
 push 25
-push offset _Lt_07D5
+push offset _Lt_07CD
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -20891,49 +20963,49 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
+jne .Lt_07E2
+.Lt_07E3:
+call _LN_ACTNMOVE@0
+jmp .Lt_07E0
+.Lt_07E2:
+cmp dword ptr [ebp-4], 1701996902
+jne .Lt_07E4
+.Lt_07E5:
+call _LN_ACTNFIRE@0
+jmp .Lt_07E0
+.Lt_07E4:
+cmp dword ptr [ebp-4], 1702127970
+jne .Lt_07E6
+.Lt_07E7:
+call _LN_ACTNBITE@0
+jmp .Lt_07E0
+.Lt_07E6:
+cmp dword ptr [ebp-4], 1751346800
+jne .Lt_07E8
+.Lt_07E9:
+call _LN_ACTNPNCH@0
+jmp .Lt_07E0
+.Lt_07E8:
+cmp dword ptr [ebp-4], 1801677163
 jne .Lt_07EA
 .Lt_07EB:
-call _LN_ACTNMOVE@0
-jmp .Lt_07E8
+call _LN_ACTNKICK@0
+jmp .Lt_07E0
 .Lt_07EA:
-cmp dword ptr [ebp-4], 1701996902
+cmp dword ptr [ebp-4], 1919379300
 jne .Lt_07EC
 .Lt_07ED:
-call _LN_ACTNFIRE@0
-jmp .Lt_07E8
+call _LN_ACTNDGGR@0
+jmp .Lt_07E0
 .Lt_07EC:
-cmp dword ptr [ebp-4], 1702127970
+cmp dword ptr [ebp-4], 1701538160
 jne .Lt_07EE
 .Lt_07EF:
-call _LN_ACTNBITE@0
-jmp .Lt_07E8
-.Lt_07EE:
-cmp dword ptr [ebp-4], 1751346800
-jne .Lt_07F0
-.Lt_07F1:
-call _LN_ACTNPNCH@0
-jmp .Lt_07E8
-.Lt_07F0:
-cmp dword ptr [ebp-4], 1801677163
-jne .Lt_07F2
-.Lt_07F3:
-call _LN_ACTNKICK@0
-jmp .Lt_07E8
-.Lt_07F2:
-cmp dword ptr [ebp-4], 1919379300
-jne .Lt_07F4
-.Lt_07F5:
-call _LN_ACTNDGGR@0
-jmp .Lt_07E8
-.Lt_07F4:
-cmp dword ptr [ebp-4], 1701538160
-jne .Lt_07F6
-.Lt_07F7:
 call _LN_ACTNPIKE@0
-.Lt_07F6:
-.Lt_07E8:
+.Lt_07EE:
+.Lt_07E0:
 call _LN_AUTOLEVELUP@0
-.Lt_07E7:
+.Lt_07DF:
 mov esp, ebp
 pop ebp
 ret
@@ -20944,13 +21016,13 @@ _LN_CRTNSPDR@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_07F8:
+.Lt_07F0:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
 push 0
 push 29
-push offset _Lt_07FA
+push offset _Lt_07F2
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -20958,31 +21030,31 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
-jne .Lt_07FD
-.Lt_07FE:
+jne .Lt_07F5
+.Lt_07F6:
 call _LN_ACTNMOVE@0
-jmp .Lt_07FB
-.Lt_07FD:
+jmp .Lt_07F3
+.Lt_07F5:
 cmp dword ptr [ebp-4], 1600284023
-jne .Lt_07FF
-.Lt_0800:
+jne .Lt_07F7
+.Lt_07F8:
 call _LN_ACTNWEB@0
-jmp .Lt_07FB
-.Lt_07FF:
+jmp .Lt_07F3
+.Lt_07F7:
 cmp dword ptr [ebp-4], 1702127970
-jne .Lt_0801
-.Lt_0802:
+jne .Lt_07F9
+.Lt_07FA:
 call _LN_ACTNBITE@0
-jmp .Lt_07FB
-.Lt_0801:
-cmp dword ptr [ebp-4], 1836019318
-jne .Lt_0803
-.Lt_0804:
-call _LN_ACTNKICK@0
-.Lt_0803:
-.Lt_07FB:
-call _LN_AUTOLEVELUP@0
+jmp .Lt_07F3
 .Lt_07F9:
+cmp dword ptr [ebp-4], 1836019318
+jne .Lt_07FB
+.Lt_07FC:
+call _LN_ACTNKICK@0
+.Lt_07FB:
+.Lt_07F3:
+call _LN_AUTOLEVELUP@0
+.Lt_07F1:
 mov esp, ebp
 pop ebp
 ret
@@ -20993,23 +21065,23 @@ _LN_CRTNWEB@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_0805:
+.Lt_07FD:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_GETACTION@0
 push 5
-push offset _Lt_03A1
+push offset _Lt_0399
 push -1
 push offset _ACTION_STR
 call _fb_StrCompare@16
 test eax, eax
-je .Lt_0808
+je .Lt_0800
 call _LN_NEXTACTION@0
-.Lt_0808:
-.Lt_0807:
+.Lt_0800:
+.Lt_07FF:
 push 0
 push 29
-push offset _Lt_0809
+push offset _Lt_0801
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -21017,19 +21089,19 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
-jne .Lt_080C
-.Lt_080D:
+jne .Lt_0804
+.Lt_0805:
 call _LN_ACTNWEBMOVE@0
-jmp .Lt_080A
-.Lt_080C:
+jmp .Lt_0802
+.Lt_0804:
 cmp dword ptr [ebp-4], 1919185011
-jne .Lt_080E
-.Lt_080F:
+jne .Lt_0806
+.Lt_0807:
 call _LN_ACTNSPDR@0
-.Lt_080E:
-.Lt_080A:
-call _LN_AUTOLEVELUP@0
 .Lt_0806:
+.Lt_0802:
+call _LN_AUTOLEVELUP@0
+.Lt_07FE:
 mov esp, ebp
 pop ebp
 ret
@@ -21040,13 +21112,13 @@ _LN_CRTNDTBY@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_0810:
+.Lt_0808:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
 push 0
 push 25
-push offset _Lt_0812
+push offset _Lt_080A
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -21054,43 +21126,43 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
+jne .Lt_080D
+.Lt_080E:
+call _LN_ACTNMOVE@0
+jmp .Lt_080B
+.Lt_080D:
+cmp dword ptr [ebp-4], 1701996902
+jne .Lt_080F
+.Lt_0810:
+call _LN_ACTNFIRE@0
+jmp .Lt_080B
+.Lt_080F:
+cmp dword ptr [ebp-4], 2036495460
+jne .Lt_0811
+.Lt_0812:
+call _LN_ACTNDTBY@0
+jmp .Lt_080B
+.Lt_0811:
+cmp dword ptr [ebp-4], 1702127970
+jne .Lt_0813
+.Lt_0814:
+call _LN_ACTNBITE@0
+jmp .Lt_080B
+.Lt_0813:
+cmp dword ptr [ebp-4], 1801677163
 jne .Lt_0815
 .Lt_0816:
-call _LN_ACTNMOVE@0
-jmp .Lt_0813
+call _LN_ACTNKICK@0
+jmp .Lt_080B
 .Lt_0815:
-cmp dword ptr [ebp-4], 1701996902
+cmp dword ptr [ebp-4], 1953723748
 jne .Lt_0817
 .Lt_0818:
-call _LN_ACTNFIRE@0
-jmp .Lt_0813
-.Lt_0817:
-cmp dword ptr [ebp-4], 2036495460
-jne .Lt_0819
-.Lt_081A:
-call _LN_ACTNDTBY@0
-jmp .Lt_0813
-.Lt_0819:
-cmp dword ptr [ebp-4], 1702127970
-jne .Lt_081B
-.Lt_081C:
-call _LN_ACTNBITE@0
-jmp .Lt_0813
-.Lt_081B:
-cmp dword ptr [ebp-4], 1801677163
-jne .Lt_081D
-.Lt_081E:
-call _LN_ACTNKICK@0
-jmp .Lt_0813
-.Lt_081D:
-cmp dword ptr [ebp-4], 1953723748
-jne .Lt_081F
-.Lt_0820:
 call _LN_ACTNDUST@0
-.Lt_081F:
-.Lt_0813:
+.Lt_0817:
+.Lt_080B:
 call _LN_AUTOLEVELUP@0
-.Lt_0811:
+.Lt_0809:
 mov esp, ebp
 pop ebp
 ret
@@ -21101,13 +21173,13 @@ _LN_CRTNGRML@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_0821:
+.Lt_0819:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
 push 0
 push 29
-push offset _Lt_0823
+push offset _Lt_081B
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -21115,49 +21187,49 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
+jne .Lt_081E
+.Lt_081F:
+call _LN_ACTNMOVE@0
+jmp .Lt_081C
+.Lt_081E:
+cmp dword ptr [ebp-4], 1701996902
+jne .Lt_0820
+.Lt_0821:
+call _LN_ACTNFIRE@0
+jmp .Lt_081C
+.Lt_0820:
+cmp dword ptr [ebp-4], 1702127970
+jne .Lt_0822
+.Lt_0823:
+call _LN_ACTNBITE@0
+jmp .Lt_081C
+.Lt_0822:
+cmp dword ptr [ebp-4], 1751346800
+jne .Lt_0824
+.Lt_0825:
+call _LN_ACTNPNCH@0
+jmp .Lt_081C
+.Lt_0824:
+cmp dword ptr [ebp-4], 1801677163
 jne .Lt_0826
 .Lt_0827:
-call _LN_ACTNMOVE@0
-jmp .Lt_0824
+call _LN_ACTNKICK@0
+jmp .Lt_081C
 .Lt_0826:
-cmp dword ptr [ebp-4], 1701996902
+cmp dword ptr [ebp-4], 1919379300
 jne .Lt_0828
 .Lt_0829:
-call _LN_ACTNFIRE@0
-jmp .Lt_0824
+call _LN_ACTNDGGR@0
+jmp .Lt_081C
 .Lt_0828:
-cmp dword ptr [ebp-4], 1702127970
+cmp dword ptr [ebp-4], 1701538160
 jne .Lt_082A
 .Lt_082B:
-call _LN_ACTNBITE@0
-jmp .Lt_0824
-.Lt_082A:
-cmp dword ptr [ebp-4], 1751346800
-jne .Lt_082C
-.Lt_082D:
-call _LN_ACTNPNCH@0
-jmp .Lt_0824
-.Lt_082C:
-cmp dword ptr [ebp-4], 1801677163
-jne .Lt_082E
-.Lt_082F:
-call _LN_ACTNKICK@0
-jmp .Lt_0824
-.Lt_082E:
-cmp dword ptr [ebp-4], 1919379300
-jne .Lt_0830
-.Lt_0831:
-call _LN_ACTNDGGR@0
-jmp .Lt_0824
-.Lt_0830:
-cmp dword ptr [ebp-4], 1701538160
-jne .Lt_0832
-.Lt_0833:
 call _LN_ACTNPIKE@0
-.Lt_0832:
-.Lt_0824:
+.Lt_082A:
+.Lt_081C:
 call _LN_AUTOLEVELUP@0
-.Lt_0822:
+.Lt_081A:
 mov esp, ebp
 pop ebp
 ret
@@ -21168,13 +21240,13 @@ _LN_CRTNPNDX@0:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_0834:
+.Lt_082C:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
 push 0
 push 37
-push offset _Lt_0836
+push offset _Lt_082E
 push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
@@ -21182,121 +21254,121 @@ push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1702260589
+jne .Lt_0831
+.Lt_0832:
+call _LN_ACTNMOVE@0
+jmp .Lt_082F
+.Lt_0831:
+cmp dword ptr [ebp-4], 1701996902
+jne .Lt_0833
+.Lt_0834:
+call _LN_ACTNFIRE@0
+jmp .Lt_082F
+.Lt_0833:
+cmp dword ptr [ebp-4], 1702127970
+jne .Lt_0835
+.Lt_0836:
+call _LN_ACTNBITE@0
+jmp .Lt_082F
+.Lt_0835:
+cmp dword ptr [ebp-4], 1751346800
+jne .Lt_0837
+.Lt_0838:
+call _LN_ACTNPNCH@0
+jmp .Lt_082F
+.Lt_0837:
+cmp dword ptr [ebp-4], 1801677163
 jne .Lt_0839
 .Lt_083A:
-call _LN_ACTNMOVE@0
-jmp .Lt_0837
+call _LN_ACTNKICK@0
+jmp .Lt_082F
 .Lt_0839:
-cmp dword ptr [ebp-4], 1701996902
+cmp dword ptr [ebp-4], 1919379300
 jne .Lt_083B
 .Lt_083C:
-call _LN_ACTNFIRE@0
-jmp .Lt_0837
+call _LN_ACTNDGGR@0
+jmp .Lt_082F
 .Lt_083B:
-cmp dword ptr [ebp-4], 1702127970
+cmp dword ptr [ebp-4], 1701538160
 jne .Lt_083D
 .Lt_083E:
-call _LN_ACTNBITE@0
-jmp .Lt_0837
+call _LN_ACTNPIKE@0
+jmp .Lt_082F
 .Lt_083D:
-cmp dword ptr [ebp-4], 1751346800
+cmp dword ptr [ebp-4], 1919185011
 jne .Lt_083F
 .Lt_0840:
-call _LN_ACTNPNCH@0
-jmp .Lt_0837
+call _LN_ACTNSPDR@0
+jmp .Lt_082F
 .Lt_083F:
-cmp dword ptr [ebp-4], 1801677163
+cmp dword ptr [ebp-4], 1600284023
 jne .Lt_0841
 .Lt_0842:
-call _LN_ACTNKICK@0
-jmp .Lt_0837
+call _LN_ACTNWEB@0
+jmp .Lt_082F
 .Lt_0841:
-cmp dword ptr [ebp-4], 1919379300
+cmp dword ptr [ebp-4], 1836019318
 jne .Lt_0843
 .Lt_0844:
-call _LN_ACTNDGGR@0
-jmp .Lt_0837
+call _LN_ACTNVNOM@0
+jmp .Lt_082F
 .Lt_0843:
-cmp dword ptr [ebp-4], 1701538160
+cmp dword ptr [ebp-4], 1701999971
 jne .Lt_0845
 .Lt_0846:
-call _LN_ACTNPIKE@0
-jmp .Lt_0837
+call _LN_ACTNCURE@0
+jmp .Lt_082F
 .Lt_0845:
-cmp dword ptr [ebp-4], 1919185011
+cmp dword ptr [ebp-4], 1953526633
 jne .Lt_0847
 .Lt_0848:
-call _LN_ACTNSPDR@0
-jmp .Lt_0837
+call _LN_ACTNISPT@0
+jmp .Lt_082F
 .Lt_0847:
-cmp dword ptr [ebp-4], 1600284023
+cmp dword ptr [ebp-4], 1819308647
 jne .Lt_0849
 .Lt_084A:
-call _LN_ACTNWEB@0
-jmp .Lt_0837
+call _LN_ACTNGRPL@0
+jmp .Lt_082F
 .Lt_0849:
-cmp dword ptr [ebp-4], 1836019318
+cmp dword ptr [ebp-4], 1819304306
 jne .Lt_084B
 .Lt_084C:
-call _LN_ACTNVNOM@0
-jmp .Lt_0837
+call _LN_ACTNRAPL@0
+jmp .Lt_082F
 .Lt_084B:
-cmp dword ptr [ebp-4], 1701999971
+cmp dword ptr [ebp-4], 1684366707
 jne .Lt_084D
 .Lt_084E:
-call _LN_ACTNCURE@0
-jmp .Lt_0837
+call _LN_ACTNCCTS@0
+jmp .Lt_082F
 .Lt_084D:
-cmp dword ptr [ebp-4], 1953526633
+cmp dword ptr [ebp-4], 1718907767
 jne .Lt_084F
 .Lt_0850:
-call _LN_ACTNISPT@0
-jmp .Lt_0837
+call _LN_ACTNWSTF@0
+jmp .Lt_082F
 .Lt_084F:
-cmp dword ptr [ebp-4], 1819308647
+cmp dword ptr [ebp-4], 1735289207
 jne .Lt_0851
 .Lt_0852:
-call _LN_ACTNGRPL@0
-jmp .Lt_0837
+call _LN_ACTNWING@0
+jmp .Lt_082F
 .Lt_0851:
-cmp dword ptr [ebp-4], 1819304306
+cmp dword ptr [ebp-4], 830039403
 jne .Lt_0853
 .Lt_0854:
-call _LN_ACTNRAPL@0
-jmp .Lt_0837
+call _LN_ACTNKEY1@0
+jmp .Lt_082F
 .Lt_0853:
-cmp dword ptr [ebp-4], 1684366707
+cmp dword ptr [ebp-4], 846816619
 jne .Lt_0855
 .Lt_0856:
-call _LN_ACTNCCTS@0
-jmp .Lt_0837
-.Lt_0855:
-cmp dword ptr [ebp-4], 1718907767
-jne .Lt_0857
-.Lt_0858:
-call _LN_ACTNWSTF@0
-jmp .Lt_0837
-.Lt_0857:
-cmp dword ptr [ebp-4], 1735289207
-jne .Lt_0859
-.Lt_085A:
-call _LN_ACTNWING@0
-jmp .Lt_0837
-.Lt_0859:
-cmp dword ptr [ebp-4], 830039403
-jne .Lt_085B
-.Lt_085C:
-call _LN_ACTNKEY1@0
-jmp .Lt_0837
-.Lt_085B:
-cmp dword ptr [ebp-4], 846816619
-jne .Lt_085D
-.Lt_085E:
 call _LN_ACTNKEY2@0
-.Lt_085D:
-.Lt_0837:
+.Lt_0855:
+.Lt_082F:
 call _LN_AUTOLEVELUP@0
-.Lt_0835:
+.Lt_082D:
 mov esp, ebp
 pop ebp
 ret
@@ -21308,7 +21380,7 @@ push ebp
 mov ebp, esp
 sub esp, 4
 push ebx
-.Lt_085F:
+.Lt_0857:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
@@ -21320,16 +21392,16 @@ push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
 push 0
 push 5
-push offset _Lt_05A0
+push offset _Lt_0598
 push -1
 push offset _HERE_STR
 call _fb_StrAssign@20
 call _LN_HERE@0
 movsx eax, word ptr [_HERE_SI]
 test eax, eax
-jle .Lt_0862
+jle .Lt_085A
 push 4
-push offset _Lt_05A5
+push offset _Lt_059D
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -21343,20 +21415,20 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+24]
 push ebx
 call _fb_StrAssignMid@16
-.Lt_0862:
-.Lt_0861:
+.Lt_085A:
+.Lt_0859:
 push 0
 push 5
-push offset _Lt_0863
+push offset _Lt_085B
 push -1
 push offset _HERE_STR
 call _fb_StrAssign@20
 call _LN_HERE@0
 movsx ebx, word ptr [_HERE_SI]
 test ebx, ebx
-jle .Lt_0865
+jle .Lt_085D
 push 4
-push offset _Lt_0866
+push offset _Lt_085E
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -21370,19 +21442,19 @@ imul eax, 108
 lea ebx, [_E_STRA+eax+24]
 push ebx
 call _fb_StrAssignMid@16
-.Lt_0865:
-.Lt_0864:
+.Lt_085D:
+.Lt_085C:
 push offset _ACTION_STR
 call _fb_CVL@4
 mov dword ptr [ebp-4], eax
 cmp dword ptr [ebp-4], 1684366707
-jne .Lt_0869
-.Lt_086A:
+jne .Lt_0861
+.Lt_0862:
 call _LN_ACTNCCTS@0
-.Lt_0869:
-.Lt_0867:
+.Lt_0861:
+.Lt_085F:
 call _LN_AUTOLEVELUP@0
-.Lt_0860:
+.Lt_0858:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -21392,7 +21464,7 @@ ret
 .globl _LN_CRTNBLDR@0
 _LN_CRTNBLDR@0:
 push ebx
-.Lt_086B:
+.Lt_0863:
 call _LN_STATGAIN@0
 call _LN_STATMAX@0
 call _LN_NEXTACTION@0
@@ -21403,7 +21475,7 @@ push -1
 push offset _ATTACKTHEM_STR
 call _fb_StrAssign@20
 push 5
-push offset _Lt_05A5
+push offset _Lt_059D
 push -1
 push 4
 push 5
@@ -21419,9 +21491,9 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_086E
+jne .Lt_0866
 push 4
-push offset _Lt_086F
+push offset _Lt_0867
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -21436,11 +21508,11 @@ lea ebx, [_E_STRA+eax+24]
 push ebx
 call _fb_StrAssignMid@16
 call _LN_GONE@0
-jmp .Lt_086C
-.Lt_086E:
-.Lt_086D:
+jmp .Lt_0864
+.Lt_0866:
+.Lt_0865:
 push 5
-push offset _Lt_05A0
+push offset _Lt_0598
 push -1
 push 4
 push 5
@@ -21456,9 +21528,9 @@ call _fb_StrMid@12
 push eax
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0871
+jne .Lt_0869
 push 4
-push offset _Lt_0863
+push offset _Lt_085B
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 4
@@ -21473,11 +21545,11 @@ lea ebx, [_E_STRA+eax+24]
 push ebx
 call _fb_StrAssignMid@16
 call _LN_GONE@0
-jmp .Lt_086C
-.Lt_0871:
-.Lt_0870:
+jmp .Lt_0864
+.Lt_0869:
+.Lt_0868:
 call _LN_AUTOLEVELUP@0
-.Lt_086C:
+.Lt_0864:
 pop ebx
 ret
 .balign 16
@@ -21488,7 +21560,7 @@ push ebp
 mov ebp, esp
 sub esp, 24
 push ebx
-.Lt_0872:
+.Lt_086A:
 mov ax, word ptr [_XMOUSE_SI]
 mov word ptr [_XXMOUSE_SI], ax
 mov ax, word ptr [_YMOUSE_SI]
@@ -21518,16 +21590,16 @@ push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0875
+jne .Lt_086D
 push 0
 push 3
-push offset _Lt_030B
+push offset _Lt_004F
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-.Lt_0875:
+.Lt_086D:
 push 2
-push offset _Lt_0876
+push offset _Lt_086E
 push -1
 push 1
 push offset _C_STR
@@ -21547,7 +21619,7 @@ sete al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_0878
+je .Lt_0870
 push 0
 push -1
 push -1
@@ -21564,7 +21636,7 @@ call _fb_HEX_i@4
 push eax
 push -1
 push 1
-push offset _Lt_087A
+push offset _Lt_0872
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 2
@@ -21580,7 +21652,7 @@ push eax
 call _fb_RIGHT@8
 push eax
 push 5
-push offset _Lt_0879
+push offset _Lt_0871
 mov dword ptr [ebp-24], 0
 mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
@@ -21591,8 +21663,8 @@ push eax
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-.Lt_0878:
-.Lt_0877:
+.Lt_0870:
+.Lt_086F:
 push -1
 push offset _C_STR
 call _fb_StrLen@8
@@ -21609,7 +21681,7 @@ setb cl
 shr ecx, 1
 sbb ecx, ecx
 and ebx, ecx
-je .Lt_087E
+je .Lt_0876
 push 0
 push -1
 push -1
@@ -21626,7 +21698,7 @@ call _fb_HEX_i@4
 push eax
 push -1
 push 1
-push offset _Lt_087A
+push offset _Lt_0872
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 2
@@ -21642,7 +21714,7 @@ push eax
 call _fb_RIGHT@8
 push eax
 push 3
-push offset _Lt_087F
+push offset _Lt_0877
 mov dword ptr [ebp-24], 0
 mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
@@ -21653,8 +21725,8 @@ push eax
 push -1
 push offset _C_STR
 call _fb_StrAssign@20
-.Lt_087E:
-.Lt_087D:
+.Lt_0876:
+.Lt_0875:
 push offset _YMOUSE_SI
 push offset _XMOUSE_SI
 push offset _RB_SI
@@ -21664,7 +21736,7 @@ movsx eax, word ptr [_YMOUSE_SI]
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_02EC]
+fdiv qword ptr [_Lt_02E4]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -21676,13 +21748,13 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0156]
+fadd qword ptr [_Lt_0159]
 fistp word ptr [_YM_SI]
 movsx eax, word ptr [_XMOUSE_SI]
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_02EC]
+fdiv qword ptr [_Lt_02E4]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -21694,7 +21766,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0156]
+fadd qword ptr [_Lt_0159]
 fistp word ptr [_XM_SI]
 mov word ptr [_JSX_SI], 0
 mov word ptr [_JSY_SI], 0
@@ -21718,15 +21790,15 @@ shr ebx, 1
 sbb ebx, ebx
 and ecx, ebx
 or eax, ecx
-je .Lt_0883
+je .Lt_087B
 mov cx, word ptr [_LB_SI]
 mov word ptr [_LLB_SI], cx
 mov cx, word ptr [_LB_SI]
 mov word ptr [_L1B_SI], cx
-jmp .Lt_0882
-.Lt_0883:
+jmp .Lt_087A
+.Lt_087B:
 mov word ptr [_LB_SI], 0
-.Lt_0882:
+.Lt_087A:
 movsx ecx, word ptr [_RRB_SI]
 movsx eax, word ptr [_RB_SI]
 cmp ecx, eax
@@ -21745,16 +21817,16 @@ shr ebx, 1
 sbb ebx, ebx
 and eax, ebx
 or ecx, eax
-je .Lt_0885
+je .Lt_087D
 mov ax, word ptr [_RB_SI]
 mov word ptr [_RRB_SI], ax
 mov ax, word ptr [_RB_SI]
 mov word ptr [_R1B_SI], ax
-jmp .Lt_0884
-.Lt_0885:
+jmp .Lt_087C
+.Lt_087D:
 mov word ptr [_RB_SI], 0
-.Lt_0884:
-.Lt_0873:
+.Lt_087C:
+.Lt_086B:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -21766,10 +21838,10 @@ _CURSORPUT@0:
 push ebp
 mov ebp, esp
 sub esp, 60
-.Lt_0890:
+.Lt_0888:
 push -1
 push 1
-push offset _Lt_0892
+push offset _Lt_088A
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 2
@@ -21779,15 +21851,15 @@ push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-je .Lt_0894
+je .Lt_088C
 push 0
 push -1
 push offset _C_STR
 push -1
 push offset _CLAST_STR
 call _fb_StrAssign@20
-.Lt_0894:
-.Lt_0893:
+.Lt_088C:
+.Lt_088B:
 push dword ptr [_CLV_BUFFER_CURSOR]
 push offset _CLV_BUFFER
 call _CLV_BUFFER_CLS@8
@@ -21895,7 +21967,7 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-60]
 push eax
 call _fb_StrDelete@4
-.Lt_0891:
+.Lt_0889:
 mov esp, ebp
 pop ebp
 ret
@@ -21907,7 +21979,7 @@ push ebp
 mov ebp, esp
 sub esp, 92
 push ebx
-.Lt_089A:
+.Lt_0892:
 mov dword ptr [ebp-4], 0
 mov dword ptr [ebp-8], 0
 mov word ptr [ebp-12], 0
@@ -21959,11 +22031,11 @@ push dword ptr [ebp+56]
 call _fb_StrLen@8
 add eax, -2
 test eax, eax
-jg .Lt_089D
+jg .Lt_0895
 push 0
 push -1
 push 2
-push offset _Lt_0892
+push offset _Lt_088A
 push -1
 push -1
 push 2
@@ -21974,7 +22046,7 @@ call _fb_RIGHT@8
 push eax
 push -1
 push 1
-push offset _Lt_087A
+push offset _Lt_0872
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 2
@@ -21990,7 +22062,7 @@ push eax
 call _fb_RIGHT@8
 push eax
 push 2
-push offset _Lt_087A
+push offset _Lt_0872
 mov dword ptr [ebp-68], 0
 mov dword ptr [ebp-64], 0
 mov dword ptr [ebp-60], 0
@@ -22008,12 +22080,12 @@ push eax
 push -1
 push dword ptr [ebp+56]
 call _fb_StrAssign@20
-jmp .Lt_089C
-.Lt_089D:
+jmp .Lt_0894
+.Lt_0895:
 push 0
 push -1
 push 2
-push offset _Lt_0892
+push offset _Lt_088A
 push -1
 push -1
 push 2
@@ -22024,7 +22096,7 @@ call _fb_RIGHT@8
 push eax
 push -1
 push 1
-push offset _Lt_087A
+push offset _Lt_0872
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 2
@@ -22041,7 +22113,7 @@ call _fb_RIGHT@8
 push eax
 push -1
 push 2
-push offset _Lt_08A1
+push offset _Lt_0899
 push -1
 push -1
 push dword ptr [ebp+56]
@@ -22076,19 +22148,19 @@ push eax
 push -1
 push dword ptr [ebp+56]
 call _fb_StrAssign@20
-.Lt_089C:
+.Lt_0894:
 lea eax, [ebp-36]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_089B
+jmp .Lt_0893
 mov eax, dword ptr [ebp+44]
 and eax, 1
-je .Lt_08A7
+je .Lt_089F
 push dword ptr [ebp+12]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_CLS@8
-.Lt_08A7:
-.Lt_08A6:
+.Lt_089F:
+.Lt_089E:
 mov ax, word ptr [ebp+28]
 mov word ptr [ebp-12], ax
 mov ax, word ptr [ebp+32]
@@ -22166,7 +22238,7 @@ add eax, 7
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 fxch st(1)
 faddp
 push -1
@@ -22178,7 +22250,7 @@ sal eax, 3
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 fld qword ptr [ebp-52]
 fsubrp
 fistp dword ptr [ebp-4]
@@ -22207,7 +22279,7 @@ add eax, 7
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 fxch st(1)
 faddp
 push -1
@@ -22219,7 +22291,7 @@ sal eax, 3
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 fld qword ptr [ebp-60]
 fsubrp
 fistp dword ptr [ebp-4]
@@ -22237,7 +22309,7 @@ add eax, 7
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_0153]
+fdiv qword ptr [_Lt_0156]
 fxch st(1)
 faddp
 fistp dword ptr [ebp-8]
@@ -22255,7 +22327,7 @@ call _CLV_BUFFER_STACK@4
 lea eax, [ebp-36]
 push eax
 call _fb_StrDelete@4
-.Lt_089B:
+.Lt_0893:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -22268,7 +22340,7 @@ push ebp
 mov ebp, esp
 sub esp, 152
 push ebx
-.Lt_08AA:
+.Lt_08A2:
 mov dword ptr [ebp-12], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
@@ -22285,7 +22357,7 @@ sete al
 shr eax, 1
 sbb eax, eax
 push 12
-push offset _Lt_08AC
+push offset _Lt_08A4
 push -1
 push dword ptr [ebp+24]
 mov ebx, eax
@@ -22295,11 +22367,11 @@ setne al
 shr eax, 1
 sbb eax, eax
 and ebx, eax
-je .Lt_08AE
+je .Lt_08A6
 push 0
 push -1
 push 2
-push offset _Lt_08AF
+push offset _Lt_08A7
 push -1
 push dword ptr [ebp+24]
 mov dword ptr [ebp-44], 0
@@ -22320,7 +22392,7 @@ mov dword ptr [ebp-84], 0
 push 0
 push -1
 push 5
-push offset _Lt_08B1
+push offset _Lt_08A9
 push -1
 push -1
 lea eax, [ebp-12]
@@ -22366,7 +22438,7 @@ call _fb_StrDelete@4
 push 0
 push -1
 push 2
-push offset _Lt_08B6
+push offset _Lt_08AE
 push -1
 push dword ptr [ebp+24]
 mov dword ptr [ebp-104], 0
@@ -22387,7 +22459,7 @@ mov dword ptr [ebp-144], 0
 push 0
 push -1
 push 5
-push offset _Lt_08B1
+push offset _Lt_08A9
 push -1
 push -1
 lea eax, [ebp-24]
@@ -22451,13 +22523,13 @@ add esp, 4
 push dword ptr [ebp-32]
 call _png_destroy
 add esp, 4
-.Lt_08AE:
-.Lt_08AD:
+.Lt_08A6:
+.Lt_08A5:
 push -1
 push dword ptr [ebp+24]
 call _fb_StrLen@8
 cmp eax, 11
-je .Lt_08BD
+je .Lt_08B5
 push 0
 push 0
 push -1
@@ -22472,20 +22544,20 @@ push eax
 call _fb_Locate@20
 push 0
 push 1
-push offset _Lt_08A1
+push offset _Lt_0899
 call _fb_StrAllocTempDescZEx@8
 push eax
 push 0
 call _fb_PrintString@12
-.Lt_08BD:
-.Lt_08BC:
+.Lt_08B5:
+.Lt_08B4:
 lea eax, [ebp-24]
 push eax
 call _fb_StrDelete@4
 lea eax, [ebp-12]
 push eax
 call _fb_StrDelete@4
-.Lt_08AB:
+.Lt_08A3:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -22498,13 +22570,13 @@ push ebp
 mov ebp, esp
 push ebx
 push esi
-.Lt_08C0:
-.Lt_08C2:
+.Lt_08B8:
+.Lt_08BA:
 call _CINPUT@0
 call _CURSORPUT@0
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
-.Lt_08C4:
+.Lt_08BC:
 call _fb_Timer@0
 mov eax, dword ptr [ebp+8]
 fld dword ptr [eax]
@@ -22532,9 +22604,9 @@ setae al
 shr eax, 1
 sbb eax, eax
 or ebx, eax
-je .Lt_08C2
-.Lt_08C3:
-.Lt_08C1:
+je .Lt_08BA
+.Lt_08BB:
+.Lt_08B9:
 pop esi
 pop ebx
 mov esp, ebp
@@ -22544,18 +22616,18 @@ ret 8
 
 .globl _CLS2@0
 _CLS2@0:
-.Lt_08C7:
+.Lt_08BF:
 push 0
 push 65535
 push 2
 push 4278190080
-push dword ptr [_Lt_08C9]
-push dword ptr [_Lt_04B5]
-push dword ptr [_Lt_0163]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_08C1]
+push dword ptr [_Lt_04AD]
+push dword ptr [_Lt_0166]
+push dword ptr [_Lt_0166]
 push 0
 call _fb_GfxLine@36
-.Lt_08C8:
+.Lt_08C0:
 ret
 .balign 16
 
@@ -22564,7 +22636,7 @@ _FILE_PUT_CONTENTS@8:
 push ebp
 mov ebp, esp
 sub esp, 4
-.Lt_08CA:
+.Lt_08C2:
 mov dword ptr [ebp-4], 0
 call _fb_FileFree@0
 mov dword ptr [ebp-4], eax
@@ -22582,7 +22654,7 @@ push dword ptr [ebp-4]
 call _fb_FilePutStr@16
 push dword ptr [ebp-4]
 call _fb_FileClose@4
-.Lt_08CB:
+.Lt_08C3:
 mov esp, ebp
 pop ebp
 ret 8
@@ -22597,7 +22669,7 @@ push ebx
 mov dword ptr [ebp-12], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
-.Lt_08CC:
+.Lt_08C4:
 mov dword ptr [ebp-24], 0
 mov dword ptr [ebp-20], 0
 mov dword ptr [ebp-16], 0
@@ -22631,15 +22703,15 @@ mov ebx, eax
 call _fb_FileSize@4
 cmp edx, 0
 mov ecx, -1
-jg .Lt_08D0
-jl .Lt_08D1
+jg .Lt_08C8
+jl .Lt_08C9
 cmp eax, 0
-ja .Lt_08D0
-.Lt_08D1:
+ja .Lt_08C8
+.Lt_08C9:
 xor ecx, ecx
-.Lt_08D0:
+.Lt_08C8:
 and ebx, ecx
-je .Lt_08CF
+je .Lt_08C7
 push 1
 push dword ptr [ebp-28]
 call _fb_FileSeek@8
@@ -22652,8 +22724,8 @@ push edx
 push eax
 push dword ptr [ebp-28]
 call _fb_FileGetStrLarge@20
-.Lt_08CF:
-.Lt_08CE:
+.Lt_08C7:
+.Lt_08C6:
 push dword ptr [ebp-28]
 call _fb_FileClose@4
 push 0
@@ -22667,7 +22739,7 @@ call _fb_StrAssign@20
 lea eax, [ebp-24]
 push eax
 call _fb_StrDelete@4
-.Lt_08CD:
+.Lt_08C5:
 lea eax, [ebp-12]
 push eax
 call _fb_StrAllocTempResult@4
@@ -22683,7 +22755,7 @@ push ebp
 mov ebp, esp
 sub esp, 16
 push ebx
-.Lt_08D2:
+.Lt_08CA:
 mov dword ptr [ebp-12], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
@@ -22698,7 +22770,7 @@ lea eax, [ebp-12]
 push eax
 call _fb_StrAssign@20
 mov dword ptr [ebp-16], 0
-.Lt_08D7:
+.Lt_08CF:
 push 1
 push 1
 mov eax, dword ptr [ebp-16]
@@ -22749,16 +22821,16 @@ sal eax, 2
 mov ecx, dword ptr [ebp+12]
 add eax, dword ptr [ecx]
 mov dword ptr [eax], ebx
-.Lt_08D5:
+.Lt_08CD:
 inc dword ptr [ebp-16]
-.Lt_08D4:
+.Lt_08CC:
 cmp dword ptr [ebp-16], 255
-jle .Lt_08D7
-.Lt_08D6:
+jle .Lt_08CF
+.Lt_08CE:
 lea ebx, [ebp-12]
 push ebx
 call _fb_StrDelete@4
-.Lt_08D3:
+.Lt_08CB:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -22771,7 +22843,7 @@ push ebp
 mov ebp, esp
 sub esp, 32
 push ebx
-.Lt_08D8:
+.Lt_08D0:
 mov dword ptr [ebp-4], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-12], 0
@@ -22853,7 +22925,7 @@ mov word ptr [ebx], ax
 mov ax, word ptr [ebp-24]
 mov ebx, dword ptr [ebp+20]
 mov word ptr [ebx], ax
-.Lt_08D9:
+.Lt_08D1:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -22864,7 +22936,7 @@ ret 16
 _CLV_BUFFER_STACK@4:
 push ebp
 mov ebp, esp
-.Lt_08DE:
+.Lt_08D6:
 call _CURSORPUT@0
 push 1
 push dword ptr [ebp+8]
@@ -22875,28 +22947,28 @@ push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
 mov eax, dword ptr [_CLV_BUFFER_TITLE]
 cmp dword ptr [_CLV_BUFFER_FOCUS], eax
-jne .Lt_08E1
-.Lt_08E2:
+jne .Lt_08D9
+.Lt_08DA:
 push 1
 push dword ptr [_CLV_BUFFER_TITLE]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
-jmp .Lt_08E0
-.Lt_08E1:
+jmp .Lt_08D8
+.Lt_08D9:
 mov eax, dword ptr [_CLV_BUFFER_HELP]
 cmp dword ptr [_CLV_BUFFER_FOCUS], eax
-jne .Lt_08E3
-.Lt_08E4:
+jne .Lt_08DB
+.Lt_08DC:
 push 1
 push dword ptr [_CLV_BUFFER_HELP]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
-jmp .Lt_08E0
-.Lt_08E3:
+jmp .Lt_08D8
+.Lt_08DB:
 mov eax, dword ptr [_CLV_BUFFER_PORTAL]
 cmp dword ptr [_CLV_BUFFER_FOCUS], eax
-jne .Lt_08E5
-.Lt_08E6:
+jne .Lt_08DD
+.Lt_08DE:
 push 1
 push dword ptr [_CLV_BUFFER_TITLE]
 push dword ptr [ebp+8]
@@ -22909,12 +22981,12 @@ push 1
 push dword ptr [_CLV_BUFFER_MENU]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
-jmp .Lt_08E0
-.Lt_08E5:
+jmp .Lt_08D8
+.Lt_08DD:
 mov eax, dword ptr [_CLV_BUFFER_STATUS]
 cmp dword ptr [_CLV_BUFFER_FOCUS], eax
-jne .Lt_08E7
-.Lt_08E8:
+jne .Lt_08DF
+.Lt_08E0:
 push 1
 push dword ptr [_CLV_BUFFER_TITLE]
 push dword ptr [ebp+8]
@@ -22931,12 +23003,12 @@ push 1
 push dword ptr [_CLV_BUFFER_MENU]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
-jmp .Lt_08E0
-.Lt_08E7:
+jmp .Lt_08D8
+.Lt_08DF:
 mov eax, dword ptr [_CLV_BUFFER_EXPSHOP]
 cmp dword ptr [_CLV_BUFFER_FOCUS], eax
-jne .Lt_08E9
-.Lt_08EA:
+jne .Lt_08E1
+.Lt_08E2:
 push 1
 push dword ptr [_CLV_BUFFER_TITLE]
 push dword ptr [ebp+8]
@@ -22953,12 +23025,12 @@ push 1
 push dword ptr [_CLV_BUFFER_MENU]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
-jmp .Lt_08E0
-.Lt_08E9:
+jmp .Lt_08D8
+.Lt_08E1:
 mov eax, dword ptr [_CLV_BUFFER_MERCHANT]
 cmp dword ptr [_CLV_BUFFER_FOCUS], eax
-jne .Lt_08EB
-.Lt_08EC:
+jne .Lt_08E3
+.Lt_08E4:
 push 1
 push dword ptr [_CLV_BUFFER_TITLE]
 push dword ptr [ebp+8]
@@ -22975,12 +23047,12 @@ push 1
 push dword ptr [_CLV_BUFFER_MENU]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
-jmp .Lt_08E0
-.Lt_08EB:
+jmp .Lt_08D8
+.Lt_08E3:
 mov eax, dword ptr [_CLV_BUFFER_PLAYBYPLAY]
 cmp dword ptr [_CLV_BUFFER_FOCUS], eax
-jne .Lt_08ED
-.Lt_08EE:
+jne .Lt_08E5
+.Lt_08E6:
 push 1
 push dword ptr [_CLV_BUFFER_TITLE]
 push dword ptr [ebp+8]
@@ -23001,11 +23073,11 @@ push 1
 push dword ptr [_CLV_BUFFER_BAR]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
-.Lt_08ED:
-.Lt_08E0:
+.Lt_08E5:
+.Lt_08D8:
 mov eax, dword ptr [_CLV_BUFFER_SPLASH]
 cmp dword ptr [_CLV_BUFFER_FOCUS], eax
-je .Lt_08F0
+je .Lt_08E8
 push 1
 push dword ptr [_CLV_BUFFER_BAR]
 push dword ptr [ebp+8]
@@ -23018,8 +23090,8 @@ push 1
 push dword ptr [_CLV_BUFFER_CURSOR]
 push dword ptr [ebp+8]
 call _CLV_BUFFER_OVERLAY@12
-.Lt_08F0:
-.Lt_08EF:
+.Lt_08E8:
+.Lt_08E7:
 push 0
 push 65535
 push 2
@@ -23038,8 +23110,8 @@ fild dword ptr [esp]
 add esp, 4
 sub esp,4
 fstp dword ptr [esp]
-push dword ptr [_Lt_0163]
-push dword ptr [_Lt_0163]
+push dword ptr [_Lt_0166]
+push dword ptr [_Lt_0166]
 push 0
 call _fb_GfxLine@36
 movsx eax, word ptr [_DISPLAY_HEIGHT]
@@ -23053,7 +23125,7 @@ call _fb_GfxWaitVSync@0
 push 0
 push 1
 call _fb_GfxFlip@8
-.Lt_08DF:
+.Lt_08D7:
 mov esp, ebp
 pop ebp
 ret 4
@@ -23065,7 +23137,7 @@ push ebp
 mov ebp, esp
 sub esp, 300
 push ebx
-.Lt_08F1:
+.Lt_08E9:
 mov word ptr [ebp-4], 0
 mov word ptr [ebp-8], 0
 mov word ptr [ebp-12], 0
@@ -23125,7 +23197,7 @@ mov dword ptr [ebp-32], 0
 mov dword ptr [ebp-28], 0
 push 0
 push 3
-push offset _Lt_057D
+push offset _Lt_0575
 push -1
 lea ebx, [ebp-36]
 push ebx
@@ -23159,7 +23231,7 @@ movsx ebx, word ptr [_TX_SI]
 push ebx
 call _ROSE_CALC@8
 imul eax, 136
-fld qword ptr [_Lt_0595]
+fld qword ptr [_Lt_058D]
 fadd qword ptr [_G_DFA+eax+80]
 sub esp,8
 fstp qword ptr [esp]
@@ -23194,7 +23266,7 @@ mov dword ptr [ebp-76], 0
 push 0
 push -1
 push 2
-push offset _Lt_03D1
+push offset _Lt_03C9
 push -1
 push 5
 push -1
@@ -23209,7 +23281,7 @@ push dword ptr [_G_DFA+eax+48]
 call _fb_DoubleToStr@8
 push eax
 push 6
-push offset _Lt_0580
+push offset _Lt_0578
 mov dword ptr [ebp-60], 0
 mov dword ptr [ebp-56], 0
 mov dword ptr [ebp-52], 0
@@ -23252,7 +23324,7 @@ mov dword ptr [ebp-92], 0
 mov dword ptr [ebp-88], 0
 push 0
 push 2
-push offset _Lt_03CE
+push offset _Lt_03C6
 push -1
 lea eax, [ebp-96]
 push eax
@@ -23279,7 +23351,7 @@ mov dword ptr [ebp-104], 0
 mov dword ptr [ebp-100], 0
 push 0
 push 3
-push offset _Lt_0585
+push offset _Lt_057D
 push -1
 lea eax, [ebp-108]
 push eax
@@ -23326,7 +23398,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -23360,7 +23432,7 @@ mov dword ptr [ebp-128], 0
 mov dword ptr [ebp-124], 0
 push 0
 push 2
-push offset _Lt_0588
+push offset _Lt_0580
 push -1
 lea eax, [ebp-132]
 push eax
@@ -23407,7 +23479,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -23441,7 +23513,7 @@ mov dword ptr [ebp-152], 0
 mov dword ptr [ebp-148], 0
 push 0
 push 4
-push offset _Lt_058B
+push offset _Lt_0583
 push -1
 lea eax, [ebp-156]
 push eax
@@ -23488,7 +23560,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -23522,7 +23594,7 @@ mov dword ptr [ebp-176], 0
 mov dword ptr [ebp-172], 0
 push 0
 push 2
-push offset _Lt_0588
+push offset _Lt_0580
 push -1
 lea eax, [ebp-180]
 push eax
@@ -23569,7 +23641,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -23603,7 +23675,7 @@ mov dword ptr [ebp-200], 0
 mov dword ptr [ebp-196], 0
 push 0
 push 4
-push offset _Lt_0590
+push offset _Lt_0588
 push -1
 lea eax, [ebp-204]
 push eax
@@ -23650,7 +23722,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -23684,7 +23756,7 @@ mov dword ptr [ebp-224], 0
 mov dword ptr [ebp-220], 0
 push 0
 push 2
-push offset _Lt_0588
+push offset _Lt_0580
 push -1
 lea eax, [ebp-228]
 push eax
@@ -23731,7 +23803,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fadd qword ptr [_Lt_0596]
+fadd qword ptr [_Lt_058E]
 sub esp,8
 fstp qword ptr [esp]
 call _fb_DoubleToStr@8
@@ -23763,15 +23835,15 @@ call _fb_StrDelete@4
 call _LN_GETACTION@0
 movsx eax, word ptr [_D_SI]
 test eax, eax
-jne .Lt_0906
-.Lt_0907:
+jne .Lt_08FE
+.Lt_08FF:
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-300], 0
 mov dword ptr [ebp-296], 0
 mov dword ptr [ebp-292], 0
 push 0
 push 12
-push offset _Lt_0909
+push offset _Lt_0901
 push -1
 lea eax, [ebp-300]
 push eax
@@ -23791,19 +23863,19 @@ call _GRAPHICPUT@24
 lea eax, [ebp-300]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0905
-.Lt_0906:
+jmp .Lt_08FD
+.Lt_08FE:
 movsx eax, word ptr [_D_SI]
 cmp eax, 1
-jne .Lt_090B
-.Lt_090C:
+jne .Lt_0903
+.Lt_0904:
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-300], 0
 mov dword ptr [ebp-296], 0
 mov dword ptr [ebp-292], 0
 push 0
 push 12
-push offset _Lt_090E
+push offset _Lt_0906
 push -1
 lea eax, [ebp-300]
 push eax
@@ -23823,19 +23895,19 @@ call _GRAPHICPUT@24
 lea eax, [ebp-300]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0905
-.Lt_090B:
+jmp .Lt_08FD
+.Lt_0903:
 movsx eax, word ptr [_D_SI]
 cmp eax, 2
-jne .Lt_0910
-.Lt_0911:
+jne .Lt_0908
+.Lt_0909:
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-300], 0
 mov dword ptr [ebp-296], 0
 mov dword ptr [ebp-292], 0
 push 0
 push 12
-push offset _Lt_0913
+push offset _Lt_090B
 push -1
 lea eax, [ebp-300]
 push eax
@@ -23855,19 +23927,19 @@ call _GRAPHICPUT@24
 lea eax, [ebp-300]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0905
-.Lt_0910:
+jmp .Lt_08FD
+.Lt_0908:
 movsx eax, word ptr [_D_SI]
 cmp eax, 3
-jne .Lt_0915
-.Lt_0916:
+jne .Lt_090D
+.Lt_090E:
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-300], 0
 mov dword ptr [ebp-296], 0
 mov dword ptr [ebp-292], 0
 push 0
 push 12
-push offset _Lt_0918
+push offset _Lt_0910
 push -1
 lea eax, [ebp-300]
 push eax
@@ -23887,19 +23959,19 @@ call _GRAPHICPUT@24
 lea eax, [ebp-300]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_0905
-.Lt_0915:
+jmp .Lt_08FD
+.Lt_090D:
 movsx eax, word ptr [_D_SI]
 cmp eax, 4
-jne .Lt_091A
-.Lt_091B:
+jne .Lt_0912
+.Lt_0913:
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-300], 0
 mov dword ptr [ebp-296], 0
 mov dword ptr [ebp-292], 0
 push 0
 push 12
-push offset _Lt_091D
+push offset _Lt_0915
 push -1
 lea eax, [ebp-300]
 push eax
@@ -23919,8 +23991,8 @@ call _GRAPHICPUT@24
 lea eax, [ebp-300]
 push eax
 call _fb_StrDelete@4
-.Lt_091A:
-.Lt_0905:
+.Lt_0912:
+.Lt_08FD:
 push offset _SPRITEPATH_STR
 mov dword ptr [ebp-284], 0
 mov dword ptr [ebp-280], 0
@@ -23928,7 +24000,7 @@ mov dword ptr [ebp-276], 0
 push 0
 push -1
 push 4
-push offset _Lt_052A
+push offset _Lt_0522
 push -1
 push -1
 push 4
@@ -24006,10 +24078,10 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [ebp-288]
-jmp .Lt_0925
-.Lt_0928:
+jmp .Lt_091D
+.Lt_0920:
 push 0
 push -1
 push 4
@@ -24037,7 +24109,7 @@ push -1
 push offset _ACTION_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_092A
+jne .Lt_0922
 push offset _RR_STR
 movsx eax, word ptr [ebp+8]
 add eax, 7
@@ -24052,19 +24124,19 @@ push dword ptr [_CLV_BUFFER_STATUS]
 push offset _CLV_FONT
 push offset _CLV_BUFFER
 call _CLV_DRAW_TEXT@28
-.Lt_092A:
-.Lt_0929:
-.Lt_0926:
+.Lt_0922:
+.Lt_0921:
+.Lt_091E:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_0925:
+.Lt_091D:
 movsx eax, word ptr [_T_SI]
 movsx ebx, word ptr [ebp-288]
 cmp eax, ebx
-jle .Lt_0928
-.Lt_0927:
-.Lt_08F2:
+jle .Lt_0920
+.Lt_091F:
+.Lt_08EA:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -24077,7 +24149,7 @@ push ebp
 mov ebp, esp
 sub esp, 68
 push ebx
-.Lt_092B:
+.Lt_0923:
 mov word ptr [ebp-4], 0
 mov word ptr [ebp-8], 0
 mov word ptr [ebp-12], 0
@@ -24128,10 +24200,10 @@ call _fb_StrLen@8
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027D]
+fdiv qword ptr [_Lt_0280]
 fistp word ptr [ebp-36]
-jmp .Lt_092E
-.Lt_0931:
+jmp .Lt_0926
+.Lt_0929:
 movsx eax, word ptr [_T_SI]
 dec eax
 mov ecx, 5
@@ -24145,7 +24217,7 @@ dec eax
 push eax
 fild dword ptr [esp]
 add esp, 4
-fdiv qword ptr [_Lt_027F]
+fdiv qword ptr [_Lt_0282]
 sub esp, 4
 fnstcw [esp]
 mov eax, [esp]
@@ -24156,7 +24228,7 @@ add esp, 4
 frndint
 fldcw [esp]
 add esp, 4
-fmul qword ptr [_Lt_027C]
+fmul qword ptr [_Lt_027F]
 fistp word ptr [ebp-32]
 push 0
 push -1
@@ -24186,7 +24258,7 @@ mov dword ptr [ebp-60], 0
 push 0
 push -1
 push 8
-push offset _Lt_0415
+push offset _Lt_040D
 push -1
 push 4
 movsx eax, word ptr [_T_SI]
@@ -24240,7 +24312,7 @@ push -1
 push offset _ACTION_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_0937
+jne .Lt_092F
 push 1
 push 4278190080
 push 4294967295
@@ -24269,19 +24341,19 @@ push eax
 push dword ptr [_CLV_BUFFER_STATUS]
 push offset _CLV_BUFFER
 call _CLV_DRAW_LINE@36
-.Lt_0937:
-.Lt_0936:
 .Lt_092F:
+.Lt_092E:
+.Lt_0927:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_092E:
+.Lt_0926:
 movsx eax, word ptr [_T_SI]
 movsx ebx, word ptr [ebp-36]
 cmp eax, ebx
-jle .Lt_0931
-.Lt_0930:
-.Lt_092C:
+jle .Lt_0929
+.Lt_0928:
+.Lt_0924:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -24293,7 +24365,7 @@ _FRAME_TITLE@8:
 push ebp
 mov ebp, esp
 sub esp, 36
-.Lt_0938:
+.Lt_0930:
 mov word ptr [ebp-4], 0
 mov word ptr [ebp-8], 0
 mov word ptr [ebp-12], 0
@@ -24330,14 +24402,14 @@ push offset _CLV_BUFFER
 call _FRAME_PUT@32
 movsx eax, word ptr [_TITLED_SI]
 test eax, eax
-jne .Lt_093B
-.Lt_093C:
+jne .Lt_0933
+.Lt_0934:
 mov dword ptr [ebp-36], 0
 mov dword ptr [ebp-32], 0
 mov dword ptr [ebp-28], 0
 push 0
 push 8
-push offset _Lt_093D
+push offset _Lt_0935
 push -1
 lea eax, [ebp-36]
 push eax
@@ -24357,18 +24429,18 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-36]
 push eax
 call _fb_StrDelete@4
-jmp .Lt_093A
-.Lt_093B:
+jmp .Lt_0932
+.Lt_0933:
 movsx eax, word ptr [_TITLED_SI]
 cmp eax, 1
-jne .Lt_093F
-.Lt_0940:
+jne .Lt_0937
+.Lt_0938:
 mov dword ptr [ebp-36], 0
 mov dword ptr [ebp-32], 0
 mov dword ptr [ebp-28], 0
 push 0
 push 8
-push offset _Lt_0941
+push offset _Lt_0939
 push -1
 lea eax, [ebp-36]
 push eax
@@ -24388,9 +24460,9 @@ call _CLV_DRAW_TEXT@28
 lea eax, [ebp-36]
 push eax
 call _fb_StrDelete@4
-.Lt_093F:
-.Lt_093A:
-.Lt_0939:
+.Lt_0937:
+.Lt_0932:
+.Lt_0931:
 mov esp, ebp
 pop ebp
 ret 8
@@ -24402,7 +24474,7 @@ push ebp
 mov ebp, esp
 sub esp, 72
 push ebx
-.Lt_0943:
+.Lt_093B:
 mov dword ptr [ebp-16], 0
 mov dword ptr [ebp-12], 0
 mov dword ptr [ebp-8], 0
@@ -24567,7 +24639,7 @@ push eax
 push dword ptr [ebp+12]
 push dword ptr [ebp+8]
 call _CLV_DRAW_PIXEL@24
-.Lt_0944:
+.Lt_093C:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -24581,7 +24653,7 @@ mov ebp, esp
 sub esp, 8
 push ebx
 push esi
-.Lt_0946:
+.Lt_093E:
 mov dword ptr [ebp-4], 0
 push 1
 push dword ptr [ebp+8]
@@ -24591,8 +24663,8 @@ push 1
 push dword ptr [ebp+8]
 call _fb_ArrayUBound@8
 mov dword ptr [ebp-8], eax
-jmp .Lt_0949
-.Lt_094C:
+jmp .Lt_0941
+.Lt_0944:
 mov eax, dword ptr [ebp-4]
 cmp eax, 32
 setge al
@@ -24642,7 +24714,7 @@ and ecx, esi
 or ebx, ecx
 not ebx
 and eax, ebx
-je .Lt_094E
+je .Lt_0946
 mov ebx, dword ptr [ebp+8]
 add ebx, 36
 mov eax, dword ptr [ebx]
@@ -24651,8 +24723,8 @@ sal eax, 2
 mov ebx, dword ptr [ebp+8]
 add eax, dword ptr [ebx]
 mov dword ptr [eax], 1
-.Lt_094E:
-.Lt_094D:
+.Lt_0946:
+.Lt_0945:
 mov eax, dword ptr [ebp+8]
 add eax, 36
 mov ebx, dword ptr [eax]
@@ -24662,14 +24734,14 @@ mov eax, dword ptr [ebp+8]
 add ebx, dword ptr [eax]
 mov eax, dword ptr [ebp-4]
 mov dword ptr [ebx+4], eax
-.Lt_094A:
+.Lt_0942:
 inc dword ptr [ebp-4]
-.Lt_0949:
+.Lt_0941:
 mov eax, dword ptr [ebp-8]
 cmp dword ptr [ebp-4], eax
-jle .Lt_094C
-.Lt_094B:
-.Lt_0947:
+jle .Lt_0944
+.Lt_0943:
+.Lt_093F:
 pop esi
 pop ebx
 mov esp, ebp
@@ -24681,8 +24753,8 @@ ret 4
 _INPUT_TEXT@28:
 push ebp
 mov ebp, esp
-.Lt_0957:
-.Lt_0959:
+.Lt_094F:
+.Lt_0951:
 push dword ptr [ebp+8]
 push dword ptr [ebp+12]
 push offset _CLV_BUFFER
@@ -24704,20 +24776,20 @@ call _CINPUT@0
 push offset _CLV_BUFFER
 call _CLV_BUFFER_STACK@4
 push 7
-push offset _Lt_095E
+push offset _Lt_0956
 push -1
 push offset _C_STR
 call _fb_StrCompare@16
 test eax, eax
-jne .Lt_095D
-.Lt_095F:
-jmp .Lt_095A
-.Lt_095D:
-.Lt_095C:
-.Lt_095B:
-jmp .Lt_0959
-.Lt_095A:
-.Lt_0958:
+jne .Lt_0955
+.Lt_0957:
+jmp .Lt_0952
+.Lt_0955:
+.Lt_0954:
+.Lt_0953:
+jmp .Lt_0951
+.Lt_0952:
+.Lt_0950:
 mov esp, ebp
 pop ebp
 ret 28
@@ -24729,7 +24801,7 @@ push ebp
 mov ebp, esp
 sub esp, 1840
 push ebx
-.Lt_0960:
+.Lt_0958:
 mov dword ptr [ebp-4], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-12], 5
@@ -24750,7 +24822,7 @@ fsub qword ptr [ebp-48]
 fstp qword ptr [ebp-56]
 push 0
 push 12
-push offset _Lt_0962
+push offset _Lt_095A
 push -1
 lea eax, [ebp-68]
 push eax
@@ -24832,7 +24904,7 @@ mov dword ptr [ebp-144], 0
 mov dword ptr [ebp-140], 0
 push 0
 push 12
-push offset _Lt_0963
+push offset _Lt_095B
 push -1
 lea eax, [ebp-148]
 push eax
@@ -24860,7 +24932,7 @@ push 2
 push offset _Lt_0043
 push -1
 push 2
-push offset _Lt_0096
+push offset _Lt_0097
 push -1
 lea eax, [ebp-68]
 push eax
@@ -24902,7 +24974,7 @@ mov dword ptr [ebp-204], 0
 mov dword ptr [ebp-200], 0
 push 0
 push 6
-push offset _Lt_0969
+push offset _Lt_0961
 push -1
 lea eax, [ebp-208]
 push eax
@@ -24922,7 +24994,7 @@ mov dword ptr [ebp-216], 0
 mov dword ptr [ebp-212], 0
 push 0
 push 6
-push offset _Lt_096B
+push offset _Lt_0963
 push -1
 lea eax, [ebp-220]
 push eax
@@ -24963,9 +25035,9 @@ push dword ptr [ebp-36]
 push offset _CLV_BUFFER
 call _PROGRESS_PUT@64
 mov dword ptr [ebp-4], 0
-.Lt_0970:
+.Lt_0968:
 mov dword ptr [ebp-8], 1
-.Lt_0974:
+.Lt_096C:
 push offset _SAVE_TABLE
 mov dword ptr [ebp-376], 0
 mov dword ptr [ebp-372], 0
@@ -24973,7 +25045,7 @@ mov dword ptr [ebp-368], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 push dword ptr [ebp-8]
@@ -24981,14 +25053,14 @@ call __Z7TRIMINTl@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 push dword ptr [ebp-4]
 call __Z7TRIMINTl@4
 push eax
 push 7
-push offset _Lt_0975
+push offset _Lt_096D
 mov dword ptr [ebp-328], 0
 mov dword ptr [ebp-324], 0
 mov dword ptr [ebp-320], 0
@@ -25033,18 +25105,18 @@ fistp word ptr [_D_SIA+eax*2]
 lea eax, [ebp-376]
 push eax
 call _fb_StrDelete@4
-.Lt_0972:
+.Lt_096A:
 inc dword ptr [ebp-8]
-.Lt_0971:
+.Lt_0969:
 cmp dword ptr [ebp-8], 2
-jle .Lt_0974
-.Lt_0973:
-.Lt_096E:
+jle .Lt_096C
+.Lt_096B:
+.Lt_0966:
 inc dword ptr [ebp-4]
-.Lt_096D:
+.Lt_0965:
 cmp dword ptr [ebp-4], 4
-jle .Lt_0970
-.Lt_096F:
+jle .Lt_0968
+.Lt_0967:
 push dword ptr [ebp-44]
 push dword ptr [ebp-48]
 lea eax, [ebp-56]
@@ -25072,7 +25144,7 @@ mov dword ptr [ebp-228], 0
 mov dword ptr [ebp-224], 0
 push 0
 push 6
-push offset _Lt_097D
+push offset _Lt_0975
 push -1
 lea eax, [ebp-232]
 push eax
@@ -25092,7 +25164,7 @@ mov dword ptr [ebp-240], 0
 mov dword ptr [ebp-236], 0
 push 0
 push 6
-push offset _Lt_097F
+push offset _Lt_0977
 push -1
 lea eax, [ebp-244]
 push eax
@@ -25112,7 +25184,7 @@ mov dword ptr [ebp-252], 0
 mov dword ptr [ebp-248], 0
 push 0
 push 7
-push offset _Lt_0981
+push offset _Lt_0979
 push -1
 lea eax, [ebp-256]
 push eax
@@ -25132,7 +25204,7 @@ mov dword ptr [ebp-264], 0
 mov dword ptr [ebp-260], 0
 push 0
 push 7
-push offset _Lt_0983
+push offset _Lt_097B
 push -1
 lea eax, [ebp-268]
 push eax
@@ -25152,7 +25224,7 @@ mov dword ptr [ebp-276], 0
 mov dword ptr [ebp-272], 0
 push 0
 push 13
-push offset _Lt_0985
+push offset _Lt_097D
 push -1
 lea eax, [ebp-280]
 push eax
@@ -25172,7 +25244,7 @@ mov dword ptr [ebp-288], 0
 mov dword ptr [ebp-284], 0
 push 0
 push 13
-push offset _Lt_0987
+push offset _Lt_097F
 push -1
 lea eax, [ebp-292]
 push eax
@@ -25192,7 +25264,7 @@ mov dword ptr [ebp-300], 0
 mov dword ptr [ebp-296], 0
 push 0
 push 7
-push offset _Lt_0989
+push offset _Lt_0981
 push -1
 lea eax, [ebp-304]
 push eax
@@ -25207,9 +25279,9 @@ lea eax, [ebp-304]
 push eax
 call _fb_StrDelete@4
 mov dword ptr [ebp-8], 0
-.Lt_098E:
+.Lt_0986:
 mov dword ptr [ebp-4], 1
-.Lt_0992:
+.Lt_098A:
 push offset _SAVE_TABLE
 mov dword ptr [ebp-376], 0
 mov dword ptr [ebp-372], 0
@@ -25217,7 +25289,7 @@ mov dword ptr [ebp-368], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 push dword ptr [ebp-4]
@@ -25225,14 +25297,14 @@ call __Z7TRIMINTl@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 push dword ptr [ebp-8]
 call __Z7TRIMINTl@4
 push eax
 push 7
-push offset _Lt_0975
+push offset _Lt_096D
 mov dword ptr [ebp-328], 0
 mov dword ptr [ebp-324], 0
 mov dword ptr [ebp-320], 0
@@ -25277,18 +25349,18 @@ fistp word ptr [_D_SIA+eax*2]
 lea eax, [ebp-376]
 push eax
 call _fb_StrDelete@4
-.Lt_0990:
+.Lt_0988:
 inc dword ptr [ebp-4]
-.Lt_098F:
+.Lt_0987:
 cmp dword ptr [ebp-4], 2
-jle .Lt_0992
-.Lt_0991:
-.Lt_098C:
+jle .Lt_098A
+.Lt_0989:
+.Lt_0984:
 inc dword ptr [ebp-8]
-.Lt_098B:
+.Lt_0983:
 cmp dword ptr [ebp-8], 4
-jle .Lt_098E
-.Lt_098D:
+jle .Lt_0986
+.Lt_0985:
 push dword ptr [ebp-44]
 push dword ptr [ebp-48]
 lea eax, [ebp-56]
@@ -25313,10 +25385,10 @@ call _PROGRESS_PUT@64
 mov dword ptr [ebp-4], 0
 movsx eax, word ptr [_WIN_SI]
 mov dword ptr [ebp-320], eax
-jmp .Lt_0999
-.Lt_099C:
+jmp .Lt_0991
+.Lt_0994:
 mov dword ptr [ebp-8], 1
-.Lt_09A0:
+.Lt_0998:
 push offset _SAVE_TABLE
 mov dword ptr [ebp-380], 0
 mov dword ptr [ebp-376], 0
@@ -25324,7 +25396,7 @@ mov dword ptr [ebp-372], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 push dword ptr [ebp-8]
@@ -25332,14 +25404,14 @@ call __Z7TRIMINTl@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 push dword ptr [ebp-4]
 call __Z7TRIMINTl@4
 push eax
 push 9
-push offset _Lt_09A1
+push offset _Lt_0999
 mov dword ptr [ebp-332], 0
 mov dword ptr [ebp-328], 0
 mov dword ptr [ebp-324], 0
@@ -25386,19 +25458,19 @@ fistp word ptr [eax-4]
 lea eax, [ebp-380]
 push eax
 call _fb_StrDelete@4
-.Lt_099E:
+.Lt_0996:
 inc dword ptr [ebp-8]
-.Lt_099D:
+.Lt_0995:
 cmp dword ptr [ebp-8], 2
-jle .Lt_09A0
-.Lt_099F:
-.Lt_099A:
+jle .Lt_0998
+.Lt_0997:
+.Lt_0992:
 inc dword ptr [ebp-4]
-.Lt_0999:
+.Lt_0991:
 mov eax, dword ptr [ebp-320]
 cmp dword ptr [ebp-4], eax
-jle .Lt_099C
-.Lt_099B:
+jle .Lt_0994
+.Lt_0993:
 movsx eax, word ptr [_WIN_SI]
 sal eax, 1
 add eax, dword ptr [ebp-32]
@@ -25429,9 +25501,9 @@ push dword ptr [ebp-36]
 push offset _CLV_BUFFER
 call _PROGRESS_PUT@64
 mov word ptr [_T_SI], 0
-.Lt_09AA:
+.Lt_09A2:
 mov dword ptr [ebp-4], 1
-.Lt_09AE:
+.Lt_09A6:
 push offset _SAVE_TABLE
 mov dword ptr [ebp-352], 0
 mov dword ptr [ebp-348], 0
@@ -25439,7 +25511,7 @@ mov dword ptr [ebp-344], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_T_SI]
@@ -25447,7 +25519,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 7
-push offset _Lt_09AF
+push offset _Lt_09A7
 mov dword ptr [ebp-328], 0
 mov dword ptr [ebp-324], 0
 mov dword ptr [ebp-320], 0
@@ -25476,21 +25548,21 @@ fistp word ptr [_L_SIA+eax*2]
 lea eax, [ebp-352]
 push eax
 call _fb_StrDelete@4
-.Lt_09AC:
+.Lt_09A4:
 inc dword ptr [ebp-4]
-.Lt_09AB:
+.Lt_09A3:
 cmp dword ptr [ebp-4], 2
-jle .Lt_09AE
-.Lt_09AD:
-.Lt_09A8:
+jle .Lt_09A6
+.Lt_09A5:
+.Lt_09A0:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_09A7:
+.Lt_099F:
 movsx eax, word ptr [_T_SI]
 cmp eax, 64
-jle .Lt_09AA
-.Lt_09A9:
+jle .Lt_09A2
+.Lt_09A1:
 push 0
 push -1
 push offset _SAVE_TABLE
@@ -25499,7 +25571,7 @@ mov dword ptr [ebp-312], 0
 mov dword ptr [ebp-308], 0
 push 0
 push 9
-push offset _Lt_09B3
+push offset _Lt_09AB
 push -1
 lea eax, [ebp-316]
 push eax
@@ -25538,13 +25610,13 @@ call _PROGRESS_PUT@64
 mov word ptr [_TY_SI], 1
 mov ax, word ptr [_DD_SI]
 mov word ptr [ebp-320], ax
-jmp .Lt_09B6
-.Lt_09B9:
+jmp .Lt_09AE
+.Lt_09B1:
 mov word ptr [_TX_SI], 1
 mov ax, word ptr [_AA_SI]
 mov word ptr [ebp-324], ax
-jmp .Lt_09BB
-.Lt_09BE:
+jmp .Lt_09B3
+.Lt_09B6:
 push 0
 push -1
 push offset _SAVE_TABLE
@@ -25554,7 +25626,7 @@ mov dword ptr [ebp-376], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -25563,7 +25635,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -25571,7 +25643,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_09BF
+push offset _Lt_09B7
 mov dword ptr [ebp-336], 0
 mov dword ptr [ebp-332], 0
 mov dword ptr [ebp-328], 0
@@ -25630,7 +25702,7 @@ mov dword ptr [ebp-436], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -25639,7 +25711,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -25647,7 +25719,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_09C5
+push offset _Lt_09BD
 mov dword ptr [ebp-396], 0
 mov dword ptr [ebp-392], 0
 mov dword ptr [ebp-388], 0
@@ -25704,7 +25776,7 @@ mov dword ptr [ebp-496], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -25713,7 +25785,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -25721,7 +25793,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_09CB
+push offset _Lt_09C3
 mov dword ptr [ebp-456], 0
 mov dword ptr [ebp-452], 0
 mov dword ptr [ebp-448], 0
@@ -25781,7 +25853,7 @@ mov dword ptr [ebp-556], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -25790,7 +25862,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -25798,7 +25870,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_09D1
+push offset _Lt_09C9
 mov dword ptr [ebp-516], 0
 mov dword ptr [ebp-512], 0
 mov dword ptr [ebp-508], 0
@@ -25857,7 +25929,7 @@ mov dword ptr [ebp-616], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -25866,7 +25938,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -25874,7 +25946,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 18
-push offset _Lt_09D7
+push offset _Lt_09CF
 mov dword ptr [ebp-576], 0
 mov dword ptr [ebp-572], 0
 mov dword ptr [ebp-568], 0
@@ -25933,7 +26005,7 @@ mov dword ptr [ebp-676], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -25942,7 +26014,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -25950,7 +26022,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 16
-push offset _Lt_09DD
+push offset _Lt_09D5
 mov dword ptr [ebp-636], 0
 mov dword ptr [ebp-632], 0
 mov dword ptr [ebp-628], 0
@@ -26028,7 +26100,7 @@ mov dword ptr [ebp-736], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26037,7 +26109,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26045,7 +26117,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_09E3
+push offset _Lt_09DB
 mov dword ptr [ebp-696], 0
 mov dword ptr [ebp-692], 0
 mov dword ptr [ebp-688], 0
@@ -26104,7 +26176,7 @@ mov dword ptr [ebp-796], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26113,7 +26185,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26121,7 +26193,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 11
-push offset _Lt_09E9
+push offset _Lt_09E1
 mov dword ptr [ebp-756], 0
 mov dword ptr [ebp-752], 0
 mov dword ptr [ebp-748], 0
@@ -26180,7 +26252,7 @@ mov dword ptr [ebp-856], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26189,7 +26261,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26197,7 +26269,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 12
-push offset _Lt_09EF
+push offset _Lt_09E7
 mov dword ptr [ebp-816], 0
 mov dword ptr [ebp-812], 0
 mov dword ptr [ebp-808], 0
@@ -26256,7 +26328,7 @@ mov dword ptr [ebp-916], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26265,7 +26337,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26273,7 +26345,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 12
-push offset _Lt_09F5
+push offset _Lt_09ED
 mov dword ptr [ebp-876], 0
 mov dword ptr [ebp-872], 0
 mov dword ptr [ebp-868], 0
@@ -26332,7 +26404,7 @@ mov dword ptr [ebp-976], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26341,7 +26413,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26349,7 +26421,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 12
-push offset _Lt_09FB
+push offset _Lt_09F3
 mov dword ptr [ebp-936], 0
 mov dword ptr [ebp-932], 0
 mov dword ptr [ebp-928], 0
@@ -26408,7 +26480,7 @@ mov dword ptr [ebp-1036], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26417,7 +26489,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26425,7 +26497,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A01
+push offset _Lt_09F9
 mov dword ptr [ebp-996], 0
 mov dword ptr [ebp-992], 0
 mov dword ptr [ebp-988], 0
@@ -26484,7 +26556,7 @@ mov dword ptr [ebp-1096], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26493,7 +26565,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26501,7 +26573,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 12
-push offset _Lt_0A07
+push offset _Lt_09FF
 mov dword ptr [ebp-1056], 0
 mov dword ptr [ebp-1052], 0
 mov dword ptr [ebp-1048], 0
@@ -26560,7 +26632,7 @@ mov dword ptr [ebp-1156], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26569,7 +26641,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26577,7 +26649,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A0D
+push offset _Lt_0A05
 mov dword ptr [ebp-1116], 0
 mov dword ptr [ebp-1112], 0
 mov dword ptr [ebp-1108], 0
@@ -26636,7 +26708,7 @@ mov dword ptr [ebp-1216], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26645,7 +26717,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26653,7 +26725,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A13
+push offset _Lt_0A0B
 mov dword ptr [ebp-1176], 0
 mov dword ptr [ebp-1172], 0
 mov dword ptr [ebp-1168], 0
@@ -26712,7 +26784,7 @@ mov dword ptr [ebp-1276], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26721,7 +26793,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26729,7 +26801,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A19
+push offset _Lt_0A11
 mov dword ptr [ebp-1236], 0
 mov dword ptr [ebp-1232], 0
 mov dword ptr [ebp-1228], 0
@@ -26788,7 +26860,7 @@ mov dword ptr [ebp-1336], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26797,7 +26869,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26805,7 +26877,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 11
-push offset _Lt_0A1F
+push offset _Lt_0A17
 mov dword ptr [ebp-1296], 0
 mov dword ptr [ebp-1292], 0
 mov dword ptr [ebp-1288], 0
@@ -26864,7 +26936,7 @@ mov dword ptr [ebp-1396], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26873,7 +26945,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26881,7 +26953,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_0A25
+push offset _Lt_0A1D
 mov dword ptr [ebp-1356], 0
 mov dword ptr [ebp-1352], 0
 mov dword ptr [ebp-1348], 0
@@ -26940,7 +27012,7 @@ mov dword ptr [ebp-1456], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -26949,7 +27021,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -26957,7 +27029,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 15
-push offset _Lt_0A2B
+push offset _Lt_0A23
 mov dword ptr [ebp-1416], 0
 mov dword ptr [ebp-1412], 0
 mov dword ptr [ebp-1408], 0
@@ -27016,7 +27088,7 @@ mov dword ptr [ebp-1516], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -27025,7 +27097,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -27033,7 +27105,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 15
-push offset _Lt_0A31
+push offset _Lt_0A29
 mov dword ptr [ebp-1476], 0
 mov dword ptr [ebp-1472], 0
 mov dword ptr [ebp-1468], 0
@@ -27092,7 +27164,7 @@ mov dword ptr [ebp-1576], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -27101,7 +27173,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -27109,7 +27181,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 15
-push offset _Lt_0A37
+push offset _Lt_0A2F
 mov dword ptr [ebp-1536], 0
 mov dword ptr [ebp-1532], 0
 mov dword ptr [ebp-1528], 0
@@ -27168,7 +27240,7 @@ mov dword ptr [ebp-1636], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -27177,7 +27249,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -27185,7 +27257,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A3D
+push offset _Lt_0A35
 mov dword ptr [ebp-1596], 0
 mov dword ptr [ebp-1592], 0
 mov dword ptr [ebp-1588], 0
@@ -27244,7 +27316,7 @@ mov dword ptr [ebp-1696], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -27253,7 +27325,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -27261,7 +27333,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A43
+push offset _Lt_0A3B
 mov dword ptr [ebp-1656], 0
 mov dword ptr [ebp-1652], 0
 mov dword ptr [ebp-1648], 0
@@ -27334,28 +27406,28 @@ push eax
 push dword ptr [ebp-36]
 push offset _CLV_BUFFER
 call _PROGRESS_PUT@64
-.Lt_09BC:
+.Lt_09B4:
 movsx eax, word ptr [_TX_SI]
 inc eax
 mov word ptr [_TX_SI], ax
-.Lt_09BB:
+.Lt_09B3:
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [ebp-324]
 cmp eax, ebx
-jle .Lt_09BE
-.Lt_09BD:
-.Lt_09B7:
+jle .Lt_09B6
+.Lt_09B5:
+.Lt_09AF:
 movsx ebx, word ptr [_TY_SI]
 inc ebx
 mov word ptr [_TY_SI], bx
-.Lt_09B6:
+.Lt_09AE:
 movsx ebx, word ptr [_TY_SI]
 movsx eax, word ptr [ebp-320]
 cmp ebx, eax
-jle .Lt_09B9
-.Lt_09B8:
-push dword ptr [_Lt_0208+4]
-push dword ptr [_Lt_0208]
+jle .Lt_09B1
+.Lt_09B0:
+push dword ptr [_Lt_020B+4]
+push dword ptr [_Lt_020B]
 lea eax, [ebp-56]
 push eax
 lea eax, [ebp-80]
@@ -27398,7 +27470,7 @@ call _fb_StrDelete@4
 lea eax, [ebp-68]
 push eax
 call _fb_StrDelete@4
-.Lt_0961:
+.Lt_0959:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -27411,7 +27483,7 @@ push ebp
 mov ebp, esp
 sub esp, 2020
 push ebx
-.Lt_0A5A:
+.Lt_0A52:
 mov dword ptr [ebp-4], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-12], 5
@@ -27438,7 +27510,7 @@ push -1
 push -1
 push offset _MAPNAME_STR
 push 13
-push offset _Lt_0A5D
+push offset _Lt_0A55
 mov dword ptr [ebp-80], 0
 mov dword ptr [ebp-76], 0
 mov dword ptr [ebp-72], 0
@@ -27512,7 +27584,7 @@ mov dword ptr [ebp-148], 0
 mov dword ptr [ebp-144], 0
 push 0
 push 12
-push offset _Lt_0963
+push offset _Lt_095B
 push -1
 lea eax, [ebp-152]
 push eax
@@ -27544,7 +27616,7 @@ mov dword ptr [ebp-160], 0
 mov dword ptr [ebp-156], 0
 push 0
 push 6
-push offset _Lt_0969
+push offset _Lt_0961
 push -1
 lea eax, [ebp-164]
 push eax
@@ -27579,7 +27651,7 @@ mov dword ptr [ebp-184], 0
 mov dword ptr [ebp-180], 0
 push 0
 push 6
-push offset _Lt_096B
+push offset _Lt_0963
 push -1
 lea eax, [ebp-188]
 push eax
@@ -27620,9 +27692,9 @@ push dword ptr [ebp-36]
 push offset _CLV_BUFFER
 call _PROGRESS_PUT@64
 mov dword ptr [ebp-4], 0
-.Lt_0A68:
+.Lt_0A60:
 mov dword ptr [ebp-8], 1
-.Lt_0A6C:
+.Lt_0A64:
 push offset _NAMES_TABLE
 mov dword ptr [ebp-488], 0
 mov dword ptr [ebp-484], 0
@@ -27648,7 +27720,7 @@ mov dword ptr [ebp-468], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 push dword ptr [ebp-8]
@@ -27656,14 +27728,14 @@ call __Z7TRIMINTl@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 push dword ptr [ebp-4]
 call __Z7TRIMINTl@4
 push eax
 push 7
-push offset _Lt_0975
+push offset _Lt_096D
 mov dword ptr [ebp-428], 0
 mov dword ptr [ebp-424], 0
 mov dword ptr [ebp-420], 0
@@ -27705,18 +27777,18 @@ call _fb_StrDelete@4
 lea eax, [ebp-476]
 push eax
 call _fb_StrDelete@4
-.Lt_0A6A:
+.Lt_0A62:
 inc dword ptr [ebp-8]
-.Lt_0A69:
+.Lt_0A61:
 cmp dword ptr [ebp-8], 2
-jle .Lt_0A6C
-.Lt_0A6B:
-.Lt_0A66:
+jle .Lt_0A64
+.Lt_0A63:
+.Lt_0A5E:
 inc dword ptr [ebp-4]
-.Lt_0A65:
+.Lt_0A5D:
 cmp dword ptr [ebp-4], 4
-jle .Lt_0A68
-.Lt_0A67:
+jle .Lt_0A60
+.Lt_0A5F:
 push dword ptr [ebp-40]
 push dword ptr [ebp-44]
 lea eax, [ebp-52]
@@ -27759,7 +27831,7 @@ mov dword ptr [ebp-208], 0
 mov dword ptr [ebp-204], 0
 push 0
 push 6
-push offset _Lt_097D
+push offset _Lt_0975
 push -1
 lea eax, [ebp-212]
 push eax
@@ -27794,7 +27866,7 @@ mov dword ptr [ebp-232], 0
 mov dword ptr [ebp-228], 0
 push 0
 push 6
-push offset _Lt_097F
+push offset _Lt_0977
 push -1
 lea eax, [ebp-236]
 push eax
@@ -27829,7 +27901,7 @@ mov dword ptr [ebp-256], 0
 mov dword ptr [ebp-252], 0
 push 0
 push 7
-push offset _Lt_0981
+push offset _Lt_0979
 push -1
 lea eax, [ebp-260]
 push eax
@@ -27864,7 +27936,7 @@ mov dword ptr [ebp-280], 0
 mov dword ptr [ebp-276], 0
 push 0
 push 7
-push offset _Lt_0983
+push offset _Lt_097B
 push -1
 lea eax, [ebp-284]
 push eax
@@ -27899,7 +27971,7 @@ mov dword ptr [ebp-304], 0
 mov dword ptr [ebp-300], 0
 push 0
 push 13
-push offset _Lt_0985
+push offset _Lt_097D
 push -1
 lea eax, [ebp-308]
 push eax
@@ -27933,7 +28005,7 @@ mov dword ptr [ebp-328], 0
 mov dword ptr [ebp-324], 0
 push 0
 push 13
-push offset _Lt_0987
+push offset _Lt_097F
 push -1
 lea eax, [ebp-332]
 push eax
@@ -27968,7 +28040,7 @@ mov dword ptr [ebp-352], 0
 mov dword ptr [ebp-348], 0
 push 0
 push 7
-push offset _Lt_0989
+push offset _Lt_0981
 push -1
 lea eax, [ebp-356]
 push eax
@@ -28030,9 +28102,9 @@ push dword ptr [ebp-36]
 push offset _CLV_BUFFER
 call _PROGRESS_PUT@64
 mov dword ptr [ebp-8], 0
-.Lt_0A85:
+.Lt_0A7D:
 mov dword ptr [ebp-4], 1
-.Lt_0A89:
+.Lt_0A81:
 push offset _NAMES_TABLE
 mov dword ptr [ebp-488], 0
 mov dword ptr [ebp-484], 0
@@ -28058,7 +28130,7 @@ mov dword ptr [ebp-468], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 push dword ptr [ebp-4]
@@ -28066,14 +28138,14 @@ call __Z7TRIMINTl@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 push dword ptr [ebp-8]
 call __Z7TRIMINTl@4
 push eax
 push 7
-push offset _Lt_0975
+push offset _Lt_096D
 mov dword ptr [ebp-428], 0
 mov dword ptr [ebp-424], 0
 mov dword ptr [ebp-420], 0
@@ -28115,18 +28187,18 @@ call _fb_StrDelete@4
 lea eax, [ebp-476]
 push eax
 call _fb_StrDelete@4
-.Lt_0A87:
+.Lt_0A7F:
 inc dword ptr [ebp-4]
-.Lt_0A86:
+.Lt_0A7E:
 cmp dword ptr [ebp-4], 2
-jle .Lt_0A89
-.Lt_0A88:
-.Lt_0A83:
+jle .Lt_0A81
+.Lt_0A80:
+.Lt_0A7B:
 inc dword ptr [ebp-8]
-.Lt_0A82:
+.Lt_0A7A:
 cmp dword ptr [ebp-8], 4
-jle .Lt_0A85
-.Lt_0A84:
+jle .Lt_0A7D
+.Lt_0A7C:
 push dword ptr [ebp-40]
 push dword ptr [ebp-44]
 lea eax, [ebp-52]
@@ -28151,10 +28223,10 @@ call _PROGRESS_PUT@64
 mov dword ptr [ebp-4], 0
 movsx eax, word ptr [_WIN_SI]
 mov dword ptr [ebp-420], eax
-jmp .Lt_0A91
-.Lt_0A94:
+jmp .Lt_0A89
+.Lt_0A8C:
 mov dword ptr [ebp-8], 1
-.Lt_0A98:
+.Lt_0A90:
 push offset _NAMES_TABLE
 mov dword ptr [ebp-492], 0
 mov dword ptr [ebp-488], 0
@@ -28182,7 +28254,7 @@ mov dword ptr [ebp-472], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 push dword ptr [ebp-8]
@@ -28190,14 +28262,14 @@ call __Z7TRIMINTl@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 push dword ptr [ebp-4]
 call __Z7TRIMINTl@4
 push eax
 push 9
-push offset _Lt_09A1
+push offset _Lt_0999
 mov dword ptr [ebp-432], 0
 mov dword ptr [ebp-428], 0
 mov dword ptr [ebp-424], 0
@@ -28239,19 +28311,19 @@ call _fb_StrDelete@4
 lea eax, [ebp-480]
 push eax
 call _fb_StrDelete@4
-.Lt_0A96:
+.Lt_0A8E:
 inc dword ptr [ebp-8]
-.Lt_0A95:
+.Lt_0A8D:
 cmp dword ptr [ebp-8], 2
-jle .Lt_0A98
-.Lt_0A97:
-.Lt_0A92:
+jle .Lt_0A90
+.Lt_0A8F:
+.Lt_0A8A:
 inc dword ptr [ebp-4]
-.Lt_0A91:
+.Lt_0A89:
 mov eax, dword ptr [ebp-420]
 cmp dword ptr [ebp-4], eax
-jle .Lt_0A94
-.Lt_0A93:
+jle .Lt_0A8C
+.Lt_0A8B:
 push dword ptr [ebp-40]
 push dword ptr [ebp-44]
 lea eax, [ebp-52]
@@ -28277,9 +28349,9 @@ push dword ptr [ebp-36]
 push offset _CLV_BUFFER
 call _PROGRESS_PUT@64
 mov word ptr [_T_SI], 0
-.Lt_0AA2:
+.Lt_0A9A:
 mov dword ptr [ebp-4], 1
-.Lt_0AA6:
+.Lt_0A9E:
 push offset _NAMES_TABLE
 mov dword ptr [ebp-464], 0
 mov dword ptr [ebp-460], 0
@@ -28303,7 +28375,7 @@ mov dword ptr [ebp-444], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_T_SI]
@@ -28311,7 +28383,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 7
-push offset _Lt_09AF
+push offset _Lt_09A7
 mov dword ptr [ebp-428], 0
 mov dword ptr [ebp-424], 0
 mov dword ptr [ebp-420], 0
@@ -28339,21 +28411,21 @@ call _fb_StrDelete@4
 lea eax, [ebp-452]
 push eax
 call _fb_StrDelete@4
-.Lt_0AA4:
+.Lt_0A9C:
 inc dword ptr [ebp-4]
-.Lt_0AA3:
+.Lt_0A9B:
 cmp dword ptr [ebp-4], 2
-jle .Lt_0AA6
-.Lt_0AA5:
-.Lt_0AA0:
+jle .Lt_0A9E
+.Lt_0A9D:
+.Lt_0A98:
 movsx eax, word ptr [_T_SI]
 inc eax
 mov word ptr [_T_SI], ax
-.Lt_0A9F:
+.Lt_0A97:
 movsx eax, word ptr [_T_SI]
 cmp eax, 64
-jle .Lt_0AA2
-.Lt_0AA1:
+jle .Lt_0A9A
+.Lt_0A99:
 push offset _NAMES_TABLE
 push offset _CTRL_STR
 mov dword ptr [ebp-416], 0
@@ -28361,7 +28433,7 @@ mov dword ptr [ebp-412], 0
 mov dword ptr [ebp-408], 0
 push 0
 push 9
-push offset _Lt_09B3
+push offset _Lt_09AB
 push -1
 lea eax, [ebp-416]
 push eax
@@ -28396,13 +28468,13 @@ call _PROGRESS_PUT@64
 mov word ptr [_TY_SI], 1
 mov ax, word ptr [_DD_SI]
 mov word ptr [ebp-420], ax
-jmp .Lt_0AAD
-.Lt_0AB0:
+jmp .Lt_0AA5
+.Lt_0AA8:
 mov word ptr [_TX_SI], 1
 mov ax, word ptr [_AA_SI]
 mov word ptr [ebp-424], ax
-jmp .Lt_0AB2
-.Lt_0AB5:
+jmp .Lt_0AAA
+.Lt_0AAD:
 push offset _NAMES_TABLE
 movsx eax, word ptr [_TY_SI]
 push eax
@@ -28418,7 +28490,7 @@ mov dword ptr [ebp-476], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -28427,7 +28499,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -28435,7 +28507,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_09BF
+push offset _Lt_09B7
 mov dword ptr [ebp-436], 0
 mov dword ptr [ebp-432], 0
 mov dword ptr [ebp-428], 0
@@ -28489,7 +28561,7 @@ mov dword ptr [ebp-536], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -28498,7 +28570,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -28506,7 +28578,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_09C5
+push offset _Lt_09BD
 mov dword ptr [ebp-496], 0
 mov dword ptr [ebp-492], 0
 mov dword ptr [ebp-488], 0
@@ -28575,7 +28647,7 @@ mov dword ptr [ebp-596], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -28584,7 +28656,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -28592,7 +28664,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_09CB
+push offset _Lt_09C3
 mov dword ptr [ebp-556], 0
 mov dword ptr [ebp-552], 0
 mov dword ptr [ebp-548], 0
@@ -28649,7 +28721,7 @@ mov dword ptr [ebp-668], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -28658,7 +28730,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -28666,7 +28738,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_09D1
+push offset _Lt_09C9
 mov dword ptr [ebp-628], 0
 mov dword ptr [ebp-624], 0
 mov dword ptr [ebp-620], 0
@@ -28720,7 +28792,7 @@ mov dword ptr [ebp-728], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -28729,7 +28801,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -28737,7 +28809,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 18
-push offset _Lt_09D7
+push offset _Lt_09CF
 mov dword ptr [ebp-688], 0
 mov dword ptr [ebp-684], 0
 mov dword ptr [ebp-680], 0
@@ -28791,7 +28863,7 @@ mov dword ptr [ebp-788], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -28800,7 +28872,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -28808,7 +28880,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 16
-push offset _Lt_09DD
+push offset _Lt_09D5
 mov dword ptr [ebp-748], 0
 mov dword ptr [ebp-744], 0
 mov dword ptr [ebp-740], 0
@@ -28896,7 +28968,7 @@ mov dword ptr [ebp-848], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -28905,7 +28977,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -28913,7 +28985,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_09E3
+push offset _Lt_09DB
 mov dword ptr [ebp-808], 0
 mov dword ptr [ebp-804], 0
 mov dword ptr [ebp-800], 0
@@ -28983,7 +29055,7 @@ mov dword ptr [ebp-920], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -28992,7 +29064,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29000,7 +29072,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 11
-push offset _Lt_09E9
+push offset _Lt_09E1
 mov dword ptr [ebp-880], 0
 mov dword ptr [ebp-876], 0
 mov dword ptr [ebp-872], 0
@@ -29070,7 +29142,7 @@ mov dword ptr [ebp-992], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29079,7 +29151,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29087,7 +29159,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 12
-push offset _Lt_09EF
+push offset _Lt_09E7
 mov dword ptr [ebp-952], 0
 mov dword ptr [ebp-948], 0
 mov dword ptr [ebp-944], 0
@@ -29157,7 +29229,7 @@ mov dword ptr [ebp-1064], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29166,7 +29238,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29174,7 +29246,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 12
-push offset _Lt_09F5
+push offset _Lt_09ED
 mov dword ptr [ebp-1024], 0
 mov dword ptr [ebp-1020], 0
 mov dword ptr [ebp-1016], 0
@@ -29244,7 +29316,7 @@ mov dword ptr [ebp-1136], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29253,7 +29325,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29261,7 +29333,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 12
-push offset _Lt_09FB
+push offset _Lt_09F3
 mov dword ptr [ebp-1096], 0
 mov dword ptr [ebp-1092], 0
 mov dword ptr [ebp-1088], 0
@@ -29331,7 +29403,7 @@ mov dword ptr [ebp-1208], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29340,7 +29412,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29348,7 +29420,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A01
+push offset _Lt_09F9
 mov dword ptr [ebp-1168], 0
 mov dword ptr [ebp-1164], 0
 mov dword ptr [ebp-1160], 0
@@ -29418,7 +29490,7 @@ mov dword ptr [ebp-1280], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29427,7 +29499,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29435,7 +29507,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 12
-push offset _Lt_0A07
+push offset _Lt_09FF
 mov dword ptr [ebp-1240], 0
 mov dword ptr [ebp-1236], 0
 mov dword ptr [ebp-1232], 0
@@ -29505,7 +29577,7 @@ mov dword ptr [ebp-1352], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29514,7 +29586,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29522,7 +29594,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A0D
+push offset _Lt_0A05
 mov dword ptr [ebp-1312], 0
 mov dword ptr [ebp-1308], 0
 mov dword ptr [ebp-1304], 0
@@ -29592,7 +29664,7 @@ mov dword ptr [ebp-1424], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29601,7 +29673,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29609,7 +29681,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A13
+push offset _Lt_0A0B
 mov dword ptr [ebp-1384], 0
 mov dword ptr [ebp-1380], 0
 mov dword ptr [ebp-1376], 0
@@ -29679,7 +29751,7 @@ mov dword ptr [ebp-1496], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29688,7 +29760,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29696,7 +29768,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A19
+push offset _Lt_0A11
 mov dword ptr [ebp-1456], 0
 mov dword ptr [ebp-1452], 0
 mov dword ptr [ebp-1448], 0
@@ -29766,7 +29838,7 @@ mov dword ptr [ebp-1568], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29775,7 +29847,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29783,7 +29855,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 11
-push offset _Lt_0A1F
+push offset _Lt_0A17
 mov dword ptr [ebp-1528], 0
 mov dword ptr [ebp-1524], 0
 mov dword ptr [ebp-1520], 0
@@ -29853,7 +29925,7 @@ mov dword ptr [ebp-1640], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29862,7 +29934,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29870,7 +29942,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 14
-push offset _Lt_0A25
+push offset _Lt_0A1D
 mov dword ptr [ebp-1600], 0
 mov dword ptr [ebp-1596], 0
 mov dword ptr [ebp-1592], 0
@@ -29940,7 +30012,7 @@ mov dword ptr [ebp-1712], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -29949,7 +30021,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -29957,7 +30029,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 15
-push offset _Lt_0A2B
+push offset _Lt_0A23
 mov dword ptr [ebp-1672], 0
 mov dword ptr [ebp-1668], 0
 mov dword ptr [ebp-1664], 0
@@ -30027,7 +30099,7 @@ mov dword ptr [ebp-1784], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -30036,7 +30108,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -30044,7 +30116,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 15
-push offset _Lt_0A31
+push offset _Lt_0A29
 mov dword ptr [ebp-1744], 0
 mov dword ptr [ebp-1740], 0
 mov dword ptr [ebp-1736], 0
@@ -30114,7 +30186,7 @@ mov dword ptr [ebp-1856], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -30123,7 +30195,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -30131,7 +30203,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 15
-push offset _Lt_0A37
+push offset _Lt_0A2F
 mov dword ptr [ebp-1816], 0
 mov dword ptr [ebp-1812], 0
 mov dword ptr [ebp-1808], 0
@@ -30201,7 +30273,7 @@ mov dword ptr [ebp-1928], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -30210,7 +30282,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -30218,7 +30290,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A3D
+push offset _Lt_0A35
 mov dword ptr [ebp-1888], 0
 mov dword ptr [ebp-1884], 0
 mov dword ptr [ebp-1880], 0
@@ -30288,7 +30360,7 @@ mov dword ptr [ebp-2000], 0
 push 0
 push -1
 push 2
-push offset _Lt_0977
+push offset _Lt_096F
 push -1
 push -1
 movzx eax, word ptr [_TY_SI]
@@ -30297,7 +30369,7 @@ call __Z7TRIMINTs@4
 push eax
 push -1
 push 3
-push offset _Lt_0976
+push offset _Lt_096E
 push -1
 push -1
 movzx eax, word ptr [_TX_SI]
@@ -30305,7 +30377,7 @@ push eax
 call __Z7TRIMINTs@4
 push eax
 push 13
-push offset _Lt_0A43
+push offset _Lt_0A3B
 mov dword ptr [ebp-1960], 0
 mov dword ptr [ebp-1956], 0
 mov dword ptr [ebp-1952], 0
@@ -30368,28 +30440,28 @@ push eax
 push dword ptr [ebp-36]
 push offset _CLV_BUFFER
 call _PROGRESS_PUT@64
-.Lt_0AB3:
+.Lt_0AAB:
 movsx eax, word ptr [_TX_SI]
 inc eax
 mov word ptr [_TX_SI], ax
-.Lt_0AB2:
+.Lt_0AAA:
 movsx eax, word ptr [_TX_SI]
 movsx ebx, word ptr [ebp-424]
 cmp eax, ebx
-jle .Lt_0AB5
-.Lt_0AB4:
-.Lt_0AAE:
+jle .Lt_0AAD
+.Lt_0AAC:
+.Lt_0AA6:
 movsx ebx, word ptr [_TY_SI]
 inc ebx
 mov word ptr [_TY_SI], bx
-.Lt_0AAD:
+.Lt_0AA5:
 movsx ebx, word ptr [_TY_SI]
 movsx eax, word ptr [ebp-420]
 cmp ebx, eax
-jle .Lt_0AB0
-.Lt_0AAF:
-push dword ptr [_Lt_0208+4]
-push dword ptr [_Lt_0208]
+jle .Lt_0AA8
+.Lt_0AA7:
+push dword ptr [_Lt_020B+4]
+push dword ptr [_Lt_020B]
 lea eax, [ebp-52]
 push eax
 lea eax, [ebp-104]
@@ -30428,7 +30500,7 @@ call _fb_StrDelete@4
 lea eax, [ebp-68]
 push eax
 call _fb_StrDelete@4
-.Lt_0A5B:
+.Lt_0A53:
 pop ebx
 mov esp, ebp
 pop ebp
@@ -30440,7 +30512,7 @@ _SAVEGAME_SAVE@8:
 push ebp
 mov ebp, esp
 sub esp, 36
-.Lt_0B3B:
+.Lt_0B33:
 push dword ptr [ebp+12]
 call _MAP_SAVE@4
 push dword ptr [ebp+12]
@@ -30450,12 +30522,12 @@ mov dword ptr [ebp-28], 0
 push 0
 push -1
 push 5
-push offset _Lt_0B3E
+push offset _Lt_0B36
 push -1
 push -1
 push dword ptr [ebp+8]
 push 8
-push offset _Lt_0B3D
+push offset _Lt_0B35
 mov dword ptr [ebp-12], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
@@ -30480,7 +30552,7 @@ call _SAVE_NAMES@8
 lea eax, [ebp-36]
 push eax
 call _fb_StrDelete@4
-.Lt_0B3C:
+.Lt_0B34:
 mov esp, ebp
 pop ebp
 ret 8
@@ -30491,7 +30563,7 @@ _SAVEGAME_LOAD@8:
 push ebp
 mov ebp, esp
 sub esp, 36
-.Lt_0B42:
+.Lt_0B3A:
 push dword ptr [ebp+12]
 mov dword ptr [ebp-36], 0
 mov dword ptr [ebp-32], 0
@@ -30499,12 +30571,12 @@ mov dword ptr [ebp-28], 0
 push 0
 push -1
 push 5
-push offset _Lt_0B3E
+push offset _Lt_0B36
 push -1
 push -1
 push dword ptr [ebp+8]
 push 8
-push offset _Lt_0B3D
+push offset _Lt_0B35
 mov dword ptr [ebp-12], 0
 mov dword ptr [ebp-8], 0
 mov dword ptr [ebp-4], 0
@@ -30531,7 +30603,7 @@ push eax
 call _fb_StrDelete@4
 push dword ptr [ebp+12]
 call _MAP_LOAD@4
-.Lt_0B43:
+.Lt_0B3B:
 mov esp, ebp
 pop ebp
 ret 8
@@ -30543,7 +30615,7 @@ push ebp
 mov ebp, esp
 sub esp, 16
 mov dword ptr [ebp-4], 0
-.Lt_0B47:
+.Lt_0B3F:
 mov dword ptr [ebp-8], -1
 push dword ptr [ebp+16]
 push dword ptr [ebp+12]
@@ -30564,15 +30636,15 @@ setnz al
 shr eax, 1
 sbb eax, eax
 cmp dword ptr [ebp-8], eax
-jne .Lt_0B4B
-.Lt_0B4C:
+jne .Lt_0B43
+.Lt_0B44:
 mov dword ptr [ebp-4], -1
-jmp .Lt_0B49
-.Lt_0B4B:
+jmp .Lt_0B41
+.Lt_0B43:
 mov dword ptr [ebp-4], 0
-.Lt_0B4D:
-.Lt_0B49:
-.Lt_0B48:
+.Lt_0B45:
+.Lt_0B41:
+.Lt_0B40:
 mov eax, dword ptr [ebp-4]
 mov esp, ebp
 pop ebp
@@ -30586,14 +30658,14 @@ mov ebp, esp
 sub esp, 4
 push ebx
 mov dword ptr [ebp-4], 0
-.Lt_0B50:
+.Lt_0B48:
 mov eax, dword ptr [ebp+12]
 dec eax
 movsx ebx, word ptr [_AA_SI]
 imul eax, ebx
 add eax, dword ptr [ebp+8]
 mov dword ptr [ebp-4], eax
-.Lt_0B51:
+.Lt_0B49:
 mov eax, dword ptr [ebp-4]
 pop ebx
 mov esp, ebp
@@ -30613,7 +30685,7 @@ push 0
 push dword ptr [ebp+12]
 push dword ptr [ebp+8]
 call _fb_Init@12
-push offset _.Lt_0057
+push offset _.Lt_0058
 call _fb_DataRestore@4
 .Lt_0002:
 push 1
@@ -30771,7 +30843,11 @@ pop ebp
 ret
 .balign 16
 __GLOBAL__D:
-.Lt_0B53:
+.Lt_0B4B:
+push offset __ZN10NAMES_TYPED1Ev
+push offset __ZN10NAMES_TYPEC1Ev
+push offset _ATTACK_TABLE
+call _fb_ArrayEraseObj@12
 push offset __ZN10NAMES_TYPED1Ev
 push offset __ZN10NAMES_TYPEC1Ev
 push offset _QUEUE_TABLE
@@ -30800,7 +30876,7 @@ push offset __ZN10NAMES_TYPED1Ev
 push offset __ZN10NAMES_TYPEC1Ev
 push offset _BUNDLE_TABLE
 call _fb_ArrayEraseObj@12
-.Lt_0B54:
+.Lt_0B4C:
 ret
 
 .section .data
@@ -30911,6 +30987,17 @@ _QUEUE_TABLE:
 .int 1
 .int 17
 .skip 12,0
+.balign 4
+_ATTACK_TABLE:
+.long 0
+.long 0
+.int 0
+.int 24
+.int 1
+.int 17
+.skip 12,0
+.balign 4
+_Lt_004F:	.ascii	"%%\0"
 
 .section .bss
 
@@ -30977,6 +31064,8 @@ _QUEUE_TABLE:
 	.lcomm	_INPUT_FILENAME,12
 .balign 4
 	.lcomm	_PALETTE_FILENAME,12
+.balign 4
+	.lcomm	_ATTACK_FILENAME,12
 
 .section .data
 .balign 8
@@ -31021,7 +31110,7 @@ _FONTSHEETS:
 
 .section .data
 .balign 4
-_Lt_0054:
+_Lt_0055:
 .int _PAL
 .int _PAL
 .int 1024
@@ -31462,773 +31551,775 @@ _CLV_BUFFER_BAR:
 _CLV_BUFFER_PROGRESS:
 .int 13
 .balign 4
-_.Lt_0057:
+_.Lt_0058:
 .short 1
-.int _Lt_0059
+.int _Lt_005A
 .short 1
-.int _Lt_0059
+.int _Lt_005A
 .short -1
-.int _.Lt_005B
+.int _.Lt_005C
 .balign 4
-_Lt_0059:	.ascii	"1\0"
+_Lt_005A:	.ascii	"1\0"
 .balign 4
-_.Lt_005B:
+_.Lt_005C:
 .short 1
-.int _Lt_0059
+.int _Lt_005A
 .short 1
-.int _Lt_005D
+.int _Lt_005E
 .short -1
-.int _.Lt_005F
+.int _.Lt_0060
 .balign 4
-_Lt_005D:	.ascii	"4\0"
+_Lt_005E:	.ascii	"4\0"
 .balign 4
-_.Lt_005F:
+_.Lt_0060:
 .short 1
-.int _Lt_0059
+.int _Lt_005A
 .short 1
-.int _Lt_0061
+.int _Lt_0062
 .short -1
-.int _.Lt_0063
+.int _.Lt_0064
 .balign 4
-_Lt_0061:	.ascii	"8\0"
+_Lt_0062:	.ascii	"8\0"
 .balign 4
-_.Lt_0063:
+_.Lt_0064:
 .short 1
-.int _Lt_0059
+.int _Lt_005A
 .short 2
-.int _Lt_0065
+.int _Lt_0066
 .short -1
-.int _.Lt_0067
+.int _.Lt_0068
 .balign 4
-_Lt_0065:	.ascii	"12\0"
+_Lt_0066:	.ascii	"12\0"
 .balign 4
-_.Lt_0067:
+_.Lt_0068:
 .short 1
-.int _Lt_0059
+.int _Lt_005A
 .short 2
-.int _Lt_0069
+.int _Lt_006A
 .short -1
 .long 0
 .balign 4
-_Lt_0069:	.ascii	"16\0"
+_Lt_006A:	.ascii	"16\0"
 .balign 4
-_Lt_006C:	.ascii	".\\gameart\\fonts\\\0"
+_Lt_006D:	.ascii	".\\gameart\\fonts\\\0"
 .balign 4
-_Lt_006D:	.ascii	".\\gameart\\logos\\\0"
+_Lt_006E:	.ascii	".\\gameart\\logos\\\0"
 .balign 4
-_Lt_006E:	.ascii	".\\gameart\\sprites\\\0"
+_Lt_006F:	.ascii	".\\gameart\\sprites\\\0"
 .balign 4
-_Lt_006F:	.ascii	".\\gamedata\\\0"
+_Lt_0070:	.ascii	".\\gamedata\\\0"
 .balign 4
-_Lt_0070:	.ascii	".\\gamedata\\maps\\\0"
+_Lt_0071:	.ascii	".\\gamedata\\maps\\\0"
 .balign 4
-_Lt_0071:	.ascii	".\\fonts\\mishap22.font.png\0"
+_Lt_0072:	.ascii	".\\fonts\\mishap22.font.png\0"
 .balign 4
-_Lt_0073:	.ascii	".\\fonts\\roe00.font.png\0"
+_Lt_0074:	.ascii	".\\fonts\\roe00.font.png\0"
 .balign 4
-_Lt_0075:	.ascii	".\\gameart\\logos\\roe.splash.png\0"
+_Lt_0076:	.ascii	".\\gameart\\logos\\roe.splash.png\0"
 .balign 4
-_Lt_0077:	.ascii	"[(F1)Save|(F2)Load|(F3)Shop]\0"
+_Lt_0078:	.ascii	"[(F1)Save|(F2)Load|(F3)Shop]\0"
 .balign 4
-_Lt_0080:	.ascii	"t\0"
+_Lt_0081:	.ascii	"t\0"
 .balign 4
-_Lt_0086:	.ascii	"Title\0"
+_Lt_0087:	.ascii	"Title\0"
 .balign 4
-_Lt_0095:	.ascii	"L ||\0"
+_Lt_0096:	.ascii	"L ||\0"
 .balign 4
-_Lt_0096:	.ascii	" \0"
+_Lt_0097:	.ascii	" \0"
 .balign 4
-_Lt_009A:	.ascii	"L||\0"
+_Lt_009B:	.ascii	"L||\0"
 .balign 4
-_Lt_00AA:	.ascii	".\\gamedata\\Bundle.dat\0"
+_Lt_00AB:	.ascii	".\\gamedata\\Bundle.dat\0"
 .balign 4
-_Lt_00AB:	.ascii	"Help\0"
+_Lt_00AC:	.ascii	"Help\0"
 .balign 4
-_Lt_00AD:	.ascii	"Map\0"
+_Lt_00AE:	.ascii	"Map\0"
 .balign 4
-_Lt_00AF:	.ascii	"Levels\0"
+_Lt_00B0:	.ascii	"Levels\0"
 .balign 4
-_Lt_00B1:	.ascii	"Input\0"
+_Lt_00B2:	.ascii	"Input\0"
 .balign 4
-_Lt_00B3:	.ascii	"Palette\0"
+_Lt_00B4:	.ascii	"Palette\0"
 .balign 4
-_Lt_00B5:	.ascii	".\\dat\\Names.dat\0"
+_Lt_00B6:	.ascii	"Attack\0"
 .balign 4
-_Lt_00B7:	.ascii	".\\dat\\Levels.dat\0"
+_Lt_00B8:	.ascii	".\\dat\\Names.dat\0"
 .balign 4
-_Lt_00B9:	.ascii	"levels/count\0"
+_Lt_00BA:	.ascii	".\\dat\\Levels.dat\0"
 .balign 4
-_Lt_00C0:	.ascii	"levels/\0"
+_Lt_00BC:	.ascii	"levels/count\0"
 .balign 4
-_Lt_00C6:	.ascii	"map/name\0"
+_Lt_00C3:	.ascii	"levels/\0"
 .balign 4
-_Lt_00C8:	.ascii	"map/id\0"
+_Lt_00C9:	.ascii	"map/name\0"
 .balign 4
-_Lt_00CA:	.ascii	"map/AA\0"
+_Lt_00CB:	.ascii	"map/id\0"
 .balign 4
-_Lt_00CC:	.ascii	"map/DD\0"
+_Lt_00CD:	.ascii	"map/AA\0"
 .balign 4
-_Lt_00DE:	.ascii	"pndximp_\0"
+_Lt_00CF:	.ascii	"map/DD\0"
 .balign 4
-_Lt_00E1:	.ascii	"dust\0"
+_Lt_00E1:	.ascii	"pndximp_\0"
 .balign 4
-_Lt_00E7:	.ascii	"map/row/bg\0"
+_Lt_00E4:	.ascii	"dust\0"
 .balign 4
-_Lt_00EA:	.ascii	"map/row/fg\0"
+_Lt_00EA:	.ascii	"map/row/bg\0"
 .balign 4
-_Lt_00ED:	.ascii	"map/row/rg\0"
+_Lt_00ED:	.ascii	"map/row/fg\0"
 .balign 4
-_Lt_00F5:	.ascii	"____\0"
+_Lt_00F0:	.ascii	"map/row/rg\0"
 .balign 4
-_Lt_00F6:	.ascii	"________\0"
+_Lt_00F8:	.ascii	"____\0"
 .balign 4
-_Lt_00FB:	.ascii	"spdr\0"
+_Lt_00F9:	.ascii	"________\0"
 .balign 4
-_Lt_00FD:	.ascii	"Spider\0"
+_Lt_00FE:	.ascii	"spdr\0"
 .balign 4
-_Lt_00FE:	.ascii	"movebiteweb_\0"
+_Lt_0100:	.ascii	"Spider\0"
 .balign 4
-_Lt_0101:	.ascii	"0001\0"
+_Lt_0101:	.ascii	"movebiteweb_\0"
 .balign 4
-_Lt_0105:	.ascii	"vnom\0"
+_Lt_0104:	.ascii	"0001\0"
 .balign 4
-_Lt_0107:	.ascii	"wall\0"
+_Lt_0108:	.ascii	"vnom\0"
 .balign 4
-_Lt_010A:	.ascii	"web_\0"
+_Lt_010A:	.ascii	"wall\0"
 .balign 4
-_Lt_010C:	.ascii	"Web\0"
+_Lt_010D:	.ascii	"web_\0"
 .balign 4
-_Lt_010E:	.ascii	"grml\0"
+_Lt_010F:	.ascii	"Web\0"
 .balign 4
-_Lt_0110:	.ascii	"Gremlin\0"
+_Lt_0111:	.ascii	"grml\0"
 .balign 4
-_Lt_0111:	.ascii	"movebitepnch\0"
+_Lt_0113:	.ascii	"Gremlin\0"
 .balign 4
-_Lt_0114:	.ascii	"dggr\0"
+_Lt_0114:	.ascii	"movebitepnch\0"
 .balign 4
-_Lt_0116:	.ascii	"pndx\0"
+_Lt_0117:	.ascii	"dggr\0"
 .balign 4
-_Lt_0118:	.ascii	"Poindexter\0"
+_Lt_0119:	.ascii	"pndx\0"
 .balign 4
-_Lt_0119:	.ascii	"wstf\0"
+_Lt_011B:	.ascii	"Poindexter\0"
 .balign 4
-_Lt_011B:	.ascii	"dtby\0"
+_Lt_011C:	.ascii	"wstf\0"
 .balign 4
-_Lt_011D:	.ascii	"Dust Bunny\0"
+_Lt_011E:	.ascii	"dtby\0"
 .balign 4
-_Lt_011E:	.ascii	"movebitekickdtbydust\0"
+_Lt_0120:	.ascii	"Dust Bunny\0"
 .balign 4
-_Lt_0120:	.ascii	"shkt\0"
+_Lt_0121:	.ascii	"movebitekickdtbydust\0"
 .balign 4
-_Lt_0122:	.ascii	"Shiny Knight\0"
+_Lt_0123:	.ascii	"shkt\0"
 .balign 4
-_Lt_0123:	.ascii	"movepnchdggr\0"
+_Lt_0125:	.ascii	"Shiny Knight\0"
 .balign 4
-_Lt_0125:	.ascii	"emgd\0"
+_Lt_0126:	.ascii	"movepnchdggr\0"
 .balign 4
-_Lt_0127:	.ascii	"Emerald Guard\0"
+_Lt_0128:	.ascii	"emgd\0"
 .balign 4
-_Lt_012C:	.ascii	"pike\0"
+_Lt_012A:	.ascii	"Emerald Guard\0"
 .balign 4
-_Lt_012E:	.ascii	"door\0"
+_Lt_012F:	.ascii	"pike\0"
 .balign 4
-_Lt_0130:	.ascii	"Door\0"
+_Lt_0131:	.ascii	"door\0"
 .balign 4
-_Lt_0134:	.ascii	"loc1\0"
+_Lt_0133:	.ascii	"Door\0"
 .balign 4
-_Lt_0137:	.ascii	"loc2\0"
+_Lt_0137:	.ascii	"loc1\0"
 .balign 4
-_Lt_013A:	.ascii	"loc3\0"
+_Lt_013A:	.ascii	"loc2\0"
 .balign 4
-_Lt_013C:	.ascii	"imp_\0"
+_Lt_013D:	.ascii	"loc3\0"
 .balign 4
-_Lt_013E:	.ascii	"Little Imp\0"
+_Lt_013F:	.ascii	"imp_\0"
 .balign 4
-_Lt_013F:	.ascii	"movewingfire\0"
+_Lt_0141:	.ascii	"Little Imp\0"
 .balign 4
-_Lt_0142:	.ascii	"Merchant\0"
+_Lt_0142:	.ascii	"movewingfire\0"
 .balign 4
-_Lt_0143:	.ascii	"dggrgrplseed\0"
+_Lt_0145:	.ascii	"Merchant\0"
 .balign 4
-_Lt_0148:	.ascii	"chst\0"
+_Lt_0146:	.ascii	"dggrgrplseed\0"
 .balign 4
-_Lt_014A:	.ascii	"Treasure chest\0"
+_Lt_014B:	.ascii	"chst\0"
 .balign 4
-_Lt_014D:	.ascii	"key1\0"
+_Lt_014D:	.ascii	"Treasure chest\0"
 .balign 4
-_Lt_014E:	.ascii	"key2\0"
+_Lt_0150:	.ascii	"key1\0"
 .balign 4
-_Lt_0150:	.ascii	"bldr\0"
+_Lt_0151:	.ascii	"key2\0"
 .balign 4
-_Lt_0152:	.ascii	"Big boulder\0"
+_Lt_0153:	.ascii	"bldr\0"
+.balign 4
+_Lt_0155:	.ascii	"Big boulder\0"
 .balign 8
-_Lt_0153:	.quad	0x4000000000000000
+_Lt_0156:	.quad	0x4000000000000000
 .balign 4
-_Lt_0154:	.long	0x40200000
+_Lt_0157:	.long	0x40200000
 .balign 4
-_Lt_0155:	.long	0x3F800000
+_Lt_0158:	.long	0x3F800000
 .balign 8
-_Lt_0156:	.quad	0x3FF0000000000000
+_Lt_0159:	.quad	0x3FF0000000000000
 .balign 4
-_Lt_0157:	.long	0x41200000
+_Lt_015A:	.long	0x41200000
 .balign 4
-_Lt_0158:	.long	0x41A00000
+_Lt_015B:	.long	0x41A00000
 .balign 4
-_Lt_0159:	.long	0x40A00000
+_Lt_015C:	.long	0x40A00000
 .balign 4
-_Lt_015A:	.long	0x43BE0000
+_Lt_015D:	.long	0x43BE0000
 .balign 4
-_Lt_015B:	.long	0x40400000
+_Lt_015E:	.long	0x40400000
 .balign 4
-_Lt_015C:	.long	0x40000000
+_Lt_015F:	.long	0x40000000
 .balign 4
-_Lt_015D:	.long	0x42200000
+_Lt_0160:	.long	0x42200000
 .balign 4
-_Lt_015E:	.long	0x42480000
+_Lt_0161:	.long	0x42480000
 .balign 8
-_Lt_015F:	.quad	0x3FC999999999999A
+_Lt_0162:	.quad	0x3FC999999999999A
 .balign 4
-_Lt_0160:	.long	0x41C80000
+_Lt_0163:	.long	0x41C80000
 .balign 4
-_Lt_0161:	.long	0x42B40000
+_Lt_0164:	.long	0x42B40000
 .balign 4
-_Lt_0162:	.long	0x41F00000
+_Lt_0165:	.long	0x41F00000
 .balign 4
-_Lt_0163:	.long	0x00000000
+_Lt_0166:	.long	0x00000000
 .balign 4
-_Lt_0164:	.long	0x41700000
+_Lt_0167:	.long	0x41700000
 .balign 4
-_Lt_0165:	.long	0x3DCCCCCD
+_Lt_0168:	.long	0x3DCCCCCD
 .balign 4
-_Lt_0166:	.long	0x3D8F5C29
+_Lt_0169:	.long	0x3D8F5C29
 .balign 4
-_Lt_0167:	.long	0x3F99999A
+_Lt_016A:	.long	0x3F99999A
 .balign 4
-_Lt_0168:	.long	0x438C0000
+_Lt_016B:	.long	0x438C0000
 .balign 4
-_Lt_0169:	.long	0x42340000
+_Lt_016C:	.long	0x42340000
 .balign 4
-_Lt_016A:	.long	0x42DC0000
+_Lt_016D:	.long	0x42DC0000
 .balign 4
-_Lt_016B:	.long	0x40800000
+_Lt_016E:	.long	0x40800000
 .balign 4
-_Lt_016C:	.long	0x41880000
+_Lt_016F:	.long	0x41880000
 .balign 4
-_Lt_016D:	.long	0x41400000
+_Lt_0170:	.long	0x41400000
 .balign 4
-_Lt_016E:	.long	0x3DF5C28F
+_Lt_0171:	.long	0x3DF5C28F
 .balign 8
-_Lt_016F:	.quad	0x3FB999999999999A
+_Lt_0172:	.quad	0x3FB999999999999A
 .balign 8
-_Lt_0170:	.quad	0x3FD999999999999A
+_Lt_0173:	.quad	0x3FD999999999999A
 .balign 4
-_Lt_0171:	.long	0x430C0000
+_Lt_0174:	.long	0x430C0000
 .balign 4
-_Lt_0172:	.long	0x3E4CCCCD
+_Lt_0175:	.long	0x3E4CCCCD
 .balign 4
-_Lt_0173:	.long	0x41C00000
+_Lt_0176:	.long	0x41C00000
 .balign 4
-_Lt_0174:	.long	0x3E99999A
+_Lt_0177:	.long	0x3E99999A
 .balign 4
-_Lt_0175:	.long	0x42C80000
+_Lt_0178:	.long	0x42C80000
 .balign 4
-_Lt_0176:	.long	0x447A0000
+_Lt_0179:	.long	0x447A0000
 .balign 4
-_Lt_0180:	.ascii	"Puzzlum : Realm of Existence\0"
+_Lt_0183:	.ascii	"Puzzlum : Realm of Existence\0"
 .balign 4
-_Lt_0181:	.ascii	"Build: puzzlum-fbc068.200908170813\0"
+_Lt_0184:	.ascii	"Build: puzzlum-fbc068.200908170813\0"
 .balign 4
-_Lt_0182:	.ascii	"Created 1989-2009 Timothy Robert Keal\0"
+_Lt_0185:	.ascii	"Created 1989-2009 Timothy Robert Keal\0"
 .balign 4
-_Lt_0183:	.ascii	"Released under Gnu Public License 2.0\0"
+_Lt_0186:	.ascii	"Released under Gnu Public License 2.0\0"
 .balign 4
-_Lt_0184:	.ascii	"http://www.gnu.org/copyleft/gpl.html\0"
+_Lt_0187:	.ascii	"http://www.gnu.org/copyleft/gpl.html\0"
 .balign 4
-_Lt_0185:	.ascii	"http://puzzlum.retromachineshop.com/\0"
+_Lt_0188:	.ascii	"http://puzzlum.retromachineshop.com/\0"
 .balign 4
-_Lt_0186:	.ascii	"irc://chat.freenode.net/puzzlum\0"
+_Lt_0189:	.ascii	"irc://chat.freenode.net/puzzlum\0"
 .balign 4
-_Lt_0187:	.ascii	"mailto:jargon@juno.com\0"
+_Lt_018A:	.ascii	"mailto:jargon@juno.com\0"
 .balign 4
-_Lt_0188:	.ascii	" (H)elp\0"
+_Lt_018B:	.ascii	" (H)elp\0"
 .balign 4
-_Lt_0189:	.ascii	" (C)ontinue\0"
+_Lt_018C:	.ascii	" (C)ontinue\0"
 .balign 4
-_Lt_018A:	.ascii	" (R)estart\0"
+_Lt_018D:	.ascii	" (R)estart\0"
 .balign 4
-_Lt_018B:	.ascii	" (Q)uit\0"
+_Lt_018E:	.ascii	" (Q)uit\0"
 .balign 4
-_Lt_018C:	.ascii	"Restart\0"
+_Lt_018F:	.ascii	"Restart\0"
 .balign 4
-_Lt_0191:	.ascii	"Quit\0"
+_Lt_0194:	.ascii	"Quit\0"
 .balign 4
-_Lt_019A:	.ascii	"Continue\0"
+_Lt_019D:	.ascii	"Continue\0"
 .balign 4
-_Lt_01AF:	.ascii	"\376 page start\0"
+_Lt_01B2:	.ascii	"\376 page start\0"
 .balign 4
-_Lt_01B2:	.ascii	"\376 page end\0"
+_Lt_01B5:	.ascii	"\376 page end\0"
 .balign 4
-_Lt_01B5:	.ascii	" (T)itle\0"
+_Lt_01B8:	.ascii	" (T)itle\0"
 .balign 4
-_Lt_01BF:	.ascii	"\376 end\0"
+_Lt_01C2:	.ascii	"\376 end\0"
 .balign 4
-_Lt_01C2:	.ascii	"\376 COLOR\0"
+_Lt_01C5:	.ascii	"\376 COLOR\0"
 .balign 4
-_Lt_01DD:	.ascii	"zzzz\0"
+_Lt_01E0:	.ascii	"zzzz\0"
 .balign 4
-_Lt_01F3:	.ascii	"fire\0"
+_Lt_01F6:	.ascii	"fire\0"
 .balign 4
-_Lt_01F8:	.ascii	"ccts\0"
+_Lt_01FB:	.ascii	"ccts\0"
 .balign 8
-_Lt_0208:	.quad	0x0000000000000000
+_Lt_020B:	.quad	0x0000000000000000
 .balign 4
-_Lt_0213:	.ascii	"0002\0"
+_Lt_0216:	.ascii	"0002\0"
 .balign 4
-_Lt_021A:	.ascii	"&HFF3B\0"
+_Lt_021D:	.ascii	"&HFF3B\0"
 .balign 4
-_Lt_021D:	.ascii	"&HFF3C\0"
+_Lt_0220:	.ascii	"&HFF3C\0"
 .balign 4
-_Lt_0221:	.ascii	"Shop\0"
+_Lt_0224:	.ascii	"Shop\0"
 .balign 4
-_Lt_0226:	.ascii	"L\0"
+_Lt_0229:	.ascii	"L\0"
 .balign 4
-_Lt_0229:	.ascii	"&H20\0"
+_Lt_022C:	.ascii	"&H20\0"
 .balign 4
-_Lt_022C:	.ascii	"&HFF48\0"
+_Lt_022F:	.ascii	"&HFF48\0"
 .balign 4
-_Lt_022F:	.ascii	"&HFF4D\0"
+_Lt_0232:	.ascii	"&HFF4D\0"
 .balign 4
-_Lt_0232:	.ascii	"&HFF50\0"
+_Lt_0235:	.ascii	"&HFF50\0"
 .balign 4
-_Lt_0235:	.ascii	"&HFF4B\0"
+_Lt_0238:	.ascii	"&HFF4B\0"
 .balign 4
-_Lt_024B:	.ascii	"||\0"
+_Lt_024E:	.ascii	"||\0"
 .balign 4
-_Lt_0259:	.ascii	"&HFF47\0"
+_Lt_025C:	.ascii	"&HFF47\0"
 .balign 4
-_Lt_025C:	.ascii	"&HFF4F\0"
+_Lt_025F:	.ascii	"&HFF4F\0"
 .balign 4
-_Lt_025F:	.ascii	"&HFF49\0"
+_Lt_0262:	.ascii	"&HFF49\0"
 .balign 4
-_Lt_0264:	.ascii	"&HFF51\0"
+_Lt_0267:	.ascii	"&HFF51\0"
 .balign 8
-_Lt_027C:	.quad	0x4008000000000000
+_Lt_027F:	.quad	0x4008000000000000
 .balign 8
-_Lt_027D:	.quad	0x4010000000000000
+_Lt_0280:	.quad	0x4010000000000000
 .balign 8
-_Lt_027F:	.quad	0x4014000000000000
+_Lt_0282:	.quad	0x4014000000000000
 .balign 8
-_Lt_0282:	.quad	0xC008000000000000
+_Lt_0285:	.quad	0xC008000000000000
 .balign 4
-_Lt_02C4:	.ascii	"bite\0"
+_Lt_02C4:	.ascii	"attk/\0"
 .balign 4
-_Lt_02C7:	.ascii	"pnch\0"
+_Lt_02C5:	.ascii	"/valid\0"
 .balign 4
-_Lt_02CA:	.ascii	"kick\0"
+_Lt_02DF:	.ascii	"bite\0"
 .balign 4
-_Lt_02D3:	.ascii	"cure\0"
+_Lt_02E2:	.ascii	"pnch\0"
 .balign 8
-_Lt_02EB:	.quad	0x4018000000000000
+_Lt_02E3:	.quad	0x4018000000000000
 .balign 8
-_Lt_02EC:	.quad	0x4020000000000000
+_Lt_02E4:	.quad	0x4020000000000000
+.balign 4
+_Lt_02E9:	.ascii	"kick\0"
 .balign 8
-_Lt_02F1:	.quad	0x401C000000000000
+_Lt_02EA:	.quad	0x401C000000000000
 .balign 8
-_Lt_02F4:	.quad	0x4024000000000000
+_Lt_02ED:	.quad	0x4024000000000000
 .balign 8
-_Lt_02F9:	.quad	0x4028000000000000
+_Lt_02F2:	.quad	0x4028000000000000
 .balign 4
-_Lt_02FC:	.ascii	"burn\0"
+_Lt_02F5:	.ascii	"burn\0"
 .balign 8
-_Lt_02FF:	.quad	0x402E000000000000
+_Lt_02F8:	.quad	0x402E000000000000
 .balign 8
-_Lt_0302:	.quad	0x4034000000000000
+_Lt_02FB:	.quad	0x4034000000000000
 .balign 4
-_Lt_0307:	.ascii	"tngl\0"
+_Lt_0300:	.ascii	"tngl\0"
 .balign 4
-_Lt_030A:	.ascii	"lash\0"
+_Lt_0303:	.ascii	"lash\0"
 .balign 4
-_Lt_030B:	.ascii	"%%\0"
+_Lt_0306:	.ascii	"/pict\0"
 .balign 4
-_Lt_030E:	.ascii	"attk/\0"
+_Lt_030A:	.ascii	"/name\0"
 .balign 4
-_Lt_030F:	.ascii	"/pict\0"
+_Lt_030E:	.ascii	"/hp/use\0"
 .balign 4
-_Lt_0313:	.ascii	"/name\0"
+_Lt_0312:	.ascii	"/str/use\0"
 .balign 4
-_Lt_0317:	.ascii	"/hp/use\0"
+_Lt_0316:	.ascii	"/ess/use\0"
 .balign 4
-_Lt_031B:	.ascii	"/str/use\0"
+_Lt_031A:	.ascii	"/hp/dmg\0"
 .balign 4
-_Lt_031F:	.ascii	"/ess/use\0"
+_Lt_031E:	.ascii	"/str/dmg\0"
 .balign 4
-_Lt_0323:	.ascii	"/hp/dmg\0"
+_Lt_0322:	.ascii	"/ess/dmg\0"
 .balign 4
-_Lt_0327:	.ascii	"/str/dmg\0"
+_Lt_0326:	.ascii	"/hp/dmg/bonus\0"
 .balign 4
-_Lt_032B:	.ascii	"/ess/dmg\0"
+_Lt_032A:	.ascii	"/str/dmg/bonus\0"
 .balign 4
-_Lt_032F:	.ascii	"/hp/dmg/bonus\0"
+_Lt_032E:	.ascii	"/ess/dmg/bonus\0"
 .balign 4
-_Lt_0333:	.ascii	"/str/dmg/bonus\0"
+_Lt_0332:	.ascii	"Level/\0"
 .balign 4
-_Lt_0337:	.ascii	"/ess/dmg/bonus\0"
+_Lt_0339:	.ascii	"/entity/count\0"
 .balign 4
-_Lt_033B:	.ascii	"Level/\0"
+_Lt_0342:	.ascii	"/entity/\0"
 .balign 4
-_Lt_0342:	.ascii	"/entity/count\0"
+_Lt_0343:	.ascii	"/is\0"
 .balign 4
-_Lt_034B:	.ascii	"/entity/\0"
+_Lt_034D:	.ascii	"/now\0"
 .balign 4
-_Lt_034C:	.ascii	"/is\0"
+_Lt_0356:	.ascii	"gone\0"
 .balign 4
-_Lt_0356:	.ascii	"/now\0"
-.balign 4
-_Lt_035F:	.ascii	"gone\0"
+_Lt_0364:	.ascii	"cure\0"
 .balign 8
-_Lt_0373:	.quad	0xC020000000000000
+_Lt_036B:	.quad	0xC020000000000000
 .balign 4
-_Lt_037B:	.ascii	"slep\0"
+_Lt_0373:	.ascii	"slep\0"
 .balign 8
-_Lt_0385:	.quad	0xC02E000000000000
+_Lt_037D:	.quad	0xC02E000000000000
 .balign 4
-_Lt_0388:	.ascii	"pouch\0"
+_Lt_0380:	.ascii	"pouch\0"
 .balign 4
-_Lt_0389:	.ascii	"pwch\0"
+_Lt_0381:	.ascii	"pwch\0"
 .balign 4
-_Lt_038A:	.long	0x47C34F80
+_Lt_0382:	.long	0x47C34F80
 .balign 4
-_Lt_0393:	.ascii	"lvup\0"
+_Lt_038B:	.ascii	"lvup\0"
 .balign 4
-_Lt_039A:	.ascii	"ispt\0"
+_Lt_0392:	.ascii	"ispt\0"
 .balign 4
-_Lt_03A1:	.ascii	"move\0"
+_Lt_0399:	.ascii	"move\0"
 .balign 4
-_Lt_03C4:	.ascii	"cncl\0"
+_Lt_03BC:	.ascii	"cncl\0"
 .balign 4
-_Lt_03CE:	.ascii	"\372\0"
+_Lt_03C6:	.ascii	"\372\0"
 .balign 4
-_Lt_03CF:	.ascii	"-\0"
+_Lt_03C7:	.ascii	"-\0"
 .balign 4
-_Lt_03D0:	.ascii	"----\0"
+_Lt_03C8:	.ascii	"----\0"
 .balign 4
-_Lt_03D1:	.ascii	"$\0"
+_Lt_03C9:	.ascii	"$\0"
 .balign 4
-_Lt_0400:	.ascii	"grpl\0"
+_Lt_03F8:	.ascii	"grpl\0"
 .balign 4
-_Lt_0405:	.ascii	"seed\0"
+_Lt_03FD:	.ascii	"seed\0"
 .balign 4
-_Lt_0411:	.ascii	"Wha'du like?\0"
+_Lt_0409:	.ascii	"Wha'du like?\0"
 .balign 4
-_Lt_0415:	.ascii	"____.24\0"
+_Lt_040D:	.ascii	"____.24\0"
 .balign 4
-_Lt_0444:	.ascii	"bye_\0"
+_Lt_043C:	.ascii	"bye_\0"
 .balign 4
-_Lt_0447:	.ascii	"Poindexter:\0"
+_Lt_043F:	.ascii	"Poindexter:\0"
 .balign 4
-_Lt_0449:	.ascii	"Hi. How are you. My\0"
+_Lt_0441:	.ascii	"Hi. How are you. My\0"
 .balign 4
-_Lt_044B:	.ascii	"name is Poindexter. I\0"
+_Lt_0443:	.ascii	"name is Poindexter. I\0"
 .balign 4
-_Lt_044D:	.ascii	"am the greatest thief\0"
+_Lt_0445:	.ascii	"am the greatest thief\0"
 .balign 4
-_Lt_044F:	.ascii	"in the entire world!!!\0"
+_Lt_0447:	.ascii	"in the entire world!!!\0"
 .balign 4
-_Lt_045C:	.ascii	" =\0"
+_Lt_0454:	.ascii	" =\0"
 .balign 4
-_Lt_0478:	.ascii	"gained\0"
+_Lt_0470:	.ascii	"gained\0"
 .balign 4
-_Lt_0483:	.ascii	"      level up!\0"
+_Lt_047B:	.ascii	"      level up!\0"
 .balign 4
-_Lt_0485:	.ascii	"HPmax +\0"
+_Lt_047D:	.ascii	"HPmax +\0"
 .balign 4
-_Lt_0489:	.ascii	"STRmax +\0"
+_Lt_0481:	.ascii	"STRmax +\0"
 .balign 4
-_Lt_048D:	.ascii	"ESSmax +\0"
+_Lt_0485:	.ascii	"ESSmax +\0"
 .balign 4
-_Lt_0491:	.ascii	"STRspd up!\0"
+_Lt_0489:	.ascii	"STRspd up!\0"
 .balign 4
-_Lt_0493:	.ascii	"ESSspd up!\0"
+_Lt_048B:	.ascii	"ESSspd up!\0"
 .balign 4
-_Lt_0499:	.ascii	"reached LV!\0"
+_Lt_0491:	.ascii	"reached LV!\0"
 .balign 4
-_Lt_049F:	.ascii	"next:\0"
+_Lt_0497:	.ascii	"next:\0"
 .balign 4
-_Lt_04B4:	.long	0x43470000
+_Lt_04AC:	.long	0x43470000
 .balign 4
-_Lt_04B5:	.long	0x439F8000
+_Lt_04AD:	.long	0x439F8000
 .balign 4
-_Lt_04B6:	.long	0x43400000
+_Lt_04AE:	.long	0x43400000
 .balign 8
-_Lt_04B7:	.quad	0x4050000000000000
+_Lt_04AF:	.quad	0x4050000000000000
 .balign 4
-_Lt_04CA:	.ascii	"from\0"
+_Lt_04C2:	.ascii	"from\0"
 .balign 4
-_Lt_04CC:	.ascii	"!\0"
+_Lt_04C4:	.ascii	"!\0"
 .balign 4
-_Lt_04D5:	.ascii	"used\0"
+_Lt_04CD:	.ascii	"used\0"
 .balign 4
-_Lt_04D7:	.ascii	"on\0"
+_Lt_04CF:	.ascii	"on\0"
 .balign 4
-_Lt_04E0:	.ascii	"HP -\0"
+_Lt_04D8:	.ascii	"HP -\0"
 .balign 4
-_Lt_04E4:	.ascii	"STR-\0"
+_Lt_04DC:	.ascii	"STR-\0"
 .balign 4
-_Lt_04EE:	.ascii	"pillaged\0"
+_Lt_04E6:	.ascii	"pillaged\0"
 .balign 4
-_Lt_04F0:	.ascii	"EXP+\0"
+_Lt_04E8:	.ascii	"EXP+\0"
 .balign 4
-_Lt_04F5:	.ascii	"EXP:\0"
+_Lt_04ED:	.ascii	"EXP:\0"
 .balign 4
-_Lt_04FA:	.ascii	"STR+\0"
+_Lt_04F2:	.ascii	"STR+\0"
 .balign 4
-_Lt_04FE:	.ascii	"STR:\0"
+_Lt_04F6:	.ascii	"STR:\0"
 .balign 4
-_Lt_052A:	.ascii	".24\0"
+_Lt_0522:	.ascii	".24\0"
 .balign 4
-_Lt_054A:	.ascii	"zzzz____.24\0"
+_Lt_0542:	.ascii	"zzzz____.24\0"
 .balign 4
-_Lt_0556:	.ascii	"rapl\0"
+_Lt_054E:	.ascii	"rapl\0"
 .balign 8
-_Lt_0569:	.quad	0xBFF0000000000000
+_Lt_0561:	.quad	0xBFF0000000000000
 .balign 4
-_Lt_056A:	.long	0x41000000
+_Lt_0562:	.long	0x41000000
 .balign 4
-_Lt_056B:	.long	0xBF800000
+_Lt_0563:	.long	0xBF800000
 .balign 4
-_Lt_0571:	.ascii	"A RetroMachineShop Featured Project!\0"
+_Lt_0569:	.ascii	"A RetroMachineShop Featured Project!\0"
 .balign 4
-_Lt_0579:	.long	0x41600000
+_Lt_0571:	.long	0x41600000
 .balign 4
-_Lt_057A:	.long	0x41B80000
+_Lt_0572:	.long	0x41B80000
 .balign 4
-_Lt_057D:	.ascii	"LV\0"
+_Lt_0575:	.ascii	"LV\0"
 .balign 4
-_Lt_0580:	.ascii	"     \0"
+_Lt_0578:	.ascii	"     \0"
 .balign 4
-_Lt_0585:	.ascii	"HP\0"
+_Lt_057D:	.ascii	"HP\0"
 .balign 4
-_Lt_0588:	.ascii	"/\0"
+_Lt_0580:	.ascii	"/\0"
 .balign 4
-_Lt_058B:	.ascii	"STR\0"
+_Lt_0583:	.ascii	"STR\0"
 .balign 4
-_Lt_0590:	.ascii	"ESS\0"
+_Lt_0588:	.ascii	"ESS\0"
 .balign 8
-_Lt_0595:	.quad	0x4059000000000000
+_Lt_058D:	.quad	0x4059000000000000
 .balign 8
-_Lt_0596:	.quad	0x40C3880000000000
+_Lt_058E:	.quad	0x40C3880000000000
 .balign 4
-_Lt_059D:	.ascii	"____pwch\0"
+_Lt_0595:	.ascii	"____pwch\0"
 .balign 4
-_Lt_05A0:	.ascii	"watr\0"
+_Lt_0598:	.ascii	"watr\0"
 .balign 4
-_Lt_05A5:	.ascii	"hole\0"
+_Lt_059D:	.ascii	"hole\0"
 .balign 4
-_Lt_05A6:	.ascii	"holestpsstp2\0"
+_Lt_059E:	.ascii	"holestpsstp2\0"
 .balign 4
-_Lt_05DF:	.ascii	"Flame\0"
+_Lt_05D7:	.ascii	"Flame\0"
 .balign 4
-_Lt_05E0:	.ascii	"moveburn\0"
+_Lt_05D8:	.ascii	"moveburn\0"
 .balign 8
-_Lt_05E1:	.quad	0xC034000000000000
+_Lt_05D9:	.quad	0xC034000000000000
 .balign 4
-_Lt_05E2:	.long	0x42F00000
+_Lt_05DA:	.long	0x42F00000
 .balign 4
-_Lt_05E8:	.ascii	"Sleepy dust\0"
+_Lt_05E0:	.ascii	"Sleepy dust\0"
 .balign 8
-_Lt_05EE:	.quad	0x406B800000000000
+_Lt_05E6:	.quad	0x406B800000000000
 .balign 8
-_Lt_05EF:	.quad	0xC06B800000000000
+_Lt_05E7:	.quad	0xC06B800000000000
 .balign 8
-_Lt_05F5:	.quad	0x4074000000000000
+_Lt_05ED:	.quad	0x4074000000000000
 .balign 8
-_Lt_05F6:	.quad	0xC074000000000000
+_Lt_05EE:	.quad	0xC074000000000000
 .balign 4
-_Lt_05FA:	.ascii	"Cactus\0"
+_Lt_05F2:	.ascii	"Cactus\0"
 .balign 4
-_Lt_05FB:	.long	0x41500000
+_Lt_05F3:	.long	0x41500000
 .balign 4
-_Lt_0600:	.ascii	"bitekick\0"
+_Lt_05F8:	.ascii	"bitekick\0"
 .balign 8
-_Lt_0601:	.quad	0x4064000000000000
+_Lt_05F9:	.quad	0x4064000000000000
 .balign 8
-_Lt_0602:	.quad	0xC064000000000000
+_Lt_05FA:	.quad	0xC064000000000000
 .balign 4
-_Lt_0603:	.long	0x40C00000
+_Lt_05FB:	.long	0x40C00000
 .balign 4
-_Lt_0667:	.ascii	" EXP\0"
+_Lt_065F:	.ascii	" EXP\0"
 .balign 4
-_Lt_06A5:	.ascii	"\372Ok\0"
+_Lt_069D:	.ascii	"\372Ok\0"
 .balign 4
-_Lt_06AC:	.ascii	"&H0D\0"
+_Lt_06A4:	.ascii	"&H0D\0"
 .balign 4
-_Lt_06BB:	.long	0xC1000000
+_Lt_06B3:	.long	0xC1000000
 .balign 4
-_Lt_06BC:	.long	0xC1300000
+_Lt_06B4:	.long	0xC1300000
 .balign 4
-_Lt_06BD:	.long	0xC1100000
+_Lt_06B5:	.long	0xC1100000
 .balign 4
-_Lt_06BE:	.long	0xC1200000
+_Lt_06B6:	.long	0xC1200000
 .balign 4
-_Lt_06BF:	.long	0xC0E00000
+_Lt_06B7:	.long	0xC0E00000
 .balign 4
-_Lt_06C0:	.long	0xC0000000
+_Lt_06B8:	.long	0xC0000000
 .balign 4
-_Lt_06D5:	.ascii	"pndxspdrgrmldtbyemgdshktimp_\0"
+_Lt_06CD:	.ascii	"pndxspdrgrmldtbyemgdshktimp_\0"
 .balign 4
-_Lt_0756:	.ascii	"pwchchst\0"
+_Lt_074E:	.ascii	"pwchchst\0"
 .balign 4
-_Lt_0796:	.ascii	"bldrchst\0"
+_Lt_078E:	.ascii	"bldrchst\0"
 .balign 8
-_Lt_0799:	.quad	0xC024000000000000
+_Lt_0791:	.quad	0xC024000000000000
 .balign 4
-_Lt_07B9:	.ascii	"pndxgrmlspdrdtbyweb_emgdshkt\0"
+_Lt_07B1:	.ascii	"pndxgrmlspdrdtbyweb_emgdshkt\0"
 .balign 4
-_Lt_07C7:	.ascii	"pndxgrmlspdrdtbyweb_shktemgd\0"
+_Lt_07BF:	.ascii	"pndxgrmlspdrdtbyweb_shktemgd\0"
 .balign 4
-_Lt_07CE:	.ascii	"pndxgrmlspdrshktemgdimp_\0"
+_Lt_07C6:	.ascii	"pndxgrmlspdrshktemgdimp_\0"
 .balign 4
-_Lt_07D5:	.ascii	"pndxgrmlspdrdtbyweb_imp_\0"
+_Lt_07CD:	.ascii	"pndxgrmlspdrdtbyweb_imp_\0"
 .balign 4
-_Lt_07FA:	.ascii	"pndxdtbyspdrimp_emgdshktgrml\0"
+_Lt_07F2:	.ascii	"pndxdtbyspdrimp_emgdshktgrml\0"
 .balign 4
-_Lt_0809:	.ascii	"pndxgrmldtbyweb_shktemgdimp_\0"
+_Lt_0801:	.ascii	"pndxgrmldtbyweb_shktemgdimp_\0"
 .balign 4
-_Lt_0812:	.ascii	"pndxgrmlspdrimp_emgdshkt\0"
+_Lt_080A:	.ascii	"pndxgrmlspdrimp_emgdshkt\0"
 .balign 4
-_Lt_0823:	.ascii	"pndxdtbyspdrimp_emgdshktweb_\0"
+_Lt_081B:	.ascii	"pndxdtbyspdrimp_emgdshktweb_\0"
 .balign 4
-_Lt_0836:	.ascii	"pndxdtbyspdrimp_emgdshktweb_grmlccts\0"
+_Lt_082E:	.ascii	"pndxdtbyspdrimp_emgdshktweb_grmlccts\0"
 .balign 4
-_Lt_0863:	.ascii	"stpw\0"
+_Lt_085B:	.ascii	"stpw\0"
 .balign 4
-_Lt_0866:	.ascii	"stps\0"
+_Lt_085E:	.ascii	"stps\0"
 .balign 4
-_Lt_086F:	.ascii	"dirt\0"
+_Lt_0867:	.ascii	"dirt\0"
 .balign 4
-_Lt_0876:	.ascii	"\377""\0"
+_Lt_086E:	.ascii	"\377""\0"
 .balign 4
-_Lt_0879:	.ascii	"&HFF\0"
+_Lt_0871:	.ascii	"&HFF\0"
 .balign 4
-_Lt_087A:	.ascii	"0\0"
+_Lt_0872:	.ascii	"0\0"
 .balign 4
-_Lt_087F:	.ascii	"&H\0"
+_Lt_0877:	.ascii	"&H\0"
 .balign 4
-_Lt_0892:	.ascii	"%\0"
+_Lt_088A:	.ascii	"%\0"
 .balign 4
-_Lt_08A1:	.ascii	".\0"
+_Lt_0899:	.ascii	".\0"
 .balign 4
-_Lt_08AC:	.ascii	"________.24\0"
+_Lt_08A4:	.ascii	"________.24\0"
 .balign 4
-_Lt_08AF:	.ascii	"y\0"
+_Lt_08A7:	.ascii	"y\0"
 .balign 4
-_Lt_08B1:	.ascii	".png\0"
+_Lt_08A9:	.ascii	".png\0"
 .balign 4
-_Lt_08B6:	.ascii	"x\0"
+_Lt_08AE:	.ascii	"x\0"
 .balign 4
-_Lt_08C9:	.long	0x436F0000
+_Lt_08C1:	.long	0x436F0000
 .balign 4
-_Lt_0909:	.ascii	"bttnself.24\0"
+_Lt_0901:	.ascii	"bttnself.24\0"
 .balign 4
-_Lt_090E:	.ascii	"bttnnrth.24\0"
+_Lt_0906:	.ascii	"bttnnrth.24\0"
 .balign 4
-_Lt_0913:	.ascii	"bttneast.24\0"
+_Lt_090B:	.ascii	"bttneast.24\0"
 .balign 4
-_Lt_0918:	.ascii	"bttnsuth.24\0"
+_Lt_0910:	.ascii	"bttnsuth.24\0"
 .balign 4
-_Lt_091D:	.ascii	"bttnwest.24\0"
+_Lt_0915:	.ascii	"bttnwest.24\0"
 .balign 4
-_Lt_093D:	.ascii	"Puzzlum\0"
+_Lt_0935:	.ascii	"Puzzlum\0"
 .balign 4
-_Lt_0941:	.ascii	"(T)itle\0"
+_Lt_0939:	.ascii	"(T)itle\0"
 .balign 4
-_Lt_095E:	.ascii	"&HFF0D\0"
+_Lt_0956:	.ascii	"&HFF0D\0"
 .balign 4
-_Lt_0962:	.ascii	"Loading Map\0"
+_Lt_095A:	.ascii	"Loading Map\0"
 .balign 4
-_Lt_0963:	.ascii	"mapname_str\0"
+_Lt_095B:	.ascii	"mapname_str\0"
 .balign 4
-_Lt_0969:	.ascii	"AA_si\0"
+_Lt_0961:	.ascii	"AA_si\0"
 .balign 4
-_Lt_096B:	.ascii	"DD_si\0"
+_Lt_0963:	.ascii	"DD_si\0"
 .balign 4
-_Lt_0975:	.ascii	"d_sia[\0"
+_Lt_096D:	.ascii	"d_sia[\0"
 .balign 4
-_Lt_0976:	.ascii	"][\0"
+_Lt_096E:	.ascii	"][\0"
 .balign 4
-_Lt_0977:	.ascii	"]\0"
+_Lt_096F:	.ascii	"]\0"
 .balign 4
-_Lt_097D:	.ascii	"ex_si\0"
+_Lt_0975:	.ascii	"ex_si\0"
 .balign 4
-_Lt_097F:	.ascii	"dy_si\0"
+_Lt_0977:	.ascii	"dy_si\0"
 .balign 4
-_Lt_0981:	.ascii	"mdx_si\0"
+_Lt_0979:	.ascii	"mdx_si\0"
 .balign 4
-_Lt_0983:	.ascii	"mdy_si\0"
+_Lt_097B:	.ascii	"mdy_si\0"
 .balign 4
-_Lt_0985:	.ascii	"textcolor_si\0"
+_Lt_097D:	.ascii	"textcolor_si\0"
 .balign 4
-_Lt_0987:	.ascii	"textdelay_sf\0"
+_Lt_097F:	.ascii	"textdelay_sf\0"
 .balign 4
-_Lt_0989:	.ascii	"win_si\0"
+_Lt_0981:	.ascii	"win_si\0"
 .balign 4
-_Lt_09A1:	.ascii	"win_sia[\0"
+_Lt_0999:	.ascii	"win_sia[\0"
 .balign 4
-_Lt_09AF:	.ascii	"l_sia[\0"
+_Lt_09A7:	.ascii	"l_sia[\0"
 .balign 4
-_Lt_09B3:	.ascii	"ctrl_str\0"
+_Lt_09AB:	.ascii	"ctrl_str\0"
 .balign 4
-_Lt_09BF:	.ascii	"prflidty_str[\0"
+_Lt_09B7:	.ascii	"prflidty_str[\0"
 .balign 4
-_Lt_09C5:	.ascii	"prflactn_str[\0"
+_Lt_09BD:	.ascii	"prflactn_str[\0"
 .balign 4
-_Lt_09CB:	.ascii	"prflgpic_str[\0"
+_Lt_09C3:	.ascii	"prflgpic_str[\0"
 .balign 4
-_Lt_09D1:	.ascii	"prflcmnd_str[\0"
+_Lt_09C9:	.ascii	"prflcmnd_str[\0"
 .balign 4
-_Lt_09D7:	.ascii	"prflgpicactn_str[\0"
+_Lt_09CF:	.ascii	"prflgpicactn_str[\0"
 .balign 4
-_Lt_09DD:	.ascii	"prflactnct_str[\0"
+_Lt_09D5:	.ascii	"prflactnct_str[\0"
 .balign 4
-_Lt_09E3:	.ascii	"prflidty_sf[\0"
+_Lt_09DB:	.ascii	"prflidty_sf[\0"
 .balign 4
-_Lt_09E9:	.ascii	"prflhp_sf[\0"
+_Lt_09E1:	.ascii	"prflhp_sf[\0"
 .balign 4
-_Lt_09EF:	.ascii	"prflstr_sf[\0"
+_Lt_09E7:	.ascii	"prflstr_sf[\0"
 .balign 4
-_Lt_09F5:	.ascii	"prfless_sf[\0"
+_Lt_09ED:	.ascii	"prfless_sf[\0"
 .balign 4
-_Lt_09FB:	.ascii	"prflspd_sf[\0"
+_Lt_09F3:	.ascii	"prflspd_sf[\0"
 .balign 4
-_Lt_0A01:	.ascii	"prflarmr_sf[\0"
+_Lt_09F9:	.ascii	"prflarmr_sf[\0"
 .balign 4
-_Lt_0A07:	.ascii	"prflexp_sf[\0"
+_Lt_09FF:	.ascii	"prflexp_sf[\0"
 .balign 4
-_Lt_0A0D:	.ascii	"prflvalu_sf[\0"
+_Lt_0A05:	.ascii	"prflvalu_sf[\0"
 .balign 4
-_Lt_0A13:	.ascii	"prflpirc_sf[\0"
+_Lt_0A0B:	.ascii	"prflpirc_sf[\0"
 .balign 4
-_Lt_0A19:	.ascii	"prflchck_sf[\0"
+_Lt_0A11:	.ascii	"prflchck_sf[\0"
 .balign 4
-_Lt_0A1F:	.ascii	"prfllv_sf[\0"
+_Lt_0A17:	.ascii	"prfllv_sf[\0"
 .balign 4
-_Lt_0A25:	.ascii	"prflhpmax_sf[\0"
+_Lt_0A1D:	.ascii	"prflhpmax_sf[\0"
 .balign 4
-_Lt_0A2B:	.ascii	"prflstrmax_sf[\0"
+_Lt_0A23:	.ascii	"prflstrmax_sf[\0"
 .balign 4
-_Lt_0A31:	.ascii	"prflessmax_sf[\0"
+_Lt_0A29:	.ascii	"prflessmax_sf[\0"
 .balign 4
-_Lt_0A37:	.ascii	"prflessspd_sf[\0"
+_Lt_0A2F:	.ascii	"prflessspd_sf[\0"
 .balign 4
-_Lt_0A3D:	.ascii	"prflevad_sf[\0"
+_Lt_0A35:	.ascii	"prflevad_sf[\0"
 .balign 4
-_Lt_0A43:	.ascii	"prflblnk_sf[\0"
+_Lt_0A3B:	.ascii	"prflblnk_sf[\0"
 .balign 4
-_Lt_0A5D:	.ascii	"Saving Map \"\0"
+_Lt_0A55:	.ascii	"Saving Map \"\0"
 .balign 4
-_Lt_0B3D:	.ascii	".\\save\\\0"
+_Lt_0B35:	.ascii	".\\save\\\0"
 .balign 4
-_Lt_0B3E:	.ascii	".dat\0"
+_Lt_0B36:	.ascii	".dat\0"
 
 .section .dtors
 .int __GLOBAL__D
