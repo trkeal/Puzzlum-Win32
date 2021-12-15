@@ -20,15 +20,10 @@
  right mouse button advances the game.
  The 'ú' symbol is a clickable frame
  button and the 'þ' symbol is a selected
- feature. Other frame buttons include
- '<' and '>'.
+ feature.
 
 þ COLOR 15
- ¯¯¯THE [Esc] KEY QUITS THIS PROGRAM.®®®
-þ COLOR 11
-
- The Esc key is not the only keyboard key
- used by this program.
+ ¯¯¯"Q" AT THE SPLASH QUITS THE GAME.®®®
 þ page end
 þ page start
 þ COLOR 15
@@ -38,12 +33,12 @@
  system.
 þ COLOR 11
 
- [ H ] Help              [+/-] Select
- [ C ] Continue          [Esc] Exit
- [ T ] Title             [Spc] Ok 
+ [ H ] Help
+ [ C ] Continue
+ [ T ] Title
  [ R ] Restart           
- [ Q ] Quit              [ L ] Level Up
- [ D ] Debug             [ C ] Cancel
+ [ Q ] Quit
+ [ D ] Debug
 þ page end
 þ page start
 þ COLOR 15
@@ -96,7 +91,7 @@
  commanded to it.
 
  You can select the direction of
- your character using '<' and '>'.
+ your character using the compass rose.
  There is also a list of actions with
  buttons to press.
 þ page end

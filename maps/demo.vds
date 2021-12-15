@@ -45,7 +45,7 @@ dirt,dirt,hole,hole,hole,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
 wall,wall,____,____,____,____,door,____,____,____,chst,wall,____,____,____,wall
 0000,0000,0000,0000,0000,0000,0002,0000,0000,0000,0006,0000,0000,0000,0000,0000
 12
-dirt,dirt,dirt,hole,hole,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
+dirt,dirt,dirt,hole,stps,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
 wall,____,____,____,____,____,wall,wall,wall,wall,wall,wall,____,emgd,____,wall
 0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0002,0000,0000
 13
