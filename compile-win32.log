@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 === Roe 068 Win32 x86 Compiler === 
+=======
+===[ Puzzlum-Win32 ]==[ "FreeBASIC x86 Linker Utility" ]=== 
+>>>>>>> Stashed changes
  
 === Const Library === 
 FreeBASIC Compiler - Version 1.08.1 (2021-07-05), built for win32 (32bit)
@@ -64,6 +68,27 @@ backend:      gas
 compiling:    Roe068-fbc32.bas -o Roe068-fbc32.asm (main module)
 assembling:   C:\FreeBASIC\bin\win32\as.exe --32 --strip-local-absolute "Roe068-fbc32.asm" -o "Roe068-fbc32.o"
 compiling rc:               C:\FreeBASIC\bin\win32\GoRC.exe /ni /nw /o /fo ".\win32\rc\puzzlum.obj" ".\win32\rc\puzzlum.rc"
+<<<<<<< Updated upstream
 linking:      C:\FreeBASIC\bin\win32\ld.exe -m i386pe -o "Roe068-fbc32.exe" -subsystem windows -T "C:\FreeBASIC\lib\win32\fbextra.x" --stack 1048576,1048576 -s -L "lib/win" -L "C:\FreeBASIC\lib\win32" -L "." "C:\FreeBASIC\lib\win32\crt2.o" "C:\FreeBASIC\lib\win32\crtbegin.o" "C:\FreeBASIC\lib\win32\fbrt0.o" "Roe068-fbc32.o" ".\win32\rc\puzzlum.obj" "-(" -lfbgfx -lgdi32 -lwinmm -luser32 -lfbimage -lFBImage-32-static -lz -lfbpngs -lconst -lnames -lclv -ladvapi32 -lmsvcrt -lfbpng -lfb -lgcc -lkernel32 -lmingw32 -lmingwex -lmoldname -lgcc_eh "-)" "C:\FreeBASIC\lib\win32\crtend.o" 
+=======
+linking:      C:\FreeBASIC\bin\win32\ld.exe -m i386pe -o "puzzlum-win32.exe" -subsystem windows -T "C:\FreeBASIC\lib\win32\fbextra.x" --stack 1048576,1048576 -s -L "lib/win" -L "C:\FreeBASIC\lib\win32" -L "." "C:\FreeBASIC\lib\win32\crt2.o" "C:\FreeBASIC\lib\win32\crtbegin.o" "C:\FreeBASIC\lib\win32\fbrt0.o" "puzzlum-win32.o" ".\win32\rc\puzzlum.obj" "-(" -lpuzzlum-subs -lconst -lnames -lfbgfx -lgdi32 -lwinmm -luser32 -lfbimage -lFBImage-32-static -lz -lfbpngs -lclv -lpuzzlum-vars -lpuzzlum-win32 -lpuzzlum-task -ladvapi32 -lmath -lmsvcrt -lfbpng -lfbgfx.bi -l.incbimage.bi -l.incbpngs.bi -lcrtmath.bi -l.incConst.bi -l.incNames.bi -l.incpuzzlum-vars.bi -lfb -lgcc -lkernel32 -lmingw32 -lmingwex -lmoldname -lgcc_eh "-)" "C:\FreeBASIC\lib\win32\crtend.o" 
+C:\FreeBASIC\bin\win32\ld.exe: ./libpuzzlum-subs.a(puzzlum-subs.o):fake:(.text+0x0): multiple definition of `LOAD16BITRGB@4'; puzzlum-win32.o:fake:(.text+0x0): first defined here
+C:\FreeBASIC\bin\win32\ld.exe: ./libpuzzlum-subs.a(puzzlum-subs.o):fake:(.text+0x180): multiple definition of `BASE64::ENCODEMEMORY(void*, int)@8'; puzzlum-win32.o:fake:(.text+0x180): first defined here
+C:\FreeBASIC\bin\win32\ld.exe: ./libpuzzlum-subs.a(puzzlum-subs.o):fake:(.text+0x3d0): multiple definition of `BASE64::DECODEMEMORY(FBSTRING&, long&)@8'; puzzlum-win32.o:fake:(.text+0x3d0): first defined here
+C:\FreeBASIC\bin\win32\ld.exe: ./libclv.a(clv.o):fake:(.text+0x0): multiple definition of `LOAD16BITRGB@4'; puzzlum-win32.o:fake:(.text+0x0): first defined here
+C:\FreeBASIC\bin\win32\ld.exe: ./libclv.a(clv.o):fake:(.text+0x180): multiple definition of `BASE64::ENCODEMEMORY(void*, int)@8'; puzzlum-win32.o:fake:(.text+0x180): first defined here
+C:\FreeBASIC\bin\win32\ld.exe: ./libclv.a(clv.o):fake:(.text+0x3d0): multiple definition of `BASE64::DECODEMEMORY(FBSTRING&, long&)@8'; puzzlum-win32.o:fake:(.text+0x3d0): first defined here
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -lpuzzlum-win32
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -lmath
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -lfbpng
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -lfbgfx.bi
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -l.incbimage.bi
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -l.incbpngs.bi
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -lcrtmath.bi
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -l.incConst.bi
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -l.incNames.bi
+C:\FreeBASIC\bin\win32\ld.exe: cannot find -l.incpuzzlum-vars.bi
+linking failed: 'C:\FreeBASIC\bin\win32\ld.exe' terminated with exit code 1
+>>>>>>> Stashed changes
  
 === Execute Roe 068 32bit Binary === 
