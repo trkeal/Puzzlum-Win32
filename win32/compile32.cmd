@@ -6,8 +6,8 @@ set binary="32bit Windows Binary"
 
 del %log%
 
-set fbopts= -include "const.inc.bas" -g
-set libopts= -lib %fbopts%
+set fbopts= -include "const.inc.bas"
+set libopts= -lib %fbopts% 
 
 echo ===[ Puzzlum-Win32 ]==[ FreeBASIC x86 Linker Utility ]=== >> %log%
 
