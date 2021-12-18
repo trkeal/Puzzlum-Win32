@@ -1,51 +1,56 @@
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 C:\ag\Roe 068>del "compile-win32.log" 
+=======
+C:\ag\Puzzlum-Win32>set fbc="C:\FreeBASIC\fbc32.exe" 
+>>>>>>> 86012ac1ed22c2f0ef8141e476eae764730c9a07
 
-C:\ag\Roe 068>echo === Roe 068 Win32 x86 Compiler ===  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>set log="compile-win32.log" 
 
-C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>set static="Win32 Static Library" 
 
-C:\ag\Roe 068>echo === Const Library ===  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>set binary="32bit Windows Binary" 
 
-C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "const.bas" -lib -v -RR  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>del "compile-win32.log" 
 
-C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo ===[ Puzzlum-Win32 ]==[ FreeBASIC x86 Linker Utility ]===  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>echo === Names Library ===  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "names.bas" -lib -v -RR  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo ===[ Constants ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "const.bas" -lib -v -RR  1>>"compile-win32.log" 2>&1 
 
-C:\ag\Roe 068>echo === CLV Library ===  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "clv.bas" -lib -v -RR  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo ===[ Names Table ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "names.bas" -lib -v -RR  1>>"compile-win32.log" 2>&1 
 
-C:\ag\Roe 068>echo === FBImage Library ===  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "fbimage.bas" -lib -v -RR  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo ===[ Composite Layer Video ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "clv.bas" -lib -v -RR  1>>"compile-win32.log" 2>&1 
 
-C:\ag\Roe 068>echo === Roe 068 Copy As 32bit ===  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>copy "puzzlum-fbc068.bas" "Roe068-fbc32.bas"  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo ===[ FBImage ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "fbimage.bas" -lib -v -RR  1>>"compile-win32.log" 2>&1 
 
-C:\ag\Roe 068>echo === Roe 068 32bit Windows Binary ===  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>"C:\FreeBASIC\fbc32.exe" "Roe068-fbc32.bas" -v -RR -s gui ".\win32\rc\puzzlum.rc"  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo ===[ Puzzlum / Vars ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>echo:  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-vars.bas" -lib -v -RR  1>>"compile-win32.log" 2>&1 
 
-C:\ag\Roe 068>echo === Execute Roe 068 32bit Binary ===  1>>"compile-win32.log" 
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
 
-C:\ag\Roe 068>"puzzlum-fbc068.exe"
+C:\ag\Puzzlum-Win32>echo ===[ Puzzlum / Subs ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
+<<<<<<< HEAD
 =======
 C:\ag\Roe 068>set fbc="C:\FreeBASIC\fbc32.exe" 
 
@@ -117,3 +122,26 @@ C:\ag\Roe 068>"puzzlum-win32.exe"
 
 >>>>>>> Stashed changes
 C:\ag\Roe 068>exit
+=======
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-subs.bas" -lib -v -RR  1>>"compile-win32.log" 2>&1 
+
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
+
+C:\ag\Puzzlum-Win32>echo ===[ Puzzlum / Task Manager ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
+
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-task.bas" -lib -v -RR  1>>"compile-win32.log" 2>&1 
+
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
+
+C:\ag\Puzzlum-Win32>echo ===[ Puzzlum / Main ]==[ "32bit Windows Binary" ]===  1>>"compile-win32.log" 
+
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-win32.bas" -v -RR -s gui ".\win32\rc\puzzlum.rc"  1>>"compile-win32.log" 2>&1 
+
+C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log" 
+
+C:\ag\Puzzlum-Win32>echo ===[ Now attempting to load the "puzzlum-win32" executable.. ]===  1>>"compile-win32.log" 
+
+C:\ag\Puzzlum-Win32>"puzzlum-win32.exe"
+
+C:\ag\Puzzlum-Win32>exit
+>>>>>>> 86012ac1ed22c2f0ef8141e476eae764730c9a07

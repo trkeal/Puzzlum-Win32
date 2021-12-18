@@ -1,4 +1,7 @@
+set fbc="C:\FreeBASIC\fbc32.exe"
+set log="compile-win32.log"
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 del "compile-win32.log"
 =======
@@ -7,36 +10,51 @@ set caption="FreeBASIC x86 Linker Utility"
 set static="Win32 Static Library"
 set binary="32bit Windows Binary"
 >>>>>>> Stashed changes
+=======
+set static="Win32 Static Library"
+set binary="32bit Windows Binary"
+>>>>>>> 86012ac1ed22c2f0ef8141e476eae764730c9a07
 
-echo === Roe 068 Win32 x86 Compiler === >> "compile-win32.log"
+del %log%
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 echo: >> "compile-win32.log"
 echo === Const Library === >> "compile-win32.log"
 "C:\FreeBASIC\fbc32.exe" "const.bas" -lib -v -RR >> "compile-win32.log"
+=======
+echo ===[ Puzzlum-Win32 ]==[ FreeBASIC x86 Linker Utility ]=== >> %log%
+>>>>>>> 86012ac1ed22c2f0ef8141e476eae764730c9a07
 
-echo: >> "compile-win32.log"
-echo === Names Library === >> "compile-win32.log"
-"C:\FreeBASIC\fbc32.exe" "names.bas" -lib -v -RR >> "compile-win32.log"
+echo: >> %log%
+echo ===[ Constants ]==[ %static% ]=== >> %log%
+%fbc% "const.bas" -lib -v -RR >> %log% 2>&1
 
-echo: >> "compile-win32.log"
-echo === CLV Library === >> "compile-win32.log"
-"C:\FreeBASIC\fbc32.exe" "clv.bas" -lib -v -RR >> "compile-win32.log"
+echo: >> %log%
+echo ===[ Names Table ]==[ %static% ]=== >> %log%
+%fbc% "names.bas" -lib -v -RR >> %log% 2>&1
 
-echo: >> "compile-win32.log"
-echo === FBImage Library === >> "compile-win32.log"
-"C:\FreeBASIC\fbc32.exe" "fbimage.bas" -lib -v -RR >> "compile-win32.log"
+echo: >> %log%
+echo ===[ Composite Layer Video ]==[ %static% ]=== >> %log%
+%fbc% "clv.bas" -lib -v -RR >> %log% 2>&1
 
-echo: >> "compile-win32.log"
-echo === Roe 068 Copy As 32bit === >> "compile-win32.log"
+echo: >> %log%
+echo ===[ FBImage ]==[ %static% ]=== >> %log%
+%fbc% "fbimage.bas" -lib -v -RR >> %log% 2>&1
 
-copy "puzzlum-fbc068.bas" "Roe068-fbc32.bas" >> "compile-win32.log"
+echo: >> %log%
+echo ===[ Puzzlum / Vars ]==[ %static% ]=== >> %log%
+%fbc% "puzzlum-vars.bas" -lib -v -RR >> %log% 2>&1
 
-echo: >> "compile-win32.log"
-echo === Roe 068 32bit Windows Binary === >> "compile-win32.log"
+echo: >> %log%
+echo ===[ Puzzlum / Subs ]==[ %static% ]=== >> %log%
+%fbc% "puzzlum-subs.bas" -lib -v -RR >> %log% 2>&1
 
-"C:\FreeBASIC\fbc32.exe" "Roe068-fbc32.bas" -v -RR -s gui ".\win32\rc\puzzlum.rc" >> "compile-win32.log"
+echo: >> %log%
+echo ===[ Puzzlum / Task Manager ]==[ %static% ]=== >> %log%
+%fbc% "puzzlum-task.bas" -lib -v -RR >> %log% 2>&1
 
+<<<<<<< HEAD
 echo: >> "compile-win32.log"
 echo === Execute Roe 068 32bit Binary === >> "compile-win32.log"
 =======
@@ -74,7 +92,15 @@ echo: >> %log%
 echo ===[ Puzzlum / Main ]==[ %binary% ]=== >> %log%
 %fbc% "puzzlum-win32.bas" -v -RR -s gui ".\win32\rc\puzzlum.rc" >> %log% 2>&1
 >>>>>>> Stashed changes
+=======
+echo: >> %log%
+echo ===[ Puzzlum / Main ]==[ %binary% ]=== >> %log%
+%fbc% "puzzlum-win32.bas" -v -RR -s gui ".\win32\rc\puzzlum.rc" >> %log% 2>&1
+>>>>>>> 86012ac1ed22c2f0ef8141e476eae764730c9a07
 
-"puzzlum-fbc068.exe"
+echo: >> %log%
+echo ===[ Now attempting to load the "puzzlum-win32" executable.. ]=== >> %log%
+
+"puzzlum-win32.exe"
 
 exit

@@ -20,7 +20,7 @@ map/row/4/fg=wall,wall,____,wall,wall,wall,wall,____,pndx,____,wall,____,grml,__
 map/row/4/0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000
 
 map/row/5/bg=dirt,dirt,dirt,dirt,dirt,hole,dirt,dirt,dirt,dirt,hole,dirt,dirt,dirt,dirt,dirt
-map/row/5/fg=wall,____,____,door,bldr,____,____,spdr,____,____,____,____,____,____,____,wall
+map/row/5/fg=wall,____,____,door,bldr,____,____,spdr,____,imp_,____,____,____,____,____,wall
 map/row/5/0000,0000,0000,0001,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000
 
 map/row/6/bg=dirt,dirt,dirt,dirt,dirt,dirt,hole,dirt,dirt,dirt,dirt,dirt,watr,watr,watr,dirt
@@ -47,7 +47,7 @@ map/row/11/bg=dirt,dirt,hole,hole,hole,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,d
 map/row/11/fg=wall,wall,____,____,____,____,door,____,____,____,chst,wall,____,____,____,wall
 map/row/11/rg=0000,0000,0000,0000,0000,0000,0002,0000,0000,0000,0006,0000,0000,0000,0000,0000
 
-map/row/12/bg=dirt,dirt,dirt,hole,hole,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
+map/row/12/bg=dirt,dirt,dirt,hole,stps,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
 map/row/12/fg=wall,____,____,____,____,____,wall,wall,wall,wall,wall,wall,____,emgd,____,wall
 map/row/12/rg=0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0002,0000,0000
 
