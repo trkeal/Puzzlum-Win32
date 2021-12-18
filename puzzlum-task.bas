@@ -1,3 +1,4 @@
+#define puzzlum_task_lib
 
 'Line_Handle.bas
 'Puzzlum Task Manager

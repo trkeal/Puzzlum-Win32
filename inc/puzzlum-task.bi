@@ -13,7 +13,9 @@
 
 '=====
 	
+	#ifndef puzzlum_task_lib
 	#inclib "puzzlum-task"
+	#endif
 
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"

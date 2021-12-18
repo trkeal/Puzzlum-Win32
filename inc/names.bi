@@ -7,8 +7,11 @@
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
- 
+
+#ifndef names_lib 
 #inclib "names"
+#endif
+
 #include once ".\inc\const.bi"
 
 type names_type

@@ -1,19 +1,13 @@
 #ifndef __FBImage_bi__
 #define __FBImage_bi__
 
+#define fbimage_lib
 
 #ifdef __FB_WIN32__
-# libpath "lib/win"
+  #libpath "lib/win"
 #else
-# libpath "lib/lin"
+  #libpath "lib/lin"
 #endif
-
-#ifndef __FB_64BIT__
-# inclib "FBImage-32-static"
-#else
-# inclib "FBImage-64-static"
-#endif
-
 
 ' Load BMP, PNG, JPG, TGA, DDS from file or memory as FBImage
 

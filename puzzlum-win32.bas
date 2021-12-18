@@ -1,3 +1,4 @@
+#define puzzlum_win32_lib
 
 'puzzlum-win32.bas
 '

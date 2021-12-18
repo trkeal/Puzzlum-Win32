@@ -53,16 +53,16 @@ map/row/12/rg=0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0
 
 map/row/13/bg=dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
 map/row/13/fg=wall,____,____,____,____,____,wall,____,____,____,____,____,____,____,chst,wall
-map/row/13/0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0001,0000
+map/row/13/rg=0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0001,0000
 
 map/row/14/bg=dirt,dirt,dirt,dirt,dirt,dirt,hole,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
 map/row/14/fg=wall,____,shkt,bldr,____,____,____,____,____,dtby,____,wall,wall,wall,wall,wall
-map/row/14/0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000
+map/row/14/rg=0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000
 
 map/row/15/bg=dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
 map/row/15/fg=wall,chst,____,____,____,____,wall,dtby,dtby,____,____,____,____,____,chst,wall
-map/row/15/0000,0001,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0004,0000
+map/row/15/rg=0000,0001,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0004,0000
 
 map/row/16/bg=dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt,dirt
 map/row/16/fg=wall,wall,wall,wall,wall,wall,wall,wall,wall,wall,wall,wall,wall,wall,wall,wall
-map/row/16/0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000
+map/row/16/rg=0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000

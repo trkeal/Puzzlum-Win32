@@ -1,6 +1,6 @@
 
-#inclib "const"
-#include once "crt\math.bi"
+#ifndef const_bi
+#define const_bi
 
 Const Pi = 4 * ATN(1)
 
@@ -10,3 +10,5 @@ const eq = "="
 const colon = ":"
 const comma = ","
 const semi = ";"
+
+#endif

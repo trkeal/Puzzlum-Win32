@@ -1,3 +1,4 @@
+#define puzzlum_vars_lib
 
 'puzzlum-vars.bas
 'Puzzlum Variable Definitions
@@ -13,7 +14,8 @@
 
 '=====
 
-	#inclib "puzzlum-vars"
+	'#inclib "puzzlum-vars"
+	'#include ".inc\puzzlum-vars.bi"
 
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"

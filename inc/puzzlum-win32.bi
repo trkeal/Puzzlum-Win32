@@ -14,5 +14,7 @@
 	
 	#include once ".\inc\puzzlum-subs.bi"
 	#include once ".\inc\puzzlum-vars.bi"
+	#ifndef puzzlum_win32_lib
 	#inclib "puzzlum-win32"
+	#endif
 	

@@ -13,7 +13,9 @@
 
 '=====
 	
+	#ifndef puzzlum_vars_lib
 	#inclib "puzzlum-vars"
+	#endif
 	
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"

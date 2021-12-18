@@ -12,8 +12,9 @@
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
 '=====
-
+	#ifndef clv_lib
 	#inclib "clv"
+	#endif
 
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"

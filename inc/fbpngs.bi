@@ -21,14 +21,14 @@ end enum
 declare function png_load cdecl alias "png_load" _
 	( _
 		byref filename as string, _
-		byval target   as png_target_e = PNG_TARGET_FBOLD _
+		byval target   as png_target_e = PNG_TARGET_FBNEW _
 	) as any ptr
 
 declare function png_load_mem cdecl alias "png_load_mem" _
 	( _
 		byval buffer     as any ptr, _
 		byval buffer_len as integer, _
-		byval target     as png_target_e = PNG_TARGET_FBOLD _
+		byval target     as png_target_e = PNG_TARGET_FBNEW _
 	) as any ptr
 
 declare function png_save cdecl alias "png_save" _

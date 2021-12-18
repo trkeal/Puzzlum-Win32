@@ -15,7 +15,9 @@
 
 #inclib "Const"
 #inclib "Names"
+#ifndef Ln_lib
 #inclib "Ln"
+#endif
 #inclib "puzzlum-win32"
 
 declare sub LnCall overload( Ln As String = "%%" )    

@@ -1,5 +1,6 @@
+#define names_lib
  
-#inclib "names"
+'#include once ".\inc\names.bi"
 #include once ".\inc\const.bi"
 
 type names_type

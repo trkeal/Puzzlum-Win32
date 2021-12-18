@@ -1,3 +1,4 @@
+#define clv_lib
 
 'clv.bi
 'Advanced freeBASIC Composite Layer Video Routines (CLV)
@@ -19,9 +20,9 @@
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"
 
-	#inclib "fbgfx.bi"
-	#inclib ".\inc\fbimage.bi"
-	#inclib ".\inc\fbpngs.bi"
+	#include once "fbgfx.bi"
+	#include once ".\inc\fbimage.bi"
+	#include once ".\inc\fbpngs.bi"
 	
 sub clv_buffer_ini(clv_buffer(any,any) as fb.image ptr, Screen_Width as integer, Screen_Height as integer)
     dim as integer PageIndex

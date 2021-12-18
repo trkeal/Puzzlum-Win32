@@ -12,7 +12,9 @@
 
 '=====
 	
+	#ifndef puzzlum_subs_lib
 	#inclib "puzzlum-subs"
+	#endif
 
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"
