@@ -4,6 +4,8 @@ set log="compile-win32.log"
 set static="Win32 Static Library"
 set binary="32bit Windows Binary"
 
+set debugopts=-g
+
 del %log%
 
 set fbopts= -include "const.inc.bas"
@@ -17,37 +19,37 @@ rem %fbc% "const.bas" %libopts% >> %log% 2>&1
 
 echo: >> %log%
 echo ===[ Names Table ]==[ %static% ]=== >> %log%
-%fbc% "names.bas" %libopts% >> %log% 2>&1
+%fbc% "names.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Composite Layer Video ]==[ %static% ]=== >> %log%
-%fbc% "clv.bas" %libopts% >> %log% 2>&1
+%fbc% "clv.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ FBImage ]==[ %static% ]=== >> %log%
-%fbc% "fbimage.bas" %libopts% >> %log% 2>&1
+%fbc% "fbimage.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Vars ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-vars.bas" %libopts% >> %log% 2>&1
+%fbc% "puzzlum-vars.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Subs ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-subs.bas" %libopts% >> %log% 2>&1
+%fbc% "puzzlum-subs.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Task Manager ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-task.bas" %libopts% >> %log% 2>&1
+%fbc% "puzzlum-task.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Main ]==[ %binary% ]=== >> %log%
-%fbc% "puzzlum-win32.bas" %fbopts% -s gui ".\win32\rc\puzzlum.rc" >> %log% 2>&1
+%fbc% "puzzlum-win32.bas" %debugopts% %fbopts% -s gui ".\win32\rc\puzzlum.rc" >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%

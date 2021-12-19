@@ -4097,9 +4097,28 @@ sub savegame_load( filename as string = "", Save_Table( any ) as names_type )
 end sub
 
 function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
-
+	
+	if cvl( KeyPress ) = 27 then end
+	
+	dim as string SyncKeyStr = string$( 0, 0 )
+	dim as long SyncKeyVal = 0
+	
+	SyncKeyStr = sync_names( Comparison, Input_Table() )
+	select case left$( SyncKeyStr, len( quot ) ) = quot and right$( SyncKeyStr, len( quot ) ) = quot
+	case 0 = 0
+		SyncKeyVal = val( mid$( SyncKeyStr, len( quot ) + 1, len(sync_names( Comparison, Input_Table() ) ) - len( quot ) * 2 ) )
+	case else
+		SyncKeyVal = val( SyncKeyStr )
+	end select
+		
+	locate 1,1
+	color 15,1
+	
+	print quot + hex( cvl( KeyPress ) ) + quot + eq + quot + hex( SyncKeyVal ) + quot
+	flip
+	
 	select case 0 = 0
-	case val( sync_names( Comparison, Input_Table() ) ) = cvl( KeyPress )
+	case SyncKeyVal = cvl( KeyPress )
 		Compare_Key = 0 = 0
 	case else
 		Compare_Key = 0

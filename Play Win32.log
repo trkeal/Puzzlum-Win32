@@ -7,6 +7,8 @@ C:\ag\Puzzlum-Win32>set static="Win32 Static Library"
 
 C:\ag\Puzzlum-Win32>set binary="32bit Windows Binary" 
 
+C:\ag\Puzzlum-Win32>set debugopts=-g 
+
 C:\ag\Puzzlum-Win32>del "compile-win32.log" 
 
 C:\ag\Puzzlum-Win32>set fbopts= -include "const.inc.bas" 
@@ -25,7 +27,7 @@ C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log"
 
 C:\ag\Puzzlum-Win32>echo ===[ Names Table ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "names.bas"  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "names.bas" -g  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
 
 C:\ag\Puzzlum-Win32>if errorlevel 1 goto :failed 
 
@@ -33,7 +35,7 @@ C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log"
 
 C:\ag\Puzzlum-Win32>echo ===[ Composite Layer Video ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "clv.bas"  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "clv.bas" -g  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
 
 C:\ag\Puzzlum-Win32>if errorlevel 1 goto :failed 
 
@@ -41,7 +43,7 @@ C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log"
 
 C:\ag\Puzzlum-Win32>echo ===[ FBImage ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "fbimage.bas"  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "fbimage.bas" -g  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
 
 C:\ag\Puzzlum-Win32>if errorlevel 1 goto :failed 
 
@@ -49,7 +51,7 @@ C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log"
 
 C:\ag\Puzzlum-Win32>echo ===[ Puzzlum / Vars ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-vars.bas"  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-vars.bas" -g  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
 
 C:\ag\Puzzlum-Win32>if errorlevel 1 goto :failed 
 
@@ -57,7 +59,7 @@ C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log"
 
 C:\ag\Puzzlum-Win32>echo ===[ Puzzlum / Subs ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-subs.bas"  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-subs.bas" -g  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
 
 C:\ag\Puzzlum-Win32>if errorlevel 1 goto :failed 
 
@@ -65,7 +67,7 @@ C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log"
 
 C:\ag\Puzzlum-Win32>echo ===[ Puzzlum / Task Manager ]==[ "Win32 Static Library" ]===  1>>"compile-win32.log" 
 
-C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-task.bas"  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-task.bas" -g  -lib  -include "const.inc.bas"   1>>"compile-win32.log" 2>&1 
 
 C:\ag\Puzzlum-Win32>if errorlevel 1 goto :failed 
 
@@ -73,7 +75,7 @@ C:\ag\Puzzlum-Win32>echo:  1>>"compile-win32.log"
 
 C:\ag\Puzzlum-Win32>echo ===[ Puzzlum / Main ]==[ "32bit Windows Binary" ]===  1>>"compile-win32.log" 
 
-C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-win32.bas"  -include "const.inc.bas" -s gui ".\win32\rc\puzzlum.rc"  1>>"compile-win32.log" 2>&1 
+C:\ag\Puzzlum-Win32>"C:\FreeBASIC\fbc32.exe" "puzzlum-win32.bas" -g  -include "const.inc.bas" -s gui ".\win32\rc\puzzlum.rc"  1>>"compile-win32.log" 2>&1 
 
 C:\ag\Puzzlum-Win32>if errorlevel 1 goto :failed 
 
