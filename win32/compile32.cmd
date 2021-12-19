@@ -60,8 +60,6 @@ if errorlevel 1 goto :failed
 echo: >> %log%
 echo ===[ Now attempting to load the "puzzlum-win32" executable.. ]=== >> %log%
 
-"puzzlum-win32.exe"
-
 exit /b 0
 
 :failed
