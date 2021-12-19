@@ -1,16 +1,21 @@
+@echo off
+
 set fbc="C:\FreeBASIC\fbc32.exe"
-set log="compile-win32.log"
+set log=".\win32\compile32.log"
 
 set static="Win32 Static Library"
 set binary="32bit Windows Binary"
 
-set debugopts=-g
+set debugopts= -g 
 
-del %log%
+if exist %log% (
+	del %log%
+)
 
 set fbopts= -include "const.inc.bas"
 set libopts= -lib %fbopts% 
 
+echo: >> %log%
 echo ===[ Puzzlum-Win32 ]==[ FreeBASIC x86 Linker Utility ]=== >> %log%
 
 rem echo: >> %log%

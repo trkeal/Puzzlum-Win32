@@ -1,1 +1,1 @@
-call "c:\FreeBASIC\gdb.exe" "puzzlum-win32.exe"
+call "C:\FreeBASIC\gdb.exe"
