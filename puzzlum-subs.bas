@@ -29,7 +29,7 @@
 	#include once ".\inc\Central Redirect 1.bi"
 	#include once ".\inc\Central Redirect 2.bi"
 	
-sub ln_roe ()
+sub ln_roe()
     
 	Mouse_Width=320
     Mouse_Height=240
@@ -105,7 +105,7 @@ sub ln_roe ()
             clv_buffer_stack clv_buffer()
         wend
 
-       ln_startup
+       central "startup"
                 
         while len(inkey)=0
             clv_buffer_stack clv_buffer()
@@ -117,14 +117,14 @@ sub ln_roe ()
             if restart_roe then exit do
             if Compare_Key( c_str, "Title", Input_Table() ) OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
                 clv_buffer_focus=clv_buffer_title
-                ln_starttitle
+                central "starttitle"
             end if
             exitcommand=0
             do
-                ln_command
+                central "command"
                 exitcommand3=0
                 do
-                    ln_command3
+                    central "command3"
                     if (lcase(c_str) = "t") OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
                     exitcommand3=NOT(0)
                         exitcommand=not(0)
@@ -134,13 +134,13 @@ sub ln_roe ()
                 if restart_roe then exit do
             loop while INSTR(1, "L||", RIGHT(" " + c_str, 1)) > 0
             if restart_roe then exit do
-            ln_main
+            central "main"
             if restart_roe then exit do
         loop
     loop
 end sub
 
-sub ln_startup ()
+sub ln_startup()
 
 	wipe_table( Bundle_Table() )
 	
@@ -302,11 +302,11 @@ sub ln_startup ()
             e_stra(Rose_Calc( Tx_si, Ty_si ), 4) = "________" 'graphicsaction_str
             select case rfg_str
             case "____"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_sf = rid_sf
-                ln_prflset
+                central "prflset"
             case "spdr"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Spider"
                 prflactn_str = "movebiteweb_"
                 prflactnct_str = mkl(1)+mkl(1)+mkl(1)
@@ -330,15 +330,15 @@ sub ln_startup ()
                         prflactnct_str = prflactnct_str+mkl(1)
                     END IF
                 END SELECT
-                ln_prflset
+                central "prflset"
             case "wall"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "wall"
                 prflgpic_str = "wall"
                 prflidty_sf = 2
-                ln_prflset
+                central "prflset"
             case "web_"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Web"
                 prflactn_str = "spdr"
                 prflactnct_str = mkl(1)
@@ -353,9 +353,9 @@ sub ln_startup ()
                 prflstrmax_sf = 50
                 prflessmax_sf = 380
                 prflessspd_sf = 2
-                ln_prflset
+                central "prflset"
             case "grml"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Gremlin"
                 prflactn_str = "movebitepnch"
                 prflactnct_str = mkl(1)+mkl(1)+mkl(1)
@@ -374,9 +374,9 @@ sub ln_startup ()
                 prfllv_sf = 1
                 prflhpmax_sf = 25
                 prflstrmax_sf = 90
-                ln_prflset
+                central "prflset"
             case "pndx"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Poindexter"
                 prflactn_str = "wstf"
                 prflgpic_str = "pndx"
@@ -395,9 +395,9 @@ sub ln_startup ()
                 prflessmax_sf = 30
                 prflessspd_sf = .1
                 prflevad_sf = .07
-                ln_prflset
+                central "prflset"
             case "dtby"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Dust Bunny"
                 prflactn_str = "movebitekickdtbydust"
                 prflgpic_str = "dtby"
@@ -412,9 +412,9 @@ sub ln_startup ()
                 prflstrmax_sf = 20
                 prflessmax_sf = 280
                 prflessspd_sf = 1
-                ln_prflset
+                central "prflset"
             case "shkt"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Shiny Knight"
                 prflactn_str = "movepnchdggr"
                 prflactnct_str = mkl(1)+mkl(1)+mkl(1)
@@ -431,9 +431,9 @@ sub ln_startup ()
                 prflstrmax_sf = 110
                 prflessmax_sf = 12
                 prflevad_sf = .12
-                ln_prflset
+                central "prflset"
             case "emgd"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Emerald Guard"
                 prflactn_str = "movepnchdggr"
                 prflactnct_str = mkl(1)+mkl(1)+mkl(1)
@@ -458,9 +458,9 @@ sub ln_startup ()
                 prflhpmax_sf = 40
                 prflstrmax_sf = 140
                 prflevad_sf = .2
-                ln_prflset
+                central "prflset"
             case "door"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Door"
                 prflgpic_str = "door"
                 select case rid_sf
@@ -482,9 +482,9 @@ sub ln_startup ()
                 prfllv_sf = 1
                 prflhpmax_sf = 140
                 prflstrmax_sf = 140
-                ln_prflset
+                central "prflset"
             case "imp_"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Little Imp"
                 prflactn_str = "movewingfire"
                 prflactnct_str = mkl(1)+mkl(1)+mkl(1)
@@ -508,9 +508,9 @@ sub ln_startup ()
                 prflessmax_sf = 90
                 prflessspd_sf = 3
                 prflevad_sf = .3
-                ln_prflset
+                central "prflset"
             case "chst"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Treasure chest"
                 IF INT(RND(1) * 2) = 1 THEN
                     prflactn_str = "key1"
@@ -524,9 +524,9 @@ sub ln_startup ()
                 prflhp_sf = 100
                 prfllv_sf = 1
                 prflhpmax_sf = 100
-                ln_prflset
+                central "prflset"
             case "bldr"
-                ln_prflblnk
+                central "prflblnk"
                 prflidty_str = "Big boulder"
                 prflactn_str = ""
                 prflgpic_str = "bldr"
@@ -535,14 +535,14 @@ sub ln_startup ()
                 prflarmr_sf = 10
                 prfllv_sf = 1
                 prflhpmax_sf = 1000
-                ln_prflset
+                central "prflset"
             end select
         NEXT Tx_si
     NEXT Ty_si
     CLOSE 1
 end sub
 
-sub ln_starttitle ()
+sub ln_starttitle()
     do
         clv_buffer_focus=clv_buffer_title
         'SCREEN 14, 32, 16
@@ -551,59 +551,59 @@ sub ln_starttitle ()
         'COLOR rgb(255,255,255),rgb(0,0,131)'pal(15), pal(1)
         clv_buffer_cls clv_buffer(), clv_buffer_title
         colr_si = 15
-        ln_title clv_buffer(), clv_buffer_title
+        central "title", clv_buffer(), clv_buffer_title
         colr_si = 11
 
         texts_str=space(1)+"Puzzlum : Realm of Existence"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         texts_Str=space(1)+"Build: puzzlum-fbc068.200908170813"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         print
         texts_str=space(1)+"Created 1989-2009 Timothy Robert Keal"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         texts_str=space(1)+"Released under Gnu Public License 2.0"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         texts_str=space(1)+"http://www.gnu.org/copyleft/gpl.html"
         print
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         texts_str=space(1)+"http://puzzlum.retromachineshop.com/"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         texts_str=space(1)+"irc://chat.freenode.net/puzzlum"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         texts_str=space(1)+"mailto:jargon@juno.com"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         
         locate 17,1
         colr_si = 9
         texts_str = " (H)elp"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         PRINT
         texts_str = " (C)ontinue"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         PRINT
         texts_str = " (R)estart"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         PRINT
         texts_str = " (Q)uit"
-        ln_showtext clv_buffer(), clv_buffer_title
+        central "showtext", clv_buffer(), clv_buffer_title
         clv_buffer_stack clv_buffer()
-        ln_commandwait
+        central "commandwait"
         IF Compare_Key( c_str, "Restart", Input_Table() ) OR (ym_si = 21 AND xm_si = 3 AND Lb_si = -1) THEN
-            ln_screenset
+            central "screenset"
             restart_roe=1 'RUN
             exit do
         END IF
         IF Compare_Key( c_str, "Quit", Input_Table() ) OR (ym_si = 23 AND xm_si = 3 AND Lb_si = -1) THEN
-            ln_screenset
+            central "screenset"
             END
         END IF
         IF Compare_Key( c_str, "Help", Input_Table() ) OR (ym_si = 17 AND xm_si = 3 AND Lb_si = -1) THEN
-            ln_starthelp
+            central "starthelp"
         END IF
     loop while not ( Compare_Key( c_str, "Continue", Input_Table() ) ) AND NOT (ym_si = 19 AND xm_si = 3 AND Lb_si = -1)
 end sub
 
-sub ln_starthelp ()
+sub ln_starthelp()
     dim as integer Filemode = freefile
 	
 	clv_buffer_focus=clv_buffer_help
@@ -612,20 +612,20 @@ sub ln_starthelp ()
         LINE INPUT #Filemode, R_str
         IF R_str = "þ page start" THEN
             clv_buffer_cls clv_buffer(), clv_buffer_help
-            ln_title clv_buffer(), clv_buffer_help
+            central "title", clv_buffer(), clv_buffer_help
             R_Str=chr(0)
         END IF
         IF R_str = "þ page end" THEN
             LOCATE 22, 1
             colr_si = 9
             texts_str = " (C)ontinue"
-            ln_showtext clv_buffer(), clv_buffer_help
+            central "showtext", clv_buffer(), clv_buffer_help
             PRINT
             texts_str = " (T)itle"
-            ln_showtext clv_buffer(), clv_buffer_help
+            central "showtext", clv_buffer(), clv_buffer_help
             do
                 clv_buffer_stack clv_buffer()
-                ln_commandwait
+                central "commandwait"
                 IF Compare_Key( c_str, "Title", Input_Table() ) OR (ym_si = 24 AND xm_si = 3 AND Lb_si = -1) THEN
                     CLOSE Filemode
                     exit sub
@@ -645,7 +645,7 @@ sub ln_starthelp ()
         texts_str = R_str
         if R_Str <> chr(0) then
             IF R_str <> space(0) THEN
-                ln_showtext clv_buffer(), clv_buffer_help
+                central "showtext", clv_buffer(), clv_buffer_help
             else
                 PRINT
             END IF
@@ -659,7 +659,7 @@ sub ln_starthelp ()
     cinput
 end sub
 
-sub ln_main ()
+sub ln_main()
     FOR Tx_si = 1 TO AA_si
         FOR Ty_si = 1 TO DD_si
             a_si = 0
@@ -667,37 +667,37 @@ sub ln_main ()
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 9) = 0 THEN
                 G_dfa(Rose_Calc( Tx_si, Ty_si ), 9) = 1
                 MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
-                ln_getaction
+                central "getaction"
                 IF action_str = "zzzz" AND dis_si > 0 THEN
                     dis_si = dis_si - 1
-                    ln_putaction
+                    central "putaction"
                 END IF
                 SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4))
                 CASE CVL("wall")
                 CASE CVL("spdr")
-                    ln_crtnspdr
+                    central "crtnspdr"
                 CASE CVL("web_")
-                    ln_crtnweb
+                    central "crtnweb"
                 CASE CVL("dtby")
-                    ln_crtndtby
+                    central "crtndtby"
                 CASE CVL("grml")
-                    ln_crtngrml
+                    central "crtngrml"
                 CASE CVL("shkt")
-                    ln_crtnshkt
+                    central "crtnshkt"
                 CASE CVL("emgd")
-                    ln_crtnemgd
+                    central "crtnemgd"
                 CASE CVL("imp_")
-                    ln_crtnimp
+                    central "crtnimp"
                 CASE CVL("fire")
-                    ln_crtnfire
+                    central "crtnfire"
                 CASE CVL("pndx")
-                    ln_crtnpndx
+                    central "crtnpndx"
                 CASE CVL("ccts")
-                    ln_crtnccts
+                    central "crtnccts"
                 CASE CVL("bldr")
-                    ln_crtnbldr
+                    central "crtnbldr"
                 CASE CVL("dust")
-                    ln_crtndust
+                    central "crtndust"
                 END SELECT
             END IF
         NEXT Ty_si
@@ -710,33 +710,33 @@ sub ln_main ()
     Exit Sub
 end sub
 
-sub ln_command ()
+sub ln_command()
     clv_buffer_focus=clv_buffer_portal
     Tx_si = ex_si
     Ty_si = dy_si
     clv_buffer_cls clv_buffer(), clv_buffer_draw
-    ln_portal
+    central "portal"
     clv_buffer_stack clv_buffer()
-    ln_command2
+    central "command2"
     Exit Sub
 end sub
 
-sub ln_command2 ()
+sub ln_command2()
     clv_buffer_cls clv_buffer(), clv_buffer_menu
 
     frame_title 2, 24
     
     am_str = ctrl_str
-    ln_am
+    central "am"
     IF am_si > 0 THEN
         clv_buffer_focus=clv_buffer_status
         statx_si = 24
-        ln_status
+        central "status"
     END IF
     Exit Sub
 end sub
 
-sub ln_command3 ()
+sub ln_command3()
     dim as string filename = string$( 0, 0 )
 	filename = "0002"
 	redim Names_Table(0 to 0):Names_Table(0).label = "":Names_Table(0).value = ""
@@ -746,10 +746,10 @@ sub ln_command3 ()
     cinput
     IF ym_si = 2 AND xm_si >= 24 AND xm_si <= 24+7-1 THEN
         titled_si = 1
-        ln_command2
+        central "command2"
     else
         titled_si = 0
-        ln_command2
+        central "command2"
     END IF
     cursorput
     'netscreenout
@@ -760,22 +760,22 @@ sub ln_command3 ()
 		savegame_save( filename, Save_Table() )
 
         c_str="t"
-        ln_starttitle
+        central "starttitle"
         exitcommand3=not(0)
         Exit Sub
     case "&HFF3C" 'F2 (load savegame)
 		savegame_load( filename, Save_Table() )
         c_str="t"
-        ln_starttitle
+        central "starttitle"
         exitcommand3=not(0)
         Exit Sub
     end select
     IF am_si > 0 THEN
         statx_si = 24
-        ln_getaction
+        central "getaction"
         IF (Compare_Key( c_str, "Shop", Input_Table() )) OR (((ym_si = 5) AND (xm_si=26) AND (Lb_si=-1))) THEN 'F3
             c_str = "L"
-            ln_paylevelup
+            central "paylevelup"
             exitcommand3=not(0)
             Exit Sub
         END IF
@@ -783,63 +783,63 @@ sub ln_command3 ()
         case "&H20" 'Space
             d_si = 0
             dis_si = 0
-            ln_putaction
+            central "putaction"
             exitcommand3=not(0)
             Exit Sub
         case "&HFF48" 'Up
             d_si = 1
             dis_si = 0
-            ln_putaction
+            central "putaction"
             exitcommand3=not(0)
             Exit Sub
         case "&HFF4D" 'Right
             d_si = 2
             dis_si = 0
-            ln_putaction
+            central "putaction"
             exitcommand3=not(0)
             Exit Sub
         case "&HFF50" 'Down
             d_si = 3
             dis_si = 0
-            ln_putaction
+            central "putaction"
             exitcommand3=not(0)
             Exit Sub
         case "&HFF4B" 'Left
             d_si = 4
             dis_si = 0
-            ln_putaction
+            central "putaction"
             exitcommand3=not(0)
             Exit Sub
         end select
         IF ((ym_si=10) AND (xm_si=statx_si+1) AND (Lb_si=-1)) AND not(d_si=0) THEN
             d_si = 0
             dis_si = 0
-            ln_putaction
-            ln_command2
+            central "putaction"
+            central "command2"
         END IF
         IF ((ym_si=9) AND (xm_si=statx_si+1) AND (Lb_si=-1)) AND not(d_si=1) THEN
             d_si = 1
             dis_si = 0
-            ln_putaction
-            ln_command2
+            central "putaction"
+            central "command2"
         END IF
         IF ((ym_si=10) AND (xm_si=statx_si+2) AND (Lb_si=-1)) AND not(d_si=2) THEN
             d_si = 2
             dis_si = 0
-            ln_putaction
-            ln_command2
+            central "putaction"
+            central "command2"
         END IF
         IF ((ym_si=11) AND (xm_si=statx_si+1) AND (Lb_si=-1)) AND not(d_si=3) THEN
             d_si = 3
             dis_si = 0
-            ln_putaction
-            ln_command2
+            central "putaction"
+            central "command2"
         END IF
         IF ((ym_si = 10) AND (xm_si=statx_si) AND (Lb_si=-1)) AND not(d_si=4) THEN
             d_si = 4
             dis_si = 0
-            ln_putaction
-            ln_command2
+            central "putaction"
+            central "command2"
         END IF
         if not ((action_str="zzzz") AND (dis_si>0)) then
             if (Lb_si=-1) then
@@ -893,12 +893,12 @@ sub ln_command3 ()
                 end if
             end if
         end if
-        ln_putaction
+        central "putaction"
         st_sf = TIMER
     END IF
     statx_si = 24
     IF (Compare_Key( c_str, "Title", Input_Table() )) OR ((ym_si = 2) AND (xm_si>=statx_si) AND (xm_si<=statx_si+7-1) AND Lb_si = -1) THEN
-        ln_starttitle
+        central "starttitle"
         Exit Sub
     END IF
     IF (Lb_si=-1) and (ym_si>=2) and (ym_si<=2+7*3-1) THEN
@@ -927,13 +927,7 @@ sub ln_command3 ()
     END IF
 end sub   
 
-sub ln_names() ''[!!!]''
-    ''dim as uinteger fail,index,octet,biet
-    ''rr_str=Timothy_memory(Names_Table(),R_str,R_str,Timothy_Read,Timothy_Read,fail,index,octet,biet)
-    '''DB_Dict_Get Names_Table(), R_str, rr_str, R_str
-end sub
-
-sub ln_swapdata ()
+sub ln_swapdata()
     FOR t_si = 0 TO 1
         SWAP e_stra(Rose_Calc( Tx_si, Ty_si ), t_si), e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, t_si)
     NEXT t_si
@@ -951,7 +945,7 @@ sub ln_swapdata ()
     Exit Sub
 end sub
 
-sub ln_attack ()
+sub ln_attack()
     
 	dim as string attk = string$( 0,0 )
 	
@@ -962,27 +956,27 @@ sub ln_attack ()
 		MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
 		MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
 	case else
-		ln_attk_table ( attk, Attack_Table() )
+		central "attk_table", ( attk, Attack_Table() )
 	end select
 	
 	#ifdef __old__
 	SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4))
     CASE CVL("bite")
-        ln_attkbite
+        central "attkbite"
     CASE CVL("pnch")
-        ln_attkpnch
+        central "attkpnch"
     CASE CVL("kick")
-        ln_attkkick
+        central "attkkick"
     CASE CVL("vnom")
-        ln_attkvnom
+        central "attkvnom"
     CASE CVL("dggr")
-        ln_attkdggr
+        central "attkdggr"
     CASE CVL("pike")
-        ln_attkpike
+        central "attkpike"
     CASE CVL("cure")
-        ln_usecure
+        central "usecure"
     CASE CVL("fire")
-        ln_attkfire
+        central "attkfire"
     CASE ELSE
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
@@ -992,7 +986,7 @@ sub ln_attack ()
     Exit Sub
 end sub
 
-sub ln_battle ()
+sub ln_battle()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) >= str_use_si AND G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= ess_use_si THEN
         IF 1 = 1 THEN
             MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = attk_pict_str
@@ -1005,9 +999,9 @@ sub ln_battle ()
             IF attackblocked < 0 THEN attackblocked = 0
             hp_dmg_si = hp_dmg_si * (1 - evadeattack) + attackblocked
             G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) - hp_dmg_si
-            ln_battleattack
+            central "battleattack"
             IF G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) <= 0 THEN
-                ln_victory
+                central "victory"
             END IF
         END IF
     ELSE
@@ -1017,142 +1011,142 @@ sub ln_battle ()
     Exit Sub
 end sub
 
-sub ln_attkbite ()
+sub ln_attkbite()
     attk_pict_str = "bite"
     attk_name_str = "bite"
     str_use_si = 10
     ess_use_si = 0
     hp_dmg_si = 5 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
     str_dmg_si = 2
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attkpnch ()
+sub ln_attkpnch()
     attk_pict_str = "pnch"
     attk_name_str = "pnch"
     str_use_si = 12
     ess_use_si = 0
     hp_dmg_si = 3 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 6)
     str_dmg_si = 2 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 8)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attkwstf ()
+sub ln_attkwstf()
     attk_pict_str = "wstf"
     attk_name_str = "wstf"
     str_use_si = 20
     ess_use_si = 0
     hp_dmg_si = 5 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
     str_dmg_si = 4 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 6)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attkkick ()
+sub ln_attkkick()
     attk_pict_str = "kick"
     attk_name_str = "kick"
     str_use_si = 14
     ess_use_si = 0
     hp_dmg_si = 4 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 5)
     str_dmg_si = 3 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 7)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attkvnom ()
+sub ln_attkvnom()
     attk_pict_str = "vnom"
     attk_name_str = "vnom"
     str_use_si = 0
     ess_use_si = 15
     hp_dmg_si = 7 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
     str_dmg_si = 10 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attkdggr ()
+sub ln_attkdggr()
     attk_pict_str = "dggr"
     attk_name_str = "dggr"
     str_use_si = 18
     ess_use_si = 0
     hp_dmg_si = 8 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
     str_dmg_si = 1 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 10)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attkpike ()
+sub ln_attkpike()
     attk_pict_str = "pike"
     attk_name_str = "pike"
     str_use_si = 24
     ess_use_si = 0
     hp_dmg_si = 12 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 3)
     str_dmg_si = 8 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 5)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attkburn ()
+sub ln_attkburn()
     attk_pict_str = "____"
     attk_name_str = "burn"
     str_use_si = 5
     ess_use_si = 5
     hp_dmg_si = 12 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 2)
     str_dmg_si = 15 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
-    ln_battle
+    central "battle"
     IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = "fire" THEN
-        ln_gone
+        central "gone"
     END IF
     Exit Sub
 end sub
 
-sub ln_attkfire ()
+sub ln_attkfire()
     attk_pict_str = "____"
     attk_name_str = "fire"
     str_use_si = 5
     ess_use_si = 20
     hp_dmg_si = 15 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 2)
     str_dmg_si = 20 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 4)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attkweb ()
+sub ln_attkweb()
     attk_pict_str = "____"
     attk_name_str = "web_"
     str_use_si = 22
     ess_use_si = 0
     hp_dmg_si = 0
     str_dmg_si = 15 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 5)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attktngl ()
+sub ln_attktngl()
     attk_pict_str = "____"
     attk_name_str = "tngl"
     str_use_si = 0
     ess_use_si = 0
     hp_dmg_si = 0
     str_dmg_si = 10 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 6)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-sub ln_attklash ()    
+sub ln_attklash()    
 	attk_pict_str = "____"
     attk_name_str = "lash"
     str_use_si = 0
     ess_use_si = 0
     hp_dmg_si = 5 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 5)
     str_dmg_si = 8 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) / 7)
-    ln_battle
+    central "battle"
     Exit Sub
 end sub
 
-Sub ln_attk_table ( attk as string = "%%", Attack_Table( Any ) As Names_Type )
+sub ln_attk_table( attk as string = "%%", Attack_Table( Any ) As Names_Type )
 	
 	dim as integer level = G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)
 		
@@ -1189,7 +1183,7 @@ Sub ln_attk_table ( attk as string = "%%", Attack_Table( Any ) As Names_Type )
 		ess_dmg_si += 0	
 	end if
 
-    ln_battle
+    central "battle"
 
 	entity_count = val( sync_names( "attk/"+attk+"/entity/count", Attack_Table()) )
 
@@ -1198,7 +1192,7 @@ Sub ln_attk_table ( attk as string = "%%", Attack_Table( Any ) As Names_Type )
 		Case Mid$(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4)
 			Select Case sync_names( "attk/"+attk+"/entity/"+LTrim$(Str$(entity_index))+"/now", Attack_Table())
 			Case "gone"
-				ln_gone
+				central "gone"
 				Exit Sub
 			End Select
 		End Select
@@ -1208,13 +1202,13 @@ Sub ln_attk_table ( attk as string = "%%", Attack_Table( Any ) As Names_Type )
 End Sub
 
 
-sub ln_usecure ()
+sub ln_usecure()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 8 THEN
         IF 1 = 1 THEN
             MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "cure"
             MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "cure"
             AA_str = "cure"
-            ln_attackusing
+            central "attackusing"
             G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 8
             G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) + 12 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)
             G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) + 15 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)
@@ -1222,7 +1216,7 @@ sub ln_usecure ()
                 G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) = 0
             END IF
             IF G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) <= 0 THEN
-                ln_victory
+                central "victory"
             END IF
         END IF
     ELSE
@@ -1234,13 +1228,13 @@ sub ln_usecure ()
     Exit Sub
 end sub
 
-sub ln_useslep ()
+sub ln_useslep()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 8 THEN
         IF 1 = 1 THEN
             MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
             MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "slep"
             AA_str = "slep"
-            ln_attackusing
+            central "attackusing"
             G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 8
             MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 4), 1, 4) = "____"
             MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 4), 5, 4) = "zzzz"
@@ -1249,11 +1243,11 @@ sub ln_useslep ()
             tempty_si = Ty_si
             Tx_si = Tx_si + d_sia(d_si, 1) * dis_si
             Ty_si = Ty_si + d_sia(d_si, 2) * dis_si
-            ln_tempget
+            central "tempget"
             IF tempaction_str <> "zzzz" THEN
                 tempaction_str = "zzzz"
                 tempdis_si = 5 + INT(RND(1) * 6) + slepadd_si
-                ln_tempput
+                central "tempput"
             END IF
             Tx_si = temptx_si
             Ty_si = tempty_si
@@ -1262,7 +1256,7 @@ sub ln_useslep ()
                 G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2) = 0
             END IF
             IF G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) <= 0 THEN
-                ln_victory
+                central "victory"
             END IF
         END IF
     ELSE
@@ -1274,8 +1268,8 @@ sub ln_useslep ()
     Exit Sub
 end sub
 
-sub ln_victory ()
-    ln_prflblnk
+sub ln_victory()
+    central "prflblnk"
     prflidty_str = "pouch"
     prflactn_str = e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1)
     prflgpic_str = "pwch"
@@ -1286,27 +1280,27 @@ sub ln_victory ()
     prflvalu_sf = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 7)
     prfllv_sf = 1
     prflhpmax_sf = 99999
-    ln_prflmake
+    central "prflmake"
     Exit Sub
 end sub
 
-sub ln_pillage ()
+sub ln_pillage()
     expgain_si = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 6)
     expgain_si = expgain_si + G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 7)
     G_dfa(Tx_si + (Ty_si + -1) * AA_si, 6) = G_dfa(Tx_si + (Ty_si + -1) * AA_si, 6) + expgain_si
     strgain_si = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2)
     G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) + strgain_si
-    ln_defeated
-    ln_windggr
-    ln_winpike
-    ln_wingrpl
-    ln_winseed
-    ln_winkey1
-    ln_winkey2
+    central "defeated"
+    central "windggr"
+    central "winpike"
+    central "wingrpl"
+    central "winseed"
+    central "winkey1"
+    central "winkey2"
     Exit Sub
 end sub
 
-sub ln_paylevelup ()
+sub ln_paylevelup()
     dim as short X1, Y1, X2, Y2, C1, C2
     dim as short Row, Col
     
@@ -1314,18 +1308,18 @@ sub ln_paylevelup ()
     Col=14
     
     am_str = ctrl_str
-    ln_am
+    central "am"
     IF am_si > 0 THEN
         
         clv_buffer_focus=clv_buffer_expshop
         clv_buffer_cls clv_buffer(), clv_buffer_expshop
         
-        'ln_portal
+        'central "portal"
         'PCOPY 1, 2
-ln_reshow1:
+reshow1:
 'end sub
 
-'sub ln_reshow1 ()
+'sub ln_reshow1()
 
 
         'PCOPY 2, 1
@@ -1337,55 +1331,55 @@ ln_reshow1:
         C2 = 12
         frame_put clv_buffer(), clv_buffer_expshop, X1, Y1, X2, Y2, C1, C2
         statx_si = 15
-        ln_stts clv_buffer(), clv_buffer_expshop, Row+1, Col+1
+        central "stts", clv_buffer(), clv_buffer_expshop, Row+1, Col+1
         menu_str = ""
         menu_str = menu_str + "lvup" + MKL(l_sia(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)))
         IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = "pndx" THEN
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 1 THEN
                 haveit_str = "ispt"
-                ln_haveit
+                central "haveit"
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "ispt" + MKL(0)
                 END IF
             END IF
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 1 THEN
                 haveit_str = "move"
-                ln_haveit
+                central "haveit"
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "move" + MKL(0)
                 END IF
             END IF
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 1 THEN
                 haveit_str = "bite"
-                ln_haveit
+                central "haveit"
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "bite" + MKL(2)
                 END IF
             END IF
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 1 THEN
                 haveit_str = "pnch"
-                ln_haveit
+                central "haveit"
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "pnch" + MKL(2)
                 END IF
             END IF
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 2 THEN
                 haveit_str = "kick"
-                ln_haveit
+                central "haveit"
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "kick" + MKL(10)
                 END IF
             END IF
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 3 THEN
                 haveit_str = "cure"
-                ln_haveit
+                central "haveit"
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "cure" + MKL(20)
                 END IF
             END IF
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 7 THEN
                 haveit_str = "vnom"
-                ln_haveit
+                central "haveit"
                 IF haveit_si = 0 THEN
                     menu_str = menu_str + "vnom" + MKL(30)
                 END IF
@@ -1398,7 +1392,7 @@ ln_reshow1:
             menuitem_str = MID(menu_str, (menuitem_si - 1) * 8 + 1, 4)
             menucost_si = CVL(MID(menu_str, (menuitem_si - 1) * 8 + 5, 4))
             R_str = menuitem_str
-            ln_names
+            central "names"
             IF menucost_si > 0 THEN
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_expshop, clv_glyph(), (X1+1-1) shl 3,(Y1+6+menuitem_si-1) shl 3,  "ú" + rr_str + " " + STRING((40 - 15) - LEN(rr_str) - 7, "-") + RIGHT("----" + STR(menucost_si) + "$", 5)
             END IF
@@ -1406,9 +1400,9 @@ ln_reshow1:
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_expshop, clv_glyph(), (X1+1-1) shl 3, (Y1+6+menuitem_si-1) shl 3, "ú" + rr_str
             END IF
         NEXT menuitem_si
-ln_wwait0:
-'sub wwait0 ()
-        ln_buttonwait
+wwait0:
+'sub ln_wwait0 ()
+        central "buttonwait"
         menuselect_str = "____"
         menucost_si = 0
         IF Lb_si = -1 THEN
@@ -1423,65 +1417,65 @@ ln_wwait0:
         IF menuselect_str <> "lvup" AND menuselect_str <> "cncl" AND menuselect_str <> "____" THEN
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= menucost_si THEN
                 c_str = "L"
-                ln_abilitygain
+                central "abilitygain"
                 clv_buffer_focus=clv_buffer_expshop
                 END IF
-            GOTO ln_reshow1
+            GOTO reshow1
         END IF
         IF menuselect_str = "lvup" THEN
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= menucost_si THEN
                 c_str = "L"
-                ln_levelup
+                central "levelup"
                 clv_buffer_focus=clv_buffer_expshop
             END IF
-            GOTO ln_reshow1
+            GOTO reshow1
         END IF
         IF menuselect_str = "cncl" THEN
             c_str = "L"
         ELSE
-            GOTO ln_wwait0
+            GOTO wwait0
         END IF
         'PCOPY 2, 1
     END IF
     Exit Sub
 end sub
 
-sub ln_merchant ()
-ln_merchant1:
+sub ln_merchant()
+merchant1:
     am_str = ctrl_str
-    ln_am
+    central "am"
     IF am_si > 0 THEN
         
         clv_buffer_focus=clv_buffer_merchant
         clv_buffer_cls clv_buffer(), clv_buffer_merchant
 
-        ln_portal
+        central "portal"
         statx_si = 2
-        ln_status
+        central "status"
         viewx_si = 18
         menu_str = ""
         hasit_str = "dggr"
-        ln_hasit
+        central "hasit"
         IF hasit_si > 0 THEN
             menu_str = menu_str + "dggr" + MKL(5)
         END IF
         hasit_str = "pike"
-        ln_hasit
+        central "hasit"
         IF hasit_si > 0 THEN
             menu_str = menu_str + "pike" + MKL(20)
         END IF
         hasit_str = "grpl"
-        ln_hasit
+        central "hasit"
         IF hasit_si > 0 THEN
             menu_str = menu_str + "grpl" + MKL(15)
         END IF
         hasit_str = "seed"
-        ln_hasit
+        central "hasit"
         IF hasit_si > 0 THEN
             menu_str = menu_str + "seed" + MKL(15)
         END IF
         hasit_str = "wstf"
-        ln_hasit
+        central "hasit"
         IF hasit_si > 0 THEN
             menu_str = menu_str + "wstf" + MKL(10)
         END IF
@@ -1495,7 +1489,7 @@ ln_merchant1:
             menuitem_str = MID(menu_str, (menuitem_si - 1) * 8 + 1, 4)
             menucost_si = CVL(MID(menu_str, (menuitem_si - 1) * 8 + 5, 4))
             R_str = menuitem_str
-            ln_names
+            central "names"
             IF menucost_si > 0 THEN
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (viewx_si-1) shl 3, (12 + menuitem_si-1) shl 3, "ú" + rr_str + " " + STRING((40 - viewx_si) - LEN(rr_str) - 7, "-") + RIGHT("----" + RIGHT(STR(menucost_si), LEN(STR(menucost_si)) - 1) + "$", 5)
             END IF
@@ -1504,9 +1498,9 @@ ln_merchant1:
             END IF
         NEXT menuitem_si
 'end sub
-ln_wwait1:
-'sub ln_wwait1 ()
-        ln_buttonwait
+wwait1:
+'sub ln_wwait1()
+        central "buttonwait"
         menuselect_str = "____"
         menucost_si = 0
         IF Lb_si = -1 THEN
@@ -1521,38 +1515,38 @@ ln_wwait1:
         IF menuselect_str <> "lvup" AND menuselect_str <> "cncl" AND menuselect_str <> "____" THEN
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= menucost_si THEN
                 c_str = "L"
-                ln_abilitygain
+                central "abilitygain"
                 clv_buffer_focus=clv_buffer_merchant
                 hashadit_str = menuselect_str
-                ln_hashadit
+                central "hashadit"
                 G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 6) = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 6) + menucost_si
-                GOTO ln_merchant1
+                GOTO merchant1
             END IF
-            GOTO ln_merchant1
+            GOTO merchant1
         END IF
         IF menuselect_str = "lvup" THEN
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) >= menucost_si THEN
                 c_str = "L"
-                ln_levelup
+                central "levelup"
                 clv_buffer_focus=clv_buffer_merchant
-                GOTO ln_merchant1
+                GOTO merchant1
             END IF
-            GOTO ln_merchant1
+            GOTO merchant1
         END IF
         IF menuselect_str = "cncl" THEN
             c_str = "L"
         ELSE
-            GOTO ln_wwait1
+            GOTO wwait1
         END IF
     END IF
     Exit Sub
 end sub
 
-sub ln_talk0001 ()
+sub ln_talk0001()
     dim as short X1, X2, Y1, Y2, C1, C2
     dim as short Row, Col
     am_str = ctrl_str
-    ln_am
+    central "am"
     IF am_si > 0 THEN
         
         clv_buffer_focus=clv_buffer_merchant
@@ -1566,10 +1560,10 @@ sub ln_talk0001 ()
         'LINE (0, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
         'PCOPY 1, 2
 'end sub
-'sub ln_reshow3 ()
-        ln_portal
+'sub ln_reshow3()
+        central "portal"
         statx_si = 2
-        ln_status
+        central "status"
         viewx_si = 18
         menu_str = ""
         menu_str = menu_str + "bye_" + MKL(0)
@@ -1585,7 +1579,7 @@ sub ln_talk0001 ()
             menuitem_str = MID(menu_str, (menuitem_si - 1) * 8 + 1, 4)
             menucost_si = CVL(MID(menu_str, (menuitem_si - 1) * 8 + 5, 4))
             R_str = menuitem_str
-            ln_names
+            central "names"
             IF menucost_si > 0 THEN
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_merchant, clv_glyph(), (Col-1) shl 3, (row+7+menuitem_si-1) shl 3, "ú" + rr_str + " =" + STR(menucost_si)
             END IF
@@ -1594,10 +1588,10 @@ sub ln_talk0001 ()
             END IF
         NEXT menuitem_si
 'end sub
-ln_wwait2:
-'sub ln_wwait2 ()
+wwait2:
+'sub ln_wwait2()
         do
-            ln_buttonwait
+            central "buttonwait"
             menuselect_str = "____"
             menucost_si = 0
             IF Lb_si = -1 THEN
@@ -1610,44 +1604,44 @@ ln_wwait2:
                 END IF
             END IF
         loop while menuselect_str <> "bye_"
-            'GOTO ln_wwait2
+            'GOTO wwait2
         'END IF
         IF menuselect_str = "bye_" THEN
             c_str = "L"
         ELSE
-            ln_merchant
-            'GOTO ln_wwait1
+            central "merchant"
+            'GOTO wwait1
         END IF
         'PCOPY 4, 1
     END IF
     Exit Sub
 end sub
 
-sub ln_abilitygain ()
+sub ln_abilitygain()
     e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = e_stra(Rose_Calc( Tx_si, Ty_si ), 1) + menuselect_str
     G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 6) - menucost_si
     am_str = ctrl_str
-    ln_am
+    central "am"
     IF am_si > 0 THEN
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
         
         'LINE ((25 - 1) * 8, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
         'PCOPY 1, 2
-        ln_portal
-        ln_avgframe
+        central "portal"
+        central "avgframe"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, "gained"
         R_str = menuselect_str
-        ln_names
+        central "names"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, rr_str
-        ln_okbutton
+        central "okbutton"
         'PCOPY 2, 1
     END IF
     Exit Sub
 end sub
 
-sub ln_levelup ()
+sub ln_levelup()
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
         
@@ -1668,12 +1662,12 @@ sub ln_levelup ()
             r5_si = .05
             G_dfa(Rose_Calc( Tx_si, Ty_si ), 14) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 14) + r5_si
             am_str = ctrl_str
-            ln_am
+            central "am"
             IF am_si > 0 THEN
                 LINE ((25 - 1) * 8, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
                 PCOPY 1, 2
-                ln_portal
-                ln_avgframe
+                central "portal"
+                central "avgframe"
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, "      level up!"
                 clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, "HPmax +"
@@ -1688,7 +1682,7 @@ sub ln_levelup ()
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) < 64 THEN
                 G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) + 1
                 am_str = ctrl_str
-                ln_am
+                central "am"
                 IF am_si > 0 THEN
                     clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (18-1) shl 3, "reached LV!"
                     clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (37-1) shl 3, (18-1) shl 3, RIGHT(STRING(3, " ") + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)), 3)
@@ -1699,18 +1693,18 @@ sub ln_levelup ()
                 END IF
             END IF
             am_str = ctrl_str
-            ln_am
+            central "am"
             IF am_si > 0 THEN
-                ln_okbutton
+                central "okbutton"
                 'PCOPY 2, 1
             END IF
             IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 10) >= 2 AND MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = "spdr" THEN
                 getit_str = "vnom"
                 haveit_str = "vnom"
-                ln_haveit
+                central "haveit"
                 IF haveit_si = 0 THEN
                     e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = e_stra(Rose_Calc( Tx_si, Ty_si ), 1) + getit_str
-                    ln_gain
+                    central "gain"
                 END IF
             END IF
         END IF
@@ -1718,125 +1712,125 @@ sub ln_levelup ()
     Exit Sub
 end sub
 
-sub ln_gain ()
+sub ln_gain()
     am_str = ctrl_str
-    ln_am
+    central "am"
     IF am_si > 0 THEN
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
 
         'LINE ((25 - 1) * 8, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
         'PCOPY 1, 2
-        ln_portal
-        ln_avgframe
+        central "portal"
+        central "avgframe"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, "gained"
         R_str = getit_str
-        ln_names
+        central "names"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, rr_str
-        ln_okbutton
+        central "okbutton"
         'PCOPY 2, 1
     END IF
     Exit Sub
 end sub
 
-sub ln_getit ()
+sub ln_getit()
     IF getit_str <> "" THEN
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
 
         e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = e_stra(Rose_Calc( Tx_si, Ty_si ), 1) + getit_str
         am_str = ctrl_str
-        ln_am
+        central "am"
         are_str = ctrl_str
-        ln_are
+        central "are"
         IF am_si > 0 OR are_si > 0 THEN
             LINE ((25 - 1) * 8, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
             PCOPY 1, 2
-            ln_portal
-            ln_avgframe
+            central "portal"
+            central "avgframe"
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (6-1) shl 3, "gained"
             R_str = getit_str
-            ln_names
+            central "names"
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, rr_str
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (8-1) shl 3, "from"
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0) + "!"
-            ln_okbutton
+            central "okbutton"
             'PCOPY 2, 1
         END IF
     END IF
     Exit Sub
 end sub
 
-sub ln_attackusing ()
+sub ln_attackusing()
     am_str = ctrl_str
-    ln_am
+    central "am"
     are_str = ctrl_str
-    ln_are
+    central "are"
     IF am_si > 0 OR are_si > 0 THEN
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
 
         'PCOPY 1, 2
         'LINE (0, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
-        ln_portal
-        ln_avgframe
+        central "portal"
+        central "avgframe"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (6-1) shl 3, "used"
         R_str = AA_str
-        ln_names
+        central "names"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, rr_str
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (8-1) shl 3, "on"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0)
-        ln_okbutton
+        central "okbutton"
         'PCOPY 2, 1
     END IF
     Exit Sub
 end sub
 
-sub ln_battleattack ()
+sub ln_battleattack()
     am_str = ctrl_str
-    ln_am
+    central "am"
     are_str = ctrl_str
-    ln_are
+    central "are"
     IF am_si > 0 OR are_si > 0 THEN
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
         
         'PCOPY 1, 2
         'LINE (0, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
-        ln_portal
-        ln_avgframe
+        central "portal"
+        central "avgframe"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (6-1) shl 3, "used"
         R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4)
-        ln_names
+        central "names"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, rr_str
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (9-1) shl 3, e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (11-1) shl 3, "HP -"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (11-1) shl 3, RIGHT(STRING(5, " ") + STR(hp_dmg_si), 5)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (12-1) shl 3, "STR-"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (12-1) shl 3, RIGHT(STRING(5, " ") + STR(str_dmg_si), 5)
-        ln_okbutton
+        central "okbutton"
         'PCOPY 2, 1
     END IF
     Exit Sub
 end sub
 
-sub ln_defeated ()
+sub ln_defeated()
     am_str = ctrl_str
-    ln_am
+    central "am"
     are_str = ctrl_str
-    ln_are
+    central "are"
     IF am_si > 0 OR are_si > 0 THEN
         clv_buffer_focus=clv_buffer_playbyplay
         clv_buffer_cls clv_buffer(), clv_buffer_playbyplay
         
         'PCOPY 1, 2
         'LINE (0, 0)-(319, 199), rgb(0,0,0), bf'pal(0), BF
-        ln_portal
-        ln_avgframe
+        central "portal"
+        central "avgframe"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (5-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (6-1) shl 3, "pillaged"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (7-1) shl 3, e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0)
@@ -1848,13 +1842,13 @@ sub ln_defeated ()
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (12-1) shl 3, RIGHT(STRING(5, " ") + STR(strgain_si), 5)
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (25-1) shl 3, (13-1) shl 3, "STR:"
         clv_draw_text clv_buffer(), clv_font(), clv_buffer_playbyplay, clv_glyph(), (35-1) shl 3, (13-1) shl 3, RIGHT(STRING(5, " ") + STR(G_dfa(Rose_Calc( Tx_si, Ty_si ), 2)), 5)
-        ln_okbutton
+        central "okbutton"
         'PCOPY 2, 1
     END IF
     Exit Sub
 end sub
 
-sub ln_portal ()
+sub ln_portal()
     dim as short Ratio1, Ratio2, X1, X2, X3, Y1, Y2, Y3
     dim as short FX1,FY1,FX2,FY2,FC1,FC2
     dim as short Row, Col
@@ -1925,7 +1919,7 @@ sub ln_portal ()
             tempty_si = Ty_si
             Tx_si = ttx
             Ty_si = tty
-            ln_tempget
+            central "tempget"
             Tx_si = temptx_si
             Ty_si = tempty_si
             tempt=0
@@ -1953,7 +1947,7 @@ sub ln_portal ()
             tempty_si = Ty_si
             Tx_si = ttx
             Ty_si = tty
-            ln_tempget
+            central "tempget"
             Tx_si = temptx_si
             Ty_si = tempty_si
             IF tempaction_str = "grpl" OR tempaction_str = "rapl" THEN
@@ -1990,7 +1984,7 @@ sub ln_portal ()
     Exit Sub
 end sub
 
-sub ln_title (clv_buffer() as fb.image ptr, Index as integer)
+sub ln_title(clv_buffer() as fb.image ptr, Index as integer)
     clv_buffer_cls clv_buffer(), clv_buffer_draw
     'graphicput clv_buffer(), clv_buffer_portal1, 2, "aquagame.56", logopath_str
     colr_si = 9
@@ -1999,34 +1993,34 @@ sub ln_title (clv_buffer() as fb.image ptr, Index as integer)
     Exit Sub
 end sub
 
-sub ln_status ()
+sub ln_status()
     clv_buffer_cls clv_buffer(), clv_buffer_status
     frame_status 4, 24
     frame_inventory 14, 24
 end sub
 
-sub ln_framstts ()
+sub ln_framstts()
     framex1_sf = statx_si
     framex2_sf = statx_si+5*3-1
     framey1_sf = 4
     framey2_sf = 12
     framec1_si = 4
     framec2_si = 12
-    ln_frameput' clv_buffer(), clv_buffer_status
+    central "frameput", clv_buffer(), clv_buffer_status
     Exit Sub
 end sub
 
-sub ln_framsttsitms ()
+sub ln_framsttsitms()
     framex1_sf = statx_si
     framex2_sf = statx_si+5*3-1
     framey1_sf = 14
     framey2_sf = 23
     framec1_si = 4
     framec2_si = 12
-    ln_frameput' clv_buffer(), clv_buffer_status
+    central "frameput", clv_buffer(), clv_buffer_status
     Exit Sub
 end sub
-sub ln_stts (clv_buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
+sub ln_stts(clv_buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+0-1) shl 3, e_stra(Rose_Calc( Tx_si, Ty_si ), 0)
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col-1) shl 3, (Row+1-1) shl 3, "LV"
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (Col+3-1) shl 3, (Row+1-1) shl 3, RIGHT(STR(100 + G_dfa(Rose_Calc( Tx_si, Ty_si ), 10)), 2)
@@ -2047,8 +2041,8 @@ sub ln_stts (clv_buffer() as fb.image ptr, Index as integer, Row as short, Col a
     Exit Sub
 end sub
 
-sub ln_sttsgpic ()
-    'ln_getaction
+sub ln_sttsgpic()
+    'central "getaction"
     'SELECT CASE d_si
     'CASE 0
     '    graphicput clv_buffer(), clv_buffer_portal9, statx_si, "bttnself.24", spritepath_str
@@ -2065,7 +2059,7 @@ sub ln_sttsgpic ()
     'graphicput clv_buffer(), clv_buffer_portal9, statx_si + 3, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) + "____.24"), spritepath_str
     'FOR t_si = 1 TO LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
     '    R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si - 1) * 4 + 1, 4)
-    '    ln_names
+    '    central "names"
     '    IF action_str = R_str THEN
     '        clv_draw_text 12, statx_si, rr_str, 15, 1
     '    end if
@@ -2073,14 +2067,14 @@ sub ln_sttsgpic ()
     'Exit Sub
 end sub
 
-sub ln_sttsitms ()
+sub ln_sttsitms()
     'dim as short X, Y
-    'ln_getaction
+    'central "getaction"
     'FOR t_si = 1 TO LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
     '    X=fix((t_si-1) mod 5)*3
     '    Y=fix((t_si-1)/5)*3
     '    R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si - 1) * 4 + 1, 4)
-    '    ln_names
+    '    central "names"
     '    graphicput clv_buffer(), clv_buffer_portal14 + Y, statx_si + X, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si*4)-3, 4) + "____.24"), spritepath_str
     '    IF action_str = R_str THEN
     '        clv_draw_line clv_buffer(), page_status, (statx_si+X-1) shl 3,(14+Y-1) shl 3,((statx_si+X-1) shl 3)+23,((14+Y-1) shl 3)+23, rgb(255,255,255), rgb(0,0,0)
@@ -2089,69 +2083,69 @@ sub ln_sttsitms ()
     'Exit Sub
 end sub
 
-sub ln_move ()
+sub ln_move()
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "move"
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "move"
     are_str = "____pwch"
-    ln_are
+    central "are"
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) >= 1 AND are_si > 0 THEN
         move_si = 1
         here_str = "watr"
-        ln_here
+        central "here"
         IF here_si > 0 THEN move_si = 0
         there_str = "watr"
-        ln_there
+        central "there"
         IF there_si > 0 THEN move_si = 0
         here_str = "hole"
-        ln_here
+        central "here"
         there_str = "holestpsstp2"
-        ln_there
+        central "there"
         IF here_si > 0 AND there_si <= 0 THEN move_si = 0
         IF move_si = 1 THEN
             IF Tx_si = ex_si AND Ty_si = dy_si THEN
                 am_str = ctrl_str
-                ln_am
+                central "am"
                 IF am_si > 0 THEN
                     ex_si = Tx_si + d_sia(d_si, 1) * dis_si
                     dy_si = Ty_si + d_sia(d_si, 2) * dis_si
                 END IF
             END IF
             G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 1
-            ln_swapdata
+            central "swapdata"
         END IF
     END IF
     Exit Sub
 end sub
 
-sub ln_wingmove ()
+sub ln_wingmove()
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "move"
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "move"
     are_str = "____pwch"
-    ln_are
+    central "are"
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) >= 3 AND are_si > 0 THEN
         move_si = 1
         IF move_si = 1 THEN
             IF Tx_si = ex_si AND Ty_si = dy_si THEN
                 am_str = ctrl_str
-                ln_am
+                central "am"
                 IF am_si > 0 THEN
                     ex_si = Tx_si + d_sia(d_si, 1) * dis_si
                     dy_si = Ty_si + d_sia(d_si, 2) * dis_si
                 END IF
             END IF
             G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 3
-            ln_swapdata
+            central "swapdata"
         END IF
     END IF
     Exit Sub
 end sub
 
-sub ln_firemove ()
+sub ln_firemove()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) >= 1 THEN
         IF 1 = 1 THEN
             IF Tx_si = ex_si AND Ty_si = dy_si THEN
                 am_str = ctrl_str
-                ln_am
+                central "am"
                 IF am_si > 0 THEN
                     ex_si = Tx_si + d_sia(d_si, 1) * dis_si
                     dy_si = Ty_si + d_sia(d_si, 2) * dis_si
@@ -2160,18 +2154,18 @@ sub ln_firemove ()
             MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
             MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "move"
             G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 1
-            ln_swapdata
+            central "swapdata"
         END IF
     ELSE
-        ln_gone
+        central "gone"
     END IF
     Exit Sub
 end sub
 
-sub ln_webmove ()
+sub ln_webmove()
     IF Tx_si = ex_si AND Ty_si = dy_si THEN
         am_str = ctrl_str
-        ln_am
+        central "am"
         IF am_si > 0 THEN
             ex_si = Tx_si + d_sia(d_si, 1) * dis_si
             dy_si = Ty_si + d_sia(d_si, 2) * dis_si
@@ -2180,16 +2174,16 @@ sub ln_webmove ()
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "move"
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "move"
     G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) - 1
-    ln_swapdata
+    central "swapdata"
     Exit Sub
 end sub
 
-sub ln_castfire ()
+sub ln_castfire()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 20 THEN
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "fire"
         G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 20
-        ln_prflblnk
+        central "prflblnk"
         prflidty_str = "Flame"
         prflactn_str = "moveburn"
         prflactnct_str = mkl(1)+mkl(1)
@@ -2206,17 +2200,17 @@ sub ln_castfire ()
         prflstrmax_sf = 50
         prflessmax_sf = 100
         prflessspd_sf = 5
-        ln_prflmake
+        central "prflmake"
     END IF
     Exit Sub
 end sub
 
-sub ln_castdust ()
+sub ln_castdust()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 8 THEN
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "dust"
         G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 8
-        ln_prflblnk
+        central "prflblnk"
         prflidty_str = "Sleepy dust"
         prflactn_str = "move"
         prflactnct_str = mkl(1)
@@ -2233,15 +2227,15 @@ sub ln_castdust ()
         prflstrmax_sf = 50
         prflessmax_sf = 100
         prflessspd_sf = 5
-        ln_prflmake
+        central "prflmake"
     END IF
     Exit Sub
 end sub
 
-sub ln_castweb ()
+sub ln_castweb()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 220 THEN
         G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 220
-        ln_prflblnk
+        central "prflblnk"
         prflidty_str = "Web"
         prflactn_str = "spdr"
         prflactnct_str = mkl(1)
@@ -2258,15 +2252,15 @@ sub ln_castweb ()
         prflstrmax_sf = 50
         prflessmax_sf = 380
         prflessspd_sf = 2
-        ln_prflmake
+        central "prflmake"
     END IF
     Exit Sub
 end sub
 
-sub ln_castspdr ()
+sub ln_castspdr()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 320 THEN
         G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 320
-        ln_prflblnk
+        central "prflblnk"
         prflidty_str = "Spider"
         prflactn_str = "movebiteweb_"
         prflactnct_str = mkl(1)+mkl(1)+mkl(1)
@@ -2284,13 +2278,13 @@ sub ln_castspdr ()
         prflstrmax_sf = 20
         prflessmax_sf = 380
         prflessspd_sf = 3
-        ln_prflmake
+        central "prflmake"
     END IF
     Exit Sub
 end sub
 
-sub ln_castccts ()
-    ln_prflblnk
+sub ln_castccts()
+    central "prflblnk"
     prflidty_str = "Cactus"
     prflgpic_str = "ccts"
     prflidty_sf = 13
@@ -2306,14 +2300,14 @@ sub ln_castccts ()
     prflstrmax_sf = 20
     prflessmax_sf = 380
     prflessspd_sf = 3
-    ln_prflmake
+    central "prflmake"
     Exit Sub
 end sub
 
-sub ln_castdtby ()
+sub ln_castdtby()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) >= 160 THEN
         G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) - 160
-        ln_prflblnk
+        central "prflblnk"
         prflidty_str = "Dust Bunny"
         prflactn_str = "bitekick"
         prflactnct_str = mkl(1)+mkl(1)
@@ -2331,39 +2325,39 @@ sub ln_castdtby ()
         prflstrmax_sf = 20
         prflessmax_sf = 280
         prflessspd_sf = 1
-        ln_prflmake
+        central "prflmake"
     END IF
     Exit Sub
 end sub
 
-sub ln_gone ()
-    ln_prflblnk
-    ln_prflset
+sub ln_gone()
+    central "prflblnk"
+    central "prflset"
     Exit Sub
 end sub
 
-sub ln_delete2 ()
-    ln_prflblnk
-    ln_prflmake
+sub ln_delete2()
+    central "prflblnk"
+    central "prflmake"
     Exit Sub
 end sub
 
-sub ln_autolevelup ()
+sub ln_autolevelup()
     am_str = ctrl_str
-    ln_am
+    central "am"
     IF am_si = 0 THEN
-        ln_levelup
+        central "levelup"
     END IF
     Exit Sub
 end sub
 
-sub ln_statgain ()
+sub ln_statgain()
     G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) + G_dfa(Rose_Calc( Tx_si, Ty_si ), 4)
     G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 3) + G_dfa(Rose_Calc( Tx_si, Ty_si ), 14)
     Exit Sub
 end sub
 
-sub ln_statmax ()
+sub ln_statmax()
     IF G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) > G_dfa(Rose_Calc( Tx_si, Ty_si ), 11) THEN
         G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 11)
     END IF
@@ -2376,31 +2370,31 @@ sub ln_statmax ()
     Exit Sub
 end sub
 
-sub ln_nextaction ()
+sub ln_nextaction()
     am_str = ctrl_str
-    ln_am
+    central "am"
     IF am_si = 0 THEN
         IF 1 = 1 THEN
-            ln_newaction
-            ln_putaction
+            central "newaction"
+            central "putaction"
         END IF
     ELSE
-        ln_getaction
+        central "getaction"
     END IF
     Exit Sub
 end sub
 
-sub ln_newaction ()
-    ln_getaction
+sub ln_newaction()
+    central "getaction"
     IF NOT (action_str = "zzzz" AND dis_si > 0) THEN
         d_si = INT(RND(1) * 4) + 1
-        ln_randomaction
+        central "randomaction"
         dis_si = 0
     END IF
     Exit Sub
 end sub
 
-sub ln_randomaction ()
+sub ln_randomaction()
     R_si = LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
     R_si = INT(RND(1) * (R_si + 1))
     IF R_si = 0 THEN
@@ -2411,35 +2405,35 @@ sub ln_randomaction ()
     Exit Sub
 end sub
 
-sub ln_getaction ()
+sub ln_getaction()
     d_si = CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 1, 4))
     action_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)
     dis_si = CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 9, 4))
     Exit Sub
 end sub
 
-sub ln_putaction ()
+sub ln_putaction()
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 1, 4) = MKL(d_si)
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) = action_str
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 9, 4) = MKL(dis_si)
     Exit Sub
 end sub
 
-sub ln_tempget ()
+sub ln_tempget()
     tempd_si = CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 1, 4))
     tempaction_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)
     tempdis_si = CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 9, 4))
     Exit Sub
 end sub
 
-sub ln_tempput ()
+sub ln_tempput()
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 1, 4) = MKL(tempd_si)
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) = tempaction_str
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 9, 4) = MKL(tempdis_si)
     Exit Sub
 end sub
 
-sub ln_inbounds ()
+sub ln_inbounds()
     IF (Tx_si + d_sia(d_si, 1) * dis_si >= 1) AND (Tx_si + d_sia(d_si, 1) * dis_si <= AA_si) AND (Ty_si + d_sia(d_si, 2) * dis_si >= 1) AND (Ty_si + d_sia(d_si, 2) * dis_si <= DD_si) THEN
         inbounds_si = 1
     ELSE
@@ -2448,7 +2442,7 @@ sub ln_inbounds ()
     Exit Sub
 end sub
 
-sub ln_haveit ()
+sub ln_haveit()
     haveit_si = 0
     t_str = e_stra(Rose_Calc( Tx_si, Ty_si ), 1)
     t_si = LEN(t_str) / 4
@@ -2461,7 +2455,7 @@ sub ln_haveit ()
     Exit Sub
 end sub
 
-sub ln_hasit ()
+sub ln_hasit()
     hasit_si = 0
     t_str = e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1)
     t_si = LEN(t_str) / 4
@@ -2474,7 +2468,7 @@ sub ln_hasit ()
     Exit Sub
 end sub
 
-sub ln_havehadit ()
+sub ln_havehadit()
     t_str = e_stra(Rose_Calc( Tx_si, Ty_si ), 1)
     t_si = LEN(t_str) / 4
     FOR tt_si = 1 TO t_si
@@ -2488,7 +2482,7 @@ sub ln_havehadit ()
     Exit Sub
 end sub
 
-sub ln_hashadit ()
+sub ln_hashadit()
     t_str = e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1)
     t_si = LEN(t_str) / 4
     FOR tt_si = 1 TO t_si
@@ -2502,75 +2496,75 @@ sub ln_hashadit ()
     Exit Sub
 end sub
 
-sub ln_havegotit ()
+sub ln_havegotit()
     t_str = e_stra(Rose_Calc( Tx_si, Ty_si ), 1)
     e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = t_str + havegotit_str
     Exit Sub
 end sub
 
-sub ln_hasgotit ()
+sub ln_hasgotit()
     t_str = e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1)
     e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) = t_str + hasgotit_str
     Exit Sub
 end sub
 
-sub ln_winexp ()
+sub ln_winexp()
     getit_si = G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 6)
     IF getit_si > 0 THEN
         getit_str = STR(getit_si) + " EXP"
         getit_str = RIGHT(getit_str, LEN(getit_str) - 1)
         G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) = G_dfa(Rose_Calc( Tx_si, Ty_si ), 1) + getit_si
-        ln_getit
+        central "getit"
         G_dfa(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 6) = 0
     END IF
     Exit Sub
 end sub
 
-sub ln_windggr ()
+sub ln_windggr()
     winit_str = "dggr"
-    ln_winit
+    central "winit"
 end sub
 
-sub ln_winpike ()
+sub ln_winpike()
     winit_str = "pike"
-    ln_winit
+    central "winit"
 end sub
 
-sub ln_wingrpl ()
+sub ln_wingrpl()
     winit_str = "grpl"
-    ln_winit
+    central "winit"
 end sub
 
-sub ln_winseed ()
+sub ln_winseed()
     winit_str = "seed"
-    ln_winit
+    central "winit"
 end sub
 
-sub ln_winkey1 ()
+sub ln_winkey1()
     winit_str = "key1"
-    ln_winit
+    central "winit"
 end sub
 
-sub ln_winkey2 ()
+sub ln_winkey2()
     winit_str = "key2"
-    ln_winit
+    central "winit"
 end sub
 
-sub ln_winit ()
+sub ln_winit()
     getit_str = winit_str
     hasit_str = winit_str
-    ln_hasit
+    central "hasit"
     IF hasit_si = 0 THEN Exit Sub
     haveit_str = winit_str
-    ln_haveit
+    central "haveit"
     IF haveit_si > 0 THEN Exit Sub
-    ln_getit
+    central "getit"
     hashadit_str = winit_str
-    ln_hashadit
+    central "hashadit"
     Exit Sub
 end sub
 
-sub ln_am ()
+sub ln_am()
     am_si = 0
     FOR t_si = 1 TO LEN(am_str) / 4
         IF MID(am_str, (t_si - 1) * 4 + 1, 4) = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) THEN
@@ -2580,7 +2574,7 @@ sub ln_am ()
     Exit Sub
 end sub
 
-sub ln_are ()
+sub ln_are()
     are_si = 0
     FOR t_si = 1 TO LEN(are_str) / 4
         IF MID(are_str, (t_si - 1) * 4 + 1, 4) = MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2), 1, 4) THEN
@@ -2590,7 +2584,7 @@ sub ln_are ()
     Exit Sub
 end sub
 
-sub ln_here ()
+sub ln_here()
     here_si = 0
     FOR t_si = 1 TO LEN(here_str) / 4
         IF MID(here_str, (t_si - 1) * 4 + 1, 4) = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) THEN
@@ -2600,7 +2594,7 @@ sub ln_here ()
     Exit Sub
 end sub
 
-sub ln_there ()
+sub ln_there()
     there_si = 0
     FOR t_si = 1 TO LEN(there_str) / 4
         IF MID(there_str, (t_si - 1) * 4 + 1, 4) = MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2), 5, 4) THEN
@@ -2610,11 +2604,11 @@ sub ln_there ()
     Exit Sub
 end sub
 
-sub ln_blankcheck ()
+sub ln_blankcheck()
     are_str = blankcheck_str
-    ln_inbounds
+    central "inbounds"
     IF inbounds_si = 1 THEN
-        ln_are
+        central "are"
     ELSE
         are_si = -1
     END IF
@@ -2622,31 +2616,31 @@ sub ln_blankcheck ()
     Exit Sub
 end sub
 
-sub ln_okbutton ()
+sub ln_okbutton()
     'clv_buffer_focus=clv_buffer_menu
     clv_buffer_cls clv_buffer(), clv_buffer_menu
     
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_menu, clv_glyph(), (25-1) shl 3,(23-1) shl 3, "úOk"
-    ln_wwait
+    central "wwait"
 
     clv_buffer_cls clv_buffer(), clv_buffer_menu
 end sub
 
-sub ln_wwait ()
+sub ln_wwait()
     do
-        ln_buttonwait
+        central "buttonwait"
     loop while not(((c_str = "&H0D") OR (ym_si = 23 AND xm_si = 25 AND Lb_si = -1)))
     c_str = "L"
 end sub
 
-sub ln_buttonwait ()
+sub ln_buttonwait()
     cinput
     cursorput
     'netscreenout
     clv_buffer_stack clv_buffer()
 end sub
 
-sub ln_commandwait ()
+sub ln_commandwait()
     c_str = "%%"
     Lb_si = 0
     WHILE c_str = "%%" AND Lb_si = 0
@@ -2657,7 +2651,7 @@ sub ln_commandwait ()
     WEND
 end sub
 
-sub ln_frameput ()
+sub ln_frameput()
     pset ((framex1_sf-1)*8, (framey1_sf-1)*8), rgb(0,0,0) 'pal(0)
     line  -((framex2_sf-0)*8-1, (framey2_sf-0)*8-1), rgb(0,0,0), bf 'pal(0)
     
@@ -2676,7 +2670,7 @@ sub ln_frameput ()
     Exit Sub
 end sub
 
-sub ln_avgframe ()
+sub ln_avgframe()
     dim as short X1, X2, Y1, Y2, C1, C2
     dim as short Row, Col
     
@@ -2693,22 +2687,22 @@ sub ln_avgframe ()
     Exit Sub
 end sub
 
-sub ln_screenset ()
+sub ln_screenset()
     clv_buffer_stack clv_buffer()
 end sub
 
-sub ln_findcrsr ()
+sub ln_findcrsr()
     crsry_si = CSRLIN
     crsrx_si = POS(0)
 end sub
 
-sub ln_showtext (clv_buffer() as fb.image ptr, Index as integer)
-    ln_findcrsr
+sub ln_showtext(clv_buffer() as fb.image ptr, Index as integer)
+    central "findcrsr"
     clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (crsrx_si-1) shl 3, (crsry_si-1) shl 3, texts_str
     LOCATE crsry_si + 1, 1
 end sub
 
-sub ln_prflblnk ()
+sub ln_prflblnk()
     prflidty_str = ""
     prflactn_str = ""
     prflactnct_str=""
@@ -2735,7 +2729,7 @@ sub ln_prflblnk ()
     Exit Sub
 end sub
 
-sub ln_prflset ()
+sub ln_prflset()
     e_stra(Rose_Calc( Tx_si, Ty_si ), 0) = prflidty_str
     e_stra(Rose_Calc( Tx_si, Ty_si ), 1) = prflactn_str
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) = prflgpic_str
@@ -2762,7 +2756,7 @@ sub ln_prflset ()
     Exit Sub
 end sub
 
-sub ln_prflmake ()
+sub ln_prflmake()
     e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0) = prflidty_str
     e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1) = prflactn_str
     MID(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 2), 1, 4) = prflgpic_str
@@ -2789,310 +2783,310 @@ sub ln_prflmake ()
     Exit Sub
 end sub
 
-sub ln_actncure ()
+sub ln_actncure()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN Exit Sub
     blankcheck_str = "pndxspdrgrmldtbyemgdshktimp_"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_usecure
+        central "usecure"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnbite ()
+sub ln_actnbite()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN Exit Sub
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkbite
+        central "attkbite"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnpnch ()
+sub ln_actnpnch()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN Exit Sub
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkpnch
+        central "attkpnch"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnkick ()
+sub ln_actnkick()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN Exit Sub
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkkick
+        central "attkkick"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actndggr ()
+sub ln_actndggr()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN Exit Sub
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkdggr
+        central "attkdggr"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnpike ()
+sub ln_actnpike()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN Exit Sub
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkpike
+        central "attkpike"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnvnom ()
+sub ln_actnvnom()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN Exit Sub
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkvnom
+        central "attkvnom"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnfire ()
+sub ln_actnfire()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN
-        ln_castfire
+        central "castfire"
         Exit Sub
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkfire
+        central "attkfire"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actndust ()
+sub ln_actndust()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN
-        ln_castdust
+        central "castdust"
         Exit Sub
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_useslep
+        central "useslep"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnweb ()
+sub ln_actnweb()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN
-        ln_castweb
+        central "castweb"
         Exit Sub
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkweb
+        central "attkweb"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnspdr ()
+sub ln_actnspdr()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN
-        ln_castspdr
+        central "castspdr"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnccts ()
+sub ln_actnccts()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN
-        ln_castccts
+        central "castccts"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actndtby ()
+sub ln_actndtby()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN
-        ln_castdtby
+        central "castdtby"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnmove ()
+sub ln_actnmove()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
-    ln_move
+    central "move"
     Exit Sub
 end sub
 
-sub ln_actnwing ()
+sub ln_actnwing()
     dis_si = 1
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
-    ln_wingmove
+    central "wingmove"
     Exit Sub
 end sub
 
-sub ln_actnwstf ()
+sub ln_actnwstf()
     dis_si = 1
     blankcheck_str = "bldr"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
         dis_si = 2
         blankcheck_str = "____pwch"
-        ln_blankcheck
+        central "blankcheck"
         IF blankcheck_si > 0 THEN
             temptx_si = Tx_si
             tempty_si = Ty_si
             Tx_si = Tx_si + d_sia(d_si, 1)
             Ty_si = Ty_si + d_sia(d_si, 2)
             dis_si = 1
-            ln_swapdata
+            central "swapdata"
             Tx_si = temptx_si
             Ty_si = tempty_si
             Exit Sub
         END IF
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkwstf
+        central "attkwstf"
     END IF
     Exit Sub
 end sub
 
-sub ln_actnkey1 ()
+sub ln_actnkey1()
     dis_si = 1
     blankcheck_str = "door"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
         hasit_str = "loc1"
-        ln_hasit
+        central "hasit"
         IF hasit_si > 0 THEN
             hashadit_str = "loc1"
-            ln_hashadit
+            central "hashadit"
             havehadit_str = "key1"
-            ln_havehadit
-            ln_delete2
+            central "havehadit"
+            central "delete2"
         END IF
     END IF
     Exit Sub
 end sub
 
-sub ln_actnkey2 ()
+sub ln_actnkey2()
     dis_si = 1
     blankcheck_str = "door"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
         hasit_str = "loc2"
-        ln_hasit
+        central "hasit"
         IF hasit_si > 0 THEN
             hashadit_str = "loc2"
-            ln_hashadit
+            central "hashadit"
             havehadit_str = "key2"
-            ln_havehadit
-            ln_delete2
+            central "havehadit"
+            central "delete2"
         END IF
     END IF
     Exit Sub
 end sub
 
-sub ln_actnispt ()
+sub ln_actnispt()
     dim as short tempt
     dis_si = 1
-    ln_putaction
+    central "putaction"
     blankcheck_str = "____"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 OR blankcheck_si > 0 THEN Exit Sub
     IF e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0) = "Merchant" THEN
-        ln_merchant
+        central "merchant"
         Exit Sub
     END IF
     IF e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 0) = "Poindexter" THEN
-        ln_talk0001
+        central "talk0001"
         Exit Sub
     END IF
     blankcheck_str = "pwchchst"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_pillage
+        central "pillage"
         blankcheck_str = "pwch"
         IF blankcheck_si > 0 THEN
-            ln_delete2
+            central "delete2"
         END IF
         Exit Sub
     END IF
     blankcheck_str = "door"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
         tempt=0
         for T_si=1 to fix(len(e_stra(Tx_si + d_sia(d_si, 1) * dis_si + (Ty_si + d_sia(d_si, 2) * dis_si - 1) * AA_si, 1))/4)
@@ -3106,88 +3100,88 @@ sub ln_actnispt ()
             end select
         next
         if tempt=0 then
-            ln_delete2
+            central "delete2"
         END IF
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnfiremove ()
+sub ln_actnfiremove()
     dis_si = 1
     blankcheck_str = "____pwch"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN
-        ln_gone
+        central "gone"
         Exit Sub
     END IF
     IF blankcheck_si > 0 THEN
-        ln_firemove
+        central "firemove"
         Exit Sub
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attkburn
-        ln_gone
+        central "attkburn"
+        central "gone"
         Exit Sub
     END IF
-    ln_gone
+    central "gone"
     Exit Sub
 end sub
 
-sub ln_actndustmove ()
+sub ln_actndustmove()
     dis_si = 1
     blankcheck_str = "____pwch"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN
-        ln_gone
+        central "gone"
     Exit Sub
     END IF
     IF blankcheck_si > 0 THEN
-        ln_firemove
+        central "firemove"
     Exit Sub
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_useslep
-        ln_gone
+        central "useslep"
+        central "gone"
         Exit Sub
     END IF
-    ln_gone
+    central "gone"
     Exit Sub
 end sub
 
-sub ln_actnwebmove ()
+sub ln_actnwebmove()
     dis_si = 1
     blankcheck_str = "____pwch"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN Exit Sub
     IF blankcheck_si > 0 THEN
-        ln_webmove
+        central "webmove"
         Exit Sub
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attktngl
-        ln_gone
+        central "attktngl"
+        central "gone"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actngrpl ()
+sub ln_actngrpl()
     IF dis_si = 3 THEN
         action_str = "rapl"
-        ln_putaction
-        ln_actnrapl
+        central "putaction"
+        central "actnrapl"
         Exit Sub
     END IF
     IF dis_si = 0 AND G_dfa(Rose_Calc( Tx_si, Ty_si ), 2) < 10 THEN
         action_str = "____pwch"
-        ln_putaction
+        central "putaction"
         Exit Sub
     END IF
     IF dis_si = 0 THEN
@@ -3199,100 +3193,100 @@ sub ln_actngrpl ()
         blankcheck_str = "____pwch"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
-        ln_blankcheck
+        central "blankcheck"
         IF blankcheck_si = -1 THEN
             dis_si = dis_si - 1
         Exit Sub
     END IF
     IF blankcheck_si > 0 THEN
-        ln_putaction
+        central "putaction"
         Exit Sub
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_putaction
+        central "putaction"
         action_str = "rapl"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
-        ln_putaction
-        ln_attklash
+        central "putaction"
+        central "attklash"
         Exit Sub
     END IF
     blankcheck_str = "bldrchst"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
         action_str = "rapl"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
-        ln_putaction
+        central "putaction"
         Exit Sub
     END IF
     Exit Sub
 end sub
 
-sub ln_actnrapl ()
+sub ln_actnrapl()
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "pnch"
     MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "grpl"
     IF dis_si = 1 THEN
         action_str = "____pwch"
         dis_si = 0
-        ln_putaction
+        central "putaction"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
         Exit Sub
     END IF
     blankcheck_str = "____pwch"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si = -1 THEN
         IF dis_si > 1 THEN
             dis_si = dis_si - 1
-            ln_putaction
+            central "putaction"
         END IF
         Exit Sub
     END IF
     IF blankcheck_si > 0 THEN
         IF dis_si > 1 THEN
             dis_si = dis_si - 1
-            ln_putaction
+            central "putaction"
         END IF
     END IF
     blankcheck_str = attackthem_str
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
-        ln_attklash
+        central "attklash"
         dis_si = dis_si - 1
-        ln_putaction
+        central "putaction"
         Exit Sub
     END IF
     blankcheck_str = "bldrchst"
-    ln_blankcheck
+    central "blankcheck"
     IF blankcheck_si > 0 THEN
         dis_si = 1
         blankcheck_str = "____pwch"
-        ln_blankcheck
+        central "blankcheck"
         IF blankcheck_si = 0 THEN
             dis_si = dis_si - 1
-            ln_putaction
+            central "putaction"
             Exit Sub
         END IF
         IF blankcheck_si > 0 THEN
             IF Tx_si = ex_si AND Ty_si = dy_si THEN
                 am_str = ctrl_str
-                ln_am
+                central "am"
                 IF am_si > 0 THEN
                     ex_si = Tx_si + d_sia(d_si, 1) * dis_si
                     dy_si = Ty_si + d_sia(d_si, 2) * dis_si
                 END IF
             END IF
-            ln_swapdata
+            central "swapdata"
             temptx_si = Tx_si
             tempty_si = Ty_si
             Tx_si = Tx_si + d_sia(d_si, 1)
             Ty_si = Ty_si + d_sia(d_si, 2)
-            ln_getaction
+            central "getaction"
             dis_si = dis_si - 1
-            ln_putaction
+            central "putaction"
             Tx_si = temptx_si
             Ty_si = tempty_si
             Exit Sub
@@ -3301,274 +3295,274 @@ sub ln_actnrapl ()
     Exit Sub
 end sub
 
-sub ln_crtnimp ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtnimp()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = "pndxgrmlspdrdtbyweb_emgdshkt"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnmove
+        central "actnmove"
     CASE CVL("fire")
-        ln_actnfire
+        central "actnfire"
     CASE CVL("ispt")
-        ln_actnispt
+        central "actnispt"
     CASE CVL("wing")
-        ln_actnwing
+        central "actnwing"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtnfire ()
-    ln_statgain
-    ln_statmax
-    ln_getaction
+sub ln_crtnfire()
+    central "statgain"
+    central "statmax"
+    central "getaction"
     attackthem_str = "pndxgrmlspdrdtbyweb_shktemgd"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnfiremove
+        central "actnfiremove"
     END SELECT
     Exit Sub
 end sub
 
-sub ln_crtndust ()
-    ln_statgain
-    ln_statmax
-    ln_getaction
+sub ln_crtndust()
+    central "statgain"
+    central "statmax"
+    central "getaction"
     attackthem_str = "pndxgrmlspdrshktemgdimp_"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actndustmove
+        central "actndustmove"
     END SELECT
     Exit Sub
 end sub
 
-sub ln_crtnshkt ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtnshkt()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = "pndxgrmlspdrdtbyweb_imp_"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnmove
+        central "actnmove"
     CASE CVL("fire")
-        ln_actnfire
+        central "actnfire"
     CASE CVL("bite")
-        ln_actnbite
+        central "actnbite"
     CASE CVL("pnch")
-        ln_actnpnch
+        central "actnpnch"
     CASE CVL("kick")
-        ln_actnkick
+        central "actnkick"
     CASE CVL("dggr")
-        ln_actndggr
+        central "actndggr"
     CASE CVL("pike")
-        ln_actnpike
+        central "actnpike"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtnemgd ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtnemgd()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = "pndxgrmlspdrdtbyweb_imp_"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnmove
+        central "actnmove"
     CASE CVL("fire")
-        ln_actnfire
+        central "actnfire"
     CASE CVL("bite")
-        ln_actnbite
+        central "actnbite"
     CASE CVL("pnch")
-        ln_actnpnch
+        central "actnpnch"
     CASE CVL("kick")
-        ln_actnkick
+        central "actnkick"
     CASE CVL("dggr")
-        ln_actndggr
+        central "actndggr"
     CASE CVL("pike")
-        ln_actnpike
+        central "actnpike"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtnspdr ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtnspdr()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = "pndxdtbyspdrimp_emgdshktgrml"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnmove
+        central "actnmove"
     CASE CVL("web_")
-        ln_actnweb
+        central "actnweb"
     CASE CVL("bite")
-        ln_actnbite
+        central "actnbite"
     CASE CVL("vnom")
-        ln_actnkick
+        central "actnkick"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtnweb ()
-    ln_statgain
-    ln_statmax
-    ln_getaction
+sub ln_crtnweb()
+    central "statgain"
+    central "statmax"
+    central "getaction"
     IF action_str <> "move" THEN
-        ln_nextaction
+        central "nextaction"
     END IF
     attackthem_str = "pndxgrmldtbyweb_shktemgdimp_"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnwebmove
+        central "actnwebmove"
     CASE CVL("spdr")
-        ln_actnspdr
+        central "actnspdr"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtndtby ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtndtby()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = "pndxgrmlspdrimp_emgdshkt"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnmove
+        central "actnmove"
     CASE CVL("fire")
-        ln_actnfire
+        central "actnfire"
     CASE CVL("dtby")
-        ln_actndtby
+        central "actndtby"
     CASE CVL("bite")
-        ln_actnbite
+        central "actnbite"
     CASE CVL("kick")
-        ln_actnkick
+        central "actnkick"
     CASE CVL("dust")
-        ln_actndust
+        central "actndust"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtngrml ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtngrml()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = "pndxdtbyspdrimp_emgdshktweb_"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnmove
+        central "actnmove"
     CASE CVL("fire")
-        ln_actnfire
+        central "actnfire"
     CASE CVL("bite")
-        ln_actnbite
+        central "actnbite"
     CASE CVL("pnch")
-        ln_actnpnch
+        central "actnpnch"
     CASE CVL("kick")
-        ln_actnkick
+        central "actnkick"
     CASE CVL("dggr")
-        ln_actndggr
+        central "actndggr"
     CASE CVL("pike")
-        ln_actnpike
+        central "actnpike"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtnpndx ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtnpndx()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = "pndxdtbyspdrimp_emgdshktweb_grmlccts"
     SELECT CASE CVL(action_str)
     CASE CVL("move")
-        ln_actnmove
+        central "actnmove"
     CASE CVL("fire")
-        ln_actnfire
+        central "actnfire"
     CASE CVL("bite")
-        ln_actnbite
+        central "actnbite"
     CASE CVL("pnch")
-        ln_actnpnch
+        central "actnpnch"
     CASE CVL("kick")
-        ln_actnkick
+        central "actnkick"
     CASE CVL("dggr")
-        ln_actndggr
+        central "actndggr"
     CASE CVL("pike")
-        ln_actnpike
+        central "actnpike"
     CASE CVL("spdr")
-        ln_actnspdr
+        central "actnspdr"
     CASE CVL("web_")
-        ln_actnweb
+        central "actnweb"
     CASE CVL("vnom")
-        ln_actnvnom
+        central "actnvnom"
     CASE CVL("cure")
-        ln_actncure
+        central "actncure"
     CASE CVL("ispt")
-        ln_actnispt
+        central "actnispt"
     CASE CVL("grpl")
-        ln_actngrpl
+        central "actngrpl"
     CASE CVL("rapl")
-        ln_actnrapl
+        central "actnrapl"
     CASE CVL("seed")
-        ln_actnccts
+        central "actnccts"
     CASE CVL("wstf")
-        ln_actnwstf
+        central "actnwstf"
     CASE CVL("wing")
-        ln_actnwing
+        central "actnwing"
     CASE CVL("key1")
-        ln_actnkey1
+        central "actnkey1"
     CASE CVL("key2")
-        ln_actnkey2
+        central "actnkey2"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtnccts ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtnccts()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = ""
     here_str = "watr"
-    ln_here
+    central "here"
     IF here_si > 0 THEN
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole"
     END IF
     here_str = "stpw"
-    ln_here
+    central "here"
     IF here_si > 0 THEN
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stps"
     END IF
     SELECT CASE CVL(action_str)
     CASE CVL("seed")
-        ln_actnccts
+        central "actnccts"
     END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
-sub ln_crtnbldr ()
-    ln_statgain
-    ln_statmax
-    ln_nextaction
+sub ln_crtnbldr()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
     attackthem_str = ""
     IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole" THEN
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "dirt"
-        ln_gone
+        central "gone"
         Exit Sub
     END IF
     IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "watr" THEN
         MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stpw"
-        ln_gone
+        central "gone"
         Exit Sub
     END IF
     'SELECT CASE CVL(action_str)
     'END SELECT
-    ln_autolevelup
+    central "autolevelup"
     Exit Sub
 end sub
 
@@ -3612,7 +3606,7 @@ sub cinput ()
     END IF
 END SUB
 
-SUB cursorput
+sub cursorput
     if c_str<>string(2,"%") then
         clast_str=c_str
     end if
@@ -3670,7 +3664,7 @@ sub progress_put (clv_buffer() as fb.image ptr, Index as integer, Caption as str
     clv_buffer_stack clv_buffer()
 end sub
 
-SUB graphicput (clv_buffer() as fb.image ptr, Index as integer, byref yy1_si as short, byref xx1_si as short, ss1_str as string, dpath_str as string)
+sub graphicput (clv_buffer() as fb.image ptr, Index as integer, byref yy1_si as short, byref xx1_si as short, ss1_str as string, dpath_str as string)
     dim as string ss2_str, ss3_str
     dim as fb.image ptr ColorGraphic, TransparencyGraphic
     IF LEN(ss1_str) = 11 AND ss1_str <> "________.24" THEN
@@ -3689,7 +3683,7 @@ SUB graphicput (clv_buffer() as fb.image ptr, Index as integer, byref yy1_si as 
     END IF
 END SUB
 
-SUB suspend (byref start_sf as single, byref delay as short)
+sub suspend (byref start_sf as single, byref delay as short)
     DO
         'commands to do while suspended
         cinput
@@ -3734,7 +3728,7 @@ sub pal_load(filepath as string, pal() as uinteger)
     next
 end sub
 
-SUB MouseStatus (byref LBi AS short, byref RBi AS short, byref Mouse_X AS short, byref Mouse_Y AS short)
+sub MouseStatus (byref LBi AS short, byref RBi AS short, byref Mouse_X AS short, byref Mouse_Y AS short)
     'Ax = 3
     'Mouse_Driver Ax, Bx, Cx, Dx
     dim as integer Ax_li, Bx_li, Cx_li, Dx_li, Mouse_X_li, Mouse_Y_li
@@ -3833,7 +3827,7 @@ sub frame_status(Row as short, Col as short)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+4-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 3))), 4)
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+9-1) shl 3, (Row+4-1) shl 3, "/"
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col+11-1) shl 3, (Row+4-1) shl 3, RIGHT(STR(10000 + INT(G_dfa(Rose_Calc( Tx_si, Ty_si ), 13))), 4)
-    ln_getaction
+    central "getaction"
     SELECT CASE d_si
     CASE 0
         graphicput clv_buffer(), clv_buffer_status, Row+5, Col, "bttnself.24", spritepath_str
@@ -3850,7 +3844,7 @@ sub frame_status(Row as short, Col as short)
     'graphicput clv_buffer(), clv_buffer_status, Row+5, Col+3, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4) + "____.24"), spritepath_str
     FOR t_si = 1 TO LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
         R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si - 1) * 4 + 1, 4)
-        ln_names
+        central "names"
         IF action_str = R_str THEN
             clv_draw_text clv_buffer(), clv_font(), clv_buffer_status, clv_glyph(), (Col-1) shl 3, (Row+8-1) shl 3, rr_str
         end if
@@ -3867,12 +3861,12 @@ sub frame_inventory (Row as short, Col as short)
     C1 = 4
     C2 = 12
     frame_put clv_buffer(), clv_buffer_status, X1, Y1, X2, Y2, C1, C2
-    ln_getaction
+    central "getaction"
     FOR t_si = 1 TO LEN(e_stra(Rose_Calc( Tx_si, Ty_si ), 1)) / 4
         X=fix((t_si-1) mod 5)*3
         Y=fix((t_si-1)/5)*3
         R_str = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si - 1) * 4 + 1, 4)
-        ln_names
+        central "names"
         graphicput clv_buffer(), clv_buffer_status, Row + Y, Col + X, (MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 1), (t_si*4)-3, 4) + "____.24"), spritepath_str
         IF action_str = R_str THEN
             clv_draw_line clv_buffer(), clv_buffer_status, (statx_si+X-1) shl 3,(14+Y-1) shl 3,((statx_si+X-1) shl 3)+23,((14+Y-1) shl 3)+23, rgb(255,255,255), rgb(0,0,0), clv_flag_b
@@ -3921,7 +3915,7 @@ sub frame_put (clv_buffer() as fb.image ptr, Index as integer, X1 as short, Y1 a
     clv_draw_pixel clv_buffer(), Index, A(X,2)+1, A(Y,1)-1, rgb(131,131,131), rgb(0,0,0)
 end sub
 
-sub clv_glyph_ini (clv_glyph() as integer)
+sub clv_glyph_ini  (clv_glyph() as integer)
     dim Glyph as integer
     for Glyph=lbound(clv_glyph,1) to ubound(clv_glyph,1)
         if (((Glyph>=32) and (Glyph<=126)) or Glyph=250 or Glyph=254) and not(((Glyph>=65) and (Glyph<=90)) or ((Glyph>=97) and (Glyph<=122))) then
@@ -4160,7 +4154,7 @@ sub Map_Save ( DB(any) as names_type)
 end sub
 
 
-sub savegame_save( filename as string = "", Save_Table( any ) as names_type )
+sub ln_savegame_save( filename as string = "", Save_Table( any ) as names_type )
 'case "&HFF3B" 'F1 (save savegame)
     	    	
     Map_Save( Save_Table() )
@@ -4169,7 +4163,7 @@ sub savegame_save( filename as string = "", Save_Table( any ) as names_type )
 
 end sub
 
-sub savegame_load( filename as string = "", Save_Table( any ) as names_type )
+sub ln_savegame_load( filename as string = "", Save_Table( any ) as names_type )
 'case "&HFF3C" 'F2 (load savegame)
 
 	load_names_from_file( ".\save\" + filename + ".dat", Save_Table() )

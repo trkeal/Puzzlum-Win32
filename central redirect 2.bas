@@ -1,5 +1,5 @@
 
-'Central Overload 2.bas
+'Central Redirect 2.bas
 'Central Redirect Module ( 2 of 2 )
 '
 'Created 2021 by T.R.Keal
@@ -9,7 +9,7 @@
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
-#define central_override_2_lib
+#define central_redirect_2_lib
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer)
 	select case target
@@ -85,5 +85,12 @@ sub central overload ( target as string = "", db_names() as names_type)
 		Map_Load db_names()
 	case "Map_Save"
 		Map_Save db_names()
+	end select
+end sub
+
+sub central overload ( target as string = "", attk as string = "%%", Attack_Table( Any ) As Names_Type )
+	select case target
+	case "attk_table"
+		ln_attk_table attk, Attack_Table()
 	end select
 end sub

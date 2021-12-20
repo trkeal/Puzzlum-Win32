@@ -1,5 +1,5 @@
 
-'Central Overload 1.bas
+'Central Redirect 1.bas
 'Central Redirect Module ( 1 of 2 )
 '
 'Created 2021 by T.R.Keal
@@ -9,9 +9,25 @@
 'Please review the Gnu Public License, Thank you. 
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
-#define central_override_1_lib
+#define central_redirect_1_lib
+
+redim shared debug_table( any ) as names_type
+
+sub central_debug ( target as string =  "" )
+	
+	if sync_names("count", debug_table()) = "%%" then
+		names_push "count", ltrim$( str$( 0 ) ), debug_table()
+	end if
+	
+	names_push "count", ltrim$(str$(val(sync_names("count", debug_table()))+1)), debug_table()
+	names_push "history/"+ sync_names("count", debug_table()), target, debug_table()
+
+end sub
 
 sub central overload( target as string = "" )
+
+	central_debug target
+
 	select case target
 	case "roe"
 		ln_roe

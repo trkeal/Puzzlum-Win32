@@ -1,5 +1,5 @@
 
-'Central Overload 2.bi
+'Central Redirect 2.bi
 'Central Redirect Module ( 2 of 2 )
 '
 'Created 2021 by T.R.Keal
@@ -30,3 +30,5 @@ declare sub central overload ( target as string = "", clv_glyph() as integer)
 declare sub central overload ( target as string = "", Index as integer, Src as integer, Row as short, Col as short, W as short, H as short, byref Text_str as string)
 
 declare sub central overload ( target as string = "", db_names() as names_type)
+
+declare sub central overload ( target as string = "", attk as string = "%%", Attack_Table( Any ) As Names_Type )
