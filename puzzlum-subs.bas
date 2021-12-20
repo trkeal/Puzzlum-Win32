@@ -182,17 +182,23 @@ sub ln_startup ()
 	
 	flip
 	
-	cis = string$( 0, 0 )
-	while len( cis ) = 0
-		cis = inkey
-	wend
-	
-	if cis = chr$( 27 ) then end
+	if wait_key() = chr$( 27 ) then end
+	cls
 	
 	'level up data
-    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
-        l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
-    NEXT t_si
+	print "level up data"
+	print "count" + eq + ltrim$(str$(val( sync_names( "levels/count", Levels_Table() ) ) ) )
+    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) ) step 1
+		
+		l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
+		print ltrim$(str$(t_si)) + eq +  ltrim$(str$(val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) ) ) )
+	
+	NEXT t_si
+	
+	flip
+	
+	if wait_key() = chr$( 27 ) then end
+	cls
 
   	load_names_from_file( thispath_str + mappath_str + map_str, Maps_Table() )
 
@@ -4170,4 +4176,18 @@ end function
 
 function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
 	Rose_Calc = Tx_si + (Ty_si - 1) * AA_si
+end function
+
+function wait_key() as string
+
+	dim as string cis = ""
+	
+	while len( cis ) = 0
+		cis = inkey
+	wend
+
+	wait_key = cis
+
+	if cis = chr$( 27 ) then end
+	
 end function
