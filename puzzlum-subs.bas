@@ -56,12 +56,13 @@ sub ln_roe ()
     'netoutmode_li = 67
 	
 	pal_load palette_filename, pal()
-	
-    load_names_from_file ( input_filename, Input_Table() )
-    load_names_from_file ( levels_filename, Levels_Table() )
-    load_names_from_file ( map_filename, Maps_Table() )
-    load_names_from_file ( attack_filename, Attack_Table() )
-	
+
+    load_names_from_file ( ".\gamedata\Main Table.dat", Main_Table() )	
+    load_names_from_file ( sync_names("table/input/filename",Main_Table()), Input_Table() )
+    load_names_from_file ( sync_names("table/levels/filename",Main_Table()), Levels_Table() )
+    load_names_from_file ( sync_names("table/map/filename",Main_Table()), Maps_Table() )
+    load_names_from_file ( sync_names("table/attack/filename",Main_Table()), Attack_Table() )
+
     'pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
     
     clv_glyph_ini clv_glyph()
@@ -132,6 +133,7 @@ sub ln_startup ()
 	wipe_table( Names_Table() )
 	wipe_table( Levels_Table() )
 	wipe_table( Maps_Table() )
+	wipe_table( Rose_Table() )
 
 	bundle_filename = ".\gamedata\Bundle.dat"
 	load_names_from_file( bundle_filename, Bundle_Table() )
@@ -142,9 +144,10 @@ sub ln_startup ()
     input_filename = sync_names( "Input", Bundle_Table() ) 
     palette_filename = sync_names( "Palette", Bundle_Table() ) 
     attack_filename = sync_names( "Attack", Bundle_Table() ) 
-
+    
 	load_names_from_file( ".\dat\Names.dat" , Names_Table() )
 	load_names_from_file( ".\dat\Levels.dat" , Levels_Table() )
+	load_names_from_file( ".\gamedata\Rose.dat" , Rose_Table() )
   	
 	'level up data
     FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
@@ -153,8 +156,7 @@ sub ln_startup ()
 
   	load_names_from_file( thispath_str + mappath_str + map_str, Maps_Table() )
 
-    'OPEN thispath_str + mappath_str + map_str FOR INPUT AS 1
-    
+    'OPEN thispath_str + mappath_str + map_str FOR INPUT AS 1    
 	
 	'INPUT #1, 
 	mapname_str = sync_names( "map/name", Maps_Table() )
@@ -165,13 +167,13 @@ sub ln_startup ()
     'INPUT #1, 
 	DD_si = val( sync_names( "map/DD", Maps_Table() ) )
 
-    'directional axis matrix
-    d_sia(0, 1) = 0: d_sia(0, 2) = 0 'self
-    d_sia(1, 1) = 0: d_sia(1, 2) = -1 'north
-    d_sia(2, 1) = 1: d_sia(2, 2) = 0 'east
-    d_sia(3, 1) = 0: d_sia(3, 2) = 1 'south
-    d_sia(4, 1) = -1: d_sia(4, 2) = 0 'west
-    
+	'directional axis matrix (Compass Rose)
+	for rosecard=0 to val(sync_names("rose/card/count",Rose_Table()))
+	for roseaxis=1 to val(sync_names("rose/axis/count",Rose_Table()))
+		d_sia(rosecard, roseaxis) = val(sync_names("rose/"+ltrim$(str$(rosecard))+"/"+ sync_names("rose/axis/"+ltrim$(str$(roseaxis))+"/name",Rose_Table()),Rose_Table()))
+	next roseaxis
+	next rosecard
+	
     ex_si = fix(AA_si / 2) 'map pointer x
     dy_si = fix(DD_si / 2) 'map pointer y
     mdx_si = fix(40 / 2) 'screen cursor x

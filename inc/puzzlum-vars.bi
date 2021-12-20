@@ -25,6 +25,7 @@
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
 	
+	redim shared as names_type Main_Table( any )
 	redim shared as names_type Bundle_Table( any )
 	redim shared as names_type Input_Table( any )
 	redim shared as names_type Names_Table(any)
@@ -33,6 +34,9 @@
 	redim shared as names_type Save_Table( any )
 	redim shared as names_type Queue_Table( any )
 	redim shared as names_type Attack_Table( any )
+	redim shared as names_type Rose_Table( any )
+	
+	dim shared as integer rosecard = 0, roseaxis = 0
 
     dim shared as short win_si
     dim shared as string mappath_str, map_str, lvuppath_str, lvup_str, mapid_str
