@@ -217,3 +217,6 @@
 	declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
 	
 	declare function wait_key() as string
+
+	#include once ".\inc\central redirect 1.bi"
+	#include once ".\inc\central redirect 2.bi"

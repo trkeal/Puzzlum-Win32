@@ -25,8 +25,10 @@
 
 	#include once ".\inc\puzzlum-subs.bi"
 	#include once ".\inc\puzzlum-vars.bi"
-	
 
+	#include once ".\inc\Central Redirect 1.bi"
+	#include once ".\inc\Central Redirect 2.bi"
+	
 sub ln_roe ()
     
 	Mouse_Width=320
@@ -280,9 +282,9 @@ sub ln_startup ()
     IF INT(RND(1) * 2) + 1 = 2 THEN ctrl_str = ctrl_str + "dust"
     FOR Ty_si = 1 TO DD_si
         
-		bg_str = sync_names( "map/row/bg" + ltrim$( str$( Ty_si ) ), Maps_Table() )
-		fg_str = sync_names( "map/row/fg" + ltrim$( str$( Ty_si ) ), Maps_Table() )
-		rg_str = sync_names( "map/row/rg" + ltrim$( str$( Ty_si ) ), Maps_Table() )
+		bg_str = sync_names( "map/row/" + ltrim$( str$( Ty_si ) )+"/bg", Maps_Table() )
+		fg_str = sync_names( "map/row/" + ltrim$( str$( Ty_si ) )+"/fg", Maps_Table() )
+		rg_str = sync_names( "map/row/" + ltrim$( str$( Ty_si ) )+"/rg", Maps_Table() )
 		
 		'INPUT #1, 
 		
