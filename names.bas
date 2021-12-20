@@ -3,10 +3,19 @@
 '#include once ".\inc\names.bi"
 #include once ".\inc\const.bi"
 
+#include "file.bi"
+
 type names_type
 	label as string
 	value as string
 end type
+
+type names_table_type
+	table(any) as names_type
+end type
+
+redim as names_table_type tables( any )
+redim preserve tables( 0 to 16 )
 
 declare sub wipe_table( names( any ) as names_type )
 declare sub names_push( label as string, value as string, names_table( any ) as names_type )
@@ -212,13 +221,26 @@ end sub
 
 sub load_names_from_file( filename as string = "", names_table( any ) as names_type )
 	dim as integer filemode = freefile
-	if open( filename for binary as #filemode ) then
+	
+	dim as string buffer = string$( 0, 0 )
+	
+	if FileExists( filename ) then
+
+		if open( filename for binary as #filemode ) then
+			close #filemode
+			exit sub
+		end if
+		
+		buffer = string$( lof( filemode ), 0 )
+		
+		get #filemode, 1, buffer
 		close #filemode
-		exit sub
+	
+	else
+		
+		buffer = string$( 0, 0 )
+		
 	end if
-	dim as string buffer = string$( lof( filemode ), 0 )
-	get #filemode, 1, buffer
-	close #filemode
 	
 	load_names_from_buffer buffer, names_table()
 	

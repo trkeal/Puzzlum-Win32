@@ -43,13 +43,24 @@ sub ln_roe ()
     screenset 1,0
     setmouse Mouse_Width shr 1, Mouse_Height shr 1, 0
 
-    thispath_str = ""
+    sync_names("filename/input",Main_Table())
+
+	thispath_str = ".\"
     fontpath_str = ".\gameart\fonts\"
     logopath_str = ".\gameart\logos\"
     spritepath_str = ".\gameart\sprites\"
     palpath_str = ".\gamedata\"
     mappath_str = ".\gamedata\maps\"
+
+    thispath_str = sync_names("path/main",Main_Table())
+    fontpath_str = sync_names("path/fonts",Main_Table())
+    logopath_str = sync_names("path/logos",Main_Table())
+    spritepath_str = sync_names("path/sprites",Main_Table())
     
+	palpath_str = sync_names("path/palette",Main_Table())+sync_names("filename/palette",Main_Table())
+    
+	mappath_str = sync_names("path/maps",Main_Table())
+    	
 	'future71path_str = "future71\"
     'netplaypath_str = "netplay\"
     'netoutfile_str = "netplayo.bin"
@@ -58,18 +69,18 @@ sub ln_roe ()
 	pal_load palette_filename, pal()
 
     load_names_from_file ( ".\gamedata\Main Table.dat", Main_Table() )	
-    load_names_from_file ( sync_names("table/input/filename",Main_Table()), Input_Table() )
-    load_names_from_file ( sync_names("table/levels/filename",Main_Table()), Levels_Table() )
-    load_names_from_file ( sync_names("table/map/filename",Main_Table()), Maps_Table() )
-    load_names_from_file ( sync_names("table/attack/filename",Main_Table()), Attack_Table() )
+    load_names_from_file ( sync_names("filename/input",Main_Table()), Input_Table() )
+    load_names_from_file ( sync_names("filename/levels",Main_Table()), Levels_Table() )
+    load_names_from_file ( sync_names("filename/map",Main_Table()), Maps_Table() )
+    load_names_from_file ( sync_names("filename/attack",Main_Table()), Attack_Table() )
 
     'pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
     
     clv_glyph_ini clv_glyph()
     
     clv_glyph_ini clv_glyph()
-    clv_font_load clv_font(), clv_font_default, clv_font_flag_load, ".\fonts\mishap22.font.png"
-    clv_font_load clv_font(), 1, clv_font_flag_load, ".\fonts\roe00.font.png"
+    clv_font_load clv_font(), clv_font_default, clv_font_flag_load, fontpath_str + "mishap22.font.png"
+    clv_font_load clv_font(), 1, clv_font_flag_load, fontpath_str + "roe00.font.png"
 
     clv_buffer_ini clv_buffer(), Screen_Width, Screen_Height
     clv_buffer_cls clv_buffer(), clv_buffer_splash
@@ -130,6 +141,7 @@ end sub
 sub ln_startup ()
 
 	wipe_table( Bundle_Table() )
+	
 	wipe_table( Names_Table() )
 	wipe_table( Levels_Table() )
 	wipe_table( Maps_Table() )
@@ -137,18 +149,46 @@ sub ln_startup ()
 
 	bundle_filename = ".\gamedata\Bundle.dat"
 	load_names_from_file( bundle_filename, Bundle_Table() )
+	
+	screenres 640,480,32,16
+	screenset 1,0
+	cls
+	
+	dim as string cis = ""
+	
+	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/input", Bundle_Table() ), Input_Table() )
     
-    help_filename = sync_names( "Help", Bundle_Table() ) 
-	map_filename = sync_names( "Map", Bundle_Table() ) 
-    levels_filename = sync_names( "Levels", Bundle_Table() ) 
-    input_filename = sync_names( "Input", Bundle_Table() ) 
-    palette_filename = sync_names( "Palette", Bundle_Table() ) 
-    attack_filename = sync_names( "Attack", Bundle_Table() ) 
+	print quot + sync_names( "filename/help", Bundle_Table() ) + quot
+	 help_filename = sync_names( "filename/help", Bundle_Table() ) 
     
-	load_names_from_file( ".\dat\Names.dat" , Names_Table() )
-	load_names_from_file( ".\dat\Levels.dat" , Levels_Table() )
-	load_names_from_file( ".\gamedata\Rose.dat" , Rose_Table() )
+	print quot + sync_names( "filename/palette", Bundle_Table() ) + quot
+	palette_filename = sync_names( "filename/palette", Bundle_Table() ) 
+    
+	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/input", Bundle_Table() ), Input_Table() )
+	
+	print quot + sync_names( "filename/names", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/names", Bundle_Table() ), Names_Table() )
+		
+	print quot + sync_names( "filename/levels", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/levels", Bundle_Table() ), Levels_Table() )
+	
+	print quot + sync_names( "path/maps", Bundle_Table() ) + sync_names( "filename/map", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "path/maps", Bundle_Table() ) + sync_names( "filename/map", Bundle_Table() ), Maps_Table() )
   	
+	print quot + sync_names( "filename/rose", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/rose", Bundle_Table() ), Rose_Table() )
+	
+	flip
+	
+	cis = string$( 0, 0 )
+	while len( cis ) = 0
+		cis = inkey
+	wend
+	
+	if cis = chr$( 27 ) then end
+	
 	'level up data
     FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
         l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )

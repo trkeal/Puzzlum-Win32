@@ -1,6 +1,0 @@
-table/main/filename=.\gamedata\Main.dat
-table/input/filename=.\gamedata\Input.dat
-table/levels/filename=.\gamedata\Levels.dat
-table/map/filename=.\gamedata\Map.dat
-table/attack/filename=.\gamelogic\Attack Table.dat
-table/creation/filename=.\gamelogic\Creation Table.dat

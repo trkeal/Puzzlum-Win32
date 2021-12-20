@@ -35,7 +35,7 @@
 	redim shared as names_type Queue_Table( any )
 	redim shared as names_type Attack_Table( any )
 	redim shared as names_type Rose_Table( any )
-	
+
 	dim shared as integer rosecard = 0, roseaxis = 0
 
     dim shared as short win_si
