@@ -155,13 +155,24 @@ function name_hex_as_string( subject as string, names( any ) as names_type ) as 
 end function
 
 function sync_names( lookup as string, names_table( any ) as names_type ) as string
+	
 	dim as integer index = lbound( names_table, 1 )
+	
 	do while index <= ubound( names_table, 1 )
-		if lcase$( lookup ) = lcase$( names_table( index ).label ) then
-			sync_names = lcase$( names_table( index ).value )
+		
+		'if lcase$( lookup ) = lcase$( names_table( index ).label ) then
+		
+		if lookup = names_table( index ).label then
+
+			'sync_names = lcase$( names_table( index ).value )
+
+			sync_names = names_table( index ).value
+
 			exit function
 		end if
+		
 		index += 1
+		
 	loop
 	
 	sync_names = "%%"

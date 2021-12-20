@@ -199,8 +199,47 @@ sub ln_startup ()
 	
 	if wait_key() = chr$( 27 ) then end
 	cls
+	
+	locate 1, 1
 
-  	load_names_from_file( thispath_str + mappath_str + map_str, Maps_Table() )
+	print "Compass Rose"
+	'directional axis matrix (Compass Rose)
+	
+	locate 2, 1
+	
+	print "rose/card/count" + eq + quot + sync_names("rose/card/count",Rose_Table()) + quot
+
+	locate 2, 40
+	print "rose/axis/count" + eq + quot + sync_names("rose/card/count",Rose_Table()) + quot
+
+	dim as string thisaxis = ""
+
+	for roseaxis=1 to val(sync_names("rose/axis/count",Rose_Table())) step 1
+		
+		thisaxis = sync_names( "rose/axis/"+ltrim$(str$(roseaxis)), Rose_Table() )
+		
+		locate ( roseaxis - 1 ) + 5, 10
+		print "rose/axis/"+ltrim$(str$(roseaxis)) + eq + quot + thisaxis + quot
+
+	for rosecard=0 to val(sync_names("rose/card/count",Rose_Table())) step 1
+				
+		d_sia(rosecard, roseaxis) = val(sync_names("rose/card/"+ltrim$(str$(rosecard))+"/axis/"+thisaxis,Rose_Table()))
+		
+		locate rosecard+20, (roseaxis-1) * 40 + 1
+		print "rose/card/"+ltrim$(str$(rosecard))+"/axis/"+thisaxis + eq + quot + ltrim$( str$( d_sia(rosecard, roseaxis) ) ) + quot
+		
+		locate rosecard+50, (roseaxis-1) * 40 + 1		
+		print ltrim$(str$(d_sia(rosecard, roseaxis)))
+	
+	next rosecard
+	next roseaxis
+	
+	flip
+	if wait_key() = chr$( 27 ) then end
+	cls
+
+  	'load_names_from_file( thispath_str + mappath_str + map_str, Maps_Table() )
+  	load_names_from_file( mappath_str + map_str, Maps_Table() )
 
     'OPEN thispath_str + mappath_str + map_str FOR INPUT AS 1    
 	
@@ -212,13 +251,6 @@ sub ln_startup ()
 	AA_si = val( sync_names( "map/AA", Maps_Table() ) )
     'INPUT #1, 
 	DD_si = val( sync_names( "map/DD", Maps_Table() ) )
-
-	'directional axis matrix (Compass Rose)
-	for rosecard=0 to val(sync_names("rose/card/count",Rose_Table()))
-	for roseaxis=1 to val(sync_names("rose/axis/count",Rose_Table()))
-		d_sia(rosecard, roseaxis) = val(sync_names("rose/"+ltrim$(str$(rosecard))+"/"+ sync_names("rose/axis/"+ltrim$(str$(roseaxis))+"/name",Rose_Table()),Rose_Table()))
-	next roseaxis
-	next rosecard
 	
     ex_si = fix(AA_si / 2) 'map pointer x
     dy_si = fix(DD_si / 2) 'map pointer y
