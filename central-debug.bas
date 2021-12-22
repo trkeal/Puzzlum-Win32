@@ -14,16 +14,13 @@
 
 #include once "file.bi"
 
-	dim shared as integer Central_Count = 0
-	
-	redim shared as string Central_History( any )	
-	
+#include once ".\inc\central-debug.bi"
+		
 	kill ".\debug\central.log"
 	
-	declare sub central_debug ( target as string =  "" )
-
-
 sub central_debug ( target as string =  "" )
+	
+	Central_Count += 1
 	
 	redim preserve Central_History( 0 to Central_Count )
 	Central_History( Central_Count ) = target
@@ -32,7 +29,7 @@ sub central_debug ( target as string =  "" )
 	
 	dim as integer filemode = freefile
 	dim as string filename = ".\debug\central.log"
-	dim as string buffer = ""
+	dim as string buffer = string$( 0, 0 )
 	
 	if open(filename for binary as #filemode) then
 		close #filemode
@@ -41,7 +38,7 @@ sub central_debug ( target as string =  "" )
 	
 	dim as integer index = 0
 	
-	for index = 0 to Central_Count
+	for index = 0 to Central_Count step 1
 		buffer += "/" + Central_History( index )
 	next index
 	buffer += crlf
@@ -49,5 +46,12 @@ sub central_debug ( target as string =  "" )
 	put #filemode, lof( filemode ) + 1, buffer
 	
 	close #filemode
+	
+end sub
+
+sub central_close_out ( target as string =  "" )
+	
+	Central_Count -= 1	
+	redim preserve Central_History( 0 to Central_Count )
 	
 end sub

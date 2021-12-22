@@ -16,12 +16,12 @@
 
 #include once "file.bi"
 
-'''#include once ".\inc\central debug.bi"
+#include once ".\inc\central-debug.bi"
 
-	dim shared as integer Central_Count = 0
-	
-	redim shared as string Central_History( any )	
-	
-	kill ".\debug\central.log"
-	
-	declare sub central_debug ( target as string =  "" )
+dim shared as integer Central_Count = 0
+
+redim shared as string Central_History( any )	
+
+declare sub central_debug ( target as string =  "" )
+
+declare sub central_close_out ( target as string =  "" )

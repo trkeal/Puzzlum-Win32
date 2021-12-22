@@ -161,7 +161,7 @@ sub ln_startup()
 	
 	dim as string cis = ""
 	
-	loadpaths()
+	loadbundle()
 	loadlevels()
 	loadrose()
 
@@ -4145,8 +4145,8 @@ end function
 
 sub central overload( target as string = "" )
 
-	Central_Count += 1
-
+	
+	
 	central_debug target
 
 	select case target
@@ -4400,14 +4400,16 @@ sub central overload( target as string = "" )
 		ln_crtnbldr
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer)
 
-	Central_Count += 1
-
+	
+	
+	central_debug target
+	
 	select case target
 	case "title"
 		ln_title clv_buffer(), Index
@@ -4415,13 +4417,14 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 		ln_showtext clv_buffer(), Index
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
 
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4429,7 +4432,7 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 		ln_stts clv_buffer(), Index, Row, Col
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
@@ -4439,7 +4442,8 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
         Switch as integer, ARGB as uinteger, Increment as integer, Progress as string, _
         byref LastSec as double, DelaySec as double)
 	
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4451,13 +4455,14 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 			LastSec, DelaySec
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr)
 
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4465,13 +4470,14 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr)
 		clv_buffer_stack clv_buffer()
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", Row as short, Col as short)
 
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4481,13 +4487,14 @@ sub central overload ( target as string = "", Row as short, Col as short)
 		frame_title Row, Col
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, X1 as short, Y1 as short, X2 as short, Y2 as short, C1 as short,C2 as short)
 
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4495,13 +4502,14 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 		frame_put clv_buffer(), Index, X1, Y1, X2, Y2, C1, C2
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", clv_glyph() as integer)
 
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4509,13 +4517,14 @@ sub central overload ( target as string = "", clv_glyph() as integer)
 		clv_glyph_ini clv_glyph()
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", Index as integer, Src as integer, Row as short, Col as short, W as short, H as short, byref Text_str as string)
 
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4523,13 +4532,14 @@ sub central overload ( target as string = "", Index as integer, Src as integer, 
 		input_text Index, Src, Row, Col, W, H, Text_str
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", db_names() as names_type)
 
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4539,13 +4549,14 @@ sub central overload ( target as string = "", db_names() as names_type)
 		Map_Save db_names()
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
 sub central overload ( target as string = "", attk as string = "%%", Attack_Table( Any ) As Names_Type )
 
-	Central_Count += 1
+	
+	
 	central_debug target
 
 	select case target
@@ -4553,7 +4564,7 @@ sub central overload ( target as string = "", attk as string = "%%", Attack_Tabl
 		ln_attk_table attk, Attack_Table()
 	end select
 	
-	Central_Count -= 1
+	Central_Close_Out target
 
 end sub
 
@@ -4618,7 +4629,7 @@ sub loadlevels()
 
 end sub
 
-sub loadpaths()
+sub loadbundle()
 
 	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
 	load_names_from_file( sync_names( "filename/input", Bundle_Table() ), Input_Table() )
