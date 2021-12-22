@@ -1987,7 +1987,7 @@ sub ln_title(clv_buffer() as fb.image ptr, Index as integer)
     clv_buffer_cls clv_buffer(), clv_buffer_draw
     'graphicput clv_buffer(), clv_buffer_portal1, 2, "aquagame.56", logopath_str
     colr_si = 9
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (3-1) shl 3, (2-1) shl 3, "A RetroMachineShop Featured Project!"
+    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (3-1) shl 3, (2-1) shl 3, "An Http://Puzzlum.Net/ Featured Project!"
     LOCATE 4, 1
     Exit Sub
 end sub
