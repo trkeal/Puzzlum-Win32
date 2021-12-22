@@ -29,10 +29,8 @@
 	#include once ".\inc\puzzlum-subs.bi"
 	#include once ".\inc\puzzlum-vars.bi"
 
-	redim shared debug_table( any ) as names_type
-
 	dim shared as integer Central_Count = 0
-	
+	redim shared as string Central_History( any )	
 	kill ".\debug\central.log"
 
 	'#include once ".\puzzlum-vars.bi"

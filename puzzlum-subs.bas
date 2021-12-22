@@ -4221,6 +4221,11 @@ end function
 
 sub central_debug ( target as string =  "" )
 	
+	redim preserve Central_History( 0 to Central_Count )
+	Central_History( Central_Count ) = target
+	
+	Central_History( 0 ) = command$( 0 )
+	
 	dim as integer filemode = freefile
 	dim as string filename = ".\debug\central.log"
 	dim as string buffer = ""
@@ -4230,7 +4235,12 @@ sub central_debug ( target as string =  "" )
 		exit sub
 	end if
 	
-	buffer = quot + target +quot + string$(1,32) + "( " + ltrim$( str$( Central_Count ) ) + " deep )" + crlf
+	dim as integer index = 0
+	
+	for index = 0 to Central_Count
+		buffer += "/" + Central_History( index )
+	next index
+	buffer += crlf
 	
 	put #filemode, lof( filemode ) + 1, buffer
 	
