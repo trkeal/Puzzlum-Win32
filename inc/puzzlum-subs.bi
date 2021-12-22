@@ -31,6 +31,10 @@
 
 	redim shared debug_table( any ) as names_type
 
+	dim shared as integer Central_Count = 0
+	
+	kill ".\debug\central.log"
+
 	'#include once ".\puzzlum-vars.bi"
 
     declare sub clv_glyph_ini (clv_glyph() as integer)

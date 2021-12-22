@@ -28,6 +28,8 @@
 	
 	'redim shared debug_table( any ) as names_type
 
+	'dim shared as integer Central_Count = 0
+
 sub ln_roe()
     
 	Mouse_Width=320
@@ -240,7 +242,7 @@ sub ln_startup()
 	cls
 
   	'load_names_from_file( thispath_str + mappath_str + map_str, Maps_Table() )
-  	load_names_from_file( mappath_str + map_str, Maps_Table() )
+  	'''load_names_from_file( mappath_str + map_str, Maps_Table() )
 
     'OPEN thispath_str + mappath_str + map_str FOR INPUT AS 1    
 	
@@ -4219,16 +4221,26 @@ end function
 
 sub central_debug ( target as string =  "" )
 	
-	if sync_names("count", debug_table()) = "%%" then
-		names_push "count", ltrim$( str$( 0 ) ), debug_table()
+	dim as integer filemode = freefile
+	dim as string filename = ".\debug\central.log"
+	dim as string buffer = ""
+	
+	if open(filename for binary as #filemode) then
+		close #filemode
+		exit sub
 	end if
 	
-	names_push "count", ltrim$(str$(val(sync_names("count", debug_table()))+1)), debug_table()
-	names_push "history/"+ sync_names("count", debug_table()), target, debug_table()
-
+	buffer = quot + target +quot + string$(1,32) + "( " + ltrim$( str$( Central_Count ) ) + " deep )" + crlf
+	
+	put #filemode, lof( filemode ) + 1, buffer
+	
+	close #filemode
+	
 end sub
 
 sub central overload( target as string = "" )
+
+	Central_Count += 1
 
 	central_debug target
 
@@ -4482,22 +4494,38 @@ sub central overload( target as string = "" )
 	case "crtnbldr"
 		ln_crtnbldr
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer)
+
+	Central_Count += 1
+
 	select case target
 	case "title"
 		ln_title clv_buffer(), Index
 	case "showtext"
 		ln_showtext clv_buffer(), Index
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
+
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "stts"
 		ln_stts clv_buffer(), Index, Row, Col
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, Caption as string, _
@@ -4505,6 +4533,10 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
         X1 as integer, Y1 as integer, X2 as integer, Y2 as integer, _
         Switch as integer, ARGB as uinteger, Increment as integer, Progress as string, _
         byref LastSec as double, DelaySec as double)
+	
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "progress_put"
 		progress_put clv_buffer(), Index, Caption, _
@@ -4513,57 +4545,109 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 			Switch, ARGB, Increment, Progress, _
 			LastSec, DelaySec
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr)
+
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "clv_buffer_stack"
 		clv_buffer_stack clv_buffer()
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", Row as short, Col as short)
+
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "frame_inventory"
 		frame_inventory Row, Col
 	case "frame_title"
 		frame_title Row, Col
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, X1 as short, Y1 as short, X2 as short, Y2 as short, C1 as short,C2 as short)
+
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "frame_put"
 		frame_put clv_buffer(), Index, X1, Y1, X2, Y2, C1, C2
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", clv_glyph() as integer)
+
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "clv_glyph_ini"
 		clv_glyph_ini clv_glyph()
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", Index as integer, Src as integer, Row as short, Col as short, W as short, H as short, byref Text_str as string)
+
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "input_text"
 		input_text Index, Src, Row, Col, W, H, Text_str
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", db_names() as names_type)
+
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "Map_Load"
 		Map_Load db_names()
 	case "Map_Save"
 		Map_Save db_names()
 	end select
+	
+	Central_Count -= 1
+
 end sub
 
 sub central overload ( target as string = "", attk as string = "%%", Attack_Table( Any ) As Names_Type )
+
+	Central_Count += 1
+	central_debug target
+
 	select case target
 	case "attk_table"
 		ln_attk_table attk, Attack_Table()
 	end select
+	
+	Central_Count -= 1
+
 end sub
