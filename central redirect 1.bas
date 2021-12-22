@@ -11,19 +11,6 @@
 
 #define central_redirect_1_lib
 
-redim shared debug_table( any ) as names_type
-
-sub central_debug ( target as string =  "" )
-	
-	if sync_names("count", debug_table()) = "%%" then
-		names_push "count", ltrim$( str$( 0 ) ), debug_table()
-	end if
-	
-	names_push "count", ltrim$(str$(val(sync_names("count", debug_table()))+1)), debug_table()
-	names_push "history/"+ sync_names("count", debug_table()), target, debug_table()
-
-end sub
-
 sub central overload( target as string = "" )
 
 	central_debug target

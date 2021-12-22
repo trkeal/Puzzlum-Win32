@@ -19,6 +19,7 @@
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"
+	#include once ".\inc\central-debug.bi"
 
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"

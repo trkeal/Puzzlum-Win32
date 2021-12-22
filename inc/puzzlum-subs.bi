@@ -20,6 +20,8 @@
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"
 
+	#include once ".\inc\central-debug.bi"
+
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
@@ -28,10 +30,6 @@
 
 	#include once ".\inc\puzzlum-subs.bi"
 	#include once ".\inc\puzzlum-vars.bi"
-
-	dim shared as integer Central_Count = 0
-	redim shared as string Central_History( any )	
-	kill ".\debug\central.log"
 
 	'#include once ".\puzzlum-vars.bi"
 
@@ -221,8 +219,6 @@
 	declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
 	
 	declare function wait_key() as string
-
-declare sub central_debug ( target as string =  "" )
 
 declare sub central overload( target as string = "" )
 

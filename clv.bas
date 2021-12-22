@@ -19,18 +19,26 @@
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"
+	#include once ".\inc\central-debug.bi"
 
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
-	
+
 sub clv_buffer_ini(clv_buffer(any,any) as fb.image ptr, Screen_Width as integer, Screen_Height as integer)
-    dim as integer PageIndex
+    
+	Central_Count += 1
+	central_debug "clv" + colon + "buffer"
+	
+	dim as integer PageIndex
     for PageIndex = lbound(clv_buffer, 1) to ubound(clv_buffer, 1)
         clv_buffer(PageIndex, clv_buffer_and) = imagecreate(Screen_Width, Screen_Height)
         clv_buffer(PageIndex, clv_buffer_or) = imagecreate(Screen_Width, Screen_Height)
         clv_buffer_cls clv_buffer(), PageIndex
     next
+	
+	Central_Count -= 1
+	
 end sub
 
 sub clv_font_load (clv_font(any) as fb.image ptr, FontIndex as integer, Switch as integer, Filename as string)

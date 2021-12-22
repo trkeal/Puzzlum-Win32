@@ -10,13 +10,6 @@ type names_type
 	value as string
 end type
 
-type names_table_type
-	table(any) as names_type
-end type
-
-redim as names_table_type tables( any )
-redim preserve tables( 0 to 16 )
-
 declare sub wipe_table( names( any ) as names_type )
 declare sub names_push( label as string, value as string, names_table( any ) as names_type )
 

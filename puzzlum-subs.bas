@@ -17,6 +17,8 @@
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"
 
+	#include once ".\inc\central-debug.bi"
+
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
@@ -4140,35 +4142,6 @@ function wait_key() as string
 	if cis = chr$( 27 ) then end
 	
 end function
-
-sub central_debug ( target as string =  "" )
-	
-	redim preserve Central_History( 0 to Central_Count )
-	Central_History( Central_Count ) = target
-	
-	Central_History( 0 ) = command$( 0 )
-	
-	dim as integer filemode = freefile
-	dim as string filename = ".\debug\central.log"
-	dim as string buffer = ""
-	
-	if open(filename for binary as #filemode) then
-		close #filemode
-		exit sub
-	end if
-	
-	dim as integer index = 0
-	
-	for index = 0 to Central_Count
-		buffer += "/" + Central_History( index )
-	next index
-	buffer += crlf
-	
-	put #filemode, lof( filemode ) + 1, buffer
-	
-	close #filemode
-	
-end sub
 
 sub central overload( target as string = "" )
 

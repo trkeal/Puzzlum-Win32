@@ -14,6 +14,8 @@
 
 #include once ".\inc\const.bi"
 
+#include "file.bi"
+
 type names_type
 	label as string
 	value as string
