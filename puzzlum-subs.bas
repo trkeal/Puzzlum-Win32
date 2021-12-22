@@ -155,8 +155,8 @@ sub ln_startup()
 	bundle_filename = ".\gamedata\Bundle.dat"
 	load_names_from_file( bundle_filename, Bundle_Table() )
 	
-	screenres 640,480,32,16
-	screenset 1,0
+	'screenres 640,480,32,16
+	'screenset 1,0
 	cls
 	
 	dim as string cis = ""
@@ -4572,15 +4572,15 @@ sub loadrose()
 
 	locate 1, 1
 
-	print "Compass Rose"
+	print "===[ Compass Rose ]==="
 	'directional axis matrix (Compass Rose)
 	
-	locate 2, 1
+	locate 3, 1
 	
 	print "rose/card/count" + eq + quot + sync_names("rose/card/count",Rose_Table()) + quot
 
-	locate 2, 40
-	print "rose/axis/count" + eq + quot + sync_names("rose/card/count",Rose_Table()) + quot
+	locate 3, 41
+	print "rose/axis/count" + eq + quot + sync_names("rose/axis/count",Rose_Table()) + quot
 
 	dim as string thisaxis = ""
 
@@ -4588,18 +4588,20 @@ sub loadrose()
 		
 		thisaxis = sync_names( "rose/axis/"+ltrim$(str$(roseaxis)), Rose_Table() )
 		
-		locate ( roseaxis - 1 ) + 5, 10
+		locate 5, ( roseaxis - 1 ) * 40 + 1
+		
 		print "rose/axis/"+ltrim$(str$(roseaxis)) + eq + quot + thisaxis + quot
 
 	for rosecard=0 to val(sync_names("rose/card/count",Rose_Table())) step 1
 				
 		d_sia(rosecard, roseaxis) = val(sync_names("rose/card/"+ltrim$(str$(rosecard))+"/axis/"+thisaxis,Rose_Table()))
 		
-		locate rosecard+20, (roseaxis-1) * 40 + 1
+		locate rosecard * 2 + 7, ( roseaxis - 1 ) * 40 + 1, 
+		
 		print "rose/card/"+ltrim$(str$(rosecard))+"/axis/"+thisaxis + eq + quot + ltrim$( str$( d_sia(rosecard, roseaxis) ) ) + quot
 		
-		locate rosecard+50, (roseaxis-1) * 40 + 1		
-		print ltrim$(str$(d_sia(rosecard, roseaxis)))
+		'locate rosecard*2 + 7,( roseaxis mod 2 ) * 40 + 1, 
+		'print ltrim$(str$(d_sia(rosecard, roseaxis)))
 	
 	next rosecard
 	next roseaxis
@@ -4613,11 +4615,14 @@ end sub
 sub loadlevels()	
 
 	'level up data
-	print "level up data"
+	locate 1, 1
+	print "===[ level up data ]==="
+	locate 3,1
 	print "count" + eq + ltrim$(str$(val( sync_names( "levels/count", Levels_Table() ) ) ) )
     FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) ) step 1
 		
 		l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
+		locate (t_si mod 16) + 5, fix(t_si / 16) * 16 + 1
 		print ltrim$(str$(t_si)) + eq +  ltrim$(str$(val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) ) ) )
 	
 	NEXT t_si
@@ -4631,6 +4636,9 @@ end sub
 
 sub loadbundle()
 
+	print "===[ Load Bundle ]==="
+	print
+	
 	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
 	load_names_from_file( sync_names( "filename/input", Bundle_Table() ), Input_Table() )
     

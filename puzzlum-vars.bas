@@ -25,7 +25,7 @@
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
 
-	ScreenRes 640, 480, 32, 16
+	'ScreenRes 640, 480, 32, 16
 
     'dir axis info '[!] um? proper documentation, please.
     
