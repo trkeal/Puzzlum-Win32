@@ -249,3 +249,9 @@ declare sub central overload ( target as string = "", Index as integer, Src as i
 declare sub central overload ( target as string = "", db_names() as names_type)
 
 declare sub central overload ( target as string = "", attk as string = "%%", Attack_Table( Any ) As Names_Type )
+
+declare sub loadpaths()
+
+declare sub loadlevels()
+
+declare sub loadrose ()

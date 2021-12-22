@@ -6,6 +6,7 @@ filename/main=.\gamedata\Main.dat
 filename/names=.\gamedata\Names.dat
 filename/palette=.\gamedata\QBVGAPAL.BIN
 filename/rose=.\gamedata\Rose.dat
+filename/map=Dire Dungeon 1.dat
 
 path/main=.\
 path/fonts=.\gameart\fonts\

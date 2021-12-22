@@ -159,87 +159,9 @@ sub ln_startup()
 	
 	dim as string cis = ""
 	
-	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
-	load_names_from_file( sync_names( "filename/input", Bundle_Table() ), Input_Table() )
-    
-	print quot + sync_names( "filename/help", Bundle_Table() ) + quot
-	 help_filename = sync_names( "filename/help", Bundle_Table() ) 
-    
-	print quot + sync_names( "filename/palette", Bundle_Table() ) + quot
-	palette_filename = sync_names( "filename/palette", Bundle_Table() ) 
-    
-	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
-	load_names_from_file( sync_names( "filename/input", Bundle_Table() ), Input_Table() )
-	
-	print quot + sync_names( "filename/names", Bundle_Table() ) + quot
-	load_names_from_file( sync_names( "filename/names", Bundle_Table() ), Names_Table() )
-		
-	print quot + sync_names( "filename/levels", Bundle_Table() ) + quot
-	load_names_from_file( sync_names( "filename/levels", Bundle_Table() ), Levels_Table() )
-	
-	print quot + sync_names( "path/maps", Bundle_Table() ) + sync_names( "filename/map", Bundle_Table() ) + quot
-	load_names_from_file( sync_names( "path/maps", Bundle_Table() ) + sync_names( "filename/map", Bundle_Table() ), Maps_Table() )
-  	
-	print quot + sync_names( "filename/rose", Bundle_Table() ) + quot
-	load_names_from_file( sync_names( "filename/rose", Bundle_Table() ), Rose_Table() )
-	
-	flip
-	
-	if wait_key() = chr$( 27 ) then end
-	cls
-	
-	'level up data
-	print "level up data"
-	print "count" + eq + ltrim$(str$(val( sync_names( "levels/count", Levels_Table() ) ) ) )
-    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) ) step 1
-		
-		l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
-		print ltrim$(str$(t_si)) + eq +  ltrim$(str$(val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) ) ) )
-	
-	NEXT t_si
-	
-	flip
-	
-	if wait_key() = chr$( 27 ) then end
-	cls
-	
-	locate 1, 1
-
-	print "Compass Rose"
-	'directional axis matrix (Compass Rose)
-	
-	locate 2, 1
-	
-	print "rose/card/count" + eq + quot + sync_names("rose/card/count",Rose_Table()) + quot
-
-	locate 2, 40
-	print "rose/axis/count" + eq + quot + sync_names("rose/card/count",Rose_Table()) + quot
-
-	dim as string thisaxis = ""
-
-	for roseaxis=1 to val(sync_names("rose/axis/count",Rose_Table())) step 1
-		
-		thisaxis = sync_names( "rose/axis/"+ltrim$(str$(roseaxis)), Rose_Table() )
-		
-		locate ( roseaxis - 1 ) + 5, 10
-		print "rose/axis/"+ltrim$(str$(roseaxis)) + eq + quot + thisaxis + quot
-
-	for rosecard=0 to val(sync_names("rose/card/count",Rose_Table())) step 1
-				
-		d_sia(rosecard, roseaxis) = val(sync_names("rose/card/"+ltrim$(str$(rosecard))+"/axis/"+thisaxis,Rose_Table()))
-		
-		locate rosecard+20, (roseaxis-1) * 40 + 1
-		print "rose/card/"+ltrim$(str$(rosecard))+"/axis/"+thisaxis + eq + quot + ltrim$( str$( d_sia(rosecard, roseaxis) ) ) + quot
-		
-		locate rosecard+50, (roseaxis-1) * 40 + 1		
-		print ltrim$(str$(d_sia(rosecard, roseaxis)))
-	
-	next rosecard
-	next roseaxis
-	
-	flip
-	if wait_key() = chr$( 27 ) then end
-	cls
+	loadpaths()
+	loadlevels()
+	loadrose()
 
   	'load_names_from_file( thispath_str + mappath_str + map_str, Maps_Table() )
   	'''load_names_from_file( mappath_str + map_str, Maps_Table() )
@@ -4659,5 +4581,99 @@ sub central overload ( target as string = "", attk as string = "%%", Attack_Tabl
 	end select
 	
 	Central_Count -= 1
+
+end sub
+
+sub loadrose()
+
+	locate 1, 1
+
+	print "Compass Rose"
+	'directional axis matrix (Compass Rose)
+	
+	locate 2, 1
+	
+	print "rose/card/count" + eq + quot + sync_names("rose/card/count",Rose_Table()) + quot
+
+	locate 2, 40
+	print "rose/axis/count" + eq + quot + sync_names("rose/card/count",Rose_Table()) + quot
+
+	dim as string thisaxis = ""
+
+	for roseaxis=1 to val(sync_names("rose/axis/count",Rose_Table())) step 1
+		
+		thisaxis = sync_names( "rose/axis/"+ltrim$(str$(roseaxis)), Rose_Table() )
+		
+		locate ( roseaxis - 1 ) + 5, 10
+		print "rose/axis/"+ltrim$(str$(roseaxis)) + eq + quot + thisaxis + quot
+
+	for rosecard=0 to val(sync_names("rose/card/count",Rose_Table())) step 1
+				
+		d_sia(rosecard, roseaxis) = val(sync_names("rose/card/"+ltrim$(str$(rosecard))+"/axis/"+thisaxis,Rose_Table()))
+		
+		locate rosecard+20, (roseaxis-1) * 40 + 1
+		print "rose/card/"+ltrim$(str$(rosecard))+"/axis/"+thisaxis + eq + quot + ltrim$( str$( d_sia(rosecard, roseaxis) ) ) + quot
+		
+		locate rosecard+50, (roseaxis-1) * 40 + 1		
+		print ltrim$(str$(d_sia(rosecard, roseaxis)))
+	
+	next rosecard
+	next roseaxis
+	
+	flip
+	if wait_key() = chr$( 27 ) then end
+	cls
+	
+end sub
+
+sub loadlevels()	
+
+	'level up data
+	print "level up data"
+	print "count" + eq + ltrim$(str$(val( sync_names( "levels/count", Levels_Table() ) ) ) )
+    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) ) step 1
+		
+		l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
+		print ltrim$(str$(t_si)) + eq +  ltrim$(str$(val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) ) ) )
+	
+	NEXT t_si
+	
+	flip
+	
+	if wait_key() = chr$( 27 ) then end
+	cls
+
+end sub
+
+sub loadpaths()
+
+	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/input", Bundle_Table() ), Input_Table() )
+    
+	print quot + sync_names( "filename/help", Bundle_Table() ) + quot
+	 help_filename = sync_names( "filename/help", Bundle_Table() ) 
+    
+	print quot + sync_names( "filename/palette", Bundle_Table() ) + quot
+	palette_filename = sync_names( "filename/palette", Bundle_Table() ) 
+    
+	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/input", Bundle_Table() ), Input_Table() )
+	
+	print quot + sync_names( "filename/names", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/names", Bundle_Table() ), Names_Table() )
+		
+	print quot + sync_names( "filename/levels", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/levels", Bundle_Table() ), Levels_Table() )
+	
+	print quot + sync_names( "path/maps", Bundle_Table() ) + sync_names( "filename/map", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "path/maps", Bundle_Table() ) + sync_names( "filename/map", Bundle_Table() ), Maps_Table() )
+  	
+	print quot + sync_names( "filename/rose", Bundle_Table() ) + quot
+	load_names_from_file( sync_names( "filename/rose", Bundle_Table() ), Rose_Table() )
+	
+	flip
+	
+	if wait_key() = chr$( 27 ) then end
+	cls
 
 end sub
