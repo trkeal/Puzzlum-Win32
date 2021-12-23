@@ -32,7 +32,8 @@
 #include once ".\inc\puzzlum-subs.bi"
 '#include once ".\inc\puzzlum-task.bi"
 
-ln_roe
+central "roe"
+
 end
 
 

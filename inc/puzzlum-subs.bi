@@ -256,9 +256,13 @@ declare sub load_rose()
 
 declare sub report_caption( caption as string = "%%" )
 
-declare sub vga_test()
+declare function vga_test_1() as fb.image ptr
+
+declare sub vga_test_2()
 
 declare sub splash()
+
+declare sub central_loader( target as string = "" )
 
 declare sub loader()
 

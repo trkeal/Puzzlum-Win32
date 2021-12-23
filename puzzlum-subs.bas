@@ -4571,11 +4571,7 @@ sub load_rose()
 	
 	next rosecard
 	next roseaxis
-	
-	flip
-	if wait_key() = chr$( 27 ) then end
-	cls
-	
+		
 end sub
 
 sub load_levels()
@@ -4594,11 +4590,6 @@ sub load_levels()
 	
 	NEXT t_si
 	
-	flip
-	
-	if wait_key() = chr$( 27 ) then end
-	cls
-
 end sub
 
 sub load_bundle()
@@ -4631,11 +4622,6 @@ sub load_bundle()
 	print quot + sync_names( "filename/rose", Bundle_Table() ) + quot
 	load_names_from_file( sync_names( "filename/rose", Bundle_Table() ), Rose_Table() )
 	
-	flip
-	
-	if wait_key() = chr$( 27 ) then end
-	cls
-
 end sub
 
 sub report_caption( caption as string = "%%" )
@@ -4645,7 +4631,7 @@ sub report_caption( caption as string = "%%" )
 
 end sub
 
-sub vga_test()
+function vga_test_1() as fb.image ptr
 	
 	dim as integer x = 0, y = 0 
 	dim as integer xx = 0, yy = 0 
@@ -4664,27 +4650,21 @@ sub vga_test()
 		
 	next x
 	next y
-
-	put (0,16), vga_image, pset
-	flip
 	
-	if wait_key() = chr$(27) then end
+	vga_test_1 = vga_image
+	
+end function
 
+sub vga_test_2()
+	
 	report_caption "VGA Test: 2 of 2 ( Stretching )"
 
-	vga_stretch = imagecreate( 256, 256 )
-
-	for y = 0 to vga_stretch->height - 1 step 1
-	for x = 0 to vga_stretch->width - 1 step 1
-		xx = x * vga_image->height \ vga_stretch -> height
-		yy = y * vga_image->width \ vga_stretch -> width
-		pset vga_stretch, ( x, y ), point( xx, yy, vga_image )
-	next x
-	next y
-
-	put (0,16), vga_stretch, pset
-	flip
-	if wait_key() = chr$(27) then end
+	dim as fb.image ptr vga_stretch = imagecreate( 256, 256 )
+	dim as fb.image ptr vga_image = vga_test_1()
+	
+	stretch vga_image, vga_stretch
+	
+	put (0,0), vga_stretch, pset
 
 	imagedestroy vga_image
 	imagedestroy vga_stretch
@@ -4714,31 +4694,50 @@ sub splash()
     
 	png_destroy gtmp
     imagedestroy gtmpt
-    
-	flip
-	if wait_key() = chr$( 27 ) then end
-	
+    	
 end sub
 
+sub central_loader( target as string = "" )
+		
+	select case target	
+	case "display"
+		load_display
+	case "bundle"
+		load_bundle
+	case "input"
+		load_input
+	case "vga_test"
+		vga_test_2
+	case "rose"
+		load_rose
+	case "levels"
+		load_levels
+	case "art"
+		load_art
+	case "data"
+		load_data
+	case "splash"
+		splash
+	end select
+	
+end sub
 sub loader()
 	
-	load_names_from_file( ".\gamedata\Bundle.dat", Bundle_Table() )
-	
-	load_display
-	load_bundle
+	redim as names_type Loader_Table( any )
+	dim as integer index = 0
 
-	load_input
-	 
-	vga_test
+	load_names_from_file( ".\gamedata\Bundle.dat", Bundle_Table() )
+	load_names_from_file( ".\gamedata\Loader.dat", Loader_Table() )
 	
-	load_rose
-	load_levels
+	for index = 1 to val(sync_names("loader/count", Loader_Table())) step 1
+		cls
+		
+		central_loader sync_names( "loader/" + ltrim$( str$( index ) ), Loader_Table())
+		
+		flip
+		if wait_key() = chr$(27) then end
 	
-	load_art
-	
-	load_data
-	
-	splash
+	next index
 	
 end sub
 
