@@ -16,6 +16,8 @@
 	
 	#include once ".\inc\clv.bi"
 
+	#include once ".\inc\VGA_Table.bi"
+
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"

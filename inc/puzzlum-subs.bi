@@ -248,12 +248,24 @@ declare sub central overload ( target as string = "", db_names() as names_type)
 
 declare sub central overload ( target as string = "", attk as string = "%%", Attack_Table( Any ) As Names_Type )
 
-declare sub loadbundle()
+declare sub load_bundle()
 
-declare sub loadlevels()
+declare sub load_levels()
 
-declare sub loadrose ()
+declare sub load_rose()
 
 declare sub report_caption( caption as string = "%%" )
 
 declare sub vga_test()
+
+declare sub splash()
+
+declare sub loader()
+
+declare sub load_display()
+
+declare sub load_art()
+
+declare sub load_data()
+
+declare sub load_input()

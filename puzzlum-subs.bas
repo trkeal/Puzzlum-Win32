@@ -34,70 +34,14 @@
 
 sub ln_roe()
     
-    sync_names("filename/input",Bundle_Table())
-
-    load_names_from_file ( sync_names("filename/display",Bundle_Table()), Display_Table() )
-
-    Mouse_Width = val( sync_names("mouse/width", Display_Table() ) )
-    Mouse_Height = val( sync_names("mouse/height", Display_Table() ) )
-    Screen_Width = val( sync_names("screen/width", Display_Table() ) )
-    Screen_Height = val( sync_names("screen/height", Display_Table() ) )
-    Display_Width = val( sync_names("display/width", Display_Table() ) )
-    Display_Height = val( sync_names("display/height", Display_Table() ) )
-    Display_Depth = val( sync_names("display/depth", Display_Table() ) )
-    Display_Pages = val( sync_names("display/pages", Display_Table() ) )
-
-	if Mouse_Width = 0 then Mouse_Width = 320
-    if Mouse_Height = 0 then Mouse_Height = 240
-    
-	if Screen_Width = 0 then Screen_Width = 320
-    if Screen_Height = 0 then Screen_Height = 240
-    
-	if Display_Width = 0 then Display_Width = 640
-    if Display_Height = 0 then Display_Height = 480
-    
-	if Display_Depth = 0 then Display_Depth = 32
-	if Display_Pages = 0 then Display_Pages = 16
+	loader
 		
-	screenres Display_Width, Display_Height, Display_Depth,  Display_Pages
-	
 	'SCREEN 17,32,16
     'width 40,30
 
-    screenset 1,0
-
-	vga_test()
-
-    setmouse Mouse_Width shr 1, Mouse_Height shr 1, 0
+    'screenset 1,0
 	
-	thispath_str = ".\"
-    fontpath_str = ".\gameart\fonts\"
-    logopath_str = ".\gameart\logos\"
-    spritepath_str = ".\gameart\sprites\"
-    palpath_str = ".\gamedata\"
-    mappath_str = ".\gamedata\maps\"
-
-    thispath_str = sync_names("path/main",Bundle_Table())
-    fontpath_str = sync_names("path/fonts",Bundle_Table())
-    logopath_str = sync_names("path/logos",Bundle_Table())
-    spritepath_str = sync_names("path/sprites",Bundle_Table())
-    
-	palpath_str = sync_names("path/palette",Bundle_Table())+sync_names("filename/palette",Bundle_Table())
-    
-	mappath_str = sync_names("path/maps",Bundle_Table())
-    	
-	'future71path_str = "future71\"
-    'netplaypath_str = "netplay\"
-    'netoutfile_str = "netplayo.bin"
-    'netoutmode_li = 67
-	
-	pal_load palette_filename, pal()
-
-    load_names_from_file ( ".\gamedata\Main.dat", Bundle_Table() )	
-    load_names_from_file ( sync_names("filename/input",Bundle_Table()), Input_Table() )
-    load_names_from_file ( sync_names("filename/levels",Bundle_Table()), Levels_Table() )
-    load_names_from_file ( sync_names("path/maps",Bundle_Table()) + sync_names("filename/map",Bundle_Table()), Maps_Table() )
-    load_names_from_file ( sync_names("filename/attack",Bundle_Table()), Attack_Table() )
+	'load_logic
 
     'pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
     
@@ -110,16 +54,8 @@ sub ln_roe()
     clv_buffer_ini clv_buffer(), Screen_Width, Screen_Height
     clv_buffer_cls clv_buffer(), clv_buffer_splash
 
-    gtmp=png_load( ".\gameart\logos\roe.splash.png" )
-    gtmpt=imagecreate(gtmp->width,gtmp->height)
-    'line gtmpt,(0,0)-(gtmpt->width-1,gtmpt->height-1),rgb(0,0,0),bf
-    	
-	clv_draw_image clv_buffer(), clv_buffer_splash, ( Screen_Width - gtmp->width ) shr 1, ( Screen_Height - gtmp->height ) shr 1, gtmp, gtmpt
-    
-	png_destroy gtmp
-    
-	imagedestroy gtmpt
-    
+	splash()
+	
     clv_buffer_cls clv_buffer(), clv_buffer_bar
     
     clv_draw_text clv_buffer(), clv_font(), clv_buffer_bar, clv_glyph(), (1-1) shl 3, (25-1) shl 3, "[(F1)Save|(F2)Load|(F3)Shop]"
@@ -176,19 +112,12 @@ sub ln_startup()
 	wipe_table( Levels_Table() )
 	wipe_table( Maps_Table() )
 	wipe_table( Rose_Table() )
-
-	bundle_filename = ".\gamedata\Bundle.dat"
-	load_names_from_file( bundle_filename, Bundle_Table() )
 	
-	'screenres 640,480,32,16
-	'screenset 1,0
 	cls
 	
 	dim as string cis = ""
 	
-	loadbundle()
-	loadlevels()
-	loadrose()
+	'loader
 
   	'load_names_from_file( thispath_str + mappath_str + map_str, Maps_Table() )
   	'''load_names_from_file( mappath_str + map_str, Maps_Table() )
@@ -4605,7 +4534,7 @@ sub central overload ( target as string = "", attk as string = "%%", Attack_Tabl
 
 end sub
 
-sub loadrose()
+sub load_rose()
 
 	locate 1, 1
 
@@ -4649,7 +4578,7 @@ sub loadrose()
 	
 end sub
 
-sub loadlevels()	
+sub load_levels()
 
 	'level up data
 	locate 1, 1
@@ -4672,7 +4601,7 @@ sub loadlevels()
 
 end sub
 
-sub loadbundle()
+sub load_bundle()
 
 	report_caption "load bundle"
 	
@@ -4759,5 +4688,119 @@ sub vga_test()
 
 	imagedestroy vga_image
 	imagedestroy vga_stretch
+	
+end sub
+
+sub splash()
+    	
+	gtmp = png_load( sync_names( "path/splash", Bundle_Table() ) + sync_names("filename/splash", Bundle_Table() ) )
+    
+	'gtmpt = imagecreate( gtmp->width, gtmp->height )
+    'line gtmpt,(0,0)-(gtmpt->width-1,gtmpt->height-1),rgb(0,0,0),bf
+    	
+	put ( ( Display_Width - gtmp->width ) shr 1, ( Display_Height - gtmp->height ) shr 1 ), gtmp, pset
+
+	'clv_draw_image clv_buffer(), clv_buffer_splash, ( Screen_Width - gtmp->width ) shr 1, ( Screen_Height - gtmp->height ) shr 1, gtmp, gtmpt
+    
+	png_destroy gtmp
+    'imagedestroy gtmpt
+    
+	flip
+	if wait_key() = chr$( 27 ) then end
+	
+end sub
+
+sub loader()
+	
+	load_names_from_file( ".\gamedata\Bundle.dat", Bundle_Table() )
+	
+	load_display
+	load_bundle
+
+	load_input
+	 
+	vga_test
+	
+	load_rose
+	load_levels
+	
+	load_art
+	
+	load_data
+	
+	splash
+	
+end sub
+
+sub load_display()
+
+    load_names_from_file ( sync_names("filename/display",Bundle_Table()), Display_Table() )
+
+    Mouse_Width = val( sync_names("mouse/width", Display_Table() ) )
+    Mouse_Height = val( sync_names("mouse/height", Display_Table() ) )
+    Screen_Width = val( sync_names("screen/width", Display_Table() ) )
+    Screen_Height = val( sync_names("screen/height", Display_Table() ) )
+    Display_Width = val( sync_names("display/width", Display_Table() ) )
+    Display_Height = val( sync_names("display/height", Display_Table() ) )
+    Display_Depth = val( sync_names("display/depth", Display_Table() ) )
+    Display_Pages = val( sync_names("display/pages", Display_Table() ) )
+
+	if Mouse_Width = 0 then Mouse_Width = 320
+    if Mouse_Height = 0 then Mouse_Height = 240
+    
+	if Screen_Width = 0 then Screen_Width = 320
+    if Screen_Height = 0 then Screen_Height = 240
+    
+	if Display_Width = 0 then Display_Width = 640
+    if Display_Height = 0 then Display_Height = 480
+    
+	if Display_Depth = 0 then Display_Depth = 32
+	if Display_Pages = 0 then Display_Pages = 16
+		
+	ScreenRes Display_Width, Display_Height, Display_Depth,  Display_Pages
+	ScreenSet 1, 0
+	
+	setmouse Mouse_Width shr 1, Mouse_Height shr 1, 0
+
+end sub
+
+sub load_art()
+
+	thispath_str = ".\"
+    fontpath_str = ".\gameart\fonts\"
+    logopath_str = ".\gameart\logos\"
+    spritepath_str = ".\gameart\sprites\"
+    palpath_str = ".\gamedata\"
+    mappath_str = ".\gamedata\maps\"
+
+    thispath_str = sync_names("path/main",Bundle_Table())
+    fontpath_str = sync_names("path/fonts",Bundle_Table())
+    logopath_str = sync_names("path/logos",Bundle_Table())
+    spritepath_str = sync_names("path/sprites",Bundle_Table())
+    
+	palpath_str = sync_names("path/palette",Bundle_Table())+sync_names("filename/palette",Bundle_Table())
+end sub    
+
+sub load_data()
+	mappath_str = sync_names("path/maps",Bundle_Table())
+    	
+	'future71path_str = "future71\"
+    'netplaypath_str = "netplay\"
+    'netoutfile_str = "netplayo.bin"
+    'netoutmode_li = 67
+	
+	'pal_load palette_filename, pal()
+
+    load_names_from_file ( ".\gamedata\Main.dat", Bundle_Table() )	
+    load_names_from_file ( sync_names("filename/input",Bundle_Table()), Input_Table() )
+    load_names_from_file ( sync_names("filename/levels",Bundle_Table()), Levels_Table() )
+    load_names_from_file ( sync_names("path/maps",Bundle_Table()) + sync_names("filename/map",Bundle_Table()), Maps_Table() )
+    load_names_from_file ( sync_names("filename/attack",Bundle_Table()), Attack_Table() )
+
+end sub
+
+sub load_input()
+    
+	sync_names("filename/input",Bundle_Table())
 	
 end sub

@@ -15,4 +15,7 @@ path/sprites=.\gameart\sprites\
 path/maps=.\gamedata\maps\
 path/palette=.\gamedata\
 
+path/splash=.\gameart\logos\
+filename/splash=roe.splash.png
+
 filename/map=Dire Dungeon 1.dat
