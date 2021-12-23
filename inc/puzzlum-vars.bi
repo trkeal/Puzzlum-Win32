@@ -25,8 +25,8 @@
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
 	
-	redim shared as names_type Main_Table( any )
 	redim shared as names_type Bundle_Table( any )
+	redim shared as names_type Display_Table( any )
 	redim shared as names_type Input_Table( any )
 	redim shared as names_type Names_Table(any)
 	redim shared as names_type Levels_Table()
@@ -91,6 +91,7 @@
 	dim shared as integer Mouse_Width=320, Mouse_Height=240
 	dim shared as integer Screen_Width=320, Screen_Height=240
 	dim shared as integer Display_Width=640, Display_Height=480
+	dim shared as integer Display_Depth=32, Display_Pages=16
 
     dim shared as short Ax, Bx, Cx, Dx
     dim shared as short XXmouse_si, YYmouse_si, Lb_si, Rb_si, XMouse_si, Ymouse_si

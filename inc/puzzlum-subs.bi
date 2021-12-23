@@ -251,3 +251,5 @@ declare sub loadbundle()
 declare sub loadlevels()
 
 declare sub loadrose ()
+
+declare sub report_caption( caption as string = "%%" )

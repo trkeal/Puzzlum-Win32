@@ -34,22 +34,40 @@
 
 sub ln_roe()
     
-	Mouse_Width=320
-    Mouse_Height=240
+    sync_names("filename/input",Bundle_Table())
+
+    load_names_from_file ( sync_names("filename/display",Bundle_Table()), Display_Table() )
+
+    Mouse_Width = val( sync_names("Mouse_Width", Display_Table() ) )
+    Mouse_Height = val( sync_names("Mouse_Height", Display_Table() ) )
+    Screen_Width = val( sync_names("Screen_Width", Display_Table() ) )
+    Screen_Height = val( sync_names("Screen_Height", Display_Table() ) )
+    Display_Width = val( sync_names("Display_Width", Display_Table() ) )
+    Display_Height = val( sync_names("Display_Height", Display_Table() ) )
+    Display_Depth = val( sync_names("Display_Depth", Display_Table() ) )
+    Display_Pages = val( sync_names("Display_Pages", Display_Table() ) )
+
+	if Mouse_Width = 0 then Mouse_Width = 320
+    if Mouse_Height = 0 then Mouse_Height = 240
     
-	Screen_Width=320
-    Screen_Height=240
+	if Screen_Width = 0 then Screen_Width = 320
+    if Screen_Height = 0 then Screen_Height = 240
     
-	Display_Width=640
-    Display_Height=480
+	if Display_Width = 0 then Display_Width = 640
+    if Display_Height = 0 then Display_Height = 480
     
-	SCREEN 17,32,16
-    width 40,30
+	if Display_Depth = 0 then Display_Depth = 32
+	if Display_Pages = 0 then Display_Pages = 16
+		
+	screenres Display_Width, Display_Height, Display_Depth,  Display_Pages
+	
+	'SCREEN 17,32,16
+    'width 40,30
+
     screenset 1,0
+
     setmouse Mouse_Width shr 1, Mouse_Height shr 1, 0
-
-    sync_names("filename/input",Main_Table())
-
+	
 	thispath_str = ".\"
     fontpath_str = ".\gameart\fonts\"
     logopath_str = ".\gameart\logos\"
@@ -57,14 +75,14 @@ sub ln_roe()
     palpath_str = ".\gamedata\"
     mappath_str = ".\gamedata\maps\"
 
-    thispath_str = sync_names("path/main",Main_Table())
-    fontpath_str = sync_names("path/fonts",Main_Table())
-    logopath_str = sync_names("path/logos",Main_Table())
-    spritepath_str = sync_names("path/sprites",Main_Table())
+    thispath_str = sync_names("path/main",Bundle_Table())
+    fontpath_str = sync_names("path/fonts",Bundle_Table())
+    logopath_str = sync_names("path/logos",Bundle_Table())
+    spritepath_str = sync_names("path/sprites",Bundle_Table())
     
-	palpath_str = sync_names("path/palette",Main_Table())+sync_names("filename/palette",Main_Table())
+	palpath_str = sync_names("path/palette",Bundle_Table())+sync_names("filename/palette",Bundle_Table())
     
-	mappath_str = sync_names("path/maps",Main_Table())
+	mappath_str = sync_names("path/maps",Bundle_Table())
     	
 	'future71path_str = "future71\"
     'netplaypath_str = "netplay\"
@@ -73,11 +91,11 @@ sub ln_roe()
 	
 	pal_load palette_filename, pal()
 
-    load_names_from_file ( ".\gamedata\Main Table.dat", Main_Table() )	
-    load_names_from_file ( sync_names("filename/input",Main_Table()), Input_Table() )
-    load_names_from_file ( sync_names("filename/levels",Main_Table()), Levels_Table() )
-    load_names_from_file ( sync_names("filename/map",Main_Table()), Maps_Table() )
-    load_names_from_file ( sync_names("filename/attack",Main_Table()), Attack_Table() )
+    load_names_from_file ( ".\gamedata\Main.dat", Bundle_Table() )	
+    load_names_from_file ( sync_names("filename/input",Bundle_Table()), Input_Table() )
+    load_names_from_file ( sync_names("filename/levels",Bundle_Table()), Levels_Table() )
+    load_names_from_file ( sync_names("filename/map",Bundle_Table()), Maps_Table() )
+    load_names_from_file ( sync_names("filename/attack",Bundle_Table()), Attack_Table() )
 
     'pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
     
@@ -4587,7 +4605,7 @@ sub loadrose()
 
 	locate 1, 1
 
-	print "===[ Compass Rose ]==="
+	report_caption "compass rose"
 	'directional axis matrix (Compass Rose)
 	
 	locate 3, 1
@@ -4631,7 +4649,8 @@ sub loadlevels()
 
 	'level up data
 	locate 1, 1
-	print "===[ level up data ]==="
+	report_caption "level up data"
+
 	locate 3,1
 	print "count" + eq + ltrim$(str$(val( sync_names( "levels/count", Levels_Table() ) ) ) )
     FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) ) step 1
@@ -4651,7 +4670,8 @@ end sub
 
 sub loadbundle()
 
-	print "===[ Load Bundle ]==="
+	report_caption "load bundle"
+	
 	print
 	
 	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
@@ -4682,5 +4702,12 @@ sub loadbundle()
 	
 	if wait_key() = chr$( 27 ) then end
 	cls
+
+end sub
+
+sub report_caption( caption as string = "%%" )
+
+	locate 1, 1
+	print "===[ " + ucword( caption ) + " ]==="
 
 end sub

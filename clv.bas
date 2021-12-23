@@ -21,6 +21,8 @@
 	#include once ".\inc\Names.bi"
 	#include once ".\inc\central-debug.bi"
 
+	#include once ".\inc\VGA Table.bi"
+
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
@@ -561,3 +563,14 @@ sub clv_buffer_ini_all( clv_buffer(any,any) as fb.image ptr)
 end sub
 
 clv_buffer_ini_all( clv_buffer() )
+
+function clv_VGA( index as integer = 0 ) as integer
+	
+	select case not( 0 )
+	case index >= lbound( VGA_Table, 1 ) and index <= ubound( VGA_Table, 1 )
+		clv_VGA = VGA_Table( index )
+	case else
+		clv_VGA = 0
+	end select
+	
+end function

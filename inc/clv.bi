@@ -75,4 +75,5 @@
 	declare function clv_math_vector2decimal (X1 as double, Y1 as double, X2 as double, Y2 as double) as double
     
 	declare function clv_argb32_mix(argb32(any) as ulong, weight(any) as double) as ulong
-        
+	
+	declare function clv_VGA( index as integer = 0 ) as integer
