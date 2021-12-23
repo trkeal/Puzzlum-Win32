@@ -16,7 +16,7 @@ path/maps=.\gamedata\maps\
 path/palette=.\gamedata\
 
 path/splash=.\gameart\logos\
-filename/splash=roe.splash.png
+filename/splash=puz.splash.png
 splash/width=640
 splash/height=128
 

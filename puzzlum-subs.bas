@@ -4718,7 +4718,7 @@ sub splash()
 	'gtmpt = imagecreate( gtmp->width, gtmp->height )
     'line gtmpt,(0,0)-(gtmpt->width-1,gtmpt->height-1),rgb(0,0,0),bf
     	
-	put ( ( Display_Width - gtmpt->width ) shr 1, ( Display_Height - gtmpt->height ) shr 1 ), gtmpt, pset
+	put ( ( Display_Width - gtmpt->width ) shr 1, ( Display_Height - gtmpt->height ) shr 1 ), gtmpt, alpha
 
 	'clv_draw_image clv_buffer(), clv_buffer_splash, ( Screen_Width - gtmp->width ) shr 1, ( Screen_Height - gtmp->height ) shr 1, gtmp, gtmpt
     
