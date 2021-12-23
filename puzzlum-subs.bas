@@ -93,9 +93,12 @@ sub ln_roe()
     gtmp=png_load( ".\gameart\logos\roe.splash.png" )
     gtmpt=imagecreate(gtmp->width,gtmp->height)
     'line gtmpt,(0,0)-(gtmpt->width-1,gtmpt->height-1),rgb(0,0,0),bf
-    clv_draw_image clv_buffer(),clv_buffer_splash,0, 100 - 24, gtmp, gtmpt
-    png_destroy gtmp
-    imagedestroy gtmpt
+    	
+	clv_draw_image clv_buffer(), clv_buffer_splash, ( Screen_Width - gtmp->width ) shr 1, ( Screen_Height - gtmp->height ) shr 1, gtmp, gtmpt
+    
+	png_destroy gtmp
+    
+	imagedestroy gtmpt
     
     clv_buffer_cls clv_buffer(), clv_buffer_bar
     
@@ -108,7 +111,7 @@ sub ln_roe()
             clv_buffer_stack clv_buffer()
         wend
 
-       central "startup"
+		central "startup"
                 
         while len(inkey)=0
             clv_buffer_stack clv_buffer()
@@ -117,7 +120,9 @@ sub ln_roe()
         c_str=lcase("t")
 
         do
-            if restart_roe then exit do
+            c_str = wait_key()
+			
+			if restart_roe then exit do
             if Compare_Key( c_str, "Title", Input_Table() ) OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
                 clv_buffer_focus=clv_buffer_title
                 central "starttitle"
@@ -4103,22 +4108,22 @@ function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_
 	dim as long SyncKeyVal = 0
 	
 	SyncKeyStr = sync_names( Comparison, Input_Table() )
+	
 	select case left$( SyncKeyStr, len( quot ) ) = quot and right$( SyncKeyStr, len( quot ) ) = quot
-	case 0 = 0
-		SyncKeyVal = val( mid$( SyncKeyStr, len( quot ) + 1, len(sync_names( Comparison, Input_Table() ) ) - len( quot ) * 2 ) )
+	case not( 0 )
+		SyncKeyVal = val( mid$( SyncKeyStr, len( quot ) + 1, len(sync_names( Comparison, Input_Table() ) ) - len( quot ) shl 1 ) )
 	case else
 		SyncKeyVal = val( SyncKeyStr )
 	end select
-		
+	
 	locate 1,1
-	color 15,1
 	
 	print quot + hex( cvl( KeyPress ) ) + quot + eq + quot + hex( SyncKeyVal ) + quot
 	flip
 	
-	select case 0 = 0
+	select case not( 0 )
 	case SyncKeyVal = cvl( KeyPress )
-		Compare_Key = 0 = 0
+		Compare_Key = not( 0 )
 	case else
 		Compare_Key = 0
 	end select

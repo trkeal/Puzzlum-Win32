@@ -35,10 +35,11 @@
 "Title"="&H74"
 "Restart"="&H72"
 "Debug"="&H64"
+"Quit"="&H72"
 
 "Cancel"="&H1B"
 "Level Up"="&H6C"
-"Ok"="&H20"
+"Ok"="&H71"
 
 "Save"="&HFF3B"
 "Load"="&HFF3C"
