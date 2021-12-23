@@ -14,6 +14,9 @@
 
 '=====
 	
+	#define __clv_debug__
+	'[!]'#define __clv_debug_lowlevel__
+	
 	#include once ".\inc\clv.bi"
 
 	#include once ".\inc\VGA_Table.bi"
@@ -32,11 +35,12 @@
 sub clv_buffer_ini(clv_buffer(any,any) as fb.image ptr, Screen_Width as integer, Screen_Height as integer)
     
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "buffer_ini"
-		Central_Close_Out target
+		target = "clv" + colon + "buffer_ini"
+		central_debug target
 	#endif
-
+	
 	dim as integer PageIndex
     for PageIndex = lbound(clv_buffer, 1) to ubound(clv_buffer, 1)
         clv_buffer(PageIndex, clv_buffer_and) = imagecreate(Screen_Width, Screen_Height)
@@ -44,15 +48,19 @@ sub clv_buffer_ini(clv_buffer(any,any) as fb.image ptr, Screen_Width as integer,
         clv_buffer_cls clv_buffer(), PageIndex
     next
 	
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
+	
 end sub
 
 sub clv_font_load (clv_font(any) as fb.image ptr, FontIndex as integer, Switch as integer, Filename as string)
 
-
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "font_load"
-		Central_Close_Out target
+		target = "clv" + colon + "font_load"
+		central_debug target
 	#endif
 
     if Switch and clv_font_flag_destroy then
@@ -62,15 +70,19 @@ sub clv_font_load (clv_font(any) as fb.image ptr, FontIndex as integer, Switch a
         bload(Filename, clv_font(FontIndex))
     end if
 
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
+
 end sub
 
 sub clv_draw_text (clv_buffer(any,any) as fb.image ptr, clv_font(any) as fb.image ptr, PageIndex as integer, clv_glyph(any,any) as integer, X as integer, Y as integer, Value as string)
 
-
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "draw_text"
-		Central_Close_Out target
+		target = "clv" + colon + "draw_text"
+		central_debug target
 	#endif
 
     dim as integer Glyph, Px, Py, Offset, Glyph_X, Glyph_Y
@@ -101,45 +113,57 @@ sub clv_draw_text (clv_buffer(any,any) as fb.image ptr, clv_font(any) as fb.imag
     next
     imagedestroy ColorGraphic
     imagedestroy TransparencyGraphic
+	
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
 
 end sub
 
 sub clv_buffer_cls(clv_buffer(any,any) as fb.image ptr, PageIndex as integer)
 
-
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "buffer_cls"
-		Central_Close_Out target
+		target = "clv" + colon + "buffer_cls"
+		central_debug target
 	#endif
-		
+
     line clv_buffer(PageIndex, clv_buffer_and), (0, 0) - (clv_buffer(PageIndex, clv_buffer_and) -> width - 1, clv_buffer(PageIndex, clv_buffer_and) -> height - 1), rgb(255, 255, 255), bf
     line clv_buffer(PageIndex, clv_buffer_or), (0, 0) - (clv_buffer(PageIndex, clv_buffer_or) -> width - 1, clv_buffer(PageIndex, clv_buffer_or) -> height - 1), rgb(0, 0, 0), bf
+	
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
 
 end sub
 
 sub clv_buffer_copy(clv_buffer(any,any) as fb.image ptr, SrcIndex as integer, DestIndex as integer)
 
-
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "buffer_copy"
-		Central_Close_Out target
+		target = "clv" + colon + "buffer_copy"
+		central_debug target
 	#endif
 	
     put clv_buffer(DestIndex, clv_buffer_and), (0, 0), clv_buffer(SrcIndex, clv_buffer_and), pset
     put clv_buffer(DestIndex, clv_buffer_or), (0, 0), clv_buffer(SrcIndex, clv_buffer_or), pset
 
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
+	
 end sub
 
 sub clv_buffer_overlay(clv_buffer(any,any) as fb.image ptr, SrcIndex as integer, DestIndex as integer)
     'transparency layer
-
-
-	#ifdef __clv_debug__
+	
+	#ifdef __clv_debug_lowlevel__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "buffer_overlay"
-		Central_Close_Out target
+		target = "clv" + colon + "buffer_overlay"
+		central_debug target
 	#endif
 		
     put clv_buffer(DestIndex, clv_buffer_and), (0, 0), clv_buffer(SrcIndex, clv_buffer_and), custom, @clv_filter_mask,  cast( any ptr, @clv_flag_and )
@@ -147,15 +171,19 @@ sub clv_buffer_overlay(clv_buffer(any,any) as fb.image ptr, SrcIndex as integer,
     put clv_buffer(DestIndex, clv_buffer_or), (0, 0), clv_buffer(SrcIndex, clv_buffer_and), custom, @clv_filter_mask,  cast( any ptr, @clv_flag_and )
     put clv_buffer(DestIndex, clv_buffer_or), (0, 0), clv_buffer(SrcIndex, clv_buffer_or), custom, @clv_filter_mask,  cast( any ptr, @clv_flag_or )
 
+	#ifdef __clv_debug_lowlevel__
+		Central_Close_Out target	
+	#endif
+
 end sub
 
 sub clv_buffer_flip(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, Display_Width as integer, Display_Height as integer)
 
-
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "buffer_flip"
-		Central_Close_Out target
+		target = "clv" + colon + "buffer_flip"
+		central_debug target
 	#endif
 	
     dim as integer X, Y, Px, Py
@@ -171,14 +199,19 @@ sub clv_buffer_flip(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, D
     next
     imagedestroy Buffer
 
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
+
 end sub
 
 sub clv_draw_line(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, X1 as integer, Y1 as integer, X2 as integer, Y2 as integer, ColorMask as ulong, TransparencyMask as ulong, clv_flag_method as integer)
 
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "draw_line"
-		Central_Close_Out target
+		target = "clv" + colon + "draw_line"
+		central_debug target
 	#endif
 		
     select case clv_flag_method
@@ -193,14 +226,19 @@ sub clv_draw_line(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, X1 
         line clv_buffer(PageIndex, clv_buffer_or), (X1, Y1) - (X2, Y2), ColorMask, bf
     end select
 	
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
+	
 end sub
 
 sub clv_draw_circle(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, X1 as double, Y1 as double, X2 as double, Y2 as double, A1 as double, A2 as double, R1 as double, R2 as double, ColorMask_inner as ulong, ColorMask_outer as ulong, ColorMask_clockwise as ulong, ColorMask_counterclockwise as ulong, TransparencyMask as ulong)
 
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "draw_circle"
-		Central_Close_Out target
+		target = "clv" + colon + "draw_circle"
+		central_debug target
 	#endif
 	
     dim as fb.image ptr ColorGraphic, TransparencyGraphic
@@ -211,20 +249,29 @@ sub clv_draw_circle(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, X
     clv_draw_image clv_buffer(), PageIndex, X1, Y1, ColorGraphic, TransparencyGraphic
     imagedestroy(ColorGraphic)
     imagedestroy(TransparencyGraphic)
+	
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
 
 end sub
 
 sub clv_draw_pixel(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, X as integer, Y as integer, ColorMask as ulong, TransparencyMask as ulong)
 
 
-	#ifdef __clv_debug__
+	#ifdef __clv_debug_lowlevel__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "draw_pixel"
-		Central_Close_Out target
+		target = "clv" + colon + "draw_pixel"
+		central_debug target
 	#endif
 	
     pset clv_buffer(PageIndex, clv_buffer_and), (X, Y), TransparencyMask
     pset clv_buffer(PageIndex, clv_buffer_or), (X, Y), ColorMask
+
+	#ifdef __clv_debug_lowlevel__
+		Central_Close_Out target	
+	#endif
 	
 end sub
 
@@ -232,9 +279,10 @@ sub clv_draw_image(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, X 
 
 
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "draw_image"
-		Central_Close_Out target
+		target = "clv" + colon + "draw_image"
+		central_debug target
 	#endif
 	
     'transparency layer
@@ -242,16 +290,21 @@ sub clv_draw_image(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, X 
     'color layer
     put clv_buffer(PageIndex, clv_buffer_or), (X, Y), TransparencyGraphic, custom, @clv_filter_mask, cast( any ptr, @clv_flag_and )
     put clv_buffer(PageIndex, clv_buffer_or), (X, Y), ColorGraphic, custom, @clv_filter_mask, cast( any ptr, @clv_flag_or )
+
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
 	
 end sub
 
 function clv_filter_mask( byval SRC as ulong, byval DST as ulong, byval PARM as any ptr) as ulong   
 
 
-	#ifdef __clv_debug__
+	#ifdef __clv_debug_lowlevel__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "filter_mask"
-		Central_Close_Out target
+		target = "clv" + colon + "filter_mask"
+		central_debug target
 	#endif
 	
 	dim as ulong ptr parm32 = cast(ulong ptr, PARM)
@@ -261,6 +314,10 @@ function clv_filter_mask( byval SRC as ulong, byval DST as ulong, byval PARM as 
 	case clv_flag_or
 		clv_filter_mask = SRC or DST
 	end select
+
+	#ifdef __clv_debug_lowlevel__
+		Central_Close_Out target	
+	#endif
 	
 end function
 
@@ -268,9 +325,10 @@ sub clv_draw_primitive_circle(Buffer as fb.image ptr, X1 as double, Y1 as double
 
 
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "draw_primitive_circle"
-		Central_Close_Out target
+		target = "clv" + colon + "draw_primitive_circle"
+		central_debug target
 	#endif
 	
     dim as ulong argb32(0 to 7), argb32mix(0 to 1)
@@ -364,15 +422,19 @@ sub clv_draw_primitive_circle(Buffer as fb.image ptr, X1 as double, Y1 as double
         next
     next
 	
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
+	
 end sub
 
 sub clv_draw_primitive_triangle(clv_buffer(any,any) as fb.image ptr, PageIndex as integer, X1 as double, Y1 as double, X2 as double, Y2 as double, X3 as double, Y3 as double, ColorMask as ulong, TransparencyMask as ulong, Center_X as double, Center_Y as double)
 
-
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "draw_primitive_triangle"
-		Central_Close_Out target
+		target = "clv" + colon + "draw_primitive_triangle"
+		central_debug target
 	#endif
 
 	dim as double Triv(0 to 3,0 to 1)
@@ -432,15 +494,20 @@ sub clv_draw_primitive_triangle(clv_buffer(any,any) as fb.image ptr, PageIndex a
 		endif
     next
 	
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
+	
 end sub
 
 function clv_math_vector2decimal (X1 as double, Y1 as double, X2 as double, Y2 as double) as double
 
 
-	#ifdef __clv_debug__
+	#ifdef __clv_debug_lowlevel__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "math_vector2decimal"
-		Central_Close_Out target
+		target = "clv" + colon + "math_vector2decimal"
+		central_debug target
 	#endif
 
     dim as double X3, Y3, R1a, R1b, R2a, R2b
@@ -452,7 +519,7 @@ function clv_math_vector2decimal (X1 as double, Y1 as double, X2 as double, Y2 a
         R1b = atn(R1a) / (clv_math_Pi / 2) * .25
         if R1b < 0 then R1b = abs(R1b) + .25
         if Y3 > 0 then R1b = R1b + .5
-    endif
+    end if
     select case X3
     case is < 0
         if Y3 = 0 then R1b = 0
@@ -501,6 +568,10 @@ function clv_math_vector2decimal (X1 as double, Y1 as double, X2 as double, Y2 a
         if Y3 = 0 then R2b = .5
     end select
     R2b = 1 - R2b
+	
+	#ifdef __clv_debug_lowlevel__
+		Central_Close_Out target	
+	#endif
 
     return (R1b + R2b) / 2
 
@@ -509,10 +580,11 @@ end function
 function clv_argb32_mix(argb32(any) as ulong, weight(any) as double) as ulong
 
 
-	#ifdef __clv_debug__
+	#ifdef __clv_debug_lowlevel__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "argb32_mix"
-		Central_Close_Out target
+		target = "clv" + colon + "argb32_mix"
+		central_debug target
 	#endif
 		
 
@@ -536,6 +608,10 @@ function clv_argb32_mix(argb32(any) as ulong, weight(any) as double) as ulong
     for c = 1 to 3
         ret = ret or ((channel(1, c) and &hff) shl (c shl 3))
     next
+	
+	#ifdef __clv_debug_lowlevel__
+		Central_Close_Out target	
+	#endif
 
     return ret
 
@@ -543,14 +619,13 @@ end function
 
 sub clv_buffer_ini_all( clv_buffer(any,any) as fb.image ptr)
 
-
 	#ifdef __clv_debug__
+		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		central_debug "clv" + colon + "buffer_ini_all"
-		Central_Close_Out target
+		target = "clv" + colon + "buffer_ini_all"
+		central_debug target
 	#endif
-		
-	
+
 	dim as long w = 0, h = 0, depth = 0, bpp = 0, pitch = 0, rate = 0
 	dim as string driver = string$( 0, 0 )
 	
@@ -562,6 +637,10 @@ sub clv_buffer_ini_all( clv_buffer(any,any) as fb.image ptr)
 		clv_buffer(index,1)=imagecreate( w, h, 0, depth )
 	next index
 
+	#ifdef __clv_debug__
+		Central_Close_Out target	
+	#endif
+	
 end sub
 
 clv_buffer_ini_all( clv_buffer() )
