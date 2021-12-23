@@ -35,6 +35,7 @@
 sub ln_roe()
     
 	loader
+	splash
 		
 	'SCREEN 17,32,16
     'width 40,30
@@ -47,22 +48,32 @@ sub ln_roe()
     
     clv_glyph_ini clv_glyph()
     
-    clv_glyph_ini clv_glyph()
     clv_font_load clv_font(), clv_font_default, clv_font_flag_load, fontpath_str + "mishap22.font.png"
-    clv_font_load clv_font(), 1, clv_font_flag_load, fontpath_str + "roe00.font.png"
+    
+	clv_font_load clv_font(), 1, clv_font_flag_load, fontpath_str + "roe00.font.png"
 
     clv_buffer_ini clv_buffer(), Screen_Width, Screen_Height
-    clv_buffer_cls clv_buffer(), clv_buffer_splash
+    
+	clv_buffer_cls clv_buffer(), clv_buffer_splash
 
 	splash()
 	
-    clv_buffer_cls clv_buffer(), clv_buffer_bar
+    'clv_buffer_cls clv_buffer(), clv_buffer_bar
     
-    clv_draw_text clv_buffer(), clv_font(), clv_buffer_bar, clv_glyph(), (1-1) shl 3, (25-1) shl 3, "[(F1)Save|(F2)Load|(F3)Shop]"
+    locate 25, 1
+	print "[(F1)Save|(F2)Load|(F3)Shop]"
+	ScreenCopy 1,0
+	
+	c_str = wait_key()
+
+	'clv_draw_text clv_buffer(), clv_font(), clv_buffer_bar, clv_glyph(), (1-1) shl 3, (25-1) shl 3, "[(F1)Save|(F2)Load|(F3)Shop]"
     
     do
         restart_roe=0
-        clv_buffer_focus=clv_buffer_splash
+		
+		splash()
+        
+		'clv_buffer_focus=clv_buffer_splash
         'while len(inkey)>0
             clv_buffer_stack clv_buffer()
         'wend
@@ -429,61 +440,66 @@ sub ln_starttitle()
         'screenset 1,0
         'WIDTH 40, 30
         'COLOR rgb(255,255,255),rgb(0,0,131)'pal(15), pal(1)
-        clv_buffer_cls clv_buffer(), clv_buffer_title
+		
+		clv_buffer_cls clv_buffer(), clv_buffer_title
         colr_si = 15
         central "title", clv_buffer(), clv_buffer_title
         colr_si = 11
 
         cls
 
-        texts_str=space(1)+"Puzzlum-Win32"
-        central "showtext", clv_buffer(), clv_buffer_splash
-        print texts_str = space( 1 ) + sync_names("copyright", Bundle_Table() )
-		
-        central "showtext", clv_buffer(), clv_buffer_splash
-		
-        print texts_str = space( 1 ) + sync_names("website", Bundle_Table() ) + string$( 1 , 32 ) + sync_names("email", Bundle_Table() )
-		
-        central "showtext", clv_buffer(), clv_buffer_splash
-        
-		texts_str=space(1)+"Released under the"
-        
-		central "showtext", clv_buffer(), clv_buffer_splash
-        
-		print texts_str = space( 1 ) + sync_names("license", Bundle_Table() )
-        
-		central "showtext", clv_buffer(), clv_buffer_splash
-        
-		texts_str=space(1)+		sync_names("license/ammendment", Bundle_Table() )
+		color &HFFFFFF
 
-        central "showtext", clv_buffer(), clv_buffer_splash
-		
-        print texts_str = space( 1 ) + sync_names("license/website", Bundle_Table() )
+        text_out space( 1 ) + "Puzzlum-Win32"
         
-		central "showtext", clv_buffer(), clv_buffer_splash
+		'central "showtext", clv_buffer(), clv_buffer_splash
+        
+		text_out space( 1 ) + sync_names("copyright", Bundle_Table() )
+		
+        'central "showtext", clv_buffer(), clv_buffer_splash
+		
+        text_out space( 1 ) + sync_names("website", Bundle_Table() ) + string$( 1, 32 ) + sync_names("email", Bundle_Table() )
+		
+        'central "showtext", clv_buffer(), clv_buffer_splash
+        
+		text_out space( 1 ) + sync_names("license/intro", Bundle_Table() ) + string$( 1 , 32 )
+        
+		'central "showtext", clv_buffer(), clv_buffer_splash
+        
+		text_out space( 1 ) + sync_names("license", Bundle_Table() )
+        
+		'central "showtext", clv_buffer(), clv_buffer_splash
+        
+		text_out space( 1 ) + sync_names("license/ammendment", Bundle_Table() )
+
+        'central "showtext", clv_buffer(), clv_buffer_splash
+		
+        text_out space( 1 ) + sync_names("license/website", Bundle_Table() )
+        
+		'central "showtext", clv_buffer(), clv_buffer_splash
         print
                 
         locate 17,1
         colr_si = 9
-        texts_str = " (H)elp"
+        text_out " (H)elp"
         
-		central "showtext", clv_buffer(), clv_buffer_title
+		'central "showtext", clv_buffer(), clv_buffer_title
         PRINT
-        texts_str = " (C)ontinue"
+        text_out " (C)ontinue"
         
-		central "showtext", clv_buffer(), clv_buffer_title
+		'central "showtext", clv_buffer(), clv_buffer_title
         PRINT
-        texts_str = " (R)estart"
+        text_out " (R)estart"
         
-		central "showtext", clv_buffer(), clv_buffer_title
+		'central "showtext", clv_buffer(), clv_buffer_title
         PRINT
-        texts_str = " (Q)uit"
+        text_out " (Q)uit"
         
-		central "showtext", clv_buffer(), clv_buffer_title
+		'central "showtext", clv_buffer(), clv_buffer_title
         
-		flip
+		ScreenCopy 1, 0
+		
 		c_str = wait_key()
-		if c_str = chr$( 27 ) then end
 		
 		clv_buffer_stack clv_buffer()
         
@@ -519,10 +535,10 @@ sub ln_starthelp()
         IF R_str = "þ page end" THEN
             LOCATE 22, 1
             colr_si = 9
-            texts_str = " (C)ontinue"
+            text_out " (C)ontinue"
             central "showtext", clv_buffer(), clv_buffer_help
             PRINT
-            texts_str = " (T)itle"
+            text_out " (T)itle"
             central "showtext", clv_buffer(), clv_buffer_help
             do
                 clv_buffer_stack clv_buffer()
@@ -543,7 +559,7 @@ sub ln_starthelp()
             colr_si = VAL(RIGHT(R_str, LEN(R_str) - 7))
             R_str=chr(0)
         END IF
-        texts_str = R_str
+        text_out R_str
         if R_Str <> chr(0) then
             IF R_str <> space(0) THEN
                 central "showtext", clv_buffer(), clv_buffer_help
@@ -561,7 +577,10 @@ sub ln_starthelp()
 end sub
 
 sub ln_main()
-    FOR Tx_si = 1 TO AA_si
+    
+	dim as string crtn_temp = string$( 0, 0 )
+	
+	FOR Tx_si = 1 TO AA_si
         FOR Ty_si = 1 TO DD_si
             a_si = 0
             d_si = 0
@@ -573,33 +592,42 @@ sub ln_main()
                     dis_si = dis_si - 1
                     central "putaction"
                 END IF
-                SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4))
-                CASE CVL("wall")
-                CASE CVL("spdr")
-                    central "crtnspdr"
-                CASE CVL("web_")
-                    central "crtnweb"
-                CASE CVL("dtby")
-                    central "crtndtby"
-                CASE CVL("grml")
-                    central "crtngrml"
-                CASE CVL("shkt")
-                    central "crtnshkt"
-                CASE CVL("emgd")
-                    central "crtnemgd"
-                CASE CVL("imp_")
-                    central "crtnimp"
-                CASE CVL("fire")
-                    central "crtnfire"
-                CASE CVL("pndx")
-                    central "crtnpndx"
-                CASE CVL("ccts")
-                    central "crtnccts"
-                CASE CVL("bldr")
-                    central "crtnbldr"
-                CASE CVL("dust")
-                    central "crtndust"
-                END SELECT
+                
+				crtn_temp = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4)
+				
+				do while right( crtn_temp, 1 ) = "_"
+					crtn_temp = left$( crtn_temp, len( crtn_temp ) - 1 )
+				loop
+				
+				central "crtn" + crtn_temp
+				
+				'SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4))
+                'CASE CVL("wall")
+                'CASE CVL("spdr")
+                '    central "crtnspdr"
+                'CASE CVL("web_")
+                '    central "crtnweb"
+                'CASE CVL("dtby")
+                '    central "crtndtby"
+                'CASE CVL("grml")
+                '    central "crtngrml"
+                'CASE CVL("shkt")
+                '    central "crtnshkt"
+                'CASE CVL("emgd")
+                '    central "crtnemgd"
+                'CASE CVL("imp_")
+                '    central "crtnimp"
+                'CASE CVL("fire")
+                '    central "crtnfire"
+                'CASE CVL("pndx")
+                '    central "crtnpndx"
+                'CASE CVL("ccts")
+                '    central "crtnccts"
+                'CASE CVL("bldr")
+                '    central "crtnbldr"
+                'CASE CVL("dust")
+                '    central "crtndust"
+                'END SELECT
             END IF
         NEXT Ty_si
     NEXT Tx_si
@@ -862,28 +890,30 @@ sub ln_attack()
 		central "attk_table", ( attk, Attack_Table() )
 	end select
 	
+	'''central "attk" + CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)
+	
 	#ifdef __old__
-	SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4))
-    CASE CVL("bite")
-        central "attkbite"
-    CASE CVL("pnch")
-        central "attkpnch"
-    CASE CVL("kick")
-        central "attkkick"
-    CASE CVL("vnom")
-        central "attkvnom"
-    CASE CVL("dggr")
-        central "attkdggr"
-    CASE CVL("pike")
-        central "attkpike"
-    CASE CVL("cure")
-        central "usecure"
-    CASE CVL("fire")
-        central "attkfire"
-    CASE ELSE
-        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
-        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
-    END SELECT
+	'SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4))
+    'CASE CVL("bite")
+    '    central "attk"+"bite"
+    'CASE CVL("pnch")
+    '    central "attk"+"pnch"
+    'CASE CVL("kick")
+    '    central "attk"+"kick"
+    'CASE CVL("vnom")
+    '    central "attk"+"vnom"
+    'CASE CVL("dggr")
+    '    central "attk"+"dggr"
+    'CASE CVL("pike")
+    '    central "attk"+"pike"
+    'CASE CVL("cure")
+    '    central "use"+"cure"
+    'CASE CVL("fire")
+    '    central "attk"+"fire"
+    'CASE ELSE
+    '    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+    '    MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
+    'END SELECT
 	#endif
 	
     Exit Sub
@@ -2603,7 +2633,11 @@ sub ln_showtext(clv_buffer() as fb.image ptr, Index as integer)
     
 	central "findcrsr"
     
-	clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (crsrx_si-1) shl 3, (crsry_si-1) shl 3, texts_str
+	locate crsry_si, crsrx_si
+	
+	print texts_str
+	
+	'clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (crsrx_si-1) shl 3, (crsry_si-1) shl 3, texts_str
     
 	LOCATE crsry_si + 1, 1
 
@@ -4801,7 +4835,7 @@ sub loader()
 		central_loader sync_names( "loader/" + ltrim$( str$( index ) ), Loader_Table())
 		
 		flip
-		if wait_key() = chr$(27) then end
+		c_str = wait_key()
 	
 	next index
 	
@@ -4894,4 +4928,8 @@ sub stretch(src as fb.image ptr, dest as fb.image ptr )
 	next x
 	next y
 	
+end sub
+
+sub text_out( subject as string = "" )
+	print subject
 end sub
