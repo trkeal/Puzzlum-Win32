@@ -4109,9 +4109,7 @@ function wait_key() as string
 	
 end function
 
-sub central overload( target as string = "" )
-
-	
+sub central overload( target as string = "" )	
 	
 	central_debug target
 
@@ -4698,35 +4696,41 @@ sub splash()
 end sub
 
 sub central_loader( target as string = "" )
-		
+	
+	central_debug target
+	
 	select case target	
-	case "display"
+	case "load_display"
 		load_display
-	case "bundle"
+	case "load_bundle"
 		load_bundle
-	case "input"
+	case "load_input"
 		load_input
 	case "vga_test"
 		vga_test_2
-	case "rose"
+	case "load_rose"
 		load_rose
-	case "levels"
+	case "load_levels"
 		load_levels
-	case "art"
+	case "load_art"
 		load_art
-	case "data"
+	case "load_data"
 		load_data
 	case "splash"
 		splash
 	end select
 	
+	Central_Close_Out target
+	
 end sub
+
 sub loader()
 	
 	redim as names_type Loader_Table( any )
 	dim as integer index = 0
 
 	load_names_from_file( ".\gamedata\Bundle.dat", Bundle_Table() )
+
 	load_names_from_file( ".\gamedata\Loader.dat", Loader_Table() )
 	
 	for index = 1 to val(sync_names("loader/count", Loader_Table())) step 1
