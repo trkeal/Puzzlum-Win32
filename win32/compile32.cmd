@@ -53,11 +53,6 @@ echo ===[ Puzzlum / Subs ]==[ %static% ]=== >> %log%
 if errorlevel 1 goto :failed
 
 echo: >> %log%
-echo ===[ Puzzlum / Task Manager ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-task.bas" %debugopts% %libopts% >> %log% 2>&1
-if errorlevel 1 goto :failed
-
-echo: >> %log%
 echo ===[ Puzzlum / Main ]==[ %binary% ]=== >> %log%
 %fbc% "puzzlum-win32.bas" %debugopts% %fbopts% -s gui ".\win32\rc\puzzlum.rc" >> %log% 2>&1
 if errorlevel 1 goto :failed
