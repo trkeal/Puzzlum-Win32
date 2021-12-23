@@ -107,15 +107,15 @@ sub ln_roe()
     do
         restart_roe=0
         clv_buffer_focus=clv_buffer_splash
-        while len(inkey)>0
+        'while len(inkey)>0
             clv_buffer_stack clv_buffer()
-        wend
+        'wend
 
 		central "startup"
                 
-        while len(inkey)=0
+        'while len(inkey)=0
             clv_buffer_stack clv_buffer()
-        wend
+        'wend
 
         c_str=lcase("t")
 
@@ -683,15 +683,17 @@ sub ln_command3()
     'netscreenout
     clv_buffer_stack clv_buffer()
     
-	select case c_str
-    case "&HFF3B" 'F1 (save savegame)
+	select case not(0)
+	case Compare_Key( c_str, "Function 1", Input_Table())
+    'case "&HFF3B" 'F1 (save savegame)
 		savegame_save( filename, Save_Table() )
 
         c_str="t"
         central "starttitle"
         exitcommand3=not(0)
         Exit Sub
-    case "&HFF3C" 'F2 (load savegame)
+	case Compare_Key( c_str, "Function 2", Input_Table())
+    'case "&HFF3C" 'F2 (load savegame)
 		savegame_load( filename, Save_Table() )
         c_str="t"
         central "starttitle"
@@ -4102,6 +4104,8 @@ end sub
 
 function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
 	
+	KeyPress = lcase$( KeyPress )
+	
 	if cvl( KeyPress ) = 27 then end
 	
 	dim as string SyncKeyStr = string$( 0, 0 )
@@ -4109,16 +4113,22 @@ function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_
 	
 	SyncKeyStr = sync_names( Comparison, Input_Table() )
 	
+	select case not( 0 )
+	case SyncKeyStr = "%%"
+		Compare_Key = 0
+		exit function
+	end select
+	
 	select case left$( SyncKeyStr, len( quot ) ) = quot and right$( SyncKeyStr, len( quot ) ) = quot
 	case not( 0 )
-		SyncKeyVal = val( mid$( SyncKeyStr, len( quot ) + 1, len(sync_names( Comparison, Input_Table() ) ) - len( quot ) shl 1 ) )
-	case else
-		SyncKeyVal = val( SyncKeyStr )
+		SyncKeyStr = mid$( SyncKeyStr, len( quot ) + 1, len(sync_names( Comparison, Input_Table() ) ) - len( quot ) shl 1 )
 	end select
+	
+	SyncKeyVal = cvl( lcase$( mkl( val( SyncKeyStr ) ) ) )
 	
 	locate 1,1
 	
-	print quot + hex( cvl( KeyPress ) ) + quot + eq + quot + hex( SyncKeyVal ) + quot
+	print quot + ltrim$( str$( cvl( right$( string$( 8, 0 ) + KeyPress, 8 ) ) ) ) + quot + eq + quot + ltrim$( str$( SyncKeyVal ) ) + quot
 	flip
 	
 	select case not( 0 )
