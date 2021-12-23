@@ -4719,18 +4719,45 @@ end sub
 sub vga_test()
 	
 	dim as integer x = 0, y = 0 
+	dim as integer xx = 0, yy = 0 
+
+	dim as fb.image ptr vga_image
+	dim as fb.image ptr vga_stretch
 	
-	report_caption "VGA Test"
+	report_caption "VGA Test: 1 of 2"
 	
-	for y = 0 to 15
-	for x = 0 to 15
+	vga_image = imagecreate( 16 shl 3, 16 shl 3 )
 		
-		line( x shl 3, y shl 3 + 16 )-( x shl 3 + 7, y shl 3 + 7 + 16),VGA_Table( x or ( y shl 4 ) ), bf
+	for y = 0 to 15 step 1
+	for x = 0 to 15 step 1
+				
+		line vga_image, ( x shl 3, y shl 3)-( ( x shl 3 ) or 7, (y shl 3) or 7),VGA_Table( x or ( y shl 4 ) ), bf
 		
 	next x
 	next y
+
+	put (0,16), vga_image, pset
+	flip
 	
+	if wait_key() = chr$(27) then end
+
+	report_caption "VGA Test: 2 of 2"
+
+	vga_stretch = imagecreate( 256, 256 )
+
+	for y = 0 to vga_stretch->height - 1 step 1
+	for x = 0 to vga_stretch->width - 1 step 1
+		xx = x * vga_image->height \ vga_stretch -> height
+		yy = y * vga_image->width \ vga_stretch -> width
+		pset vga_stretch, ( x, y ), point( xx, yy, vga_image )
+	next x
+	next y
+
+	put (0,16), vga_stretch, pset
 	flip
 	if wait_key() = chr$(27) then end
+
+	imagedestroy vga_image
+	imagedestroy vga_stretch
 	
 end sub
