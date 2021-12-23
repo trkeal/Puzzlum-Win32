@@ -4694,16 +4694,26 @@ end sub
 sub splash()
     	
 	gtmp = png_load( sync_names( "path/splash", Bundle_Table() ) + sync_names("filename/splash", Bundle_Table() ) )
-    
+	
+	dim as integer w = 0, h = 0
+	
+	w = val( sync_names( "splash/width", Bundle_Table() ) )
+	h = val( sync_names( "splash/height", Bundle_Table() ) )
+
+	dim as fb.image ptr gtmpt
+
+	gtmpt = imagecreate( w, h )
+    stretch gtmp, gtmpt
+	
 	'gtmpt = imagecreate( gtmp->width, gtmp->height )
     'line gtmpt,(0,0)-(gtmpt->width-1,gtmpt->height-1),rgb(0,0,0),bf
     	
-	put ( ( Display_Width - gtmp->width ) shr 1, ( Display_Height - gtmp->height ) shr 1 ), gtmp, pset
+	put ( ( Display_Width - gtmpt->width ) shr 1, ( Display_Height - gtmpt->height ) shr 1 ), gtmpt, pset
 
 	'clv_draw_image clv_buffer(), clv_buffer_splash, ( Screen_Width - gtmp->width ) shr 1, ( Screen_Height - gtmp->height ) shr 1, gtmp, gtmpt
     
 	png_destroy gtmp
-    'imagedestroy gtmpt
+    imagedestroy gtmpt
     
 	flip
 	if wait_key() = chr$( 27 ) then end
@@ -4802,5 +4812,19 @@ end sub
 sub load_input()
     
 	sync_names("filename/input",Bundle_Table())
+	
+end sub
+
+sub stretch(src as fb.image ptr, dest as fb.image ptr )
+
+	dim as integer x = 0, y = 0, xx = 0, yy = 0
+	
+	for y = 0 to dest -> height - 1 step 1
+	for x = 0 to dest -> width - 1 step 1
+		xx = x * src -> width \ dest -> width
+		yy = y * src -> height \ dest -> height
+		pset dest, ( x, y ), point( xx, yy, src )
+	next x
+	next y
 	
 end sub

@@ -1,0 +1,6 @@
+/puzzlum-win32.exe/startup ( 1 deep )
+/puzzlum-win32.exe/command ( 1 deep )
+/puzzlum-win32.exe/command/portal ( 2 deep )
+/puzzlum-win32.exe/command/command2 ( 2 deep )
+/puzzlum-win32.exe/command3 ( 1 deep )
+/puzzlum-win32.exe/main ( 1 deep )

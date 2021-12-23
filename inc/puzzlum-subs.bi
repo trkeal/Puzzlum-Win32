@@ -269,3 +269,5 @@ declare sub load_art()
 declare sub load_data()
 
 declare sub load_input()
+
+declare sub stretch(src as fb.image ptr, dest as fb.image ptr )

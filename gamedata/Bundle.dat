@@ -17,5 +17,7 @@ path/palette=.\gamedata\
 
 path/splash=.\gameart\logos\
 filename/splash=roe.splash.png
+splash/width=640
+splash/height=128
 
 filename/map=Dire Dungeon 1.dat
