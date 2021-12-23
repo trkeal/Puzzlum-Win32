@@ -4724,7 +4724,7 @@ sub vga_test()
 	dim as fb.image ptr vga_image
 	dim as fb.image ptr vga_stretch
 	
-	report_caption "VGA Test: 1 of 2"
+	report_caption "VGA Test: 1 of 2 ( Palette )"
 	
 	vga_image = imagecreate( 16 shl 3, 16 shl 3 )
 		
@@ -4741,7 +4741,7 @@ sub vga_test()
 	
 	if wait_key() = chr$(27) then end
 
-	report_caption "VGA Test: 2 of 2"
+	report_caption "VGA Test: 2 of 2 ( Stretching )"
 
 	vga_stretch = imagecreate( 256, 256 )
 
