@@ -4726,6 +4726,8 @@ end sub
 
 sub loader()
 	
+	central_debug "loader"
+
 	redim as names_type Loader_Table( any )
 	dim as integer index = 0
 
@@ -4743,6 +4745,8 @@ sub loader()
 	
 	next index
 	
+	Central_Close_Out "loader"
+
 end sub
 
 sub load_display()
