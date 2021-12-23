@@ -1,3 +1,9 @@
+copyright=Copyright 1989-2021 Timothy Robert Keal
+copyright/license=Lesser Gnu Public License "2.2"
+copyright/ammendment=Attribution, Education / Charity
+website=http://puzzlum.net/ email=trkeal@gmail.com
+license/website=http://www.gnu.org/copyleft/gpl.html
+
 filename/bundle=.\gamedata\Bundle.dat
 filename/help=.\gamedata\Help\Help.hlp
 filename/input=.\gamedata\Input.dat

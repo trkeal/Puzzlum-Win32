@@ -423,7 +423,8 @@ end sub
 
 sub ln_starttitle()
     do
-        clv_buffer_focus=clv_buffer_title
+		
+		clv_buffer_focus=clv_buffer_title
         'SCREEN 14, 32, 16
         'screenset 1,0
         'WIDTH 40, 30
@@ -433,39 +434,62 @@ sub ln_starttitle()
         central "title", clv_buffer(), clv_buffer_title
         colr_si = 11
 
+        cls
+
         texts_str=space(1)+"Puzzlum-Win32"
         central "showtext", clv_buffer(), clv_buffer_splash
-        print
-        texts_str=space(1)+"Copyright 1989-2021 Timothy Robert Keal"
+        print texts_str = space( 1 ) + sync_names("copyright", Bundle_Table() )
+		
         central "showtext", clv_buffer(), clv_buffer_splash
-        texts_str=space(1)+"http://puzzlum.net/ trkeal@gmail.com"
+		
+        print texts_str = space( 1 ) + sync_names("website", Bundle_Table() ) + string$( 1 , 32 ) + sync_names("email", Bundle_Table() )
+		
         central "showtext", clv_buffer(), clv_buffer_splash
-        texts_str=space(1)+"Released under the"
+        
+		texts_str=space(1)+"Released under the"
+        
+		central "showtext", clv_buffer(), clv_buffer_splash
+        
+		print texts_str = space( 1 ) + sync_names("license", Bundle_Table() )
+        
+		central "showtext", clv_buffer(), clv_buffer_splash
+        
+		texts_str=space(1)+		sync_names("license/ammendment", Bundle_Table() )
+
         central "showtext", clv_buffer(), clv_buffer_splash
-        texts_str=space(1)+"Lesser Gnu Public License " + quot + "2.2" + quot
-        central "showtext", clv_buffer(), clv_buffer_splash
-        texts_str=space(1)+"( Attribution, Education / Charity )"
-        central "showtext", clv_buffer(), clv_buffer_splash
-        texts_str=space(1)+"http://www.gnu.org/copyleft/gpl.html"
-        central "showtext", clv_buffer(), clv_buffer_splash
+		
+        print texts_str = space( 1 ) + sync_names("license/website", Bundle_Table() )
+        
+		central "showtext", clv_buffer(), clv_buffer_splash
         print
                 
         locate 17,1
         colr_si = 9
         texts_str = " (H)elp"
-        central "showtext", clv_buffer(), clv_buffer_title
+        
+		central "showtext", clv_buffer(), clv_buffer_title
         PRINT
         texts_str = " (C)ontinue"
-        central "showtext", clv_buffer(), clv_buffer_title
+        
+		central "showtext", clv_buffer(), clv_buffer_title
         PRINT
         texts_str = " (R)estart"
-        central "showtext", clv_buffer(), clv_buffer_title
+        
+		central "showtext", clv_buffer(), clv_buffer_title
         PRINT
         texts_str = " (Q)uit"
-        central "showtext", clv_buffer(), clv_buffer_title
-        clv_buffer_stack clv_buffer()
-        central "commandwait"
-        IF Compare_Key( c_str, "Restart", Input_Table() ) OR (ym_si = 21 AND xm_si = 3 AND Lb_si = -1) THEN
+        
+		central "showtext", clv_buffer(), clv_buffer_title
+        
+		flip
+		c_str = wait_key()
+		if c_str = chr$( 27 ) then end
+		
+		clv_buffer_stack clv_buffer()
+        
+		central "commandwait"
+        
+		IF Compare_Key( c_str, "Restart", Input_Table() ) OR (ym_si = 21 AND xm_si = 3 AND Lb_si = -1) THEN
             central "screenset"
             restart_roe=1 'RUN
             exit do
@@ -2576,9 +2600,13 @@ sub ln_findcrsr()
 end sub
 
 sub ln_showtext(clv_buffer() as fb.image ptr, Index as integer)
-    central "findcrsr"
-    clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (crsrx_si-1) shl 3, (crsry_si-1) shl 3, texts_str
-    LOCATE crsry_si + 1, 1
+    
+	central "findcrsr"
+    
+	clv_draw_text clv_buffer(), clv_font(), Index, clv_glyph(), (crsrx_si-1) shl 3, (crsry_si-1) shl 3, texts_str
+    
+	LOCATE crsry_si + 1, 1
+
 end sub
 
 sub ln_prflblnk()
