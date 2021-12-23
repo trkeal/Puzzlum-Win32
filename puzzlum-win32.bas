@@ -28,7 +28,7 @@
 
 #include once ".\inc\puzzlum-vars.bi"
 #include once ".\inc\puzzlum-subs.bi"
-#include once ".\inc\puzzlum-task.bi"
+'#include once ".\inc\puzzlum-task.bi"
 
 ln_roe
 end
