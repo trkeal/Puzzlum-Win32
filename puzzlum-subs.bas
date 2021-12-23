@@ -38,14 +38,14 @@ sub ln_roe()
 
     load_names_from_file ( sync_names("filename/display",Bundle_Table()), Display_Table() )
 
-    Mouse_Width = val( sync_names("Mouse_Width", Display_Table() ) )
-    Mouse_Height = val( sync_names("Mouse_Height", Display_Table() ) )
-    Screen_Width = val( sync_names("Screen_Width", Display_Table() ) )
-    Screen_Height = val( sync_names("Screen_Height", Display_Table() ) )
-    Display_Width = val( sync_names("Display_Width", Display_Table() ) )
-    Display_Height = val( sync_names("Display_Height", Display_Table() ) )
-    Display_Depth = val( sync_names("Display_Depth", Display_Table() ) )
-    Display_Pages = val( sync_names("Display_Pages", Display_Table() ) )
+    Mouse_Width = val( sync_names("mouse/width", Display_Table() ) )
+    Mouse_Height = val( sync_names("mouse/height", Display_Table() ) )
+    Screen_Width = val( sync_names("screen/width", Display_Table() ) )
+    Screen_Height = val( sync_names("screen/height", Display_Table() ) )
+    Display_Width = val( sync_names("display/width", Display_Table() ) )
+    Display_Height = val( sync_names("display/height", Display_Table() ) )
+    Display_Depth = val( sync_names("display/depth", Display_Table() ) )
+    Display_Pages = val( sync_names("display/pages", Display_Table() ) )
 
 	if Mouse_Width = 0 then Mouse_Width = 320
     if Mouse_Height = 0 then Mouse_Height = 240
@@ -65,6 +65,8 @@ sub ln_roe()
     'width 40,30
 
     screenset 1,0
+
+	vga_test()
 
     setmouse Mouse_Width shr 1, Mouse_Height shr 1, 0
 	
@@ -94,7 +96,7 @@ sub ln_roe()
     load_names_from_file ( ".\gamedata\Main.dat", Bundle_Table() )	
     load_names_from_file ( sync_names("filename/input",Bundle_Table()), Input_Table() )
     load_names_from_file ( sync_names("filename/levels",Bundle_Table()), Levels_Table() )
-    load_names_from_file ( sync_names("filename/map",Bundle_Table()), Maps_Table() )
+    load_names_from_file ( sync_names("path/maps",Bundle_Table()) + sync_names("filename/map",Bundle_Table()), Maps_Table() )
     load_names_from_file ( sync_names("filename/attack",Bundle_Table()), Attack_Table() )
 
     'pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
@@ -3667,13 +3669,15 @@ function file_get_contents(filename as string) as string
     file_get_contents=ret
 end function
 
-sub pal_load(filepath as string, pal() as uinteger)
-    dim as string Tmp
-    dim as integer Index
-    Tmp=file_get_contents(filepath)
-    for Index=&H00 to &HFF
-        pal(Index)=rgb(asc(mid(Tmp,(Index shl 2)+2,1)),asc(mid(Tmp,(Index shl 2)+3,1)),asc(mid(Tmp,(Index shl 2)+4,1)))
-    next
+sub pal_load( filepath as string, pal( any ) as uinteger )
+
+	redim pal( lbound( VGA_Table, 1 ) to ubound( VGA_Table, 1 ) )
+    dim as integer Index = 0
+
+	for Index = lbound( VGA_Table, 1 ) to ubound( VGA_Table, 1 )
+		pal( Index ) = VGA_Table( Index )
+	next Index
+	
 end sub
 
 sub MouseStatus (byref LBi AS short, byref RBi AS short, byref Mouse_X AS short, byref Mouse_Y AS short)
@@ -4710,4 +4714,23 @@ sub report_caption( caption as string = "%%" )
 	locate 1, 1
 	print "===[ " + ucword( caption ) + " ]==="
 
+end sub
+
+sub vga_test()
+	
+	dim as integer x = 0, y = 0 
+	
+	report_caption "VGA Test"
+	
+	for y = 0 to 15
+	for x = 0 to 15
+		
+		line( x shl 3, y shl 3 + 16 )-( x shl 3 + 7, y shl 3 + 7 + 16),VGA_Table( x or ( y shl 4 ) ), bf
+		
+	next x
+	next y
+	
+	flip
+	if wait_key() = chr$(27) then end
+	
 end sub

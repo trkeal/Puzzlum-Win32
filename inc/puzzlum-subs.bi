@@ -16,6 +16,8 @@
 	#inclib "puzzlum-subs"
 	#endif
 
+	#include once ".\inc\VGA_Table.bi"
+
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"
@@ -52,7 +54,7 @@
     declare sub cls2
     declare sub file_put_contents(filename as string, dat as string)
     declare function file_get_contents(filename as string) as string
-    declare sub pal_load(filepath as string, pal() as uinteger)
+    declare sub pal_load( filepath as string, pal( any ) as uinteger )
     declare sub frame_status(Row as short, Col as short)
     declare sub frame_inventory (Row as short, Col as short)
     declare sub frame_title (Row as short, Col as short)
@@ -253,3 +255,5 @@ declare sub loadlevels()
 declare sub loadrose ()
 
 declare sub report_caption( caption as string = "%%" )
+
+declare sub vga_test()

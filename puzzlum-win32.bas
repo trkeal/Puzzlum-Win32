@@ -15,6 +15,8 @@
 
 #include once ".\inc\puzzlum-win32.bi"
 
+#include once ".\inc\VGA_Table.bi"
+
 #include once "crt\math.bi"
 #include once ".\inc\Const.bi"
 #include once ".\inc\Names.bi"
