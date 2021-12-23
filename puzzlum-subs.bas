@@ -4804,7 +4804,7 @@ sub load_data()
 	
 	'pal_load palette_filename, pal()
 
-    load_names_from_file ( ".\gamedata\Main.dat", Bundle_Table() )	
+    'load_names_from_file ( ".\gamedata\Main.dat", Bundle_Table() )	
     load_names_from_file ( sync_names("filename/input",Bundle_Table()), Input_Table() )
     load_names_from_file ( sync_names("filename/levels",Bundle_Table()), Levels_Table() )
     load_names_from_file ( sync_names("path/maps",Bundle_Table()) + sync_names("filename/map",Bundle_Table()), Maps_Table() )
