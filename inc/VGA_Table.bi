@@ -1,3 +1,21 @@
+'VGA_Table_Table.bi
+'VGA Palette 24bit, 32bit Definitions
+'
+'Created by Timothy Robert Keal
+'Released under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
+'
+'http://puzzlum.com/
+'mailto:trkeal@gmail.com
+'
+'Please review the Gnu Public License, Thank you. 
+'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
+
+'=====
+	
+	#ifndef VGA_Table_lib
+	#inclib "VGA_Table"
+	#endif
+
 dim shared as uLongInt VGA_Table( &H00 to &HFF ) = { _
 &H000000,&H0000AA,&H00AA00,&H00AAAA,&HAA0000,&HAA00AA,&HAA5500,&HAAAAAA, _
 &H555555,&H5555FF,&H55FF55,&H55FFFF,&HFF5555,&HFF55FF,&HFFFF55,&HFFFFFF, _

@@ -21,7 +21,7 @@
 	#include once ".\inc\Names.bi"
 	#include once ".\inc\central-debug.bi"
 
-	#include once ".\inc\VGA Table.bi"
+	#include once ".\inc\VGA_Table.bi"
 
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
