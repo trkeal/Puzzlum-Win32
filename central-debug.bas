@@ -41,6 +41,7 @@ sub central_debug ( target as string =  "" )
 	for index = 0 to Central_Count step 1
 		buffer += "/" + Central_History( index )
 	next index
+	buffer += string$( 1, 32 ) + "( " + ltrim$( str$( Central_Count ) ) + " deep )"
 	buffer += crlf
 	
 	put #filemode, lof( filemode ) + 1, buffer
