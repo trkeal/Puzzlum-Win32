@@ -13,13 +13,20 @@
 #include once ".\inc\const.bi"
 
 #include once "file.bi"
+#include once ".\inc\Names.bi"
 
 #include once ".\inc\central-debug.bi"
-		
-	kill ".\debug\central.log"
+
+'dim shared as string bundle_filename
+'bundle_filename = ".\gamedata\Bundle.dat"
+
+'load_names_from_file( bundle_filename, Bundle_Table() )
+
+'dim shared as string debug_filename
+'debug_filename = sync_names( "debug/filename", Bundle_Table() )
 	
 sub central_debug ( target as string =  "" )
-	
+
 	Central_Count += 1
 	
 	redim preserve Central_History( 0 to Central_Count )
@@ -28,25 +35,29 @@ sub central_debug ( target as string =  "" )
 	Central_History( 0 ) = command$( 0 )
 	
 	dim as integer filemode = freefile
-	dim as string filename = ".\debug\central.log"
-	dim as string buffer = string$( 0, 0 )
 	
-	if open(filename for binary as #filemode) then
+	dim as string buffer = string$( 0, 0 )
+		
+	if open( ".\win32\central.log" for binary as #filemode ) then
 		close #filemode
 		exit sub
+	else
+	
+		dim as integer index = 0
+	
+		for index = 0 to Central_Count step 1
+			buffer += "/" + Central_History( index )
+		next index
+		
+		buffer += string$( 1, 32 ) + "( " + ltrim$( str$( Central_Count ) ) + " deep )"
+		
+		buffer += crlf
+	
+		put #filemode, lof( filemode ) + 1, buffer
+	
+		close #filemode
+	
 	end if
-	
-	dim as integer index = 0
-	
-	for index = 0 to Central_Count step 1
-		buffer += "/" + Central_History( index )
-	next index
-	buffer += string$( 1, 32 ) + "( " + ltrim$( str$( Central_Count ) ) + " deep )"
-	buffer += crlf
-	
-	put #filemode, lof( filemode ) + 1, buffer
-	
-	close #filemode
 	
 end sub
 

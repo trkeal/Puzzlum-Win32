@@ -35,14 +35,14 @@
 	redim shared as names_type Queue_Table( any )
 	redim shared as names_type Attack_Table( any )
 	redim shared as names_type Rose_Table( any )
-
+		
 	dim shared as integer rosecard = 0, roseaxis = 0
 
     dim shared as short win_si
     dim shared as string mappath_str, map_str, lvuppath_str, lvup_str, mapid_str
     dim shared as string thispath_str, fontpath_str, logopath_str, spritepath_str, palpath_str, helppath_str, helpfilename_str
 	
-    dim shared as string bundle_filename, help_filename, map_filename, levels_filename, input_filename, palette_filename, attack_filename
+    dim shared as string help_filename, map_filename, levels_filename, input_filename, palette_filename, attack_filename
 
     dim shared as double progress_delay=0.2
     

@@ -33,10 +33,10 @@
 	'dim shared as integer Central_Count = 0
 
 sub ln_roe()
-    
+
 	loader
 	splash
-		
+	
 	'SCREEN 17,32,16
     'width 40,30
 
@@ -46,72 +46,87 @@ sub ln_roe()
 
     'pal_load thispath_str + palpath_str + "QBPALVGA.DAT", pal()
     
-    clv_glyph_ini clv_glyph()
+    'clv_glyph_ini clv_glyph()
     
-    clv_font_load clv_font(), clv_font_default, clv_font_flag_load, fontpath_str + "mishap22.font.png"
+    'clv_font_load clv_font(), clv_font_default, clv_font_flag_load, fontpath_str + "mishap22.font.png"
     
-	clv_font_load clv_font(), 1, clv_font_flag_load, fontpath_str + "roe00.font.png"
+	'clv_font_load clv_font(), 1, clv_font_flag_load, fontpath_str + "roe00.font.png"
 
-    clv_buffer_ini clv_buffer(), Screen_Width, Screen_Height
+    'clv_buffer_ini clv_buffer(), Screen_Width, Screen_Height
     
-	clv_buffer_cls clv_buffer(), clv_buffer_splash
+	'clv_buffer_cls clv_buffer(), clv_buffer_splash
 
-	splash()
+	'splash()
 	
     'clv_buffer_cls clv_buffer(), clv_buffer_bar
-    
-    locate 25, 1
-	
-	print make_keys()
-	ScreenCopy 1,0
-	
-	c_str = wait_key()
+    	
+	'c_str = wait_key()
 
 	'clv_draw_text clv_buffer(), clv_font(), clv_buffer_bar, clv_glyph(), (1-1) shl 3, (25-1) shl 3, "[(F1)Save|(F2)Load|(F3)Shop]"
     
     do
         restart_roe=0
 		
-		splash()
+		central "splash"
         
 		'clv_buffer_focus=clv_buffer_splash
         'while len(inkey)>0
-            clv_buffer_stack clv_buffer()
+            'clv_buffer_stack clv_buffer()
         'wend
 
 		central "startup"
                 
         'while len(inkey)=0
-            clv_buffer_stack clv_buffer()
+            'clv_buffer_stack clv_buffer()
         'wend
 
-        c_str=lcase("t")
+        c_str = lcase("t")
 
         do
-            c_str = wait_key()
+			
+			central "splash"
+			
+			locate ( Display_Height shr 3 ) + 1, 1
+			print make_keys()
+			
+			ScreenCopy 1,0
+			c_str = wait_key()
 			
 			if restart_roe then exit do
             if Compare_Key( c_str, "Title", Input_Table() ) OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
-                clv_buffer_focus=clv_buffer_title
+                'clv_buffer_focus=clv_buffer_title
                 central "starttitle"
             end if
-            exitcommand=0
+            
+			exitcommand=0
             do
                 central "command"
-                exitcommand3=0
+                
+				exitcommand3=0
                 do
                     central "command3"
-                    if (lcase(c_str) = "t") OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
-                    exitcommand3=NOT(0)
-                        exitcommand=not(0)
+                    
+					if ( lcase$( c_str ) = "t" ) OR (ym_si = 3 AND xm_si = statx_si + 5 AND Lb_si = -1) then
+                    
+						exitcommand3 = NOT( 0 )
+                        exitcommand = not( 0 )
+						
                     end if
-                    if restart_roe then exit do
-                loop while (INSTR(1, "L ||", RIGHT(" " + c_str, 1)) = 0) and not exitcommand3
+                    
+					if restart_roe then exit do
+                
+				loop while (INSTR(1, "L ||", RIGHT(" " + c_str, 1)) = 0) and not( exitcommand3 )
+				
                 if restart_roe then exit do
-            loop while INSTR(1, "L||", RIGHT(" " + c_str, 1)) > 0
+				
+            loop while ( INSTR(1, "L||", RIGHT(" " + c_str, 1)) > 0 ) and not( restart_roe )
+			
             if restart_roe then exit do
+			
             central "main"
+			
             if restart_roe then exit do
+			
         loop
     loop
 end sub
@@ -635,13 +650,17 @@ sub ln_main()
 end sub
 
 sub ln_command()
-    clv_buffer_focus=clv_buffer_portal
+    
+	clv_buffer_focus=clv_buffer_portal
     Tx_si = ex_si
     Ty_si = dy_si
-    clv_buffer_cls clv_buffer(), clv_buffer_draw
+    
+	clv_buffer_cls clv_buffer(), clv_buffer_draw
     central "portal"
-    clv_buffer_stack clv_buffer()
+    
+	clv_buffer_stack clv_buffer()
     central "command2"
+	
     Exit Sub
 end sub
 
@@ -4182,16 +4201,34 @@ function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_
 end function
 
 function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
+		
 	Rose_Calc = Tx_si + (Ty_si - 1) * AA_si
+	
 end function
 
-function Rose_Calc_Direct( Card as integer = 0, Range as integer = 0 ) as integer
+function Rose_Direct( byref X as integer = 0, byref Y as integer = 0, Card as integer = 0, Range as integer = 0 ) as integer
 
-	dim as integer X = d_sia(Card, 1 ) * Range
+	X += d_sia(Card, 1 ) * Range
 
-	dim as integer Y = d_sia(Card, 2 ) * Range
+	Y += d_sia(Card, 2 ) * Range
 	
-	Rose_Calc_Direct = X + ( Y - 1 ) * AA_si
+	if X < 0 then
+		X = 1
+	end if
+	
+	if X > AA_si then
+		X = AA_si
+	end if
+	
+	if Y < 0 then
+		Y = 1
+	end if
+	
+	if Y > DD_si then
+		Y = DD_si
+	end if
+
+	Rose_Direct = X + ( Y - 1 ) * AA_si
 	
 end function
 
@@ -4620,8 +4657,6 @@ end sub
 
 sub central overload ( target as string = "", attk as string = "%%", Attack_Table( Any ) As Names_Type )
 
-	
-	
 	central_debug target
 
 	select case target
@@ -4694,7 +4729,9 @@ end sub
 sub load_bundle()
 
 	report_caption "load bundle"
-	
+		
+	load_names_from_file(".\gamedata\Bundle.dat", Bundle_Table() )
+
 	print
 	
 	print quot + sync_names( "filename/input", Bundle_Table() ) + quot
@@ -4831,8 +4868,6 @@ sub loader()
 
 	redim as names_type Loader_Table( any )
 	dim as integer index = 0
-
-	load_names_from_file( ".\gamedata\Bundle.dat", Bundle_Table() )
 
 	load_names_from_file( ".\gamedata\Loader.dat", Loader_Table() )
 	

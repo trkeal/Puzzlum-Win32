@@ -43,11 +43,6 @@ echo ===[ FBImage ]==[ %static% ]=== >> %log%
 if errorlevel 1 goto :failed
 
 echo: >> %log%
-echo ===[ Central Debug ]==[ %static% ]=== >> %log%
-%fbc% "central-debug.bas" %debugopts% %libopts% >> %log% 2>&1
-if errorlevel 1 goto :failed
-
-echo: >> %log%
 echo ===[ Puzzlum / Vars ]==[ %static% ]=== >> %log%
 %fbc% "puzzlum-vars.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed

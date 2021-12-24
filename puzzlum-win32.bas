@@ -13,6 +13,19 @@
 
 '=====
 
+dim shared as string debug_filename
+debug_filename = ".\win32\central.log"
+kill debug_filename
+dim as integer filemode = freefile
+dim as string buffer
+buffer = "===[ " + debug_filename + " ]===" + crlf
+if open( debug_filename for binary as #filemode ) then
+	close #filemode
+else
+	put #filemode, lof( filemode ) + 1, buffer
+	close #filemode
+end if
+
 #include once ".\inc\puzzlum-win32.bi"
 
 #include once ".\inc\VGA_Table.bi"
@@ -30,10 +43,7 @@
 
 #include once ".\inc\puzzlum-vars.bi"
 #include once ".\inc\puzzlum-subs.bi"
-'#include once ".\inc\puzzlum-task.bi"
-
-central "roe"
-
-end
+	
+central "roe" : end
 
 

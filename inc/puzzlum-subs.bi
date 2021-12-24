@@ -62,8 +62,9 @@
         X1 as short, Y1 as short, X2 as short, Y2 as short, C1 as short,C2 as short)
     declare sub clv_buffer_stack (clv_buffer() as fb.image ptr)
 
-    declare sub ln_roe ()
-    declare sub ln_startup ()
+	declare sub bootstrap()  
+	declare sub ln_roe ()
+	declare sub ln_startup ()
     declare sub ln_starttitle ()
     declare sub ln_starthelp ()
     declare sub ln_main ()
@@ -221,7 +222,7 @@ declare function Compare_Key( KeyPress as string = "", Comparison as string = ""
 
 declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
 
-declare function Rose_Calc_Direct( Card as integer = 0, Range as integer = 0 ) as integer
+declare function Rose_Direct( byref X as integer = 0, byref Y as integer = 0, Card as integer = 0, Range as integer = 0 ) as integer
 	
 declare function wait_key() as string
 
