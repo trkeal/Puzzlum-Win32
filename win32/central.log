@@ -1,1 +1,5 @@
 ===[ .\win32\central.log ]===
+/puzzlum-win32.exe/roe ( 1 deep )
+/puzzlum-win32.exe/roe/loader ( 2 deep )
+/puzzlum-win32.exe/roe/loader/load_display ( 3 deep )
+/puzzlum-win32.exe/roe/loader/load_bundle ( 3 deep )

@@ -19,6 +19,8 @@ filename/palette=.\gamedata\QBVGAPAL.BIN
 filename/rose=.\gamedata\Rose.dat
 filename/display=.\gamedata\Display.dat
 
+filename/attack=.\gamelogic\Attack Table.dat
+
 path/main=.\
 path/fonts=.\gameart\fonts\
 path/logos=.\gameart\logos\
@@ -37,3 +39,8 @@ function/key/count=3
 function/key/1=Save
 function/key/2=Load
 function/key/3=Shop
+
+splash/logo=.\gameart\logos\puz.splash.png
+splash/wallpaper=.\gameart\wallpapers\backdrop.png
+
+save/file=.\saves\save.dat

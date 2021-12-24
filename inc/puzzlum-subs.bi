@@ -90,7 +90,7 @@
     declare sub ln_attktngl ()
     declare sub ln_attklash ()
     
-	declare Sub ln_attk_table ( attk as string = "%%", Attack_Table( Any ) As Names_Type )
+	declare sub ln_attk_table( attk as string = "%%" )
 	
 	declare sub ln_usecure ()
     declare sub ln_attkslep ()
@@ -214,10 +214,15 @@
     declare sub ln_crtnpndx ()
     declare sub ln_crtnccts ()
     declare sub ln_crtnbldr ()
-    
-	declare sub savegame_save( filename as string = "", Save_Table( any ) as names_type )
-	declare sub savegame_load( filename as string = "", Save_Table( any ) as names_type )
 
+	declare sub Map_Save ( Save_Table( any ) as names_type)
+
+	declare sub Map_Load ( Save_Table( any ) as names_type )
+    
+	declare sub savegame_save( filename as string = "" )
+	
+	declare sub savegame_load( filename as string = "" )
+	
 declare function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
 
 declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
@@ -226,7 +231,7 @@ declare function Rose_Direct( byref X as integer = 0, byref Y as integer = 0, Ca
 	
 declare function wait_key() as string
 
-declare sub central overload( target as string = "" )
+declare sub central_call overload( target as string = "" )
 
 declare sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer)
 
@@ -250,7 +255,7 @@ declare sub central overload ( target as string = "", Index as integer, Src as i
 
 declare sub central overload ( target as string = "", db_names() as names_type)
 
-declare sub central overload ( target as string = "", attk as string = "%%", Attack_Table( Any ) As Names_Type )
+declare sub central overload ( target as string = "", attk as string = "%%" )
 
 declare sub load_bundle()
 
@@ -278,7 +283,8 @@ declare sub load_data()
 
 declare sub load_input()
 
-declare sub stretch(src as fb.image ptr, dest as fb.image ptr )
+declare sub stretch( src as fb.image ptr, dest as fb.image ptr )
+declare sub repeat( src as fb.image ptr, dest as fb.image ptr )
 
 declare sub text_out( subject as string = "" )
 
