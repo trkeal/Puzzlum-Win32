@@ -29,3 +29,8 @@ splash/width=640
 splash/height=128
 
 filename/map=Dire Dungeon 1.dat
+
+function/key/count=3
+function/key/1=Save
+function/key/2=Load
+function/key/3=Shop

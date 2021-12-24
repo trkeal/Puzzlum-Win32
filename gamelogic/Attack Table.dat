@@ -158,3 +158,5 @@ attk/lash/str/dmg=8
 
 attk/lash/hp/dmg/bonus=Level/5
 attk/lash/str/dmg/bonus=Level/7
+
+attk/web/valid

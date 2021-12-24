@@ -217,10 +217,13 @@
 	declare sub savegame_save( filename as string = "", Save_Table( any ) as names_type )
 	declare sub savegame_load( filename as string = "", Save_Table( any ) as names_type )
 
-	declare function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
-	declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
+declare function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
+
+declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
+
+declare function Rose_Calc_Direct( Card as integer = 0, Range as integer = 0 ) as integer
 	
-	declare function wait_key() as string
+declare function wait_key() as string
 
 declare sub central overload( target as string = "" )
 
@@ -277,3 +280,9 @@ declare sub load_input()
 declare sub stretch(src as fb.image ptr, dest as fb.image ptr )
 
 declare sub text_out( subject as string = "" )
+
+declare function make_keys() as string
+
+declare function cleantag( tag as string = "____" ) as string
+
+declare sub battle( Rose as integer = -1, Range as integer = 1 )

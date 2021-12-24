@@ -61,7 +61,8 @@ sub ln_roe()
     'clv_buffer_cls clv_buffer(), clv_buffer_bar
     
     locate 25, 1
-	print "[(F1)Save|(F2)Load|(F3)Shop]"
+	
+	print make_keys()
 	ScreenCopy 1,0
 	
 	c_str = wait_key()
@@ -593,14 +594,8 @@ sub ln_main()
                     central "putaction"
                 END IF
                 
-				crtn_temp = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4)
-				
-				do while right( crtn_temp, 1 ) = "_"
-					crtn_temp = left$( crtn_temp, len( crtn_temp ) - 1 )
-				loop
-				
-				central "crtn" + crtn_temp
-				
+				central "crtn" + cleantag( MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4) )
+								
 				'SELECT CASE CVL(MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 1, 4))
                 'CASE CVL("wall")
                 'CASE CVL("spdr")
@@ -882,7 +877,8 @@ sub ln_attack()
 	
 	attk = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)
 	
-	select case sync_names( "attk/"+MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)+"/valid", Attack_Table())
+	select case sync_names( "attk/"+cleantag( MID( e_stra( Rose_Calc( Tx_si, Ty_si ), 3 ), 5, 4 ) )+"/valid", Attack_Table() )
+	
 	case "%%"
 		MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
 		MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
@@ -4189,6 +4185,17 @@ function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
 	Rose_Calc = Tx_si + (Ty_si - 1) * AA_si
 end function
 
+function Rose_Calc_Direct( Card as integer = 0, Range as integer = 0 ) as integer
+
+	dim as integer X = d_sia(Card, 1 ) * Range
+
+	dim as integer Y = d_sia(Card, 2 ) * Range
+	
+	Rose_Calc_Direct = X + ( Y - 1 ) * AA_si
+	
+end function
+
+
 function wait_key() as string
 
 	dim as string cis = ""
@@ -4932,4 +4939,76 @@ end sub
 
 sub text_out( subject as string = "" )
 	print subject
+end sub
+
+function make_keys() as string
+	
+	dim as string keys = string$( 0, 0 )
+	dim as integer index = 0, count = 0
+	
+	count = val( sync_names("function/key/count",Bundle_Table() ) )
+	
+	for index = 1 to count step 1
+		
+		if index = 1 then
+			keys += "["
+		end if
+		
+		keys += "(" + "F" + ltrim$( str$( index ) ) + ")" + sync_names( "function/key/" + ltrim$( str$( index ) ), Bundle_Table() )
+		
+		if index < count then
+			keys += "|"
+		end if
+		
+		if index = count then
+			keys += "]"
+		end if
+		
+	next index
+	
+	make_keys = keys
+	
+end function
+
+function cleantag( tag as string = "____" ) as string
+	
+	dim as string crtn_temp = string$( 0, 0 )
+	
+	crtn_temp = tag
+	
+	do while right( crtn_temp, 1 ) = "_"
+		crtn_temp = left$( crtn_temp, len( crtn_temp ) - 1 )
+	loop
+
+	if len( crtn_temp ) = 0 then
+		crtn_temp = "blnk"
+	end if
+
+	cleantag = crtn_temp
+
+end function
+
+sub battle( Rose as integer = -1, Range as integer = 1 )
+	
+	if Rose = -1 then
+		Rose = fix( rnd( 1 ) * 5 )
+	end if
+	
+	if Range = -1 then
+		Range = fix( rnd( 1 ) * 4 )
+	end if
+	
+	dim as string attk = string$( 0,0 )
+	
+	attk = MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 3), 5, 4)
+	
+	select case sync_names( "attk/"+cleantag( MID( e_stra( Rose_Calc( Tx_si, Ty_si ), 3 ), 5, 4 ) )+"/valid", Attack_Table() )
+	
+	case "%%"
+		MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
+		MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 5, 4) = "____"
+	case else
+		central "attk_table", ( attk, Attack_Table() )
+	end select
+	
 end sub
