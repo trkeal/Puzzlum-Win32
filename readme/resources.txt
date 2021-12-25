@@ -1,0 +1,21 @@
+===[ About "Puzzlum-Win32" ]===
+
+"Puzzlum-*" .bi and .bas: my main program code
+
+===[ Static Libraries ]===
+
++ "Const" my constants library
+
++ "VGA Table" my embedded VGA default palette
+
++ "Composite Layer Video" my graphics library
+
++ "Names Table" my associative array library
+
++ "Central Redirect" my runtime embedded debugger
+
+===[ Third Party Libraries ]===
+
++ "z" graphics codecs
+
++ "fbimage" graphics support

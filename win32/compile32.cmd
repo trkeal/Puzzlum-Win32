@@ -1,6 +1,8 @@
 @echo off
 
-set fbc="C:\FreeBASIC\fbc32.exe"
+PATH "C:\FreeBASIC\"
+
+set fbc="fbc32.exe"
 set log=".\win32\compile32.log"
 
 set static=Win32 Static Library
