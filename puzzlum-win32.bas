@@ -31,4 +31,4 @@
 #include once ".\inc\puzzlum-vars.bi"
 #include once ".\inc\puzzlum-subs.bi"
 	
-central_call "roe" : end
+central_call "roe" : outro

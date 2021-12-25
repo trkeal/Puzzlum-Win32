@@ -35,6 +35,8 @@
 
 	'#include once ".\puzzlum-vars.bi"
 
+	declare sub outro()
+
     declare sub clv_glyph_ini (clv_glyph() as integer)
     declare sub input_text (Index as integer, Src as integer, _
         Row as short, Col as short, W as short, H as short, byref Text_str as string)
