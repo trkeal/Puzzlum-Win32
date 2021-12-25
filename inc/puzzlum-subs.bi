@@ -292,4 +292,4 @@ declare function make_keys() as string
 
 declare function cleantag( tag as string = "____" ) as string
 
-declare sub battle( Rose as integer = -1, Range as integer = 1 )
+declare sub battle()

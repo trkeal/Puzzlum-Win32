@@ -15,28 +15,34 @@
  
 ===[ Puzzlum / Subs ]==[ "Win32 Static Library" ]=== 
 puzzlum-subs.bas(1105) warning 36(1): Mismatching parameter initializer, at parameter 1 (attk) of ln_attk_table()
-puzzlum-subs.bas(3588) error 58: Type mismatch, at parameter 2
-puzzlum-subs.bas(3592) error 58: Type mismatch, at parameter 2
-puzzlum-subs.bas(3619) error 58: Type mismatch, at parameter 2
-puzzlum-subs.bas(3640) error 58: Type mismatch, at parameter 2
-puzzlum-subs.bas(3642) error 58: Type mismatch, at parameter 2
-puzzlum-subs.bas(4168) warning 36(1): Mismatching parameter initializer, at parameter 1 (filename) of savegame_save()
-puzzlum-subs.bas(4177) warning 36(1): Mismatching parameter initializer, at parameter 1 (filename) of savegame_load()
-puzzlum-subs.bas(4186) warning 36(1): Mismatching parameter initializer, at parameter 1 (KeyPress) of Compare_Key()
-puzzlum-subs.bas(4186) warning 36(1): Mismatching parameter initializer, at parameter 2 (Comparison) of Compare_Key()
-puzzlum-subs.bas(4273) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central_call()
-puzzlum-subs.bas(4534) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4551) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4570) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4589) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4604) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4621) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4636) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4651) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4666) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4683) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
-puzzlum-subs.bas(4683) warning 36(1): Mismatching parameter initializer, at parameter 2 (attk) of central()
-puzzlum-subs.bas(4791) warning 36(1): Mismatching parameter initializer, at parameter 1 (caption) of report_caption()
-puzzlum-subs.bas(4864) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central_loader()
-puzzlum-subs.bas(5018) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of text_out()
-puzzlum-subs.bas(5051) warning 36(1): Mismatching parameter initializer, at parameter 1 (tag) of cleantag()
+puzzlum-subs.bas(3602) error 58: Type mismatch, at parameter 2
+puzzlum-subs.bas(3606) error 58: Type mismatch, at parameter 2
+puzzlum-subs.bas(3633) error 58: Type mismatch, at parameter 2
+puzzlum-subs.bas(3654) error 58: Type mismatch, at parameter 2
+puzzlum-subs.bas(3656) error 58: Type mismatch, at parameter 2
+puzzlum-subs.bas(4182) warning 36(1): Mismatching parameter initializer, at parameter 1 (filename) of savegame_save()
+puzzlum-subs.bas(4191) warning 36(1): Mismatching parameter initializer, at parameter 1 (filename) of savegame_load()
+puzzlum-subs.bas(4200) warning 36(1): Mismatching parameter initializer, at parameter 1 (KeyPress) of Compare_Key()
+puzzlum-subs.bas(4200) warning 36(1): Mismatching parameter initializer, at parameter 2 (Comparison) of Compare_Key()
+puzzlum-subs.bas(4287) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central_call()
+puzzlum-subs.bas(4548) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4565) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4584) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4603) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4618) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4635) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4650) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4665) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4680) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4697) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central()
+puzzlum-subs.bas(4697) warning 36(1): Mismatching parameter initializer, at parameter 2 (attk) of central()
+puzzlum-subs.bas(4805) warning 36(1): Mismatching parameter initializer, at parameter 1 (caption) of report_caption()
+puzzlum-subs.bas(4878) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central_loader()
+puzzlum-subs.bas(5032) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of text_out()
+puzzlum-subs.bas(5065) warning 36(1): Mismatching parameter initializer, at parameter 1 (tag) of cleantag()
+puzzlum-subs.bas(5093) error 61: Illegal inside functions, found 'shared'
+puzzlum-subs.bas(5094) error 61: Illegal inside functions, found 'shared'
+puzzlum-subs.bas(5095) error 61: Illegal inside functions, found 'shared'
+puzzlum-subs.bas(5101) error 42: Variable not declared, str_cur
+puzzlum-subs.bas(5143) error 42: Variable not declared, Rose
+puzzlum-subs.bas(5143) error 133: Too many errors, exiting

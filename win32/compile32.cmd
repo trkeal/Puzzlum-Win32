@@ -6,6 +6,7 @@ set log=".\win32\compile32.log"
 set static="Win32 Static Library"
 set binary="32bit Windows Binary"
 
+set guiopts= -s gui ".\win32\rc\puzzlum.rc" 
 set debugopts= -g 
 
 if exist %log% (
@@ -59,7 +60,7 @@ if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Main ]==[ %binary% ]=== >> %log%
-%fbc% "puzzlum-win32.bas" %debugopts% %fbopts% -s gui ".\win32\rc\puzzlum.rc" >> %log% 2>&1
+%fbc% "puzzlum-win32.bas" %debugopts% %fbopts% %guiopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
