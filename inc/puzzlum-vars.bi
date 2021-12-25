@@ -101,10 +101,13 @@
     dim shared as single st_sf
     dim shared as short tempx_si, tempy_si
     dim shared as short evadeattack, attackblocked
-    dim shared as short hp_use_si, str_use_si, ess_use_si
+
+	dim shared as short hp_cur_si, str_cur_si, ess_cur_si
+	dim shared as short hp_use_si, str_use_si, ess_use_si
     dim shared as short hp_dmg_si, str_dmg_si, ess_dmg_si
     dim shared as string hp_dmg_bonus_str, str_dmg_bonus_str, ess_dmg_bonus_str
     dim shared as short hp_dmg_bonus_si, str_dmg_bonus_si, ess_dmg_bonus_si
+
     dim shared as short entity_count, entity_index
     dim shared as string attk_pict_str, attk_name_str
     dim shared as short temptx_si, tempty_si, tempdis_si, slepadd_si

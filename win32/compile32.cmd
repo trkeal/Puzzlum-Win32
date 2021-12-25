@@ -3,8 +3,8 @@
 set fbc="C:\FreeBASIC\fbc32.exe"
 set log=".\win32\compile32.log"
 
-set static="Win32 Static Library"
-set binary="32bit Windows Binary"
+set static=Win32 Static Library
+set binary=32bit Windows Binary
 
 set guiopts= -s gui ".\win32\rc\puzzlum.rc" 
 set debugopts= -g 
