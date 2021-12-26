@@ -64,10 +64,10 @@ sub clv_font_load (clv_font(any) as fb.image ptr, FontIndex as integer, Switch a
 	#endif
 
     if Switch and clv_font_flag_destroy then
-		imagedestroy clv_font(FontIndex)
+		imagedestroy clv_font( FontIndex )
     end if
     if Switch and clv_font_flag_load then
-        bload(Filename, clv_font(FontIndex))
+        clv_font( FontIndex ) = png_load( Filename )
     end if
 
 	#ifdef __clv_debug__

@@ -34,7 +34,7 @@
 	const clv_buffer_and=0, clv_buffer_or=1
     const clv_buffer_visible=0, clv_buffer_draw=1
     const clv_flag_default=0, clv_flag_b=1, clv_flag_bf=2
-    const clv_font_default=0
+	const clv_font_default=0
     const clv_font_flag_load=1, clv_font_flag_destroy=2
 
     dim shared as integer clv_buffer_focus

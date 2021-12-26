@@ -67,7 +67,10 @@
 	declare sub bootstrap()  
 	declare sub ln_roe ()
 	declare sub ln_startup ()
-    declare sub ln_starttitle ()
+    
+	declare sub map_loader ( map_filename as string = "%%" )
+
+	declare sub ln_starttitle ()
     declare sub ln_starthelp ()
     declare sub ln_main ()
     
@@ -270,6 +273,8 @@ declare sub report_caption( caption as string = "%%" )
 declare function vga_test_1() as fb.image ptr
 
 declare sub vga_test_2()
+
+declare sub font_loader()
 
 declare sub splash()
 

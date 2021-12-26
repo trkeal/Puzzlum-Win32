@@ -33,7 +33,7 @@ filename/splash=puz.splash.png
 splash/width=640
 splash/height=128
 
-filename/map=Dire Dungeon 1.dat
+map/filename=.\gamedata\maps\Dire Dungeon 1.dat
 
 function/key/count=3
 function/key/1=Save
@@ -46,3 +46,7 @@ splash/backdrop/filename=.\gameart\wallpapers\backdrop.png
 save/file=.\saves\save.dat
 
 outro/msg=Goodnight Sweet Prince..
+
+font/count=2
+font/0/filename=.\gameart\fonts\mishap22.png
+font/1/filename=.\gameart\fonts\roe00.png
