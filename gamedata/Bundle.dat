@@ -40,7 +40,9 @@ function/key/1=Save
 function/key/2=Load
 function/key/3=Shop
 
-splash/logo=.\gameart\logos\splash.png
-splash/wallpaper=.\gameart\wallpapers\backdrop.png
+splash/logo/filename=.\gameart\logos\splash.png
+splash/backdrop/filename=.\gameart\wallpapers\backdrop.png
 
 save/file=.\saves\save.dat
+
+outro/msg=Goodnight Sweet Prince..
