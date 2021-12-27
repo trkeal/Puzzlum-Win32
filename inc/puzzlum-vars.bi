@@ -70,7 +70,7 @@
     dim shared as string ctrl_str
     dim shared as short Ty_si, DD_si, Tx_si, AA_si
     dim shared as string R_str, bg_str, fg_str, rg_str
-    dim shared as string rbg_str, rfg_str
+    dim shared as string rbg_str, rfg_str, rid_str
     dim shared as single rid_sf
     dim shared as string prflidty_str, prflactn_str, prflactnct_str, prflgpic_str, prflcmnd_str, prflgpicactn_str
     dim shared as single prflidty_sf, prflhp_sf, prflstr_sf, prfless_sf

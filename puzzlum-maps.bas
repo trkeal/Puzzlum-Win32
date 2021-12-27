@@ -109,7 +109,8 @@ sub map_loader ( map_filename as string = "%%" )
             			
 			rbg_str = MID(bg_str, (Tx_si - 1) * 5 + 1, 4)
             rfg_str = MID(fg_str, (Tx_si - 1) * 5 + 1, 4)
-            rid_sf = VAL(MID(rg_str, (Tx_si - 1) * 5 + 1, 4))
+            rid_str = MID(rg_str, (Tx_si - 1) * 5 + 1, 4)
+            rid_sf = VAL(rid_str)
 
 			'locate Ty_si,(Tx_si-1)*5+1
             'print rbg_str
@@ -285,18 +286,38 @@ sub map_loader ( map_filename as string = "%%" )
                 central_call "prflset"
             case "door"
                 central_call "prflblnk"
-                prflidty_str = "Door"
+                prflidty_str = "Wooden Door"
                 prflgpic_str = "door"
-                select case rid_sf
-                case 1
-                    prflactn_str = "loc1"
-                    prflactnct_str = mkl(1)
-                case 2
-                    prflactn_str = "loc2"
-                    prflactnct_str = mkl(1)
-                case 3
-                    prflactn_str = "loc3"
-                    prflactnct_str = mkl(1)
+                
+                select case left$(rid_str,3)
+                case "loc"
+					select case val( right$( rid_str, 1 ) )
+					case 1 to 3
+						prflactn_str = rid_str
+						prflactnct_str = mkl(1)
+					end select
+                end select
+
+                prflidty_sf = rid_sf
+                prflhp_sf = 140
+                prflstr_sf = 140
+                prflarmr_sf = 5
+                prflvalu_sf = 1
+                prfllv_sf = 1
+                prflhpmax_sf = 140
+                prflstrmax_sf = 140
+                central_call "prflset"
+            case "chst"
+                central_call "prflblnk"
+                prflidty_str = "Treasure Chest"
+                prflgpic_str = "chst"
+                select case left$(rid_str,3)
+                case "loc"
+					select case val( right$( rid_str, 1 ) )
+					case 1 to 3
+						prflactn_str = rid_str
+						prflactnct_str = mkl(1)
+					end select
                 end select
                 prflidty_sf = rid_sf
                 prflhp_sf = 140
@@ -383,7 +404,7 @@ sub map_loader ( map_filename as string = "%%" )
 			png_destroy cell
 			
 			select case left$(prflgpic_str,4)
-			case "door"
+			case "door", "chst"
 				select case left$(prflactn_str,3)
                 case "loc"
 					select case val(right$(prflactn_str,1))
