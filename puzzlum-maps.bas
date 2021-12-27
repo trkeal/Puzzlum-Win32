@@ -382,6 +382,25 @@ sub map_loader ( map_filename as string = "%%" )
 			put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, or
 			png_destroy cell
 			
+			select case left$(prflgpic_str,4)
+			case "door"
+				select case left$(prflactn_str,3)
+                case "loc"
+					select case val(right$(prflactn_str,1))
+					case 1 to 3
+						
+						cell = png_load( ".\gameart\sprites\" + prflactn_str + "____" + ".24y.png" )
+						put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, and
+						png_destroy cell
+			
+						cell = png_load( ".\gameart\sprites\" + prflactn_str + "____" + ".24x.png" )
+						put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, or
+						png_destroy cell
+					
+					end select
+                end select
+			end select
+			
 		NEXT Tx_si
     NEXT Ty_si
 	
