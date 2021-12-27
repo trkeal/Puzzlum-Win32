@@ -32,6 +32,7 @@
 
 	#include once ".\inc\puzzlum-subs.bi"
 	#include once ".\inc\puzzlum-vars.bi"
+	#include once ".\inc\puzzlum-maps.bi"
 
 	'#include once ".\puzzlum-vars.bi"
 
@@ -68,8 +69,6 @@
 	declare sub ln_roe ()
 	declare sub ln_startup ()
     
-	declare sub map_loader ( map_filename as string = "%%" )
-
 	declare sub ln_starttitle ()
     declare sub ln_starthelp ()
     declare sub ln_main ()
