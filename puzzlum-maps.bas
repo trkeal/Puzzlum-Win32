@@ -38,11 +38,12 @@
 sub map_loader ( map_filename as string = "%%" )
 	
 	dim as fb.image ptr cell
+	dim as fb.image ptr map_capture
 	
 	'#ifdef __clv_debug__
 		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		target = "map" + colon + "loader"
+		target = "map" + colon + "loader" + string$( 1, 32 ) + quot + map_filename + quot
 		central_debug target
 	'#endif
 
@@ -60,7 +61,8 @@ sub map_loader ( map_filename as string = "%%" )
     'INPUT #1, 
 	DD_si = val( sync_names( "map/DD", Maps_Table() ) )
 	
-	dim as fb.image ptr map_capture = imagecreate( 24 * AA_si, 24 * DD_si )
+	map_capture = imagecreate( 24 * AA_si, 24 * DD_si )
+	line map_capture,( 0, 0 )-( map_Capture->Width - 1, map_Capture->Height - 1 ), 0,bf
 	
     ex_si = fix(AA_si / 2) 'map pointer x
     dy_si = fix(DD_si / 2) 'map pointer y
@@ -79,15 +81,17 @@ sub map_loader ( map_filename as string = "%%" )
         READ win_sia(2 + (ttt_si - 1) * 2)
     NEXT ttt_si
         
-	load_names_from_file( thispath_str + lvuppath_str + lvup_str, Levels_Table() )
 	'level up data
+
+	load_names_from_file( sync_names( "filename/levels", Bundle_Table() ), Levels_Table() )
+	
     FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
         l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
     NEXT t_si
     
     ctrl_str = "pndximp_"
     IF INT(RND(1) * 2) + 1 = 2 THEN ctrl_str = ctrl_str + "dust"
-    FOR Ty_si = 1 TO DD_si
+    FOR Ty_si = 1 TO DD_si step 1
         
 		bg_str = sync_names( "map/row/" + ltrim$( str$( Ty_si ) )+"/bg", Maps_Table() )
 		fg_str = sync_names( "map/row/" + ltrim$( str$( Ty_si ) )+"/fg", Maps_Table() )
@@ -100,14 +104,27 @@ sub map_loader ( map_filename as string = "%%" )
 		'LINE INPUT #1, bg_str
         'LINE INPUT #1, fg_str
         'LINE INPUT #1, rg_str
-        FOR Tx_si = 1 TO AA_si
-            rbg_str = MID(bg_str, (Tx_si - 1) * 5 + 1, 4)
+        
+		FOR Tx_si = 1 TO AA_si step 1
+            			
+			rbg_str = MID(bg_str, (Tx_si - 1) * 5 + 1, 4)
             rfg_str = MID(fg_str, (Tx_si - 1) * 5 + 1, 4)
             rid_sf = VAL(MID(rg_str, (Tx_si - 1) * 5 + 1, 4))
-            e_stra(Rose_Calc( Tx_si, Ty_si ), 2) = "____" + rbg_str
-            e_stra(Rose_Calc( Tx_si, Ty_si ), 3) = MKL(0) + "____" + MKL(0) 'command_str
-            e_stra(Rose_Calc( Tx_si, Ty_si ), 4) = "________" 'graphicsaction_str
-            select case rfg_str
+
+			'locate Ty_si,(Tx_si-1)*5+1
+            'print rbg_str
+			
+			e_stra(Rose_Calc( Tx_si, Ty_si ), 2) = "____" + rbg_str
+            
+			e_stra(Rose_Calc( Tx_si, Ty_si ), 3) = MKL(0) + "____" + MKL(0) 'command_str
+            
+			e_stra(Rose_Calc( Tx_si, Ty_si ), 4) = "________" 'graphicsaction_str
+            
+			central_call "prflblnk"
+
+			prflgpic_str = "____"
+			
+			select case rfg_str
             case "____"
                 central_call "prflblnk"
                 prflidty_sf = rid_sf
@@ -343,16 +360,20 @@ sub map_loader ( map_filename as string = "%%" )
                 prfllv_sf = 1
                 prflhpmax_sf = 1000
                 central_call "prflset"
-            end select
+			end select
 			
-			cell = png_load( ".\gameart\sprites\" + bg_str + "____" + ".24y.png" )
+			if rbg_str = "" then
+				rbg_str = "dirt"
+			end if
+			
+			cell = png_load( ".\gameart\sprites\" + rbg_str + "____" + ".24y.png" )
 			put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, and
 			png_destroy cell
 
-			cell = png_load( ".\gameart\sprites\" + bg_str + "____" + ".24x.png" )
+			cell = png_load( ".\gameart\sprites\" + rbg_str + "____" + ".24x.png" )			
 			put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, or
 			png_destroy cell
-
+			
 			cell = png_load( ".\gameart\sprites\" + prflgpic_str + "____" + ".24y.png" )
 			put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, and
 			png_destroy cell
@@ -364,8 +385,7 @@ sub map_loader ( map_filename as string = "%%" )
 		NEXT Tx_si
     NEXT Ty_si
 	
-	put ( 0, 0 ), map_capture, pset
-	line( 0, 0 )-( Display_Width - 1, Display_Height - 1 ), 10
+	put ( 0, 0 ), map_capture, alpha
     
 	flip
 	
