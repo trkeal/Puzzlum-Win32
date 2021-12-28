@@ -60,11 +60,11 @@
 	
 	wait_key
 	
-	'CLOSE 1
+	CLOSE 1
 	
-	'#ifdef __clv_debug__
+	#ifdef __clv_debug__
 		Central_Close_Out target	
-	'#endif
+	#endif
 
 end sub
 

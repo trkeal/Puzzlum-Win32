@@ -2,8 +2,8 @@ case/grml
 central_call prflblnk
 prflidty_str=Gremlin
 
-'prflactn_str=move,bite,pnch
-'prflactnct_str=0001,0001,0001
+prflactn_str=move,bite,pnch
+prflactnct_str=0001,0001,0001
 
 Entity_Action
 

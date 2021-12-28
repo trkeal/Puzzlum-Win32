@@ -2,8 +2,8 @@ case/imp_
 central_call prflblnk
 prflidty_str=Little Imp
 
-'prflactn_str=move,wing,fire
-'prflactnct_str=0001,0001,0001
+prflactn_str=move,wing,fire
+prflactnct_str=0001,0001,0001
 
 Entity_Action
 

@@ -10,7 +10,7 @@
                     prflactnct_str = mkl(1)
                 END IF
 				
-				'Entity_Action
+				Entity_Action
 
                 prflgpic_str = "chst"
                 prflidty_sf = rid_sf

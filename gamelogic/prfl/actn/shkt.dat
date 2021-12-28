@@ -2,8 +2,8 @@ case/shkt
 central_call prflblnk
 prflidty_str=Shiny Knight
 
-'prflactn_str=move,pnch,dggr
-'prflactnct_str=0001,0001,0001
+prflactn_str=move,pnch,dggr
+prflactnct_str=0001,0001,0001
 
 Entity_Action
 

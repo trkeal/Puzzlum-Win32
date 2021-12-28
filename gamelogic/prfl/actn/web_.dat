@@ -2,8 +2,8 @@ case/web_
 central_call prflblnk
 prflidty_str=Web
 
-'prflactn_str=spdr
-'prflactnct_str=0001
+prflactn_str=spdr
+prflactnct_str=0001
 
 Entity_Action
 

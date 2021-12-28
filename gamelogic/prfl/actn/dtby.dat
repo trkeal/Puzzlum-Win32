@@ -2,7 +2,7 @@ case/dtby
 central_call prflblnk
 prflidty_str=Dust Bunny
 
-'prflactn_str=move,bite,kick,dtby,dust
+prflactn_str=move,bite,kick,dtby,dust
 
 Entity_Action
 
