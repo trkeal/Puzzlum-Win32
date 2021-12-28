@@ -1,0 +1,20 @@
+            case "chst"
+                central_call "prflblnk"
+                prflidty_str = "Treasure chest"
+                
+				IF INT(RND(1) * 2) = 1 THEN
+                    prflactn_str = "key1"
+                    prflactnct_str = mkl(1)
+                ELSE
+                    prflactn_str = "key2"
+                    prflactnct_str = mkl(1)
+                END IF
+				
+				'Entity_Action
+
+                prflgpic_str = "chst"
+                prflidty_sf = rid_sf
+                prflhp_sf = 100
+                prfllv_sf = 1
+                prflhpmax_sf = 100
+                central_call "prflset"

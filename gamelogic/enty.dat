@@ -476,34 +476,17 @@ end sub
 
 sub Entity_Action
 	
-	redim as names_type Entity_Table( any )
+	dim as names_type Entity_Table( any )
 	dim as integer count = 0, index = 0
 	
-	load_names_from_file( ".\gamelogic\prfl\actn\" + left$( rfg_str + string$( 4, "_" ), 4 ) + ".dat", Entity_Table() )
-	
-	dim as string profile_actions = string$( 0, 0 ), profile_counts = string$( 0, 0 )
-	
-	profile_actions = sync_names("prfl/actn", Entity_Table() )
-	profile_counts = sync_names("prfl/actn/ct", Entity_Table() )
-	
-	count = ( len( profile_actions ) + 1 ) \ 5
-	
-	prflactn_str = string$( 0, 0 )
-	prflactnct_str = string$( 0, 0 )
-	
-	if profile_actions = "%%" then exit sub
+	count = sync_names(rfg_str + "/prfl/actn/count" Entity_Table() )
 	
 	for index = 1 to count step 1
 		
-		prflactn_str += mid$( profile_actions, ( index + 4 ) / 5, 4 )
+		prflactn_str += left$( sync_names(rfg_str + "/prfl/actn/"+ltrim$(str$(index)), Entity_Table() ) + string$( 4, "_" ), 4 )
 		
-		select case profile_counts
-		case "%%"
-			prflactnct_str += mkl( 0 )
-		case else
-			prflactnct_str += mkl( val( mid$( profile_counts, ( index + 4 ) / 5, 4 ) ) )
-		end select
+		prflactnct_str += mkl( val( sync_names( rfg_str +  "/prfl/actn/" + ltrim$( str$( index ) ), Entity_Table() ) ) )
 		
 	next
-	
+
 end sub

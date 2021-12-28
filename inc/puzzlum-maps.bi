@@ -39,3 +39,5 @@
 	'#include once ".\inc\puzzlum-vars.bi"
 	
 	declare sub map_loader ( map_filename as string = "%%" )
+	
+	declare sub Entity_Action

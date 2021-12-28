@@ -1,0 +1,25 @@
+case/grml
+central_call prflblnk
+prflidty_str=Gremlin
+
+'prflactn_str=move,bite,pnch
+'prflactnct_str=0001,0001,0001
+
+Entity_Action
+
+IF RND(1) > .2 THEN
+prflactn_str=prflactn_str + dggr
+prflactnct_str=prflactnct_str+mkl(1)
+END IF
+prflgpic_str=grml
+prflidty_sf=rid_sf
+prflhp_sf=25
+prflstr_sf=90
+prflspd_sf=1
+prflarmr_sf=1
+prflvalu_sf=5
+prflpirc_sf=2
+prfllv_sf=1
+prflhpmax_sf=25
+prflstrmax_sf=90
+central_call prflset

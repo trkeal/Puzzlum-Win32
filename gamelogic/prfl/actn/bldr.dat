@@ -1,0 +1,11 @@
+ case/bldr
+central_call prflblnk
+prflidty_str=Big boulder
+prflactn_str=
+prflgpic_str=bldr
+prflidty_sf=rid_sf
+prflhp_sf=1000
+prflarmr_sf=10
+prfllv_sf=1
+prflhpmax_sf=1000
+central_call prflset

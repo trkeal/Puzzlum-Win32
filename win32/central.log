@@ -803,3 +803,8 @@
 /puzzlum-win32.exe/roe/startup/map:loader ".\gamedata\maps\Dire Dungeon 1.dat"/prflblnk ( 4 deep )
 /puzzlum-win32.exe/roe/startup/map:loader ".\gamedata\maps\Dire Dungeon 1.dat"/prflblnk ( 4 deep )
 /puzzlum-win32.exe/roe/startup/map:loader ".\gamedata\maps\Dire Dungeon 1.dat"/prflset ( 4 deep )
+/puzzlum-win32.exe/roe/splash ( 2 deep )
+/puzzlum-win32.exe/roe/command ( 2 deep )
+/puzzlum-win32.exe/roe/command3 ( 2 deep )
+/puzzlum-win32.exe/roe/main ( 2 deep )
+/puzzlum-win32.exe/roe/splash ( 2 deep )
