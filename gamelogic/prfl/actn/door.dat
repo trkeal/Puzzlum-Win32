@@ -1,16 +1,16 @@
-case/door
+case/door=ok
 central_call prflblnk
 prflidty_str=Wooden Door
 prflgpic_str=door
 
-select case left$(rid_str,3)
-case/loc
-select case val( right$( rid_str, 1 ) )
-case 1 to 3
-prflactn_str=rid_str
-prflactnct_str=mkl(1)
-end select
-end select
+'select case left$(rid_str,3)
+'case/loc
+'select case val( right$( rid_str, 1 ) )
+'case 1 to 3
+'prflactn_str=rid_str
+'prflactnct_str=mkl(1)
+'end select
+'end select
 
 prflidty_sf=rid_sf
 prflhp_sf=140

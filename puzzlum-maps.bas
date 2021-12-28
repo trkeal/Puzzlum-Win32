@@ -126,34 +126,42 @@ sub map_loader ( map_filename as string = "%%" )
 			central_call "prflblnk"
 
 			prflgpic_str = "____"
+
+			Entity_Action
 			
 			select case rfg_str
             case "____"
                 central_call "prflblnk"
-                prflidty_sf = rid_sf
+                
+				Entity_Action
+
+				'prflidty_sf = rid_sf
+				
                 central_call "prflset"
             case "spdr"
                 central_call "prflblnk"
-                prflidty_str = "Spider"
+                
+				Entity_Action
+
+				'prflidty_str = "Spider"
 				
 				'prflactn_str = "movebiteweb_"
                 'prflactnct_str = mkl(1)+mkl(1)+mkl(1)
-
-				Entity_Action
                 
-				prflgpic_str = "spdr"
-                prflidty_sf = rid_sf
-                prflhp_sf = 10
-                prflstr_sf = 20
-                prflspd_sf = 1
-                prflarmr_sf = 1
-                prflvalu_sf = 5
-                prflpirc_sf = 1
-                prfllv_sf = 1
-                prflhpmax_sf = 10
-                prflstrmax_sf = 20
-                prflessmax_sf = 380
-                prflessspd_sf = 3
+				'prflgpic_str = "spdr"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 10
+                'prflstr_sf = 20
+                'prflspd_sf = 1
+                'prflarmr_sf = 1
+                'prflvalu_sf = 5
+                'prflpirc_sf = 1
+                'prfllv_sf = 1
+                'prflhpmax_sf = 10
+                'prflstrmax_sf = 20
+                'prflessmax_sf = 380
+                'prflessspd_sf = 3
+				
                 SELECT CASE mapname_str
                 CASE "0001"
                     IF prflidty_sf = 1 THEN
@@ -161,134 +169,152 @@ sub map_loader ( map_filename as string = "%%" )
                         prflactnct_str = prflactnct_str+mkl(1)
                     END IF
                 END SELECT
+				
                 central_call "prflset"
             case "wall"
                 central_call "prflblnk"
-                prflidty_str = "wall"
-                prflgpic_str = "wall"
-                prflidty_sf = 2
+                
+				Entity_Action
+
+				'prflidty_str = "wall"
+                'prflgpic_str = "wall"
+                'prflidty_sf = 2
+				
                 central_call "prflset"
             case "web_"
                 central_call "prflblnk"
-                prflidty_str = "Web"
+                
+				Entity_Action
+
+				'prflidty_str = "Web"
                 
 				'prflactn_str = "spdr"
                 'prflactnct_str = mkl(1)
                 
-				Entity_Action
-
 				
-				prflgpic_str = "web_"
-                prflidty_sf = rid_sf
-                prflhp_sf = 40
-                prflstr_sf = 50
-                prflspd_sf = 1
-                prflvalu_sf = 1
-                prfllv_sf = 1
-                prflhpmax_sf = 40
-                prflstrmax_sf = 50
-                prflessmax_sf = 380
-                prflessspd_sf = 2
-                central_call "prflset"
+				'prflgpic_str = "web_"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 40
+                'prflstr_sf = 50
+                'prflspd_sf = 1
+                'prflvalu_sf = 1
+                'prfllv_sf = 1
+                'prflhpmax_sf = 40
+                'prflstrmax_sf = 50
+                'prflessmax_sf = 380
+                'prflessspd_sf = 2
+                
+				central_call "prflset"
             case "grml"
                 central_call "prflblnk"
-                prflidty_str = "Gremlin"
+                
+				Entity_Action
+
+				'prflidty_str = "Gremlin"
                 
 				'prflactn_str = "movebitepnch"
                 'prflactnct_str = mkl(1)+mkl(1)+mkl(1)
-
-                Entity_Action
 
 				IF RND(1) > .2 THEN
                     prflactn_str = prflactn_str + "dggr"
                     prflactnct_str = prflactnct_str+mkl(1)
                 END IF
-                prflgpic_str = "grml"
-                prflidty_sf = rid_sf
-                prflhp_sf = 25
-                prflstr_sf = 90
-                prflspd_sf = 1
-                prflarmr_sf = 1
-                prflvalu_sf = 5
-                prflpirc_sf = 2
-                prfllv_sf = 1
-                prflhpmax_sf = 25
-                prflstrmax_sf = 90
+                'prflgpic_str = "grml"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 25
+                'prflstr_sf = 90
+                'prflspd_sf = 1
+                'prflarmr_sf = 1
+                'prflvalu_sf = 5
+                'prflpirc_sf = 2
+                'prfllv_sf = 1
+                'prflhpmax_sf = 25
+                'prflstrmax_sf = 90
+				
                 central_call "prflset"
             case "pndx"
                 central_call "prflblnk"
-                prflidty_str = "Poindexter"
-                prflactn_str = "wstf"
-                prflgpic_str = "pndx"
-                prflidty_sf = rid_sf
-                prflhp_sf = 30
-                prflstr_sf = 90
-                prfless_sf = 0
-                prflspd_sf = 3
-                prflarmr_sf = 2
-                prflexp_sf = 10
-                prflvalu_sf = 15
-                prflpirc_sf = 2
-                prfllv_sf = 1
-                prflhpmax_sf = 30
-                prflstrmax_sf = 90
-                prflessmax_sf = 30
-                prflessspd_sf = .1
-                prflevad_sf = .07
-                central_call "prflset"
+                
+				Entity_Action
+
+				'prflidty_str = "Poindexter"
+                'prflactn_str = "wstf"
+                'prflgpic_str = "pndx"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 30
+                'prflstr_sf = 90
+                'prfless_sf = 0
+                'prflspd_sf = 3
+                'prflarmr_sf = 2
+                'prflexp_sf = 10
+                'prflvalu_sf = 15
+                'prflpirc_sf = 2
+                'prfllv_sf = 1
+                'prflhpmax_sf = 30
+                'prflstrmax_sf = 90
+                'prflessmax_sf = 30
+                'prflessspd_sf = .1
+                'prflevad_sf = .07
+                
+				central_call "prflset"
             case "dtby"
                 central_call "prflblnk"
-                prflidty_str = "Dust Bunny"
+                
+				Entity_Action
+
+				'prflidty_str = "Dust Bunny"
 
                 'prflactn_str = "movebitekickdtbydust"
                 
-				Entity_Action
-
-				prflgpic_str = "dtby"
-                prflidty_sf = rid_sf
-                prflhp_sf = 15
-                prflstr_sf = 20
-                prfless_sf = 5
-                prflspd_sf = 1.2
-                prflvalu_sf = 2
-                prfllv_sf = 1
-                prflhpmax_sf = 15
-                prflstrmax_sf = 20
-                prflessmax_sf = 280
-                prflessspd_sf = 1
-                central_call "prflset"
+				'prflgpic_str = "dtby"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 15
+                'prflstr_sf = 20
+                'prfless_sf = 5
+                'prflspd_sf = 1.2
+                'prflvalu_sf = 2
+                'prfllv_sf = 1
+                'prflhpmax_sf = 15
+                'prflstrmax_sf = 20
+                'prflessmax_sf = 280
+                'prflessspd_sf = 1
+                
+				central_call "prflset"
             case "shkt"
                 central_call "prflblnk"
-                prflidty_str = "Shiny Knight"
+                
+				Entity_Action
+				
+				'prflidty_str = "Shiny Knight"
                 
 				'prflactn_str = "movepnchdggr"
                 'prflactnct_str = mkl(1)+mkl(1)+mkl(1)
                 
-				Entity_Action
-
-				prflgpic_str = "shkt"
-                prflidty_sf = rid_sf
-                prflhp_sf = 45
-                prflstr_sf = 110
-                prflspd_sf = 1
-                prflarmr_sf = 4
-                prflvalu_sf = 17
-                prflpirc_sf = 3
-                prfllv_sf = 1
-                prflhpmax_sf = 45
-                prflstrmax_sf = 110
-                prflessmax_sf = 12
-                prflevad_sf = .12
+				'prflgpic_str = "shkt"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 45
+                'prflstr_sf = 110
+                'prflspd_sf = 1
+                'prflarmr_sf = 4
+                'prflvalu_sf = 17
+                'prflpirc_sf = 3
+                'prfllv_sf = 1
+                'prflhpmax_sf = 45
+                'prflstrmax_sf = 110
+                'prflessmax_sf = 12
+                'prflevad_sf = .12
+				
                 central_call "prflset"
             case "emgd"
                 central_call "prflblnk"
-                prflidty_str = "Emerald Guard"
+                
+				Entity_Action
+
+				'prflidty_str = "Emerald Guard"
                 
 				'prflactn_str = "movepnchdggr"
                 'prflactnct_str = mkl(1)+mkl(1)+mkl(1)
                 
-				Entity_Action
-
 				rr_sf = RND(1)
                 IF rr_sf > .1 AND rr_sf <= .4 THEN
                     prflactn_str = prflactn_str + "dggr"
@@ -298,23 +324,28 @@ sub map_loader ( map_filename as string = "%%" )
                     prflactn_str = prflactn_str + "pike"
                     prflactnct_str = prflactnct_str+mkl(1)
                 END IF
-                prflgpic_str = "emgd"
-                prflidty_sf = rid_sf
-                prflhp_sf = 40
-                prflstr_sf = 140
-                prflspd_sf = 2
-                prflarmr_sf = 5
-                prflvalu_sf = 17
-                prflpirc_sf = 3
-                prfllv_sf = 1
-                prflhpmax_sf = 40
-                prflstrmax_sf = 140
-                prflevad_sf = .2
-                central_call "prflset"
+                
+				'prflgpic_str = "emgd"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 40
+                'prflstr_sf = 140
+                'prflspd_sf = 2
+                'prflarmr_sf = 5
+                'prflvalu_sf = 17
+                'prflpirc_sf = 3
+                'prfllv_sf = 1
+                'prflhpmax_sf = 40
+                'prflstrmax_sf = 140
+                'prflevad_sf = .2
+                
+				central_call "prflset"
             case "door"
                 central_call "prflblnk"
-                prflidty_str = "Wooden Door"
-                prflgpic_str = "door"
+
+				Entity_Action
+
+                'prflidty_str = "Wooden Door"
+                'prflgpic_str = "door"
                 
                 select case left$(rid_str,3)
                 case "loc"
@@ -325,20 +356,25 @@ sub map_loader ( map_filename as string = "%%" )
 					end select
                 end select
 
-                prflidty_sf = rid_sf
-                prflhp_sf = 140
-                prflstr_sf = 140
-                prflarmr_sf = 5
-                prflvalu_sf = 1
-                prfllv_sf = 1
-                prflhpmax_sf = 140
-                prflstrmax_sf = 140
-                central_call "prflset"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 140
+                'prflstr_sf = 140
+                'prflarmr_sf = 5
+                'prflvalu_sf = 1
+                'prfllv_sf = 1
+                'prflhpmax_sf = 140
+                'prflstrmax_sf = 140
+                
+				central_call "prflset"
             case "chst"
                 central_call "prflblnk"
-                prflidty_str = "Treasure Chest"
-                prflgpic_str = "chst"
-                select case left$(rid_str,3)
+                
+				Entity_Action
+
+				'prflidty_str = "Treasure Chest"
+                'prflgpic_str = "chst"
+                
+				select case left$(rid_str,3)
                 case "loc"
 					select case val( right$( rid_str, 1 ) )
 					case 1 to 3
@@ -346,48 +382,56 @@ sub map_loader ( map_filename as string = "%%" )
 						prflactnct_str = mkl(1)
 					end select
                 end select
-                prflidty_sf = rid_sf
-                prflhp_sf = 140
-                prflstr_sf = 140
-                prflarmr_sf = 5
-                prflvalu_sf = 1
-                prfllv_sf = 1
-                prflhpmax_sf = 140
-                prflstrmax_sf = 140
-                central_call "prflset"
+                
+				'prflidty_sf = rid_sf
+                'prflhp_sf = 140
+                'prflstr_sf = 140
+                'prflarmr_sf = 5
+                'prflvalu_sf = 1
+                'prfllv_sf = 1
+                'prflhpmax_sf = 140
+                'prflstrmax_sf = 140
+                
+				central_call "prflset"
             case "imp_"
                 central_call "prflblnk"
-                prflidty_str = "Little Imp"
+
+				Entity_Action
+
+                'prflidty_str = "Little Imp"
                 
 				'prflactn_str = "movewingfire"
                 'prflactnct_str = mkl(1)+mkl(1)+mkl(1)
                 
-				Entity_Action
-
 				IF INT(RND(1) * 2) + 1 = 2 THEN
                     prflidty_str = "Merchant"
                     prflactn_str = prflactn_str + "dggrgrplseed"
                     prflactnct_str = prflactnct_str+mkl(1)+mkl(1)+mkl(1)
                 END IF
-                prflgpic_str = "imp_"
-                prflidty_sf = rid_sf
-                prflhp_sf = 30
-                prflstr_sf = 30
-                prfless_sf = 30
-                prflspd_sf = 5
-                prflarmr_sf = 1
-                prflvalu_sf = 24
-                prflpirc_sf = 1
-                prfllv_sf = 1
-                prflhpmax_sf = 30
-                prflstrmax_sf = 30
-                prflessmax_sf = 90
-                prflessspd_sf = 3
-                prflevad_sf = .3
-                central_call "prflset"
+                
+				'prflgpic_str = "imp_"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 30
+                'prflstr_sf = 30
+                'prfless_sf = 30
+                'prflspd_sf = 5
+                'prflarmr_sf = 1
+                'prflvalu_sf = 24
+                'prflpirc_sf = 1
+                'prfllv_sf = 1
+                'prflhpmax_sf = 30
+                'prflstrmax_sf = 30
+                'prflessmax_sf = 90
+                'prflessspd_sf = 3
+                'prflevad_sf = .3
+                
+				central_call "prflset"
             case "chst"
                 central_call "prflblnk"
-                prflidty_str = "Treasure chest"
+                
+				Entity_Action
+
+				'prflidty_str = "Treasure chest"
                 
 				IF INT(RND(1) * 2) = 1 THEN
                     prflactn_str = "key1"
@@ -397,25 +441,28 @@ sub map_loader ( map_filename as string = "%%" )
                     prflactnct_str = mkl(1)
                 END IF
 				
-				'Entity_Action
-
-                prflgpic_str = "chst"
-                prflidty_sf = rid_sf
-                prflhp_sf = 100
-                prfllv_sf = 1
-                prflhpmax_sf = 100
-                central_call "prflset"
+                'prflgpic_str = "chst"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 100
+                'prfllv_sf = 1
+                'prflhpmax_sf = 100
+                
+				central_call "prflset"
             case "bldr"
-                central_call "prflblnk"
-                prflidty_str = "Big boulder"
-                prflactn_str = ""
-                prflgpic_str = "bldr"
-                prflidty_sf = rid_sf
-                prflhp_sf = 1000
-                prflarmr_sf = 10
-                prfllv_sf = 1
-                prflhpmax_sf = 1000
-                central_call "prflset"
+				central_call "prflblnk"
+                
+				Entity_Action
+                
+				'prflidty_str = "Big boulder"
+                'prflactn_str = ""
+                'prflgpic_str = "bldr"
+                'prflidty_sf = rid_sf
+                'prflhp_sf = 1000
+                'prflarmr_sf = 10
+                'prfllv_sf = 1
+                'prflhpmax_sf = 1000
+                
+				central_call "prflset"
 			end select
 			
 			if rbg_str = "" then
@@ -476,40 +523,56 @@ end sub
 
 sub Entity_Action
 	
+	dim as string target = string$( 0, 0 )
+	Central_Count += 1
+	target = "map" + colon + "Entity_Action" + string$( 1, 32 ) + quot + left$( rfg_str + string$( 4, "_" ), 4 ) + quot
+	central_debug target
+	
 	redim as names_type Entity_Table( any )
 	dim as integer count = 0, index = 0
 	
 	load_names_from_file( ".\gamelogic\prfl\actn\" + left$( rfg_str + string$( 4, "_" ), 4 ) + ".dat", Entity_Table() )
 	
+	select case sync_names( "case/" + left$( rfg_str + string$( 4, "_" ), 4 ), Entity_Table() )
+	case "ok"
+	case else
+		Central_Close_Out target	
+		exit sub
+	end select
+	
 	dim as string profile_actions = string$( 0, 0 ), profile_counts = string$( 0, 0 )
 	
-	profile_actions = sync_names("prfl/actn", Entity_Table() )
-	profile_counts = sync_names("prfl/actn/ct", Entity_Table() )
+	profile_actions = sync_names("prflactn_str", Entity_Table() )
+	profile_counts = sync_names("prflactnct_str", Entity_Table() )
 	
 	count = ( len( profile_actions ) + 1 ) \ 5
 	
 	prflactn_str = string$( 0, 0 )
 	prflactnct_str = string$( 0, 0 )
 	
-	if profile_actions = "%%" then exit sub
+	select case profile_actions
+	case "%%"
+	case else
+		for index = 1 to count step 1
+			
+			prflactn_str += mid$( profile_actions, ( index + 4 ) / 5, 4 )
+			
+			select case profile_counts
+			case "%%"
+				prflactnct_str += mkl( 0 )
+			case else
+				prflactnct_str += mkl( val( mid$( profile_counts, ( index + 4 ) / 5, 4 ) ) )
+			end select
+			
+		next
+	end select
 	
-	for index = 1 to count step 1
-		
-		prflactn_str += mid$( profile_actions, ( index + 4 ) / 5, 4 )
-		
-		select case profile_counts
-		case "%%"
-			prflactnct_str += mkl( 0 )
-		case else
-			prflactnct_str += mkl( val( mid$( profile_counts, ( index + 4 ) / 5, 4 ) ) )
-		end select
-		
-	next
+	prflidty_sf = rid_sf
 	
 	prflidty_str = sync_names("prflidty_str", Entity_Table() )
-	'prflactn_str = sync_names("prflactn_str", Entity_Table() )
+	prflactn_str = sync_names("prflactn_str", Entity_Table() )'
 	prflgpic_str = sync_names("prflgpic_str", Entity_Table() )
-	prflidty_sf = val( sync_names("prflidty_sf", Entity_Table() ) )
+	prflidty_sf = val( sync_names("prflidty_sf", Entity_Table() ) )'
 	prflhp_sf = val( sync_names("prflhp_sf", Entity_Table() ) )
 	prflstr_sf = val( sync_names("prflstr_sf", Entity_Table() ) )
 	prfless_sf = val( sync_names("prfless_sf", Entity_Table() ) )
@@ -525,4 +588,6 @@ sub Entity_Action
 	prflessspd_sf = val( sync_names("prflessspd_sf", Entity_Table() ) )
 	prflevad_sf = val( sync_names("prflevad_sf", Entity_Table() ) )
 	
+	Central_Close_Out target	
+
 end sub

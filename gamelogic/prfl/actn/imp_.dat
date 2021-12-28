@@ -1,17 +1,17 @@
-case/imp_
+case/imp_=ok
 central_call prflblnk
 prflidty_str=Little Imp
 
 prflactn_str=move,wing,fire
 prflactnct_str=0001,0001,0001
 
-Entity_Action
+'Entity_Action
 
-IF INT(RND(1) * 2) + 1=2 THEN
-prflidty_str=Merchant
-prflactn_str=prflactn_str + dggrgrplseed
-prflactnct_str=prflactnct_str+mkl(1)+mkl(1)+mkl(1)
-END IF
+'IF INT(RND(1) * 2) + 1=2 THEN
+'prflidty_str=Merchant
+'prflactn_str=prflactn_str + dggrgrplseed
+'prflactnct_str=prflactnct_str+mkl(1)+mkl(1)+mkl(1)
+'END IF
 prflgpic_str=imp_
 prflidty_sf=rid_sf
 prflhp_sf=30

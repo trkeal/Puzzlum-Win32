@@ -1,4 +1,4 @@
-case/emgd
+case/emgd=ok
 central_call prflblnk
 prflidty_str=Emerald Guard
 
@@ -7,15 +7,15 @@ prflactnct_str=0001,0001,0001
 
 Entity_Action
 
-rr_sf=RND(1)
-IF rr_sf > .1 AND rr_sf <= .4 THEN
-prflactn_str=prflactn_str + dggr
-prflactnct_str=prflactnct_str+mkl(1)
-END IF
-IF rr_sf > .4 AND rr_sf <= 1 THEN
-prflactn_str=prflactn_str + pike
-prflactnct_str=prflactnct_str+mkl(1)
-END IF
+'rr_sf=RND(1)
+'IF rr_sf > .1 AND rr_sf <= .4 THEN
+'prflactn_str=prflactn_str + dggr
+'prflactnct_str=prflactnct_str+mkl(1)
+'END IF
+'IF rr_sf > .4 AND rr_sf <= 1 THEN
+'prflactn_str=prflactn_str + pike
+'prflactnct_str=prflactnct_str+mkl(1)
+'END IF
 prflgpic_str=emgd
 prflidty_sf=rid_sf
 prflhp_sf=40

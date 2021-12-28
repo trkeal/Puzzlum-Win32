@@ -1,6 +1,6 @@
-case/wall
+case/wall=ok
 central_call prflblnk
-prflidty_str=wall
+prflidty_str=Stone Brickwork
 prflgpic_str=wall
 prflidty_sf=2
 central_call prflset

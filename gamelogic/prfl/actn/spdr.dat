@@ -1,12 +1,12 @@
-case/spdr
+case/spdr=ok
 
 head/count=1
 head/1/central_call=prflblnk
 
-prflidty_str=Spider
+prflidty_str=Cob Spider
 
-prfl/actn=move,bite,web_
-prfl/actn/ct=0001,0001,0001
+prflactn_str=move,bite,web_
+prflactnct_str==0001,0001,0001
 
 prflidty_str=Spider
 
@@ -26,13 +26,13 @@ prflstrmax_sf=20
 prflessmax_sf=380
 prflessspd_sf=3
 
-SELECT CASE mapname_str
-case/0001
-IF prflidty_sf=1 THEN
-prflactn_str=prflactn_str + vnom
-prflactnct_str=prflactnct_str+mkl(1)
-END IF
-END SELECT
+'SELECT CASE mapname_str
+'case/0001
+'IF prflidty_sf=1 THEN
+'prflactn_str=prflactn_str + vnom
+'prflactnct_str=prflactnct_str+mkl(1)
+'END IF
+'END SELECT
 
 exit/count=1
 exit/1/central_call=prflset
