@@ -44,6 +44,10 @@ end if
 	
 sub central_debug ( target as string =  "" )
 
+	#ifndef __central_debug__
+		exit sub
+	#endif
+
 	Central_Count += 1
 	
 	redim preserve Central_History( 0 to Central_Count )
