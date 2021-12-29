@@ -280,6 +280,8 @@ declare sub font_loader()
 
 declare sub splash()
 
+declare sub names_dumper( filename as string = "" )
+
 declare sub central_loader( target as string = "" )
 
 declare sub loader()
