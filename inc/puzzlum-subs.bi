@@ -24,6 +24,9 @@
 
 	#include once ".\inc\central-debug.bi"
 
+	redim shared as names_type CMD_Table( any )
+	debug_status CMD_Table()
+
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"

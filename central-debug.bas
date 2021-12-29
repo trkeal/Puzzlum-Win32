@@ -44,27 +44,41 @@ else
 	close #filemode
 end if
 
-sub dump_commands( cmd_rip( any ) as string )
+sub debug_status( CMD_Table( any ) as names_type )
+
+	redim as string CMD_Rip( any )
+
+	dump_commands CMD_Rip()
+	
+	dump_array_to_table CMD_Rip(), CMD_Table()
+	
+	cmd_vars CMD_Table()
+
+end sub
+
+sub dump_commands( CMD_Rip( any ) as string )
 		
+	erase CMD_Rip
+	
 	dim as string cmd_temp = string$( 0, 0 )
-	dim as string cmd_i = string$( 0, 0 )
 	
 	dim as integer index = 0
 	
 	do
 		cmd_temp = command$( index )
 		
-		if len(cmd_temp) = 0 then exit do
+		if len( cmd_temp ) = 0 then exit do
 		
-		redim preserve cmd_rip( 0 to index )
+		redim preserve CMD_Rip( 0 to index )
 		
-		cmd_rip( index ) = cmd_temp
+		CMD_Rip( index ) = cmd_temp
 		
 		index += 1
 	loop
+
 end sub
 
-sub sync_commands_to_table( cmd_rip( any ) as string, CMD_Table( any ) as names_type )
+sub dump_array_to_table( CMD_Rip( any ) as string, CMD_Table( any ) as names_type )
 
 	dim as string cmd_temp = string$( 0, 0 )
 	dim as string buffer = string$( 0, 0 )
@@ -72,17 +86,19 @@ sub sync_commands_to_table( cmd_rip( any ) as string, CMD_Table( any ) as names_
 
 	dim as integer index = 0
 
-	buffer = "cmd/program" + eq + cmd_rip(0)
+	buffer = "cmd/0" + eq + CMD_Rip( 0 )
 
-	for index = 1 to ubound( cmd_rip, 1 ) step 1 
+	for index = lbound( CMD_Rip, 1 ) + 1 to ubound( CMD_Rip, 1 ) step 1 
 				
-		buffer += crlf + "cmd/" + ltrim$( str$( index ) ) + eq + cmd_rip( index )
+		buffer += crlf + "cmd/" + ltrim$( str$( index ) ) + eq + CMD_Rip( index )
 		
 	next index
 	
-	buffer = "cmd/count" + eq + ltrim$( str$( ubound( cmd_rip, 1 ) ) ) + crlf + buffer
+	buffer = "cmd/count" + eq + ltrim$( str$( ubound( CMD_Rip, 1 ) ) ) + crlf + buffer
 	
 	load_names_from_buffer buffer, CMD_Table()
+	
+	kill ".\win32\cmd.log"
 	
 	save_names_to_file ".\win32\cmd.log", CMD_Table()
 	

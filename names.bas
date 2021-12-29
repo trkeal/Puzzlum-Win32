@@ -176,12 +176,16 @@ end function
 
 sub load_names( filename as string = "", names_table( any ) as names_type )
 	
+	wipe_table names_table()
+
 	load_names_from_file( filename, names_table() )
 
 end sub
 
 sub load_names_from_buffer( buffer as string = "", names_table( any ) as names_type )
 	
+	wipe_table names_table()
+
 	dim as string subject = string$( 0, 0 )
 	
 	do while instr( 1, buffer, crlf ) > 0
@@ -225,6 +229,9 @@ sub load_names_from_buffer( buffer as string = "", names_table( any ) as names_t
 end sub
 
 sub load_names_from_file( filename as string = "", names_table( any ) as names_type )
+
+	wipe_table names_table()
+
 	dim as integer filemode = freefile
 	
 	dim as string buffer = string$( 0, 0 )

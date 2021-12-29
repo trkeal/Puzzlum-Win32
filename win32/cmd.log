@@ -1,2 +1,3 @@
-cmd/count=-1
-cmd/program=
+cmd/count=1
+cmd/0=puzzlum-win32.exe
+cmd/1=-debug
