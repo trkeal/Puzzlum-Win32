@@ -1,0 +1,27 @@
+
+sub ln_crtnweb()
+    central "statgain"
+    central "statmax"
+    central "getaction"
+    IF action_str <> "move" THEN
+        central "nextaction"
+    END IF
+    attackthem_str = "pndxgrmldtbyweb_shktemgdimp_"
+    
+	select case action_str
+	case "web_"
+		central "actn" + "web" + action_str
+	case else
+		central "actn" + action_str
+	end select
+	
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnwebmove"
+    'CASE CVL("spdr")
+    '    central "actnspdr"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub
+

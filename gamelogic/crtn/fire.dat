@@ -1,0 +1,11 @@
+sub ln_crtnfire()
+    central "statgain"
+    central "statmax"
+    central "getaction"
+    attackthem_str = "pndxgrmlspdrdtbyweb_shktemgd"
+    SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        central "actn"+"fire"+"move"
+    END SELECT
+    Exit Sub
+end sub

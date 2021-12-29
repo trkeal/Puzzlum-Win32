@@ -28,6 +28,9 @@
 dim shared as string debug_filename
 debug_filename = ".\win32\central.log"
 
+redim shared as names_type CMD_Table( any )
+load_command CMD_Table()
+
 kill debug_filename
 
 dim as integer filemode = freefile
@@ -41,12 +44,46 @@ else
 	put #filemode, lof( filemode ) + 1, buffer
 	close #filemode
 end if
+
+sub load_command( CMD_Table( any ) as names_type )
+	
+	dim as string buffer = string$( 0, 0 ), cmd_i = string$( 0, 0 )
+	
+	dim as integer index = 0
+	wipe_table CMD_Table()
+		
+	cmd_i = command$( index )
+	do
+		select case len( cmd_i ) = 0
+		case not( 0 )
+			exit do
+		case else
+			buffer += "cmd/" + ltrim$( str$( index ) ) + eq + cmd_i + crlf
+		end select
+		
+		cmd_i = command$( index + 1 )
+		select case len( cmd_i ) = 0
+		case not( 0 )
+			exit do
+		case else
+			index += 1
+		end select
+	
+	loop
+	
+	buffer += "cmd/count" + eq + ltrim$( str$( index ) ) + crlf + buffer
+	
+	load_names_from_buffer buffer, CMD_Table()
+	
+	save_names_to_file ".\win32\cmd.log", CMD_Table()
+	
+end sub
 	
 sub central_debug ( target as string =  "" )
 
-	#ifndef __central_debug__
+	if not( Debug_Enabled ) then
 		exit sub
-	#endif
+	end if
 
 	Central_Count += 1
 	
@@ -83,6 +120,10 @@ sub central_debug ( target as string =  "" )
 end sub
 
 sub central_close_out ( target as string =  "" )
+	
+	if not( Debug_Enabled ) then
+		exit sub
+	end if
 	
 	Central_Count -= 1	
 	redim preserve Central_History( 0 to Central_Count )

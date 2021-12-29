@@ -1,0 +1,28 @@
+
+sub ln_crtnemgd()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxgrmlspdrdtbyweb_imp_"
+    
+	central "actn" + action_str
+
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("pnch")
+    '    central "actnpnch"
+    'CASE CVL("kick")
+    '    central "actnkick"
+    'CASE CVL("dggr")
+    '    central "actndggr"
+    'CASE CVL("pike")
+    '    central "actnpike"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub

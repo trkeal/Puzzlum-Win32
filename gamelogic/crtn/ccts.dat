@@ -1,0 +1,27 @@
+
+sub ln_crtnccts()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = ""
+    here_str = "watr"
+    central "here"
+    IF here_si > 0 THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole"
+    END IF
+    here_str = "stpw"
+    central "here"
+    IF here_si > 0 THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stps"
+    END IF
+    
+	select case action_str
+	case "seed"
+        central "actnccts"	
+	case else
+		central "actn" + action_str	
+	end select
+
+    central "autolevelup"
+    Exit Sub
+end sub

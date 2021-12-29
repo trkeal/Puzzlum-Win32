@@ -44,9 +44,10 @@ declare function trimint overload ( subject as string = "" ) as string
 
 sub wipe_table( names( any ) as names_type )
 
-	redim names( 0 to 0 )
-	names( 0 ).label = string$( 0, 0 )
-	names( 0 ).value = string$( 0, 0 )
+	erase names
+	'redim as names_type names( any )
+	'names( 0 ).label = string$( 0, 0 )
+	'names( 0 ).value = string$( 0, 0 )
 	 
 end sub
 

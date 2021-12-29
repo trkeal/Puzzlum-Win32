@@ -1,0 +1,302 @@
+sub ln_crtnimp()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxgrmlspdrdtbyweb_emgdshkt"
+    
+	central "actn" + action_str
+	
+	'SELECT CASE CVL(action_str)	
+	'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("ispt")
+    '    central "actnispt"
+    'CASE CVL("wing")
+    '    central "actnwing"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtnfire()
+    central "statgain"
+    central "statmax"
+    central "getaction"
+    attackthem_str = "pndxgrmlspdrdtbyweb_shktemgd"
+    SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        central "actn"+"fire"+"move"
+    END SELECT
+    Exit Sub
+end sub
+
+sub ln_crtndust()
+    central "statgain"
+    central "statmax"
+    central "getaction"
+    attackthem_str = "pndxgrmlspdrshktemgdimp_"
+    SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        central "actn"+"dust"+"move"
+    END SELECT
+    Exit Sub
+end sub
+
+sub ln_crtnshkt()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxgrmlspdrdtbyweb_imp_"
+    
+	central "actn" + action_str
+
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("pnch")
+    '    central "actnpnch"
+    'CASE CVL("kick")
+    '    central "actnkick"
+    'CASE CVL("dggr")
+    '    central "actndggr"
+    'CASE CVL("pike")
+    '    central "actnpike"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtnemgd()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxgrmlspdrdtbyweb_imp_"
+    
+	central "actn" + action_str
+
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("pnch")
+    '    central "actnpnch"
+    'CASE CVL("kick")
+    '    central "actnkick"
+    'CASE CVL("dggr")
+    '    central "actndggr"
+    'CASE CVL("pike")
+    '    central "actnpike"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtnspdr()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxdtbyspdrimp_emgdshktgrml"
+    central "actn" + action_str
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("web_")
+    '    central "actnweb"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("vnom")
+    '    central "actnkick"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtnweb()
+    central "statgain"
+    central "statmax"
+    central "getaction"
+    IF action_str <> "move" THEN
+        central "nextaction"
+    END IF
+    attackthem_str = "pndxgrmldtbyweb_shktemgdimp_"
+    
+	select case action_str
+	case "web_"
+		central "actn" + "web" + action_str
+	case else
+		central "actn" + action_str
+	end select
+	
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnwebmove"
+    'CASE CVL("spdr")
+    '    central "actnspdr"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtndtby()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxgrmlspdrimp_emgdshkt"
+	
+	central "actn" + action_str
+
+    'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("dtby")
+    '    central "actndtby"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("kick")
+    '    central "actnkick"
+    'CASE CVL("dust")
+    '    central "actndust"
+    'END SELECT
+	
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtngrml()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxdtbyspdrimp_emgdshktweb_"
+    
+	central "actn" + action_str
+
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("pnch")
+    '    central "actnpnch"
+    'CASE CVL("kick")
+    '    central "actnkick"
+    'CASE CVL("dggr")
+    '    central "actndggr"
+    'CASE CVL("pike")
+    '    central "actnpike"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtnpndx()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxdtbyspdrimp_emgdshktweb_grmlccts"
+    
+	central "actn" + action_str
+	
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("pnch")
+    '    central "actnpnch"
+    'CASE CVL("kick")
+    '    central "actnkick"
+    'CASE CVL("dggr")
+    '    central "actndggr"
+    'CASE CVL("pike")
+    '    central "actnpike"
+    'CASE CVL("spdr")
+    '    central "actnspdr"
+    'CASE CVL("web_")
+    '    central "actnweb"
+    'CASE CVL("vnom")
+    '    central "actnvnom"
+    'CASE CVL("cure")
+    '    central "actncure"
+    'CASE CVL("ispt")
+    '    central "actnispt"
+    'CASE CVL("grpl")
+    '    central "actngrpl"
+    'CASE CVL("rapl")
+    '    central "actnrapl"
+    'CASE CVL("seed")
+    '    central "actnccts"
+    'CASE CVL("wstf")
+    '    central "actnwstf"
+    'CASE CVL("wing")
+    '    central "actnwing"
+    'CASE CVL("key1")
+    '    central "actnkey1"
+    'CASE CVL("key2")
+    '    central "actnkey2"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtnccts()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = ""
+    here_str = "watr"
+    central "here"
+    IF here_si > 0 THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole"
+    END IF
+    here_str = "stpw"
+    central "here"
+    IF here_si > 0 THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stps"
+    END IF
+    
+	select case action_str
+	case "seed"
+        central "actnccts"	
+	case else
+		central "actn" + action_str	
+	end select
+
+    central "autolevelup"
+    Exit Sub
+end sub
+
+sub ln_crtnbldr()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = ""
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole" THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "dirt"
+        central "gone"
+        Exit Sub
+    END IF
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "watr" THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stpw"
+        central "gone"
+        Exit Sub
+    END IF
+    'SELECT CASE CVL(action_str)
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub

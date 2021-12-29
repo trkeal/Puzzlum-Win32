@@ -1,0 +1,26 @@
+sub ln_crtndtby()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxgrmlspdrimp_emgdshkt"
+	
+	central "actn" + action_str
+
+    'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("dtby")
+    '    central "actndtby"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("kick")
+    '    central "actnkick"
+    'CASE CVL("dust")
+    '    central "actndust"
+    'END SELECT
+	
+    central "autolevelup"
+    Exit Sub
+end sub

@@ -1,0 +1,21 @@
+
+sub ln_crtnbldr()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = ""
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "hole" THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "dirt"
+        central "gone"
+        Exit Sub
+    END IF
+    IF MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "watr" THEN
+        MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 2), 5, 4) = "stpw"
+        central "gone"
+        Exit Sub
+    END IF
+    'SELECT CASE CVL(action_str)
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub

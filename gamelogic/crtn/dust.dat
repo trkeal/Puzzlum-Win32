@@ -1,0 +1,12 @@
+
+sub ln_crtndust()
+    central "statgain"
+    central "statmax"
+    central "getaction"
+    attackthem_str = "pndxgrmlspdrshktemgdimp_"
+    SELECT CASE CVL(action_str)
+    CASE CVL("move")
+        central "actn"+"dust"+"move"
+    END SELECT
+    Exit Sub
+end sub

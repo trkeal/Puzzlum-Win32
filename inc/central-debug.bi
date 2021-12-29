@@ -18,9 +18,15 @@
 
 #include once ".\inc\central-debug.bi"
 
+dim shared as integer Debug_Enabled = 0
+
 dim shared as integer Central_Count = 0
 
 redim shared as string Central_History( any )	
+
+declare sub load_command( CMD_Table( any ) as names_type )
+
+declare sub CMD_Debug_Enabled()
 
 declare sub central_debug ( target as string =  "" )
 

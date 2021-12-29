@@ -1,0 +1,52 @@
+
+sub ln_crtnpndx()
+    central "statgain"
+    central "statmax"
+    central "nextaction"
+    attackthem_str = "pndxdtbyspdrimp_emgdshktweb_grmlccts"
+    
+	central "actn" + action_str
+	
+	'SELECT CASE CVL(action_str)
+    'CASE CVL("move")
+    '    central "actnmove"
+    'CASE CVL("fire")
+    '    central "actnfire"
+    'CASE CVL("bite")
+    '    central "actnbite"
+    'CASE CVL("pnch")
+    '    central "actnpnch"
+    'CASE CVL("kick")
+    '    central "actnkick"
+    'CASE CVL("dggr")
+    '    central "actndggr"
+    'CASE CVL("pike")
+    '    central "actnpike"
+    'CASE CVL("spdr")
+    '    central "actnspdr"
+    'CASE CVL("web_")
+    '    central "actnweb"
+    'CASE CVL("vnom")
+    '    central "actnvnom"
+    'CASE CVL("cure")
+    '    central "actncure"
+    'CASE CVL("ispt")
+    '    central "actnispt"
+    'CASE CVL("grpl")
+    '    central "actngrpl"
+    'CASE CVL("rapl")
+    '    central "actnrapl"
+    'CASE CVL("seed")
+    '    central "actnccts"
+    'CASE CVL("wstf")
+    '    central "actnwstf"
+    'CASE CVL("wing")
+    '    central "actnwing"
+    'CASE CVL("key1")
+    '    central "actnkey1"
+    'CASE CVL("key2")
+    '    central "actnkey2"
+    'END SELECT
+    central "autolevelup"
+    Exit Sub
+end sub

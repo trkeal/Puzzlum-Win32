@@ -504,10 +504,10 @@ sub map_loader ( map_filename as string = "%%" )
                 end select
 			end select
 			
-			#ifdef __central_debug__
+			if Debug_Enabled then
 				put ( 0, 0 ), map_capture, alpha
 				flip
-			#endif
+			end if
 			
 		NEXT Tx_si
     NEXT Ty_si
