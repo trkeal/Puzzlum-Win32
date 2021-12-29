@@ -24,7 +24,11 @@ dim shared as integer Central_Count = 0
 
 redim shared as string Central_History( any )	
 
-declare sub sync_commands( CMD_Table( any ) as names_type )
+declare sub dump_commands( cmd_rip( any ) as string )
+
+declare sub sync_commands_to_table( cmd_rip( any ) as string, CMD_Table( any ) as names_type )
+
+declare sub cmd_vars( CMD_Table( any ) as names_type )
 
 declare sub CMD_Debug_Enabled()
 

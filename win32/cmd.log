@@ -1,2 +1,2 @@
-cmd/count=0
-cmd/0=
+cmd/count=-1
+cmd/program=

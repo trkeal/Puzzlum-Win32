@@ -29,7 +29,6 @@ dim shared as string debug_filename
 debug_filename = ".\win32\central.log"
 
 redim shared as names_type CMD_Table( any )
-sync_commands CMD_Table()
 
 kill debug_filename
 
@@ -45,35 +44,55 @@ else
 	close #filemode
 end if
 
-sub sync_commands( CMD_Table( any ) as names_type )
-
-	wipe_table CMD_Table()
+sub dump_commands( cmd_rip( any ) as string )
+		
+	dim as string cmd_temp = string$( 0, 0 )
+	dim as string cmd_i = string$( 0, 0 )
 	
-	dim as string buffer = string$( 0, 0 ), cmd_i = string$( 0, 0 )
-
-	buffer = "cmd/0" + eq + command$( 0 )
-	
-	dim as integer index = 1
+	dim as integer index = 0
 	
 	do
-		cmd_i = command$( index )
-		if len( cmd_i ) = 0 then
-			index -= 1
-			exit do
-		end if
-				
-		buffer += crlf + "cmd/" + ltrim$( str$( index ) ) + eq + cmd_i
+		cmd_temp = command$( index )
 		
-		index += 1	
+		if len(cmd_temp) = 0 then exit do
+		
+		redim preserve cmd_rip( 0 to index )
+		
+		cmd_rip( index ) = cmd_temp
+		
+		index += 1
 	loop
+end sub
+
+sub sync_commands_to_table( cmd_rip( any ) as string, CMD_Table( any ) as names_type )
+
+	dim as string cmd_temp = string$( 0, 0 )
+	dim as string buffer = string$( 0, 0 )
+	dim as string cmd_i = string$( 0, 0 )
+
+	dim as integer index = 0
+
+	buffer = "cmd/program" + eq + cmd_rip(0)
+
+	for index = 1 to ubound( cmd_rip, 1 ) step 1 
+				
+		buffer += crlf + "cmd/" + ltrim$( str$( index ) ) + eq + cmd_rip( index )
+		
+	next index
 	
-	buffer = "cmd/count" + eq + ltrim$( str$( index ) ) + crlf + buffer
+	buffer = "cmd/count" + eq + ltrim$( str$( ubound( cmd_rip, 1 ) ) ) + crlf + buffer
 	
 	load_names_from_buffer buffer, CMD_Table()
 	
 	save_names_to_file ".\win32\cmd.log", CMD_Table()
 	
-	index = 1
+end sub
+
+sub cmd_vars( CMD_Table( any ) as names_type )
+
+	dim as integer index = 1
+	dim as string cmd_i = string$( 0, 0 )
+	
 	do
 		if index > val( sync_names( "cmd/count", CMD_Table() ) ) then exit do
 		
@@ -81,11 +100,11 @@ sub sync_commands( CMD_Table( any ) as names_type )
 		
 		if cmd_i = "-debug" then
 			Debug_Enabled = not( 0 )
+			exit do
 		end if
 		
 		index += 1
 	loop
-	
 end sub
 
 sub central_debug ( target as string =  "" )
