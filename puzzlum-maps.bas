@@ -504,6 +504,9 @@ sub map_loader ( map_filename as string = "%%" )
                 end select
 			end select
 			
+			put ( 0, 0 ), map_capture, alpha
+			flip
+			
 		NEXT Tx_si
     NEXT Ty_si
 	
