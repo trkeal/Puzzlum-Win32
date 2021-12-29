@@ -29,7 +29,7 @@ dim shared as string debug_filename
 debug_filename = ".\win32\central.log"
 
 redim shared as names_type CMD_Table( any )
-load_command CMD_Table()
+sync_commands CMD_Table()
 
 kill debug_filename
 
@@ -45,40 +45,49 @@ else
 	close #filemode
 end if
 
-sub load_command( CMD_Table( any ) as names_type )
+sub sync_commands( CMD_Table( any ) as names_type )
+
+	wipe_table CMD_Table()
 	
 	dim as string buffer = string$( 0, 0 ), cmd_i = string$( 0, 0 )
+
+	buffer = "cmd/0" + eq + command$( 0 )
 	
-	dim as integer index = 0
-	wipe_table CMD_Table()
-		
-	cmd_i = command$( index )
+	dim as integer index = 1
+	
 	do
-		select case len( cmd_i ) = 0
-		case not( 0 )
+		cmd_i = command$( index )
+		if len( cmd_i ) = 0 then
+			index -= 1
 			exit do
-		case else
-			buffer += "cmd/" + ltrim$( str$( index ) ) + eq + cmd_i + crlf
-		end select
+		end if
+				
+		buffer += crlf + "cmd/" + ltrim$( str$( index ) ) + eq + cmd_i
 		
-		cmd_i = command$( index + 1 )
-		select case len( cmd_i ) = 0
-		case not( 0 )
-			exit do
-		case else
-			index += 1
-		end select
-	
+		index += 1	
 	loop
 	
-	buffer += "cmd/count" + eq + ltrim$( str$( index ) ) + crlf + buffer
+	buffer = "cmd/count" + eq + ltrim$( str$( index ) ) + crlf + buffer
 	
 	load_names_from_buffer buffer, CMD_Table()
 	
 	save_names_to_file ".\win32\cmd.log", CMD_Table()
 	
-end sub
+	index = 1
+	do
+		if index > val( sync_names( "cmd/count", CMD_Table() ) ) then exit do
+		
+		cmd_i = sync_names( "cmd/" + ltrim$( str$( index ) ), CMD_Table() )
+		
+		if cmd_i = "-debug" then
+			Debug_Enabled = not( 0 )
+		end if
+		
+		index += 1
+	loop
 	
+end sub
+
 sub central_debug ( target as string =  "" )
 
 	if not( Debug_Enabled ) then
