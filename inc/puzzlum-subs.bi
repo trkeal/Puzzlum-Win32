@@ -232,6 +232,10 @@
 	
 declare function Compare_Key( KeyPress as string = "", Comparison as string = "", Input_Table( any ) as names_type ) as integer
 
+declare function stripquotes( subject as string = "" ) as string
+
+declare function KeySet( subject as string = "%%" ) as string
+
 declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as integer
 
 declare function Rose_Direct( byref X as integer = 0, byref Y as integer = 0, Card as integer = 0, Range as integer = 0 ) as integer

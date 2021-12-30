@@ -1,46 +1,70 @@
-"Arrow Right"="&HFF4D"
-"Arrow Left"="&HFF4B"
-"Arrow Up"="&HFF48"
-"Arrow Down"="&HFF50"
+Arrow Right="&HFF4D"
+Arrow Left="&HFF4B"
+Arrow Up="&HFF48"
+Arrow Down="&HFF50"
 
-"Home"="&HFF47"
-"End"="&HFF4F"
-"Page Up"="&HFF49"
-"Page Down"="&HFF51"
+Home="&HFF47"
+End="&HFF4F"
+Page Up="&HFF49"
+Page Down="&HFF51"
 
-"Escape"="&H1B"
-"Enter"="&H0D"
-"Space"="&H20"
-"Tab"="&H09"
+Escape="&H1B"
+Enter="&H0D"
+Space="&H20"
+Tab="&H09"
 
-"Function 1"="&HFF3B"
-"Function 2"="&HFF3C"
-"Function 3"="&HFF3D"
-"Function 4"="&HFF3E"
-"Function 5"="&HFF3F"
-"Function 6"="&HFF40"
-"Function 7"="&HFF41"
-"Function 8"="&HFF42"
-"Function 9"="&HFF43"
-"Function 10"="N/A"
-"Function 11"="&HFF85"
-"Function 12"="&HFF86"
+Function 1="&HFF3B"
+Function 2="&HFF3C"
+Function 3="&HFF3D"
+Function 4="&HFF3E"
+Function 5="&HFF3F"
+Function 6="&HFF40"
+Function 7="&HFF41"
+Function 8="&HFF42"
+Function 9="&HFF43"
+Function 10="N/A"
+Function 11="&HFF85"
+Function 12="&HFF86"
 
-"Backspace"="&HFF08"
-"Delete"="&HFF53"
-"Insert"="&HFF52"
+Backspace="&HFF08"
+Delete="&HFF53"
+Insert="&HFF52"
 
-"Help"="&H68"
-"Continue"="&H63"
-"Title"="&H74"
-"Restart"="&H72"
-"Debug"="&H64"
-"Quit"="&H72"
+Help="&H68"
+Continue="&H63"
+Title="&H74"
+Restart="&H72"
+Debug="&H64"
+Quit="&H72"
 
-"Cancel"="&H1B"
-"Level Up"="&H6C"
-"Ok"="&H71"
+Cancel="&H1B"
+Level Up="&H6C"
+Ok="&H71"
 
-"Save"="&HFF3B"
-"Load"="&HFF3C"
-"Shop"="&HFF3D"
+Save="&HFF3B"
+Load="&HFF3C"
+Shop="&HFF3D"
+
+menu/Title/Row=3
+menu/Title/Col={{Bundle/statx}} + 5
+menu/Title/Button=-1
+
+menu/Restart/Row=21
+menu/Restart/Col=3
+menu/Restart/Button=-1
+
+menu/Quit/Row=23
+menu/Quit/Col=3
+menu/Quit/Button=-1
+
+menu/Help/Row=17
+menu/Help/Col=3
+menu/Help/Button=-1
+	
+menu/Debug/Row=25
+menu/Debug/Col=3
+menu/Debug/Button=-1
+
+menu/Title/Row=24
+menu/Title/Col=3
+menu/Title/Button=-1

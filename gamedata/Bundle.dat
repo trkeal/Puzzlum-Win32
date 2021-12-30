@@ -1,6 +1,9 @@
 
+statx=24
+
 debug/filename=.\win32\central.log
 
+title=Puzzlum-Win32
 copyright=Copyright 1989-2021 Timothy Robert Keal
 copyright/license=Lesser Gnu Public License "2.2"
 copyright/ammendment=Attribution, Education / Charity

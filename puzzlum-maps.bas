@@ -41,6 +41,8 @@ sub map_loader ( map_filename as string = "%%" )
 	
 	dim as fb.image ptr cell
 	dim as fb.image ptr map_capture
+
+	splash
 	
 	'#ifdef __clv_debug__
 		dim as string target = string$( 0, 0 )
@@ -505,14 +507,14 @@ sub map_loader ( map_filename as string = "%%" )
 			end select
 			
 			if Debug_Enabled then
-				put ( 0, 0 ), map_capture, alpha
-				flip
+				put ( ( Display_Width - map_capture -> width ) shr 1, ( Display_Height - map_capture -> height ) shr 1 ), map_capture, alpha
+    			flip
 			end if
 			
 		NEXT Tx_si
     NEXT Ty_si
 	
-	put ( 0, 0 ), map_capture, alpha
+	put ( ( Display_Width - map_capture -> width ) shr 1, ( Display_Height - map_capture -> height ) shr 1 ), map_capture, alpha
     
 	flip
 	
