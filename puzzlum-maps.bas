@@ -85,7 +85,7 @@ sub map_loader ( map_filename as string = "%%" )
         
 	'level up data
 
-	load_names_from_file( sync_names( "filename/levels", Bundle_Table() ), Levels_Table() )
+	load_names_from_file( sync_names( "levels/filename", Bundle_Table() ), Levels_Table() )
 	
     FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
         l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )

@@ -9,31 +9,31 @@ email=trkeal@gmail.com
 license/website=http://www.gnu.org/copyleft/gpl.html
 licnese/intro=Released under the
 
-filename/bundle=.\gamedata\Bundle.dat
-filename/help=.\gamedata\Help\Help.hlp
-filename/input=.\gamedata\Input.dat
-filename/levels=.\gamedata\Levels.dat
-filename/main=.\gamedata\Main.dat
-filename/names=.\gamedata\Names.dat
-filename/palette=.\gamedata\QBVGAPAL.BIN
-filename/rose=.\gamedata\Rose.dat
-filename/display=.\gamedata\Display.dat
+bundle/filename=.\gamedata\Bundle.dat
+help/filename=.\gamedata\Help\Help.hlp
+input/filename=.\gamedata\Input.dat
+levels/filename=.\gamedata\Levels.dat
+main/filename=.\gamedata\Main.dat
+names/filename=.\gamedata\Names.dat
+palette/filename=.\gamedata\QBVGAPAL.BIN
+rose/filename=.\gamedata\Rose.dat
+display/filename=.\gamedata\Display.dat
 
-filename/attack=.\gamelogic\Attack Table.dat
+attack/filename=.\gamelogic\Attack Table.dat
 
-path/main=.\
-path/fonts=.\gameart\fonts\
-path/logos=.\gameart\logos\
-path/sprites=.\gameart\sprites\
-path/maps=.\gamedata\maps\
-path/palette=.\gamedata\
+main/path=.\
+fonts/path=.\gameart\fonts\
+logos/path=.\gameart\logos\
+sprites/path=.\gameart\sprites\
+palette/path=.\gamedata\
 
-path/splash=.\gameart\logos\
-filename/splash=puz.splash.png
+splash/path=.\gameart\logos\
+splash/filename=splash.png
 splash/width=640
 splash/height=128
 
-map/filename=.\gamedata\maps\Dire Dungeon 1.dat
+maps/path=.\gamedata\maps\
+map/filename=Dire Dungeon 1.dat
 
 function/key/count=3
 function/key/1=Save

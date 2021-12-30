@@ -34,8 +34,8 @@ puzzlum-subs.bas(4458) warning 36(1): Mismatching parameter initializer, at para
 puzzlum-subs.bas(4566) warning 36(1): Mismatching parameter initializer, at parameter 1 (caption) of report_caption()
 puzzlum-subs.bas(4676) warning 36(1): Mismatching parameter initializer, at parameter 1 (filename) of names_dumper()
 puzzlum-subs.bas(4741) warning 36(1): Mismatching parameter initializer, at parameter 1 (target) of central_loader()
-puzzlum-subs.bas(4898) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of text_out()
-puzzlum-subs.bas(4931) warning 36(1): Mismatching parameter initializer, at parameter 1 (tag) of cleantag()
+puzzlum-subs.bas(4900) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of text_out()
+puzzlum-subs.bas(4933) warning 36(1): Mismatching parameter initializer, at parameter 1 (tag) of cleantag()
  
 ===[ Puzzlum / Maps ]==[ Win32 Static Library ]=== 
  

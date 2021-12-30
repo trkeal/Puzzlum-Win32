@@ -8,11 +8,11 @@ filename/palette=.\gamedata\QBVGAPAL.BIN
 filename/rose=.\gamedata\Rose.dat
 filename/display=.\gamedata\Display.dat
 
-path/main=.\
-path/fonts=.\gameart\fonts\
-path/logos=.\gameart\logos\
-path/sprites=.\gameart\sprites\
-path/maps=.\gamedata\maps\
-path/palette=.\gamedata\
+main/path=.\
+fonts/path=.\gameart\fonts\
+logos/path=.\gameart\logos\
+sprites/path=.\gameart\sprites\
+maps/path=.\gamedata\maps\
+palette/path=.\gamedata\
 
 filename/map=Dire Dungeon 1.dat
