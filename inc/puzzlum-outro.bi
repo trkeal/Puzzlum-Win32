@@ -42,19 +42,23 @@
 		shade as string
 		method as string
 	end type
+	
+	declare sub outro()
 
-	declare sub splash()
-
-	declare sub outro_from_bundle( outro_prefix as string = "outro", outro_style as style_type )
+	declare sub outro_from_bundle( outro_prefix as string = "outro", outro_style( any ) as style_type )
 
 	declare sub outro_style_shade( outro_shade as string )
 
-	declare sub outro_text_to_image( outro_prefix as string = "outro", outro_style as style_type )
+	declare sub outro_text_to_image( outro_style( any ) as style_type )
 
-	declare function image_from_style( outro_style as style_type ) as fb.image ptr
+	declare sub image_from_style( outro_style( any ) as style_type )
 
-	declare sub outro( prefix as string = "outro" )
-	
+	declare sub outro_gfx( outro_prefix as string = "outro" )
+
+	declare sub put_method( target as fb.image ptr, x as integer = 0, y as integer = 0, img as fb.image ptr, method as string = "alpha" )
+
 	declare sub stretch( src as fb.image ptr, dest as fb.image ptr )
-	
+
 	declare sub repeat( src as fb.image ptr, dest as fb.image ptr )
+
+	declare sub splash()

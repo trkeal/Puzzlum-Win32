@@ -10,6 +10,8 @@ type names_type
 	value as string
 end type
 
+declare function sync_names_using_default( label as string = "", default as string = "%%", names_table( any ) as names_type ) as string
+
 declare sub wipe_table( names( any ) as names_type )
 declare sub names_push( label as string, value as string, names_table( any ) as names_type )
 
@@ -41,6 +43,23 @@ declare function trimint overload ( subject as double = 0 ) as string
 declare function trimint overload ( subject as long = 0 ) as string	
 declare function trimint overload ( subject as short = 0 ) as string	
 declare function trimint overload ( subject as string = "" ) as string	
+
+function sync_names_using_default( label as string = "", default as string = "%%", names_table( any ) as names_type ) as string
+	
+	dim as string temp = string$( 0, 0 )
+	temp = sync_names( label, names_table() )
+	
+	select case temp
+	case "%%"
+		sync_names_using_default = default
+		exit function
+	case else
+		sync_names_using_default = temp
+		exit function
+	end select
+	
+end function
+
 
 sub wipe_table( names( any ) as names_type )
 

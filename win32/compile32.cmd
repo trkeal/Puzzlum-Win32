@@ -37,12 +37,12 @@ if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Names Table ]==[ %static% ]=== >> %log%
-%fbc% "names.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% "Names.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Composite Layer Video ]==[ %static% ]=== >> %log%
-%fbc% "clv.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% "CLV.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%

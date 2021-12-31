@@ -24,18 +24,39 @@
 	#include once ".\inc\fbpngs.bi"
 
 	#include once ".\inc\puzzlum-outro.bi"
-		
-sub outro_from_bundle( outro_prefix as string = "outro", outro_style as style_type )
 
+sub outro()
+	splash
+	flip
+	do while len(inkey)=0
+	loop
+	outro_gfx "outro"
+	flip
+	do while len(inkey)=0
+	loop
+	end
+	
+end sub
+		
+sub outro_from_bundle( outro_prefix as string = "outro", outro_style( any ) as style_type )
+
+	
+	dim as integer index = 0
+	
 	redim as names_type Outro_Table( any )
 	erase Outro_Table
 	load_names_from_file( ".\gamedata\Outro.dat", Outro_Table() )
 	
-	outro_style.img = png_load( sync_names( outro_prefix + "/img", Outro_Table() ) )
-	outro_style.msg = sync_names( outro_prefix + "/msg", Outro_Table() )
-	outro_style.w = sync_names( outro_prefix + "/width", Outro_Table() )
-	outro_style.h = sync_names( outro_prefix + "/height", Outro_Table() )
-	outro_style.shade = sync_names( outro_prefix + "/shade", Outro_Table() )
+	dim as string prefix = string$( 0, 0 )
+	prefix = outro_prefix + "/" + ltrim$( str$( index ) )
+	
+	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
+		outro_style( index ).img = png_load( sync_names( prefix + "/img", Outro_Table() ) )
+		outro_style( index ).msg = sync_names( prefix + "/msg", Outro_Table() )
+		outro_style( index ).w = sync_names( prefix  + "/width", Outro_Table() )
+		outro_style( index ).h = sync_names( prefix  + "/height", Outro_Table() )
+		outro_style( index ).shade = sync_names( prefix + "/shade", Outro_Table() )
+	next index
 	
 end sub
 
@@ -50,73 +71,91 @@ sub outro_style_shade( outro_shade as string )
 	end select
 end sub
 
-sub outro_text_to_image( outro_prefix as string = "outro", outro_style as style_type )
-
-	outro_style_shade outro_style.shade
+sub outro_text_to_image( outro_style( any ) as style_type )
 	
-	outro_style.img = imagecreate( len( outro_style.msg ) shl 3, 8, 0, 32 )
+	dim as integer index = 0
 	
-	draw string outro_style.img, ( 0, 0 ), outro_style.msg, val( outro_style.shade )
+	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
+	
+		outro_style_shade outro_style( index ).shade
+	
+		outro_style( index ).img = imagecreate( len( outro_style( index ).msg ) shl 3, 8, 0, 32 )
+	
+		draw string outro_style( index ).img, ( 0, 0 ), outro_style( index ).msg, val( outro_style( index ).shade )
+		
+	next index
 	
 end sub
 
-function image_from_style( outro_style as style_type ) as fb.image ptr
-	
-	dim as integer outro_w = outro_style.img -> width
-	dim as integer outro_h = outro_style.img -> height
-	
-	select case not( 0 )
-	case right$( outro_style.w, 1 ) = "%"
-		
-		outro_w = ( outro_style.img -> width ) * val( left$( outro_style.w, len( outro_style.w ) - 1 ) ) \ 100
-		
-	case right$( outro_style.w, 2 ) = "px"
-		
-		outro_w = val( left$( outro_style.w, len( outro_style.w ) - 2 ) )
-		
-	case right$( outro_style.w, 2 ) = "vw"
-		
-		outro_w = ( Display_Width ) * val( left$( outro_style.w, len( outro_style.w ) - 2 ) ) \ 100
-		
-	case else	
-		
-		outro_w = outro_style.img -> width
-		
-	end select
+sub image_from_style( outro_style( any ) as style_type )
 
-	select case not( 0 )
-	case right$( outro_style.h, 1 ) = "%"
-		
-		outro_h = ( outro_style.img -> height ) * val( left$( outro_style.h, len( outro_style.h ) - 1 ) ) \ 100
-		
-	case right$( outro_style.h, 2 ) = "px"
-		
-		outro_h = val( left$( outro_style.h, len( outro_style.h ) - 2 ) )
-		
-	case right$( outro_style.h, 2 ) = "vw"
-		
-		outro_h = ( Display_Width ) * val( left$( outro_style.h, len( outro_style.h ) - 2 ) ) \ 100
-		
-	case else	
-		
-		outro_h = outro_style.img -> height
-		
-	end select
-	
-	dim as fb.image ptr outro_stretch = imagecreate( outro_w, outro_h, 0, 32 )
-	
-	stretch outro_style.img, outro_stretch
-	
-	cls
-	
-	put ( ( Display_Width - outro_stretch -> width ) shr 1, ( Display_Height - outro_stretch -> height ) shr 1 ), outro_stretch
-		
-	'imagedestroy outro_img
-	image_from_style = outro_stretch
-		
-end function
+	dim as integer outro_w = 0
+	dim as integer outro_h = 0
 
-sub outro( prefix as string = "outro" )
+	dim as integer index = 0
+	dim as fb.image ptr outro_stretch
+	
+	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
+		
+		outro_w = outro_style( index ).img -> width
+		outro_h = outro_style( index ).img -> height
+	
+		select case not( 0 )
+		case right$( outro_style( index ).w, 1 ) = "%"
+			
+			outro_w = ( outro_style( index ).img -> width ) * val( left$( outro_style( index ).w, len( outro_style( index ).w ) - 1 ) ) \ 100
+			
+		case right$( outro_style( index ).w, 2 ) = "px"
+			
+			outro_w = val( left$( outro_style( index ).w, len( outro_style( index ).w ) - 2 ) )
+			
+		case right$( outro_style( index ).w, 2 ) = "vw"
+			
+			outro_w = ( Display_Width ) * val( left$( outro_style( index ).w, len( outro_style( index ).w ) - 2 ) ) \ 100
+			
+		case else	
+			
+			outro_w = outro_style( index ).img -> width
+			
+		end select
+	
+		select case not( 0 )
+		case right$( outro_style( index ).h, 1 ) = "%"
+			
+			outro_h = ( outro_style( index ).img -> height ) * val( left$( outro_style( index ).h, len( outro_style( index ).h ) - 1 ) ) \ 100
+			
+		case right$( outro_style( index ).h, 2 ) = "px"
+			
+			outro_h = val( left$( outro_style( index ).h, len( outro_style( index ).h ) - 2 ) )
+			
+		case right$( outro_style( index ).h, 2 ) = "vw"
+			
+			outro_h = ( Display_Width ) * val( left$( outro_style( index ).h, len( outro_style( index ).h ) - 2 ) ) \ 100
+			
+		case else	
+			
+			outro_h = outro_style( index ).img -> height
+			
+		end select
+		
+		dim as fb.image ptr outro_stretch = imagecreate( outro_w, outro_h, 0, 32 )
+		
+		stretch outro_style( index ).img, outro_stretch
+		
+		cls
+		
+		put ( ( Display_Width - outro_stretch -> width ) shr 1, ( Display_Height - outro_stretch -> height ) shr 1 ), outro_stretch
+		
+	next index
+	
+	imagedestroy outro_style( index ).img
+	outro_style( index ).img = outro_stretch
+		
+end sub
+
+sub outro_gfx( outro_prefix as string = "outro" )
+	
+	dim as string prefix = string$( 0, 0 )
 	
 	redim as names_type	Outro_Table( any )
 	erase Outro_Table
@@ -134,88 +173,50 @@ sub outro( prefix as string = "outro" )
 	dim as integer index = 0
 
 	splash
-	
-	'for index = lbound( outro_filename, 1 ) to ubound( outro_filename, 1 ) step 1
-	'
-	'	outro_filename( index ) = sync_names( prefix + "/sprite/" + ltrim$( str$( index ) ), Outro_Table() )
-	'
-	'	outro_method( index ) = sync_names( prefix + "/method/" + ltrim$( str$( index ) ), Outro_Table() )
-	'next index
-	
-	dim as style_type outro_style( any )
+		
+	redim as style_type outro_style( any )
 	erase outro_style
-	redim outro_style( 0 to 1 )
-	
-	outro_style( 0 ).filename = sync_names( prefix + "/filename/0", Outro_Table() )
-	if outro_style( 0 ).filename = "%%" then
-		outro_style( 0 ).filename = ".\gameart\sprites\pndx____.24.y"
-	end if
+	redim outro_style( 0 to val( sync_names_using_default( outro_prefix + "/count", "1", Outro_Table() ) ) )
 	
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
-		outro_style( index ).method = sync_names( prefix + "/method/" + ltrim$( str$( index ) ), Outro_Table() )
-		if outro_style( index ).method = "%%" then
-			outro_style( index ).method = "pset"
-		end if
+		prefix = outro_prefix + ltrim$( str$( index ) )
 		
-	next index
-	
-	outro_style( 1 ).filename = sync_names( prefix + "/filename/0", Outro_Table() )
-	if outro_style( 1 ).filename = "%%" then
-		outro_style( 1 ).filename = ".\gameart\sprites\pndx____.24.x"
-	end if
-	
-	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
-		
-		outro_style( index ).img = png_load( outro_style( index ).filename )
-		
-		outro_style( index ).msg = sync_names( prefix + "/msg", Outro_Table() )
-		if outro_style( index ).msg = "%%" then
-			outro_style( index ).msg = "outro"
-		end if
-
-		outro_style( index ).w = sync_names( prefix + "/width", Outro_Table() )
-		if outro_style( index ).w = "%%" then
-			outro_style( index ).w = "100vw"
-		end if
-
-		outro_style( index ).h = sync_names( prefix + "/height", Outro_Table() )
-		if outro_style( index ).h = "%%" then
-			outro_style( index ).h = "100vh"
-		end if
-
-		outro_style( index ).shade = sync_names( prefix + "/shade", Outro_Table() )
-		if outro_style( index ).shade = "%%" then
-			outro_style( index ).shade = "vga/13" 
-		end if
-		
-		outro_style( index ).img = image_from_style( outro_style( index ) )
-		
-	next index
-	
-	splash
-	
-	for index = lbound( outro_filename, 1 ) to ubound( outro_filename, 1 ) step 1
-		
-		select case outro_method( index )
-		case "and"
-			put ( 0, 0 ), outro_img( index ), and
-		case "or"
-			put ( 0, 0 ), outro_img( index ), or
+		select case index
+		case 0
+			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndx____.24x.png", Outro_Table() )
+		case 1
+			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndx____.24y.png", Outro_Table() )
 		end select
 		
-		imagedestroy outro_img( index )
-	
+		outro_style( index ).method = sync_names_using_default( prefix + "/method", "alpha", Outro_Table() )
+			
+		outro_style( index ).img = png_load( outro_style( index ).filename )
+		
+		outro_style( index ).msg = sync_names_using_default( prefix + "/msg", "outro", Outro_Table() )
+
+		outro_style( index ).w = sync_names_using_default( prefix + "/width", "100vw", Outro_Table() )
+
+		outro_style( index ).h = sync_names_using_default( prefix + "/height", "100vh", Outro_Table() )
+
+		outro_style( index ).shade = sync_names_using_default( prefix + "/shade", "vga/13", Outro_Table() )
+				
 	next index
 	
-	'get( 0, 0 )-( Display_Width - 1, Display_Height - 1), outro_img( 0 )
-	'outro_img( 1 ) = outro_from_bundle( "outro" )
+	image_from_style outro_style()
+
+	splash
 	
-	'cls
+	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
+		
+		put_method 0, 0, 0, outro_style( index ).img, outro_style( index ).method		
+		imagedestroy outro_style( index ).img
+
+		locate index * 3 + 1, 20
+		print quot + outro_style( index ).msg + quot
 	
-	'put( 0, 0 ), outro_img( 0 ), pset
-	'put( 0, 0 ), outro_img( 1 ), pset
-	
+	next index
+		
 	flip
 	
 	do while len( inkey ) = 0
@@ -223,6 +224,27 @@ sub outro( prefix as string = "outro" )
 
 	end
 
+end sub
+
+sub put_method( target as fb.image ptr, x as integer = 0, y as integer = 0, img as fb.image ptr, method as string = "alpha" )
+	
+	select case method
+	case "and"
+		put target, ( x, y ), img, and
+	case "or"
+		put target, ( x, y ), img, or
+	case "pset"
+		put target, ( x, y ), img, pset
+	case "xor"
+		put target, ( x, y ), img, xor
+	case "alpha"
+		put target, ( x, y ), img, alpha
+	case "preset"
+		put target, ( x, y ), img, preset
+	case else
+		put target, ( x, y ), img, alpha
+	end select
+	
 end sub
 
 sub stretch( src as fb.image ptr, dest as fb.image ptr )
