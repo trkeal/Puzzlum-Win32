@@ -38,6 +38,14 @@
 	#include once ".\inc\puzzlum-maps.bi"
 
 	'#include once ".\puzzlum-vars.bi"
+	
+	declare function outro_from_bundle( outro_prefix as string = "outro", outro_msg as string = "outro", outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
+	
+	declare sub outro_style_shade( outro_shade as string )
+	
+	declare function outro_from_text( outro_msg as string = "outro" , outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
+	
+	declare function outro_from_image_style( outro_img as fb.image ptr, outro_prefix as string = "outro", outro_msg as string = "outro", outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
 
 	declare sub outro()
 

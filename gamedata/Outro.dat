@@ -1,0 +1,8 @@
+outro/msg=Goodnight Sweet Prince..
+outro/width=80vw
+outro/height=10vh
+outro/shade=vga/13
+outro/sprite/0=.\gameart\sprites\pndx____.24y.png
+outro/sprite/1=.\gameart\sprites\pndx____.24x.png
+outro/method/0=and
+outro/method/1=or
