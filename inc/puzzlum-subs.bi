@@ -1,5 +1,5 @@
 
-'puzzlum-win32.bi
+'puzzlum-subs.bi
 '
 'Puzzlum is Copyright (C) 1997, 2010, 2021 Timothy Robert Keal
 'Released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
@@ -31,6 +31,8 @@
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
 
+	#include once ".\inc\puzzlum-outro.bi"
+
 	#include once ".\inc\CLV.bi"
 
 	#include once ".\inc\puzzlum-subs.bi"
@@ -39,16 +41,7 @@
 
 	'#include once ".\puzzlum-vars.bi"
 	
-	declare function outro_from_bundle( outro_prefix as string = "outro", outro_msg as string = "outro", outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
 	
-	declare sub outro_style_shade( outro_shade as string )
-	
-	declare function outro_from_text( outro_msg as string = "outro" , outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
-	
-	declare function outro_from_image_style( outro_img as fb.image ptr, outro_prefix as string = "outro", outro_msg as string = "outro", outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
-
-	declare sub outro()
-
     declare sub clv_glyph_ini (clv_glyph() as integer)
     declare sub input_text (Index as integer, Src as integer, _
         Row as short, Col as short, W as short, H as short, byref Text_str as string)
@@ -290,8 +283,6 @@ declare sub vga_test_2()
 
 declare sub font_loader()
 
-declare sub splash()
-
 declare sub names_dumper( filename as string = "" )
 
 declare sub central_loader( target as string = "" )
@@ -305,9 +296,6 @@ declare sub load_art()
 declare sub load_data()
 
 declare sub load_input()
-
-declare sub stretch( src as fb.image ptr, dest as fb.image ptr )
-declare sub repeat( src as fb.image ptr, dest as fb.image ptr )
 
 declare sub text_out( subject as string = "" )
 
