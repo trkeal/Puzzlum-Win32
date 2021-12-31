@@ -90,7 +90,8 @@
 
 	dim shared as integer Mouse_Width=320, Mouse_Height=240
 	dim shared as integer Screen_Width=320, Screen_Height=240
-	dim shared as integer Display_Width=640, Display_Height=480
+	
+	'dim shared as integer Display_Width=640, Display_Height=480
 	dim shared as integer Display_Depth=32, Display_Pages=16
 
     dim shared as short Ax, Bx, Cx, Dx

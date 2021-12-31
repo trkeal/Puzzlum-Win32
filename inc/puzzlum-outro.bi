@@ -30,17 +30,30 @@
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
 
-declare sub splash()
+	dim shared as integer Display_Width = 640
+	dim shared as integer Display_Height = 480
 
-declare function outro_from_bundle( outro_prefix as string = "outro", outro_msg as string = "outro", outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
-	
+	type style_type
+		filename as string
+		img as fb.image ptr
+		msg as string
+		w as string
+		h as string
+		shade as string
+		method as string
+	end type
+
+	declare sub splash()
+
+	declare sub outro_from_bundle( outro_prefix as string = "outro", outro_style as style_type )
+
 	declare sub outro_style_shade( outro_shade as string )
-	
-	declare function outro_from_text( outro_msg as string = "outro" , outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
-	
-	declare function outro_from_image_style( outro_img as fb.image ptr, outro_prefix as string = "outro", outro_msg as string = "outro", outro_width as string = "100vw", outro_height as string = "100vh", outro_shade as string = "vga/13" ) as fb.image ptr
 
-	declare sub outro()
+	declare sub outro_text_to_image( outro_prefix as string = "outro", outro_style as style_type )
+
+	declare function image_from_style( outro_style as style_type ) as fb.image ptr
+
+	declare sub outro( prefix as string = "outro" )
 	
 	declare sub stretch( src as fb.image ptr, dest as fb.image ptr )
 	
