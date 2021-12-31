@@ -37,29 +37,6 @@ sub outro()
 	end
 	
 end sub
-		
-sub outro_from_bundle( outro_prefix as string = "outro", outro_style( any ) as style_type )
-
-	
-	dim as integer index = 0
-	
-	redim as names_type Outro_Table( any )
-	erase Outro_Table
-	load_names_from_file( ".\gamedata\Outro.dat", Outro_Table() )
-	
-	dim as string prefix = string$( 0, 0 )
-	prefix = outro_prefix + "/" + ltrim$( str$( index ) )
-	
-	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
-		outro_style( index ).img = png_load( sync_names( prefix + "/img", Outro_Table() ) )
-		outro_style( index ).msg = sync_names( prefix + "/msg", Outro_Table() )
-		outro_style( index ).method = sync_names( prefix + "/method", Outro_Table() )
-		outro_style( index ).w = sync_names( prefix  + "/width", Outro_Table() )
-		outro_style( index ).h = sync_names( prefix  + "/height", Outro_Table() )
-		outro_style( index ).shade = sync_names( prefix + "/shade", Outro_Table() )
-	next index
-	
-end sub
 
 sub outro_style_shade( outro_shade as string )
 	select case not( 0 )
@@ -78,11 +55,23 @@ sub outro_text_to_image( outro_style( any ) as style_type )
 	
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 	
-		outro_style_shade outro_style( index ).shade
+		outro_style_shade outro_style( index ).fg
+		outro_style_shade outro_style( index ).bg
 	
 		outro_style( index ).img = imagecreate( len( outro_style( index ).msg ) shl 3, 8, 0, 32 )
 	
-		draw string outro_style( index ).img, ( 0, 0 ), outro_style( index ).msg, val( outro_style( index ).shade )
+		select case outro_style( index ).method
+		case "and"
+		
+			line outro_style( index ).img, ( 0, 0 )-( outro_style( index ).img -> width, outro_style( index ).img -> height ), VGA_Table( 15 ), bf
+		
+			draw string outro_style( index ).img, ( 0, 0 ), outro_style( index ).msg, VGA_Table( 0 )
+			
+		case "or"
+			line outro_style( index ).img, ( 0, 0 )-( outro_style( index ).img -> width, outro_style( index ).img -> height ), VGA_Table( 0 ), bf
+		
+			draw string outro_style( index ).img, ( 0, 0 ), outro_style( index ).msg, val( outro_style( index ).fg )
+		end select
 		
 	next index
 	
@@ -149,6 +138,11 @@ end sub
 
 sub outro_gfx( outro_prefix as string = "outro" )
 	
+	dim as fb.image ptr backdrop
+
+	splash
+	get( 0, 0 )-( Display_Width - 1, Display_Height - 1 ), backdrop
+	
 	dim as string prefix = string$( 0, 0 )
 	
 	redim as names_type	Outro_Table( any )
@@ -156,16 +150,14 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	load_names_from_file ".\gamedata\Outro.dat", Outro_Table()
 		
 	dim as integer index = 0
-
-	splash
-		
+	
 	redim as style_type outro_style( any )
 	erase outro_style
 	redim outro_style( val( sync_names_using_default( outro_prefix + "/start", "0", Outro_Table() ) ) to val( sync_names_using_default( outro_prefix + "/count", "1", Outro_Table() ) ) )
 	
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
-		prefix = outro_prefix + ltrim$( str$( index ) )
+		prefix = outro_prefix + "/" + ltrim$( str$( index ) )
 		
 		select case index
 		case 0
@@ -188,25 +180,50 @@ sub outro_gfx( outro_prefix as string = "outro" )
 
 		outro_style( index ).h = sync_names_using_default( prefix + "/height", "65vh", Outro_Table() )
 
-		outro_style( index ).shade = sync_names_using_default( prefix + "/shade", "vga/13", Outro_Table() )
+		outro_style( index ).fg = sync_names_using_default( prefix + "/fg", "vga/13", Outro_Table() )
+
+		outro_style( index ).bg = sync_names_using_default( prefix + "/bg", "vga/0", Outro_Table() )
 				
 	next index
 	
 	image_from_style outro_style()
-
-	splash
 	
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
-		put_method 0, ( Display_Width - outro_style( index ).img -> width ) shr 1, ( Display_Height - outro_style( index ).img -> height ) shr 1, outro_style( index ).img, outro_style( index ).method
+		put_method backdrop, ( Display_Width - outro_style( index ).img -> width ) shr 1, ( Display_Height - outro_style( index ).img -> height ) shr 1, outro_style( index ).img, outro_style( index ).method
+		
+		imagedestroy outro_style( index ).img
+			
+	next index
+	
+	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
+		
+		outro_style( index ).msg = sync_names_using_default( prefix + "/msg", "outro", Outro_Table() )
+		
+		outro_style( index ).fg = sync_names_using_default( prefix + "/msg/fg", "vga/13", Outro_Table() )
+
+		outro_style( index ).bg = sync_names_using_default( prefix + "/msg/bg", "vga/0", Outro_Table() )
+		
+		outro_style( index ).w = sync_names_using_default( prefix + "/msg/width", "65vw", Outro_Table() )
+		
+		outro_style( index ).h = sync_names_using_default( prefix + "/msg/height", "65vh", Outro_Table() )
+
+	next index
+	
+	outro_text_to_image outro_style()
+	
+	image_from_style outro_style()
+
+	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
+		
+		put_method backdrop, ( Display_Width - outro_style( index ).img -> width ) shr 1, ( Display_Height - outro_style( index ).img -> height ) shr 1, outro_style( index ).img, outro_style( index ).method
 		
 		imagedestroy outro_style( index ).img
 		
-		locate index * 3 + 1, 20
-		print quot + outro_style( index ).msg + quot
-	
 	next index
-		
+	
+	put ( 0, 0 ), backdrop, pset
+	
 	flip
 	
 	do while len( inkey ) = 0
@@ -217,7 +234,7 @@ sub outro_gfx( outro_prefix as string = "outro" )
 end sub
 
 sub put_method( target as fb.image ptr, x as integer = 0, y as integer = 0, img as fb.image ptr, method as string = "alpha" )
-	
+		
 	select case method
 	case "and"
 		put target, ( x, y ), img, and
@@ -231,6 +248,10 @@ sub put_method( target as fb.image ptr, x as integer = 0, y as integer = 0, img 
 		put target, ( x, y ), img, alpha
 	case "preset"
 		put target, ( x, y ), img, preset
+	case "stretch"
+		stretch img, target
+	case "repeat"
+		repeat img, target
 	case else
 		put target, ( x, y ), img, alpha
 	end select

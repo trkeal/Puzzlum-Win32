@@ -39,13 +39,12 @@
 		msg as string
 		w as string
 		h as string
-		shade as string
+		fg as string
+		bg as string
 		method as string
 	end type
 	
 	declare sub outro()
-
-	declare sub outro_from_bundle( outro_prefix as string = "outro", outro_style( any ) as style_type )
 
 	declare sub outro_style_shade( outro_shade as string )
 
