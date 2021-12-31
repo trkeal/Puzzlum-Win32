@@ -50,6 +50,8 @@
 	declare sub outro_style_shade( outro_shade as string )
 
 	declare sub outro_text_to_image( outro_style( any ) as style_type )
+	
+	declare function style_span( img_span as integer = 0, style as string = "" ) as integer
 
 	declare sub image_from_style( outro_style( any ) as style_type )
 
