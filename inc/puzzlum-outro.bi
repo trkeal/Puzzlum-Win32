@@ -46,7 +46,13 @@
 	
 	declare sub outro()
 
-	declare sub outro_style_shade( outro_shade as string )
+	declare sub load_outro_palette( outro_prefix as string = "outro", outro_palette( any ) as integer, Outro_Table( any ) as names_type )
+
+	declare sub custom_palette( img as fb.image ptr, outro_palette( any ) as integer )
+
+	declare sub outro_style_shade( outro_shade as string = "vga/0" )
+	
+	declare function func_outro_style_shade( outro_shade as string = "vga/0" ) as string
 
 	declare sub outro_text_to_image( outro_style( any ) as style_type )
 	

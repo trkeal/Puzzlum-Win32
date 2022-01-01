@@ -38,7 +38,50 @@ sub outro()
 	
 end sub
 
-sub outro_style_shade( outro_shade as string )
+sub load_outro_palette( outro_prefix as string = "outro", outro_palette( any ) as integer, Outro_Table( any ) as names_type )
+	
+	dim as integer index = 0
+
+	dim as string prefix = string$( 0, 0 )	
+	prefix = outro_prefix + "/palette"
+	
+	redim outro_palette( val( sync_names_using_default( prefix + "/start", "0", Outro_Table() ) ) to val( sync_names_using_default( prefix + "/count", "1", Outro_Table() ) ) )
+	
+	for index = lbound( outro_palette, 1 ) to ubound( outro_palette, 1 ) step 1
+	
+		prefix = outro_prefix + "/palette/" + ltrim$( str$( index ) )
+
+		outro_palette( index ) = valint( func_outro_style_shade( sync_names_using_default( prefix, "vga/"+ltrim$(str$(index)), Outro_Table() ) ) )
+		
+	next index
+
+end sub
+
+sub custom_palette( img as fb.image ptr, outro_palette( any ) as integer )
+
+	dim as integer x = 0, y = 0, p = 0, pal_index = 0
+
+		for y = 0 to img -> height - 1 step 1
+		for x = 0 to img -> width - 1 step 1
+			
+			p = point( x, y, img ) and &HFFFFFF
+			
+			pal_index =  lbound( outro_palette, 1 )
+			
+			do while pal_index <= ubound( outro_palette, 1 )
+				select case p
+				case VGA_Table( pal_index )
+					pset img, ( x, y ), outro_palette( pal_index )
+					exit do
+				end select
+				pal_index += 1
+			loop
+			
+		next x
+		next y
+end sub
+
+sub outro_style_shade( outro_shade as string = "vga/0" )
 	select case not( 0 )
 	case left$( outro_shade, 4 ) = "vga/"
 		outro_shade = "&H" + hex$( VGA_Table( val( mid$( outro_shade, 5 ) ) ) )
@@ -48,6 +91,11 @@ sub outro_style_shade( outro_shade as string )
 		outro_shade = "&H" + hex$( VGA_Table( 13 ) )
 	end select
 end sub
+
+function func_outro_style_shade( outro_shade as string = "vga/0" ) as string
+	outro_style_shade outro_shade
+	func_outro_style_shade = outro_shade
+end function
 
 sub outro_text_to_image( outro_style( any ) as style_type )
 	
@@ -138,6 +186,10 @@ end sub
 
 sub outro_gfx( outro_prefix as string = "outro" )
 	
+	redim as integer outro_palette( any )
+	
+	dim as integer x = 0 , y = 0, p = 0, pal_index = 0
+
 	dim as fb.image ptr backdrop
 	
 	backdrop = imagecreate( Display_Width, Display_Height )
@@ -154,8 +206,13 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	
 	redim as style_type outro_style( any )
 	erase outro_style
-	redim outro_style( val( sync_names_using_default( outro_prefix + "/img/start", "0", Outro_Table() ) ) to val( sync_names_using_default( outro_prefix + "/img/count", "1", Outro_Table() ) ) )
+
+	load_outro_palette outro_prefix, outro_palette(), Outro_Table()
+
+	prefix = outro_prefix + "/img"
 	
+	redim outro_style( val( sync_names_using_default( prefix + "/start", "0", Outro_Table() ) ) to val( sync_names_using_default( prefix + "/count", "1", Outro_Table() ) ) )
+
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
 		prefix = outro_prefix + "/img/" + ltrim$( str$( index ) )
@@ -175,6 +232,8 @@ sub outro_gfx( outro_prefix as string = "outro" )
 			
 		outro_style( index ).img = png_load( outro_style( index ).filename )
 		
+		custom_palette outro_style( index ).img, outro_palette()
+		
 		'outro_style( index ).msg = sync_names_using_default( prefix + "/caption", "outro", Outro_Table() )
 
 		outro_style( index ).w = sync_names_using_default( prefix + "/width", "65vw", Outro_Table() )
@@ -191,7 +250,6 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	
 	dim as integer valign = 0
 	dim as integer halign = 0
-	dim as integer x = 0 , y = 0
 	
 	halign = val( sync_names_using_default( prefix + "/halign", "50", Outro_Table() ) )
 	valign = val( sync_names_using_default( prefix + "/valign", "50", Outro_Table() ) )
@@ -230,7 +288,7 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	next index
 	
 	outro_text_to_image outro_style()
-	
+
 	image_from_style outro_style()
 		
 	halign = val( sync_names_using_default( prefix + "/halign", "50", Outro_Table() ) )
