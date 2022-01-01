@@ -26,14 +26,14 @@
 	#include once ".\inc\puzzlum-outro.bi"
 
 sub outro()
-	splash
-	flip
-	do while len(inkey)=0
-	loop
+	
 	outro_gfx "outro"
+	
 	flip
+	
 	do while len(inkey)=0
 	loop
+	
 	end
 	
 end sub
@@ -139,9 +139,10 @@ end sub
 sub outro_gfx( outro_prefix as string = "outro" )
 	
 	dim as fb.image ptr backdrop
+	
+	backdrop = imagecreate( Display_Width, Display_Height )
 
-	splash
-	get( 0, 0 )-( Display_Width - 1, Display_Height - 1 ), backdrop
+	splash backdrop
 	
 	dim as string prefix = string$( 0, 0 )
 	
@@ -161,12 +162,12 @@ sub outro_gfx( outro_prefix as string = "outro" )
 		
 		select case index
 		case 0
-			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndx____.24y.png", Outro_Table() )
+			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndxwstf.24y.png", Outro_Table() )
 
 			outro_style( index ).method = sync_names_using_default( prefix + "/method", "and", Outro_Table() )
 
 		case 1
-			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndx____.24x.png", Outro_Table() )
+			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndxwstf.24x.png", Outro_Table() )
 
 			outro_style( index ).method = sync_names_using_default( prefix + "/method", "or", Outro_Table() )
 		
@@ -258,35 +259,35 @@ sub put_method( target as fb.image ptr, x as integer = 0, y as integer = 0, img 
 	
 end sub
 
-sub stretch( src as fb.image ptr, dest as fb.image ptr )
+sub stretch( src as fb.image ptr, target as fb.image ptr = 0 )
 
 	dim as integer x = 0, y = 0, xx = 0, yy = 0
 	
-	for y = 0 to dest -> height - 1 step 1
-	for x = 0 to dest -> width - 1 step 1
-		xx = x * src -> width \ dest -> width
-		yy = y * src -> height \ dest -> height
-		pset dest, ( x, y ), point( xx, yy, src )
+	for y = 0 to target -> height - 1 step 1
+	for x = 0 to target -> width - 1 step 1
+		xx = x * src -> width \ target -> width
+		yy = y * src -> height \ target -> height
+		pset target, ( x, y ), point( xx, yy, src )
 	next x
 	next y
 	
 end sub
 
-sub repeat( src as fb.image ptr, dest as fb.image ptr )
+sub repeat( src as fb.image ptr, target as fb.image ptr = 0 )
 
 	dim as integer x = 0, y = 0, xx = 0, yy = 0
 	
-	for y = 0 to dest -> height - 1 step 1
-	for x = 0 to dest -> width - 1 step 1
+	for y = 0 to target -> height - 1 step 1
+	for x = 0 to target -> width - 1 step 1
 		xx = x mod src -> width
 		yy = y mod src -> height
-		pset dest, ( x, y ), point( xx, yy, src )
+		pset target, ( x, y ), point( xx, yy, src )
 	next x
 	next y
 	
 end sub
 
-sub splash()
+sub splash( target as fb.image ptr = 0 )
 	
 	redim as names_type Bundle_Table( any )
 	erase Bundle_Table
@@ -315,12 +316,12 @@ sub splash()
 	
 	put i_display, ( ( i_display -> width - i_container -> width ) shr 1, ( i_display -> Height - i_container -> height ) shr 1 ), i_container, alpha
     
-	put ( 0, 0 ), i_display, pset
+	put target, ( 0, 0 ), i_display, pset
 	
-	'png_destroy i_logo
+	png_destroy i_logo
 	png_destroy i_backdrop
 	imagedestroy i_display
-	'imagedestroy i_container
+	imagedestroy i_container
 		
 	'flip
 	'wait_key

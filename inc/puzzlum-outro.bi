@@ -58,8 +58,8 @@
 
 	declare sub put_method( target as fb.image ptr, x as integer = 0, y as integer = 0, img as fb.image ptr, method as string = "alpha" )
 
-	declare sub stretch( src as fb.image ptr, dest as fb.image ptr )
+	declare sub stretch( src as fb.image ptr, target as fb.image ptr = 0 )
 
-	declare sub repeat( src as fb.image ptr, dest as fb.image ptr )
+	declare sub repeat( src as fb.image ptr, target as fb.image ptr = 0 )
 
-	declare sub splash()
+	declare sub splash( target as fb.image ptr = 0 )
