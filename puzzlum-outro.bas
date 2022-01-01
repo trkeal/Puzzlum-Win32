@@ -154,20 +154,20 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	
 	redim as style_type outro_style( any )
 	erase outro_style
-	redim outro_style( val( sync_names_using_default( outro_prefix + "/start", "0", Outro_Table() ) ) to val( sync_names_using_default( outro_prefix + "/count", "1", Outro_Table() ) ) )
+	redim outro_style( val( sync_names_using_default( outro_prefix + "/img/start", "0", Outro_Table() ) ) to val( sync_names_using_default( outro_prefix + "/img/count", "1", Outro_Table() ) ) )
 	
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
-		prefix = outro_prefix + "/" + ltrim$( str$( index ) )
+		prefix = outro_prefix + "/img/" + ltrim$( str$( index ) )
 		
 		select case index
 		case 0
-			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndxwstf.24y.png", Outro_Table() )
+			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndx____.24y.png", Outro_Table() )
 
 			outro_style( index ).method = sync_names_using_default( prefix + "/method", "and", Outro_Table() )
 
 		case 1
-			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndxwstf.24x.png", Outro_Table() )
+			outro_style( index ).filename = sync_names_using_default( prefix + "/filename", ".\gameart\sprites\pndx____.24x.png", Outro_Table() )
 
 			outro_style( index ).method = sync_names_using_default( prefix + "/method", "or", Outro_Table() )
 		
@@ -175,7 +175,7 @@ sub outro_gfx( outro_prefix as string = "outro" )
 			
 		outro_style( index ).img = png_load( outro_style( index ).filename )
 		
-		outro_style( index ).msg = sync_names_using_default( prefix + "/msg", "outro", Outro_Table() )
+		'outro_style( index ).msg = sync_names_using_default( prefix + "/caption", "outro", Outro_Table() )
 
 		outro_style( index ).w = sync_names_using_default( prefix + "/width", "65vw", Outro_Table() )
 
@@ -212,18 +212,20 @@ sub outro_gfx( outro_prefix as string = "outro" )
 		imagedestroy outro_style( index ).img
 			
 	next index
-	
+		
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
-		outro_style( index ).msg = sync_names_using_default( prefix + "/msg", "outro", Outro_Table() )
+		prefix = outro_prefix + "/msg/" + ltrim$( str$( index ) )
+	
+		outro_style( index ).msg = sync_names_using_default( prefix + "/caption", "outro", Outro_Table() )
 		
-		outro_style( index ).fg = sync_names_using_default( prefix + "/msg/fg", "vga/13", Outro_Table() )
+		outro_style( index ).fg = sync_names_using_default( prefix + "/fg", "vga/13", Outro_Table() )
 
-		outro_style( index ).bg = sync_names_using_default( prefix + "/msg/bg", "vga/0", Outro_Table() )
+		outro_style( index ).bg = sync_names_using_default( prefix + "/bg", "vga/0", Outro_Table() )
 		
-		outro_style( index ).w = sync_names_using_default( prefix + "/msg/width", "65vw", Outro_Table() )
+		outro_style( index ).w = sync_names_using_default( prefix + "/width", "65vw", Outro_Table() )
 		
-		outro_style( index ).h = sync_names_using_default( prefix + "/msg/height", "65vh", Outro_Table() )
+		outro_style( index ).h = sync_names_using_default( prefix + "/height", "65vh", Outro_Table() )
 
 	next index
 	
@@ -231,8 +233,8 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	
 	image_from_style outro_style()
 		
-	halign = val( sync_names_using_default( prefix + "/msg/halign", "50", Outro_Table() ) )
-	valign = val( sync_names_using_default( prefix + "/msg/valign", "50", Outro_Table() ) )
+	halign = val( sync_names_using_default( prefix + "/halign", "50", Outro_Table() ) )
+	valign = val( sync_names_using_default( prefix + "/valign", "50", Outro_Table() ) )
 
 	x = 0
 	y = 0
