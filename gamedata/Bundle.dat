@@ -30,10 +30,11 @@ logos/path=.\gameart\logos\
 sprites/path=.\gameart\sprites\
 palette/path=.\gamedata\
 
-splash/path=.\gameart\logos\
-splash/filename=splash.png
-splash/width=640
-splash/height=128
+splash/backdrop/filename=.\gameart\wallpapers\backdrop.png
+splash/logo/filename=.\gameart\logos\splash.png
+splash/logo/width=640
+splash/logo/height=128
+splash/logo/enabled=-1
 
 maps/path=.\gamedata\maps\
 map/filename=Dire Dungeon 1.dat

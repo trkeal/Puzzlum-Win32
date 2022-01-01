@@ -142,7 +142,7 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	
 	backdrop = imagecreate( Display_Width, Display_Height )
 
-	splash backdrop
+	splash backdrop, 0
 	
 	dim as string prefix = string$( 0, 0 )
 	
@@ -189,8 +189,24 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	
 	image_from_style outro_style()
 	
+	dim as integer valign = 0
+	dim as integer halign = 0
+	dim as integer x = 0 , y = 0
+	
+	halign = val( sync_names_using_default( prefix + "/halign", "50", Outro_Table() ) )
+	valign = val( sync_names_using_default( prefix + "/valign", "50", Outro_Table() ) )
+
+	x = 0
+	y = 0
+	
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
+		x = ( Display_Width * halign - outro_style( index ).img -> width * (100 - halign) ) \ 100
+		
+		y = ( Display_Height * valign - outro_style( index ).img -> height * (100 - valign) ) \ 100
+		
+		put_method backdrop, x, y, outro_style( index ).img, outro_style( index ).method
+				
 		put_method backdrop, ( Display_Width - outro_style( index ).img -> width ) shr 1, ( Display_Height - outro_style( index ).img -> height ) shr 1, outro_style( index ).img, outro_style( index ).method
 		
 		imagedestroy outro_style( index ).img
@@ -214,10 +230,22 @@ sub outro_gfx( outro_prefix as string = "outro" )
 	outro_text_to_image outro_style()
 	
 	image_from_style outro_style()
+		
+	halign = val( sync_names_using_default( prefix + "/msg/halign", "50", Outro_Table() ) )
+	valign = val( sync_names_using_default( prefix + "/msg/valign", "50", Outro_Table() ) )
+
+	x = 0
+	y = 0
 
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
-		put_method backdrop, ( Display_Width - outro_style( index ).img -> width ) shr 1, ( Display_Height - outro_style( index ).img -> height ) shr 1, outro_style( index ).img, outro_style( index ).method
+		x = ( Display_Width * halign - outro_style( index ).img -> width * (100 - halign) ) \ 100
+		
+		y = ( Display_Height * valign - outro_style( index ).img -> height * (100 - valign) ) \ 100
+		
+		put_method backdrop, x, y, outro_style( index ).img, outro_style( index ).method
+		
+		put_method backdrop, x, y, outro_style( index ).img, outro_style( index ).method
 		
 		imagedestroy outro_style( index ).img
 		
@@ -287,43 +315,46 @@ sub repeat( src as fb.image ptr, target as fb.image ptr = 0 )
 	
 end sub
 
-sub splash( target as fb.image ptr = 0 )
-	
+sub splash( target as fb.image ptr = 0, logo_enabled as integer = -1 )
+
 	redim as names_type Bundle_Table( any )
 	erase Bundle_Table
-	load_names_from_file( ".\gamedata\Bundle.dat", Bundle_Table() )
+	load_names_from_file( ".\gamedata\Bundle.dat", Bundle_Table() )	
 	
-	dim as string logo_filename = sync_names("splash/logo/filename", Bundle_Table())
+	if not( logo_enabled = 0 ) then
+		logo_enabled = val( sync_names_using_default( "splash/logo/enabled", "-1", Bundle_Table() ) )
+	end if
 	
+	dim as string logo_label = "splash/logo/filename"
+	dim as string logo_filename = string$( 0, 0 )
+	logo_filename = sync_names_using_default( logo_label, ".\gameart\wallpapers\backdrop.png", Bundle_Table())
 	dim as fb.image ptr i_logo = png_load( logo_filename )
 
-	dim as string backdrop_filename = sync_names("splash/backdrop/filename", Bundle_Table())
-	
+	dim as string backdrop_label = "splash/backdrop/filename"
+	dim as string backdrop_filename = string$( 0, 0 )
+	backdrop_filename = sync_names_using_default( backdrop_label, ".\gameart\wallpapers\backdrop.png", Bundle_Table() )
 	dim as fb.image ptr i_backdrop = png_load( backdrop_filename )
-		
-	dim as fb.image ptr i_display = imagecreate( 640, 480 )
-	
-	line i_display, ( 0, 0 )-( i_display -> width - 1, i_display -> height - 1 ), VGA_Table( 10 )
-	
+			
+	dim as fb.image ptr i_display = imagecreate( Display_Width, Display_Height )
 	repeat i_backdrop, i_display
-	
-	dim as integer w = val( sync_names( "splash/width", Bundle_Table() ) )
-	dim as integer h = val( sync_names( "splash/height", Bundle_Table() ) )
+			
+	dim as integer w = val( sync_names_using_default( "splash/logo/width", "640", Bundle_Table() ) )
+	dim as integer h = val( sync_names_using_default( "splash/logo/height", "128", Bundle_Table() ) )
 	
 	dim as fb.image ptr i_container = imagecreate( w, h )
+
+	stretch i_logo, i_container	
 	
-	stretch i_logo, i_container
+	if not( logo_enabled = 0 ) then
+		put i_display, ( ( i_display -> width - i_container -> width ) shr 1, ( i_display -> Height - i_container -> height ) shr 1 ), i_container, alpha
+    end if
 	
-	put i_display, ( ( i_display -> width - i_container -> width ) shr 1, ( i_display -> Height - i_container -> height ) shr 1 ), i_container, alpha
-    
 	put target, ( 0, 0 ), i_display, pset
 	
-	png_destroy i_logo
+	png_destroy i_logo	
 	png_destroy i_backdrop
+	
 	imagedestroy i_display
 	imagedestroy i_container
-		
-	'flip
-	'wait_key
 	
 end sub

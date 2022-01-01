@@ -62,4 +62,4 @@
 
 	declare sub repeat( src as fb.image ptr, target as fb.image ptr = 0 )
 
-	declare sub splash( target as fb.image ptr = 0 )
+	declare sub splash( target as fb.image ptr = 0, logo_enabled as integer = -1 )
