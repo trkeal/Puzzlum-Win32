@@ -30,6 +30,8 @@
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
 
+	#include once ".\inc\puzzlum-vars.bi"
+
 	dim shared as integer Display_Width = 640
 	dim shared as integer Display_Height = 480
 
@@ -69,3 +71,5 @@
 	declare sub repeat( src as fb.image ptr, target as fb.image ptr = 0 )
 
 	declare sub splash( target as fb.image ptr = 0, logo_enabled as integer = -1 )
+	
+	declare sub outro_map( map_prefix as string = "", Map_Table( any ) as names_type )

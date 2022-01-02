@@ -22,7 +22,8 @@
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
-
+	
+	#include once ".\inc\puzzlum-vars.bi"	
 	#include once ".\inc\puzzlum-outro.bi"
 
 sub outro()
@@ -417,4 +418,89 @@ sub splash( target as fb.image ptr = 0, logo_enabled as integer = -1 )
 	imagedestroy i_display
 	imagedestroy i_container
 	
+end sub
+
+sub outro_map( map_prefix as string = "", Map_Table( any ) as names_type )
+	
+	erase Map_Table
+	
+	dim as integer col = 0, row = 0, map_index = 0
+	dim as string prefix = string$( 0, 0 )
+	
+	redim as string suffix(any)
+	erase suffix
+	redim suffix( 0 to 1 )
+	
+	dim as string entry = "-1"
+	
+	for row = 1 to DD_si step 1
+	for col = 1 to AA_si step 1
+						
+			map_index = ( row - 1 ) * AA_si + col
+
+			prefix = map_prefix + "/img/"
+
+			entry = ltrim$( str$( ( ( map_index - 1 ) shl 1 ) ) )
+			
+			entry = ltrim$( str$( valint( entry ) + 1 ) )
+
+			names_push prefix + entry + "/width", "24px", Map_Table()
+			names_push prefix + entry + "/height", "24px", Map_Table()
+			names_push prefix + entry + "/filename", ".\gameart\sprites\dirt____.24y.png", Map_Table()
+			names_push prefix + entry + "/halign", ltrim$( str$( ( ( col - 1 ) * 24 ) / AA_si ) ) + "px", Map_Table()
+			names_push prefix + entry + "/valign", ltrim$( str$( ( ( row - 1 ) * 24 ) / DD_si ) ) + "px", Map_Table()
+			names_push prefix + entry + "/method", "and", Map_Table()
+
+			entry = ltrim$( str$( valint( entry ) + 1 ) )
+
+			names_push prefix + entry + "/width", "24px", Map_Table()
+			names_push prefix + entry + "/height", "24px", Map_Table()
+			names_push prefix + entry + "/filename", ".\gameart\sprites\dirt____.24x.png", Map_Table()  			
+			names_push prefix + entry + "/halign", ltrim$( str$( ( ( col - 1 ) * 24 ) / AA_si ) ) + "px", Map_Table()
+			names_push prefix + entry + "/valign", ltrim$( str$( ( ( row - 1 ) * 24 ) / DD_si ) ) + "px", Map_Table()
+			names_push prefix + entry + "/method", "or", Map_Table()
+
+			entry = ltrim$( str$( valint( entry ) + 1 ) )
+
+			names_push prefix + entry + "/width", "24px", Map_Table()
+			names_push prefix + entry + "/height", "24px", Map_Table()
+			names_push prefix + entry + "/filename", ".\gameart\sprites\pndx____.24y.png", Map_Table()  			
+			names_push prefix + entry + "/halign", ltrim$( str$( ( ( col - 1 ) * 24 ) / AA_si ) ) + "px", Map_Table()
+			names_push prefix + entry + "/valign", ltrim$( str$( ( ( row - 1 ) * 24 ) / DD_si ) ) + "px", Map_Table()
+			names_push prefix + entry + "/method", "or", Map_Table()
+
+
+			entry = ltrim$( str$( valint( entry ) + 1 ) )
+
+			names_push prefix + entry + "/width", "24px", Map_Table()
+			names_push prefix + entry + "/height", "24px", Map_Table()
+			names_push prefix + entry + "/filename", ".\gameart\sprites\pndx____.24x.png", Map_Table()  			
+			names_push prefix + entry + "/halign", ltrim$( str$( ( ( col - 1 ) * 24 ) / AA_si ) ) + "px", Map_Table()
+			names_push prefix + entry + "/valign", ltrim$( str$( ( ( row - 1 ) * 24 ) / DD_si ) ) + "px", Map_Table()
+			names_push prefix + entry + "/method", "or", Map_Table()
+
+			#ifdef __stack__
+			
+			select case left$(prflgpic_str,4)
+			case "door", "chst"
+				select case left$(prflactn_str,3)
+                case "loc"
+					select case val(right$(prflactn_str,1))
+					case 1 to 3
+						
+						cell = png_load( ".\gameart\sprites\" + prflactn_str + "____" + ".24y.png" )
+						put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, and
+						png_destroy cell
+			
+						cell = png_load( ".\gameart\sprites\" + prflactn_str + "____" + ".24x.png" )
+						put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, or
+						png_destroy cell
+					
+					end select
+                end select
+			end select
+			#endif
+			
+	next col
+	next row
 end sub
