@@ -62,7 +62,7 @@
 
 	declare sub image_from_style( outro_style( any ) as style_type )
 
-	declare sub outro_gfx( outro_prefix as string = "outro" )
+	declare sub outro_gfx( outro_prefix as string = "outro", Outro_Table( any ) as names_type )
 
 	declare sub put_method( target as fb.image ptr, x as integer = 0, y as integer = 0, img as fb.image ptr, method as string = "alpha" )
 
@@ -72,4 +72,8 @@
 
 	declare sub splash( target as fb.image ptr = 0, logo_enabled as integer = -1 )
 	
-	declare sub outro_map( map_prefix as string = "", Map_Table( any ) as names_type )
+	declare sub outro_map( map_prefix as string = "map", Map_Table( any ) as names_type, AA as integer = 16, DD as integer = 16)
+
+	declare sub entry_step( byref entry as string )
+	
+	declare sub progress_bar( col as integer = 0, row as integer = 0, AA as integer = 16, DD as integer = 16 )

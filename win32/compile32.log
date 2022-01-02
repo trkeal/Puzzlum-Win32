@@ -12,6 +12,8 @@
 ===[ FBImage ]==[ Win32 Static Library ]=== 
  
 ===[ Puzzlum / Outro ]==[ Win32 Static Library ]=== 
+puzzlum-outro.bas(548) warning 36(1): Mismatching parameter initializer, at parameter 1 (col) of progress_bar()
+puzzlum-outro.bas(548) warning 36(1): Mismatching parameter initializer, at parameter 2 (row) of progress_bar()
  
 ===[ Puzzlum / Vars ]==[ Win32 Static Library ]=== 
  
