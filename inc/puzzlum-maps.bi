@@ -41,3 +41,9 @@
 	declare sub map_loader ( map_filename as string = "%%" )
 	
 	declare sub Entity_Action
+	
+	declare function Entity_Shortname( rfg as string = "" ) as string
+	
+	declare sub sync_entity( Entity_Table( any ) as names_type )	
+	
+	declare sub push_entity( Entity_Table( any ) as names_type )	

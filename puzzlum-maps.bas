@@ -532,15 +532,15 @@ sub Entity_Action
 	
 	dim as string target = string$( 0, 0 )
 	Central_Count += 1
-	target = "map" + colon + "Entity_Action" + string$( 1, 32 ) + quot + left$( rfg_str + string$( 4, "_" ), 4 ) + quot
+	target = "map" + colon + "Entity_Action" + string$( 1, 32 ) + quot + Entity_Shortname( rfg_str ) + quot
 	central_debug target
 	
 	redim as names_type Entity_Table( any )
 	dim as integer count = 0, index = 0
 	
-	load_names_from_file( ".\gamelogic\prfl\actn\" + left$( rfg_str + string$( 4, "_" ), 4 ) + ".dat", Entity_Table() )
+	load_names_from_file( ".\gamelogic\prfl\actn\" + Entity_Shortname( rfg_str ) + ".dat", Entity_Table() )
 	
-	select case sync_names( "case/" + left$( rfg_str + string$( 4, "_" ), 4 ), Entity_Table() )
+	select case sync_names( "case/" + Entity_Shortname( rfg_str ), Entity_Table() )
 	case "ok"
 	case else
 		Central_Close_Out target	
@@ -599,8 +599,56 @@ sub Entity_Action
 
 end sub
 
-sub draw_full_map()
+function Entity_Shortname( rfg as string = "" ) as string
+	Entity_Shortname = left$( rfg + string$( 4, "_" ), 4 )
+end function
+
+sub sync_entity( Entity_Table( any ) as names_type )	
+
+	prflidty_sf = rid_sf
 	
+	prflidty_str = sync_names_using_default("prflidty_str", "____", Entity_Table() )
+	prflactn_str = sync_names_using_default("prflactn_str", "____", Entity_Table() )'
+	prflgpic_str = sync_names_using_default("prflgpic_str", "____", Entity_Table() )
+	prflidty_sf = val( sync_names_using_default("prflidty_sf", "0", Entity_Table() ) )'
+	prflhp_sf = val( sync_names_using_default("prflhp_sf", "0", Entity_Table() ) )
+	prflstr_sf = val( sync_names_using_default("prflstr_sf", "0", Entity_Table() ) )
+	prfless_sf = val( sync_names_using_default("prfless_sf", "0", Entity_Table() ) )
+	prflspd_sf = val( sync_names_using_default("prflspd_sf", "0", Entity_Table() ) )
+	prflarmr_sf = val( sync_names_using_default("prflarmr_sf", "0", Entity_Table() ) )
+	prflexp_sf = val( sync_names_using_default("prflexp_sf", "0", Entity_Table() ) )
+	prflvalu_sf = val( sync_names_using_default("prflvalu_sf", "0", Entity_Table() ) )
+	prflpirc_sf = val( sync_names_using_default("prflpirc_sf", "0", Entity_Table() ) )
+	prfllv_sf = val( sync_names_using_default("prfllv_sf", "0", Entity_Table() ) )
+	prflhpmax_sf = val( sync_names_using_default("prflhpmax_sf", "0", Entity_Table() ) )
+	prflstrmax_sf = val( sync_names_using_default("prflstrmax_sf", "0", Entity_Table() ) )
+	prflessmax_sf = val( sync_names_using_default("prflessmax_sf", "0", Entity_Table() ) )
+	prflessspd_sf = val( sync_names_using_default("prflessspd_sf", "0", Entity_Table() ) )
+	prflevad_sf = val( sync_names_using_default("prflevad_sf", "0", Entity_Table() ) )
+
+end sub
 	
+sub push_entity( Entity_Table( any ) as names_type )	
+
+	prflidty_sf = rid_sf
+	
+	names_push "prflidty_str", prflidty_str, Entity_Table()
+	names_push "prflactn_str", prflactn_str, Entity_Table()
+	names_push "prflgpic_str", prflgpic_str, Entity_Table()
+	names_push "prflidty_sf", ltrim$( str$( prflidty_sf ) ), Entity_Table()
+	names_push "prflhp_sf", ltrim$( str$( prflhp_sf ) ), Entity_Table()
+	names_push "prflstr_sf", ltrim$( str$( prflstr_sf ) ), Entity_Table()
+	names_push "prfless_sf", ltrim$( str$( prfless_sf ) ), Entity_Table()
+	names_push "prflspd_sf", ltrim$( str$( prflspd_sf ) ), Entity_Table()
+	names_push "prflarmr_sf", ltrim$( str$( prflarmr_sf ) ), Entity_Table()
+	names_push "prflexp_sf", ltrim$( str$( prflexp_sf ) ), Entity_Table()
+	names_push "prflvalu_sf", ltrim$( str$( prflvalu_sf ) ), Entity_Table()
+	names_push "prflpirc_sf", ltrim$( str$( prflpirc_sf ) ), Entity_Table()
+	names_push "prfllv_sf", ltrim$( str$( prfllv_sf ) ), Entity_Table()
+	names_push "prflhpmax_sf", ltrim$( str$( prflhpmax_sf ) ), Entity_Table()
+	names_push "prflstrmax_sf", ltrim$( str$( prflstrmax_sf ) ), Entity_Table()
+	names_push "prflessmax_sf", ltrim$( str$( prflessmax_sf ) ), Entity_Table()
+	names_push "prflessspd_sf", ltrim$( str$( prflessspd_sf ) ), Entity_Table()
+	names_push "prflevad_sf", ltrim$( str$( prflevad_sf ) ), Entity_Table()
 
 end sub
