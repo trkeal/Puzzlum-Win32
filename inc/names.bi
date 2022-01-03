@@ -24,7 +24,7 @@ end type
 declare function sync_names_using_default( label as string = "", default as string = "%%", names_table( any ) as names_type ) as string
 
 declare sub wipe_table( names( any ) as names_type )
-declare sub names_push( label as string, value as string, names_table( any ) as names_type )
+declare sub push_names( label as string, value as string, names_table( any ) as names_type )
 
 declare function name_as_string( subject as string ) as string
 

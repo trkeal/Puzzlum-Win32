@@ -73,10 +73,10 @@
     dim shared as string rbg_str, rfg_str, rid_str
     dim shared as single rid_sf
     dim shared as string prflidty_str, prflactn_str, prflactnct_str, prflgpic_str, prflcmnd_str, prflgpicactn_str
-    dim shared as single prflidty_sf, prflhp_sf, prflstr_sf, prfless_sf
-    dim shared as single prflspd_sf, prflarmr_sf, prflexp_sf, prflvalu_sf, prflpirc_sf, prflchck_sf
+    dim shared as single prflidty_sf, prflhpcur_sf, prflstrcur_sf, prflesscur_sf
+    dim shared as single prflstrspd_sf, prflarmr_sf, prflexp_sf, prflvalu_sf, prflpirc_sf, prflchck_sf
     dim shared as single prfllv_sf, prflhpmax_sf, prflstrmax_sf, prflessmax_sf
-    dim shared as single prflessspd_sf, prflevad_sf, prflblnk_sf
+    dim shared as single prflhpspd_sf, prflessspd_sf, prflevad_sf, prflblnk_sf
     dim shared as string mapname_str
     dim shared as single rr_sf
     dim shared as short colr_si
