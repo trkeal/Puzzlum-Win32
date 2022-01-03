@@ -13,6 +13,7 @@
 
 '#include once ".\inc\names.bi"
 #include once ".\inc\const.bi"
+#include once ".\inc\puzzlum-common.bi"
 
 #include once "file.bi"
 

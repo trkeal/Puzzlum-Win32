@@ -12,13 +12,14 @@
 
 '=====
 
-	#inclib "puzzlum-common"
+	function Entity_Shortname( X as string = "" ) as string
+		Entity_Shortname = left$( X + string$( 4, "_" ), 4 )
+	end function
+
+	function As_String overload ( X as single = 0 ) as string
+		As_String = ltrim$( str$( X ) )
+	end function
 	
-	#include once ".\inc\puzzlum-subs.bi"
-	#include once ".\inc\puzzlum-vars.bi"
-	#include once ".\inc\puzzlum-maps.bi"
-	
-	#ifndef puzzlum_win32_lib
-	#inclib "puzzlum-win32"
-	#endif
-	
+	function As_String overload ( X as integer = 0 ) as string
+		As_String = ltrim$( str$( X ) )
+	end function

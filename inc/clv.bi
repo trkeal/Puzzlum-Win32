@@ -16,6 +16,8 @@
 	#inclib "clv"
 	#endif
 
+	#include once ".\inc\puzzlum-common.bi"
+
 	#include once ".\inc\VGA_Table.bi"
 
 	#include once "crt\math.bi"

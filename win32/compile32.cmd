@@ -26,6 +26,11 @@ rem echo ===[ Constants ]==[ %static% ]=== >> %log%
 rem %fbc% "const.bas" %libopts% >> %log% 2>&1
 
 echo: >> %log%
+echo ===[ Puzzlum / Common ]==[ %static% ]=== >> %log%
+%fbc% "puzzlum-common.bas" %debugopts% %libopts% >> %log% 2>&1
+if errorlevel 1 goto :failed
+
+echo: >> %log%
 echo ===[ Puzzlum / Central Debug ]==[ %static% ]=== >> %log%
 %fbc% "central-debug.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed

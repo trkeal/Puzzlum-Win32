@@ -90,11 +90,11 @@ sub dump_array_to_table( CMD_Rip( any ) as string, CMD_Table( any ) as names_typ
 
 	for index = lbound( CMD_Rip, 1 ) + 1 to ubound( CMD_Rip, 1 ) step 1 
 				
-		buffer += crlf + "cmd/" + ltrim$( str$( index ) ) + eq + CMD_Rip( index )
+		buffer += crlf + "cmd/" + As_String( index ) + eq + CMD_Rip( index )
 		
 	next index
 	
-	buffer = "cmd/count" + eq + ltrim$( str$( ubound( CMD_Rip, 1 ) ) ) + crlf + buffer
+	buffer = "cmd/count" + eq + As_String( ubound( CMD_Rip, 1 ) ) + crlf + buffer
 	
 	load_names_from_buffer buffer, CMD_Table()
 	
@@ -112,7 +112,7 @@ sub cmd_vars( CMD_Table( any ) as names_type )
 	do
 		if index > val( sync_names( "cmd/count", CMD_Table() ) ) then exit do
 		
-		cmd_i = sync_names( "cmd/" + ltrim$( str$( index ) ), CMD_Table() )
+		cmd_i = sync_names( "cmd/" + As_String( index ), CMD_Table() )
 		
 		if cmd_i = "-debug" then
 			Debug_Enabled = not( 0 )
@@ -151,7 +151,7 @@ sub central_debug ( target as string =  "" )
 			buffer += "/" + Central_History( index )
 		next index
 		
-		buffer += string$( 1, 32 ) + "( " + ltrim$( str$( Central_Count ) ) + " deep )"
+		buffer += string$( 1, 32 ) + "( " + As_String( Central_Count ) + " deep )"
 		
 		buffer += crlf
 	

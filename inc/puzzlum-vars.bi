@@ -17,6 +17,8 @@
 	#inclib "puzzlum-vars"
 	#endif
 	
+	#inclib "puzzlum-common"
+
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"

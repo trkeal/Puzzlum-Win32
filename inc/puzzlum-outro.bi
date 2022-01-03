@@ -15,6 +15,8 @@
 	#inclib "puzzlum-outro"
 	#endif
 
+	#inclib "puzzlum-common"
+
 	#include once ".\inc\VGA_Table.bi"
 
 	#include once "crt\math.bi"

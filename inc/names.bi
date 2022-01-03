@@ -12,6 +12,8 @@
 #inclib "names"
 #endif
 
+#include once ".\inc\puzzlum-common.bi"
+
 #include once ".\inc\const.bi"
 
 #include "file.bi"

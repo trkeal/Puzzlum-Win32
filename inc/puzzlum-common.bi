@@ -1,5 +1,5 @@
 
-'puzzlum-win32.bi
+'puzzlum-common.bi
 '
 'Puzzlum is Copyright (C) 1997, 2010, 2021 Timothy Robert Keal
 'Released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
@@ -12,13 +12,12 @@
 
 '=====
 
+	#ifndef puzzlum_common_lib
 	#inclib "puzzlum-common"
-	
-	#include once ".\inc\puzzlum-subs.bi"
-	#include once ".\inc\puzzlum-vars.bi"
-	#include once ".\inc\puzzlum-maps.bi"
-	
-	#ifndef puzzlum_win32_lib
-	#inclib "puzzlum-win32"
 	#endif
+
+	declare function Entity_Shortname( X as string = "" ) as string
+
+	declare function As_String overload ( X as single = 0 ) as string
+	declare function As_String overload ( X as integer = 0 ) as string
 	

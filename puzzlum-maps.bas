@@ -66,7 +66,7 @@ sub map_loader ( map_filename as string = "%%" )
 	DD_si = val( sync_names( "map/DD", Maps_Table() ) )
 	
 	map_capture = imagecreate( 24 * AA_si, 24 * DD_si )
-	line map_capture,( 0, 0 )-( map_Capture->Width - 1, map_Capture->Height - 1 ), 0,bf
+	line map_capture,( 0, 0 )-( map_Capture -> Width - 1, map_Capture -> Height - 1 ), 0, bf
 	
     ex_si = fix(AA_si / 2) 'map pointer x
     dy_si = fix(DD_si / 2) 'map pointer y
@@ -90,20 +90,20 @@ sub map_loader ( map_filename as string = "%%" )
 	load_names_from_file( sync_names( "levels/filename", Bundle_Table() ), Levels_Table() )
 	
     FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
-        l_sia(t_si) = val( sync_names( "levels/" + ltrim$( str$( t_si ) ), Levels_Table() ) )
+        l_sia(t_si) = val( sync_names( "levels/" + As_String( t_si ), Levels_Table() ) )
     NEXT t_si
     
     ctrl_str = "pndximp_"
     IF INT(RND(1) * 2) + 1 = 2 THEN ctrl_str = ctrl_str + "dust"
     FOR Ty_si = 1 TO DD_si step 1
         
-		bg_str = sync_names( "map/row/" + ltrim$( str$( Ty_si ) )+"/bg", Maps_Table() )
-		fg_str = sync_names( "map/row/" + ltrim$( str$( Ty_si ) )+"/fg", Maps_Table() )
-		rg_str = sync_names( "map/row/" + ltrim$( str$( Ty_si ) )+"/rg", Maps_Table() )
+		bg_str = sync_names( "map/row/" + As_String( Ty_si )+"/bg", Maps_Table() )
+		fg_str = sync_names( "map/row/" + As_String( Ty_si )+"/fg", Maps_Table() )
+		rg_str = sync_names( "map/row/" + As_String( Ty_si )+"/rg", Maps_Table() )
 		
 		'INPUT #1, 
 		
-		R_str = ltrim$( str$( Ty_si ) )
+		R_str = As_String( Ty_si )
         
 		'LINE INPUT #1, bg_str
         'LINE INPUT #1, fg_str
@@ -611,10 +611,6 @@ sub Entity_Action
 
 end sub
 
-function Entity_Shortname( rfg as string = "" ) as string
-	Entity_Shortname = left$( rfg + string$( 4, "_" ), 4 )
-end function
-
 sub sync_entity( Entity_Table( any ) as names_type )	
 
 	prflidty_sf = rid_sf
@@ -654,26 +650,26 @@ sub push_entity( Entity_Table( any ) as names_type )
 	push_names "prfl/actn_str", prflactn_str, Entity_Table()
 	push_names "prfl/gpic_str", prflgpic_str, Entity_Table()
 	
-	push_names "prfl/idty_sf", ltrim$( str$( prflidty_sf ) ), Entity_Table()
+	push_names "prfl/idty_sf", As_String( prflidty_sf ), Entity_Table()
 	
-	push_names "prfl/hp/cur_sf", ltrim$( str$( prflhpcur_sf ) ), Entity_Table()
-	push_names "prfl/str/cur_sf", ltrim$( str$( prflstrcur_sf ) ), Entity_Table()
-	push_names "prfl/ess/cur_sf", ltrim$( str$( prflesscur_sf ) ), Entity_Table()
+	push_names "prfl/hp/cur_sf", As_String( prflhpcur_sf ), Entity_Table()
+	push_names "prfl/str/cur_sf", As_String( prflstrcur_sf ), Entity_Table()
+	push_names "prfl/ess/cur_sf", As_String( prflesscur_sf ), Entity_Table()
 	
-	push_names "prfl/hp/spd_sf", ltrim$( str$( prflhpspd_sf ) ), Entity_Table()
-	push_names "prfl/str/spd_sf", ltrim$( str$( prflstrspd_sf ) ), Entity_Table()
-	push_names "prfl/ess/spd_sf", ltrim$( str$( prflessspd_sf ) ), Entity_Table()
+	push_names "prfl/hp/spd_sf", As_String( prflhpspd_sf ), Entity_Table()
+	push_names "prfl/str/spd_sf", As_String( prflstrspd_sf ), Entity_Table()
+	push_names "prfl/ess/spd_sf", As_String( prflessspd_sf ), Entity_Table()
 
-	push_names "prfl/hp/max_sf", ltrim$( str$( prflhpmax_sf ) ), Entity_Table()
-	push_names "prfl/str/max_sf", ltrim$( str$( prflstrmax_sf ) ), Entity_Table()
-	push_names "prfl/ess/max_sf", ltrim$( str$( prflessmax_sf ) ), Entity_Table()
+	push_names "prfl/hp/max_sf", As_String( prflhpmax_sf ), Entity_Table()
+	push_names "prfl/str/max_sf", As_String( prflstrmax_sf ), Entity_Table()
+	push_names "prfl/ess/max_sf", As_String( prflessmax_sf ), Entity_Table()
 	
-	push_names "prfl/armr_sf", ltrim$( str$( prflarmr_sf ) ), Entity_Table()
-	push_names "prfl/pirc_sf", ltrim$( str$( prflpirc_sf ) ), Entity_Table()
-	push_names "prfl/evad_sf", ltrim$( str$( prflevad_sf ) ), Entity_Table()
+	push_names "prfl/armr_sf", As_String( prflarmr_sf ), Entity_Table()
+	push_names "prfl/pirc_sf", As_String( prflpirc_sf ), Entity_Table()
+	push_names "prfl/evad_sf", As_String( prflevad_sf ), Entity_Table()
 
-	push_names "prfl/lv_sf", ltrim$( str$( prfllv_sf ) ), Entity_Table()
-	push_names "prfl/exp_sf", ltrim$( str$( prflexp_sf ) ), Entity_Table()
-	push_names "prfl/valu_sf", ltrim$( str$( prflvalu_sf ) ), Entity_Table()
+	push_names "prfl/lv_sf", As_String( prfllv_sf ), Entity_Table()
+	push_names "prfl/exp_sf", As_String( prflexp_sf ), Entity_Table()
+	push_names "prfl/valu_sf", As_String( prflvalu_sf ), Entity_Table()
 	
 end sub

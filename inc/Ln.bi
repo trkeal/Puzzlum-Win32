@@ -13,6 +13,8 @@
 
 '=====
 
+#inclib "puzzlum-common"
+
 #inclib "Const"
 #inclib "Names"
 #ifndef Ln_lib

@@ -62,7 +62,7 @@ sub load_outro_palette( outro_prefix as string = "outro", outro_palette( any ) a
 	
 	for index = lbound( outro_palette, 1 ) to ubound( outro_palette, 1 ) step 1
 	
-		prefix = outro_prefix + "/palette/" + ltrim$( str$( index ) )
+		prefix = outro_prefix + "/palette/" + As_String( index )
 
 		outro_palette( index ) = valint( func_outro_style_shade( sync_names_using_default( prefix, "vga/"+ltrim$(str$(index)), Outro_Table() ) ) )
 		
@@ -229,7 +229,7 @@ sub outro_gfx( outro_prefix as string = "outro", Outro_Table( any ) as names_typ
 
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
-		prefix = outro_prefix + "/img/" + ltrim$( str$( index ) )
+		prefix = outro_prefix + "/img/" + As_String( index )
 		
 		select case index
 		case 0
@@ -287,7 +287,7 @@ sub outro_gfx( outro_prefix as string = "outro", Outro_Table( any ) as names_typ
 		
 	for index = lbound( outro_style, 1 ) to ubound( outro_style, 1 ) step 1
 		
-		prefix = outro_prefix + "/msg/" + ltrim$( str$( index ) )
+		prefix = outro_prefix + "/msg/" + As_String( index )
 	
 		outro_style( index ).msg = sync_names_using_default( prefix + "/caption", "outro", Outro_Table() )
 		
@@ -469,8 +469,8 @@ sub outro_map( map_prefix as string = "map", Map_Table( any ) as names_type, AA 
 			push_names prefix + entry + "/width", "24px", Map_Table()
 			push_names prefix + entry + "/height", "24px", Map_Table()
 			push_names prefix + entry + "/filename", ".\gameart\sprites\dirt____.24y.png", Map_Table()
-			push_names prefix + entry + "/halign", ltrim$( str$( ( col - 1 ) * 24 ) ) + "px", Map_Table()
-			push_names prefix + entry + "/valign", ltrim$( str$( ( row - 1 ) * 24 ) ) + "px", Map_Table()
+			push_names prefix + entry + "/halign", As_String( ( col - 1 ) * 24 ) + "px", Map_Table()
+			push_names prefix + entry + "/valign", As_String( ( row - 1 ) * 24 ) + "px", Map_Table()
 			push_names prefix + entry + "/method", "and", Map_Table()
 			push_names prefix + entry + "/fg", "vga/13", Map_Table()
 			push_names prefix + entry + "/bg", "vga/0", Map_Table()
@@ -480,8 +480,8 @@ sub outro_map( map_prefix as string = "map", Map_Table( any ) as names_type, AA 
 			push_names prefix + entry + "/width", "24px", Map_Table()
 			push_names prefix + entry + "/height", "24px", Map_Table()
 			push_names prefix + entry + "/filename", ".\gameart\sprites\dirt____.24x.png", Map_Table()  			
-			push_names prefix + entry + "/halign", ltrim$( str$( ( col - 1 ) * 24 ) ) + "px", Map_Table()
-			push_names prefix + entry + "/valign", ltrim$( str$( ( row - 1 ) * 24 ) ) + "px", Map_Table()
+			push_names prefix + entry + "/halign", As_String( ( col - 1 ) * 24 ) + "px", Map_Table()
+			push_names prefix + entry + "/valign", As_String( ( row - 1 ) * 24 ) + "px", Map_Table()
 			push_names prefix + entry + "/method", "or", Map_Table()
 			push_names prefix + entry + "/fg", "vga/13", Map_Table()
 			push_names prefix + entry + "/bg", "vga/0", Map_Table()
@@ -491,8 +491,8 @@ sub outro_map( map_prefix as string = "map", Map_Table( any ) as names_type, AA 
 			push_names prefix + entry + "/width", "24px", Map_Table()
 			push_names prefix + entry + "/height", "24px", Map_Table()
 			push_names prefix + entry + "/filename", ".\gameart\sprites\pndx____.24y.png", Map_Table()  			
-			push_names prefix + entry + "/halign", ltrim$( str$( ( col - 1 ) * 24 ) ) + "px", Map_Table()
-			push_names prefix + entry + "/valign", ltrim$( str$( ( row - 1 ) * 24 ) ) + "px", Map_Table()
+			push_names prefix + entry + "/halign", As_String( ( col - 1 ) * 24 ) + "px", Map_Table()
+			push_names prefix + entry + "/valign", As_String( ( row - 1 ) * 24 ) + "px", Map_Table()
 			push_names prefix + entry + "/method", "and", Map_Table()
 			push_names prefix + entry + "/fg", "vga/13", Map_Table()
 			push_names prefix + entry + "/bg", "vga/0", Map_Table()
@@ -502,8 +502,8 @@ sub outro_map( map_prefix as string = "map", Map_Table( any ) as names_type, AA 
 			push_names prefix + entry + "/width", "24px", Map_Table()
 			push_names prefix + entry + "/height", "24px", Map_Table()
 			push_names prefix + entry + "/filename", ".\gameart\sprites\pndx____.24x.png", Map_Table()  			
-			push_names prefix + entry + "/halign", ltrim$( str$( ( col - 1 ) * 24 ) ) + "px", Map_Table()
-			push_names prefix + entry + "/valign", ltrim$( str$( ( row - 1 ) * 24 ) ) + "px", Map_Table()
+			push_names prefix + entry + "/halign", As_String( ( col - 1 ) * 24 ) + "px", Map_Table()
+			push_names prefix + entry + "/valign", As_String( ( row - 1 ) * 24 ) + "px", Map_Table()
 			push_names prefix + entry + "/method", "or", Map_Table()
 			push_names prefix + entry + "/fg", "vga/13", Map_Table()
 			push_names prefix + entry + "/bg", "vga/0", Map_Table()
@@ -559,7 +559,7 @@ sub progress_bar( col as integer = 1, row as integer = 1, AA as integer = 16, DD
 	'for col = 1 to AA step 1
 
 	done = 100 * ( ( ( row - 1 ) * AA ) + col) \ ( AA * DD )
-	percentile = ltrim$( str$( done ) ) + "%"
+	percentile = As_String( done ) + "%"
 	
 	line img, ( 0, 0 )-( img -> width - 1, img -> height - 1 ), VGA_Table( 8 ), bf
 	
