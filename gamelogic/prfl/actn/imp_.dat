@@ -1,30 +1,30 @@
 case/imp_=ok
 central_call prflblnk
-prflidty_str=Little Imp
+prfl/idty_str=Little Imp
 
-prflactn_str=move,wing,fire
+prfl/actn_str=move,wing,fire
 prflactnct_str=0001,0001,0001
 
 'Entity_Action
 
 'IF INT(RND(1) * 2) + 1=2 THEN
-'prflidty_str=Merchant
-'prflactn_str=prflactn_str + dggrgrplseed
+'prfl/idty_str=Merchant
+'prfl/actn_str=prflactn_str + dggrgrplseed
 'prflactnct_str=prflactnct_str+mkl(1)+mkl(1)+mkl(1)
 'END IF
-prflgpic_str=imp_
-prflidty_sf=rid_sf
-prflhp_sf=30
-prflstr_sf=30
-prfless_sf=30
-prflspd_sf=5
-prflarmr_sf=1
-prflvalu_sf=24
-prflpirc_sf=1
-prfllv_sf=1
-prflhpmax_sf=30
-prflstrmax_sf=30
-prflessmax_sf=90
-prflessspd_sf=3
-prflevad_sf=.3
+prfl/gpic_str=imp_
+prfl/idty_sf=rid_sf
+prfl/hp/cur_sf=30
+prfl/str/cur_sf=30
+prfl/ess/cur_sf=30
+prfl/spd_sf=5
+prfl/armr_sf=1
+prfl/valu_sf=24
+prfl/pirc_sf=1
+prfl/lv_sf=1
+prfl/hp/max_sf=30
+prfl/str/max_sf=30
+prfl/ess/max_sf=90
+prfl/ess/spd_sf=3
+prfl/evad_sf=.3
 central_call prflset

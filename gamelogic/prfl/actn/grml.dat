@@ -1,25 +1,25 @@
 case/grml=ok
 central_call prflblnk
-prflidty_str=Gremlin
+prfl/idty_str=Gremlin
 
-prflactn_str=move,bite,pnch
+prfl/actn_str=move,bite,pnch
 prflactnct_str=0001,0001,0001
 
 'Entity_Action
 
 'IF RND(1) > .2 THEN
-'prflactn_str=prflactn_str + dggr
+'prfl/actn_str=prflactn_str + dggr
 'prflactnct_str=prflactnct_str+mkl(1)
 'END IF
-prflgpic_str=grml
-prflidty_sf=rid_sf
-prflhp_sf=25
-prflstr_sf=90
-prflspd_sf=1
-prflarmr_sf=1
-prflvalu_sf=5
-prflpirc_sf=2
-prfllv_sf=1
-prflhpmax_sf=25
-prflstrmax_sf=90
+prfl/gpic_str=grml
+prfl/idty_sf=rid_sf
+prfl/hp/cur_sf=25
+prfl/str/cur_sf=90
+prfl/spd_sf=1
+prfl/armr_sf=1
+prfl/valu_sf=5
+prfl/pirc_sf=2
+prfl/lv_sf=1
+prfl/hp/max_sf=25
+prfl/str/max_sf=90
 central_call prflset

@@ -549,7 +549,7 @@ sub Entity_Action
 	
 	dim as string profile_actions = string$( 0, 0 ), profile_counts = string$( 0, 0 )
 	
-	profile_actions = sync_names_using_default("prflactn_str", "", Entity_Table() )
+	profile_actions = sync_names_using_default("prfl/actn_str", "", Entity_Table() )
 	profile_counts = sync_names_using_default("prflactnct_str", "", Entity_Table() )
 	
 	count = ( len( profile_actions ) + 1 ) \ 5
@@ -574,32 +574,38 @@ sub Entity_Action
 		next
 	end select
 	
+	sync_entity Entity_Table()
+
+	#ifdef __old_sync_entity__
 	prflidty_sf = rid_sf
 	
-	prflidty_str = sync_names_using_default("prflidty_str", "____", Entity_Table() )
-	prflactn_str = sync_names_using_default("prflactn_str", "____", Entity_Table() )'
-	prflgpic_str = sync_names_using_default("prflgpic_str", "____", Entity_Table() )
-	prflidty_sf = val( sync_names_using_default("prflidty_sf", "0", Entity_Table() ) )'
+	prflidty_str = sync_names_using_default("prfl/idty_str", Entity_Shortname(), Entity_Table() )
+	prflactn_str = sync_names_using_default("prfl/actn_str", Entity_Shortname(), Entity_Table() )'
+	prflgpic_str = sync_names_using_default("prfl/gpic_str", Entity_Shortname(), Entity_Table() )
 	
-	prflhpcur_sf = val( sync_names_using_default("prflhpcur_sf", "0", Entity_Table() ) )
-	prflstrcur_sf = val( sync_names_using_default("prflstrcur_sf", "0", Entity_Table() ) )
-	prflesscur_sf = val( sync_names_using_default("prflesscur_sf", "0", Entity_Table() ) )
+	prflidty_sf = val( sync_names_using_default("prfl/idty_sf", "0", Entity_Table() ) )'
+	
+	prflhpcur_sf = val( sync_names_using_default("prfl/hp/cur_sf", "0", Entity_Table() ) )
+	prflstrcur_sf = val( sync_names_using_default("prfl/str/cur_sf", "0", Entity_Table() ) )
+	prflesscur_sf = val( sync_names_using_default("prfl/ess/cur_sf", "0", Entity_Table() ) )
 
-	prflhpmax_sf = val( sync_names_using_default("prflhpmax_sf", "0", Entity_Table() ) )
-	prflstrmax_sf = val( sync_names_using_default("prflstrmax_sf", "0", Entity_Table() ) )
-	prflessmax_sf = val( sync_names_using_default("prflessmax_sf", "0", Entity_Table() ) )
+	prflhpmax_sf = val( sync_names_using_default("prfl/hp/max_sf", "0", Entity_Table() ) )
+	prflstrmax_sf = val( sync_names_using_default("prfl/str/max_sf", "0", Entity_Table() ) )
+	prflessmax_sf = val( sync_names_using_default("prfl/ess/max_sf", "0", Entity_Table() ) )
 	
-	prflhpspd_sf = val( sync_names_using_default("prflhpspd_sf", "0", Entity_Table() ) )
-	prflstrspd_sf = val( sync_names_using_default("prflstrspd_sf", "0", Entity_Table() ) )
-	prflessspd_sf = val( sync_names_using_default("prflessspd_sf", "0", Entity_Table() ) )
+	prflhpspd_sf = val( sync_names_using_default("prfl/hp/spd_sf", "0", Entity_Table() ) )
+	prflstrspd_sf = val( sync_names_using_default("prfl/str/spd_sf", "0", Entity_Table() ) )
+	prflessspd_sf = val( sync_names_using_default("prfl/ess/spd_sf", "0", Entity_Table() ) )
 	
-	prflarmr_sf = val( sync_names_using_default("prflarmr_sf", "0", Entity_Table() ) )
-	prflpirc_sf = val( sync_names_using_default("prflpirc_sf", "0", Entity_Table() ) )
-	prflevad_sf = val( sync_names_using_default("prflevad_sf", "0", Entity_Table() ) )
+	prflarmr_sf = val( sync_names_using_default("prfl/armr_sf", "0", Entity_Table() ) )
+	prflpirc_sf = val( sync_names_using_default("prfl/pirc_sf", "0", Entity_Table() ) )
+	prflevad_sf = val( sync_names_using_default("prfl/evad_sf", "0", Entity_Table() ) )
 		
-	prfllv_sf = val( sync_names_using_default("prfllv_sf", "0", Entity_Table() ) )
-	prflexp_sf = val( sync_names_using_default("prflexp_sf", "0", Entity_Table() ) )
-	prflvalu_sf = val( sync_names_using_default("prflvalu_sf", "0", Entity_Table() ) )
+	prfllv_sf = val( sync_names_using_default("prfl/lv_sf", "0", Entity_Table() ) )
+	prflexp_sf = val( sync_names_using_default("prfl/exp_sf", "0", Entity_Table() ) )
+	prflvalu_sf = val( sync_names_using_default("prfl/valu_sf", "0", Entity_Table() ) )
+	
+	#endif
 	
 	Central_Close_Out target	
 
@@ -613,30 +619,30 @@ sub sync_entity( Entity_Table( any ) as names_type )
 
 	prflidty_sf = rid_sf
 	
-	prflidty_str = sync_names_using_default("prflidty_str", Entity_Shortname(), Entity_Table() )
-	prflactn_str = sync_names_using_default("prflactn_str", Entity_Shortname(), Entity_Table() )'
-	prflgpic_str = sync_names_using_default("prflgpic_str", Entity_Shortname(), Entity_Table() )
+	prflidty_str = sync_names_using_default("prfl/idty_str", Entity_Shortname(), Entity_Table() )
+	prflactn_str = sync_names_using_default("prfl/actn_str", Entity_Shortname(), Entity_Table() )'
+	prflgpic_str = sync_names_using_default("prfl/gpic_str", Entity_Shortname(), Entity_Table() )
 	
-	prflidty_sf = val( sync_names_using_default("prflidty_sf", "0", Entity_Table() ) )'
+	prflidty_sf = val( sync_names_using_default("prfl/idty_sf", "0", Entity_Table() ) )'
 	
-	prflhpcur_sf = val( sync_names_using_default("prflhpcur_sf", "0", Entity_Table() ) )
-	prflstrcur_sf = val( sync_names_using_default("prflstrcur_sf", "0", Entity_Table() ) )
-	prflesscur_sf = val( sync_names_using_default("prflesscur_sf", "0", Entity_Table() ) )
+	prflhpcur_sf = val( sync_names_using_default("prfl/hp/cur_sf", "0", Entity_Table() ) )
+	prflstrcur_sf = val( sync_names_using_default("prfl/str/cur_sf", "0", Entity_Table() ) )
+	prflesscur_sf = val( sync_names_using_default("prfl/ess/cur_sf", "0", Entity_Table() ) )
 		
-	prflhpmax_sf = val( sync_names_using_default("prflhpmax_sf", "0", Entity_Table() ) )
-	prflstrmax_sf = val( sync_names_using_default("prflstrmax_sf", "0", Entity_Table() ) )
-	prflessmax_sf = val( sync_names_using_default("prflessmax_sf", "0", Entity_Table() ) )
+	prflhpmax_sf = val( sync_names_using_default("prfl/hp/max_sf", "0", Entity_Table() ) )
+	prflstrmax_sf = val( sync_names_using_default("prfl/str/max_sf", "0", Entity_Table() ) )
+	prflessmax_sf = val( sync_names_using_default("prfl/ess/max_sf", "0", Entity_Table() ) )
 	
-	prflstrspd_sf = val( sync_names_using_default("prflstrspd_sf", "0", Entity_Table() ) )
-	prflessspd_sf = val( sync_names_using_default("prflessspd_sf", "0", Entity_Table() ) )
+	prflstrspd_sf = val( sync_names_using_default("prfl/str/spd_sf", "0", Entity_Table() ) )
+	prflessspd_sf = val( sync_names_using_default("prfl/ess/spd_sf", "0", Entity_Table() ) )
 	
-	prflarmr_sf = val( sync_names_using_default("prflarmr_sf", "0", Entity_Table() ) )
-	prflpirc_sf = val( sync_names_using_default("prflpirc_sf", "0", Entity_Table() ) )
-	prflevad_sf = val( sync_names_using_default("prflevad_sf", "0", Entity_Table() ) )
+	prflarmr_sf = val( sync_names_using_default("prfl/armr_sf", "0", Entity_Table() ) )
+	prflpirc_sf = val( sync_names_using_default("prfl/pirc_sf", "0", Entity_Table() ) )
+	prflevad_sf = val( sync_names_using_default("prfl/evad_sf", "0", Entity_Table() ) )
 
-	prfllv_sf = val( sync_names_using_default("prfllv_sf", "0", Entity_Table() ) )
-	prflexp_sf = val( sync_names_using_default("prflexp_sf", "0", Entity_Table() ) )
-	prflvalu_sf = val( sync_names_using_default("prflvalu_sf", "0", Entity_Table() ) )
+	prfllv_sf = val( sync_names_using_default("prfl/lv_sf", "0", Entity_Table() ) )
+	prflexp_sf = val( sync_names_using_default("prfl/exp_sf", "0", Entity_Table() ) )
+	prflvalu_sf = val( sync_names_using_default("prfl/valu_sf", "0", Entity_Table() ) )
 	
 end sub
 
@@ -644,23 +650,30 @@ sub push_entity( Entity_Table( any ) as names_type )
 	
 	prflidty_sf = rid_sf
 	
-	push_names "prflidty_str", prflidty_str, Entity_Table()
-	push_names "prflactn_str", prflactn_str, Entity_Table()
-	push_names "prflgpic_str", prflgpic_str, Entity_Table()
-	push_names "prflidty_sf", ltrim$( str$( prflidty_sf ) ), Entity_Table()
-	push_names "prflhpcur_sf", ltrim$( str$( prflhpcur_sf ) ), Entity_Table()
-	push_names "prflstrcur_sf", ltrim$( str$( prflstrcur_sf ) ), Entity_Table()
-	push_names "prflesscur_sf", ltrim$( str$( prflesscur_sf ) ), Entity_Table()
-	push_names "prflstrspd_sf", ltrim$( str$( prflstrspd_sf ) ), Entity_Table()
-	push_names "prflarmr_sf", ltrim$( str$( prflarmr_sf ) ), Entity_Table()
-	push_names "prflexp_sf", ltrim$( str$( prflexp_sf ) ), Entity_Table()
-	push_names "prflvalu_sf", ltrim$( str$( prflvalu_sf ) ), Entity_Table()
-	push_names "prflpirc_sf", ltrim$( str$( prflpirc_sf ) ), Entity_Table()
-	push_names "prfllv_sf", ltrim$( str$( prfllv_sf ) ), Entity_Table()
-	push_names "prflhpmax_sf", ltrim$( str$( prflhpmax_sf ) ), Entity_Table()
-	push_names "prflstrmax_sf", ltrim$( str$( prflstrmax_sf ) ), Entity_Table()
-	push_names "prflessmax_sf", ltrim$( str$( prflessmax_sf ) ), Entity_Table()
-	push_names "prflessspd_sf", ltrim$( str$( prflessspd_sf ) ), Entity_Table()
-	push_names "prflevad_sf", ltrim$( str$( prflevad_sf ) ), Entity_Table()
+	push_names "prfl/idty_str", prflidty_str, Entity_Table()
+	push_names "prfl/actn_str", prflactn_str, Entity_Table()
+	push_names "prfl/gpic_str", prflgpic_str, Entity_Table()
+	
+	push_names "prfl/idty_sf", ltrim$( str$( prflidty_sf ) ), Entity_Table()
+	
+	push_names "prfl/hp/cur_sf", ltrim$( str$( prflhpcur_sf ) ), Entity_Table()
+	push_names "prfl/str/cur_sf", ltrim$( str$( prflstrcur_sf ) ), Entity_Table()
+	push_names "prfl/ess/cur_sf", ltrim$( str$( prflesscur_sf ) ), Entity_Table()
+	
+	push_names "prfl/hp/spd_sf", ltrim$( str$( prflhpspd_sf ) ), Entity_Table()
+	push_names "prfl/str/spd_sf", ltrim$( str$( prflstrspd_sf ) ), Entity_Table()
+	push_names "prfl/ess/spd_sf", ltrim$( str$( prflessspd_sf ) ), Entity_Table()
+
+	push_names "prfl/hp/max_sf", ltrim$( str$( prflhpmax_sf ) ), Entity_Table()
+	push_names "prfl/str/max_sf", ltrim$( str$( prflstrmax_sf ) ), Entity_Table()
+	push_names "prfl/ess/max_sf", ltrim$( str$( prflessmax_sf ) ), Entity_Table()
+	
+	push_names "prfl/armr_sf", ltrim$( str$( prflarmr_sf ) ), Entity_Table()
+	push_names "prfl/pirc_sf", ltrim$( str$( prflpirc_sf ) ), Entity_Table()
+	push_names "prfl/evad_sf", ltrim$( str$( prflevad_sf ) ), Entity_Table()
+
+	push_names "prfl/lv_sf", ltrim$( str$( prfllv_sf ) ), Entity_Table()
+	push_names "prfl/exp_sf", ltrim$( str$( prflexp_sf ) ), Entity_Table()
+	push_names "prfl/valu_sf", ltrim$( str$( prflvalu_sf ) ), Entity_Table()
 	
 end sub

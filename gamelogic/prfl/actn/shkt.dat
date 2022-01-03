@@ -1,23 +1,23 @@
 case/shkt=ok
 central_call prflblnk
-prflidty_str=Shiny Knight
+prfl/idty_str=Shiny Knight
 
-prflactn_str=move,pnch,dggr
+prfl/actn_str=move,pnch,dggr
 prflactnct_str=0001,0001,0001
 
 Entity_Action
 
-prflgpic_str=shkt
-prflidty_sf=rid_sf
-prflhp_sf=45
-prflstr_sf=110
-prflspd_sf=1
-prflarmr_sf=4
-prflvalu_sf=17
-prflpirc_sf=3
-prfllv_sf=1
-prflhpmax_sf=45
-prflstrmax_sf=110
-prflessmax_sf=12
-prflevad_sf=.12
+prfl/gpic_str=shkt
+prfl/idty_sf=rid_sf
+prfl/hp/cur_sf=45
+prfl/str/cur_sf=110
+prfl/spd_sf=1
+prfl/armr_sf=4
+prfl/valu_sf=17
+prfl/pirc_sf=3
+prfl/lv_sf=1
+prfl/hp/max_sf=45
+prfl/str/max_sf=110
+prfl/ess/max_sf=12
+prfl/evad_sf=.12
 central_call prflset
