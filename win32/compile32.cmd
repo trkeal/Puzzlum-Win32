@@ -75,6 +75,10 @@ echo ===[ Puzzlum / Maps ]==[ %static% ]=== >> %log%
 %fbc% "puzzlum-maps.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
+echo: >> %log%
+echo ===[ Puzzlum / Test ]==[ %static% ]=== >> %log%
+%fbc% "puzzlum-test.bas" %debugopts% %libopts% >> %log% 2>&1
+if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Main ]==[ %binary% ]=== >> %log%

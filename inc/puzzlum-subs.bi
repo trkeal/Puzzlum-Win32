@@ -41,6 +41,8 @@
 	#include once ".\inc\puzzlum-vars.bi"
 	#include once ".\inc\puzzlum-maps.bi"
 
+	#include once ".\inc\puzzlum-test.bi"
+
 	'#include once ".\puzzlum-vars.bi"
 	
 	
@@ -278,10 +280,6 @@ declare sub load_levels()
 declare sub load_rose()
 
 declare sub report_caption( caption as string = "%%" )
-
-declare function vga_test_1() as fb.image ptr
-
-declare sub vga_test_2()
 
 declare sub font_loader()
 
