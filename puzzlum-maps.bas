@@ -35,6 +35,56 @@
 
 	'redim shared debug_table( any ) as names_type
 
+    'dir axis info '[!] um? proper documentation, please.
+    
+	DATA  1, 1
+    DATA  1, 4
+    DATA  1, 8
+    DATA  1,12
+    DATA  1,16
+
+sub levels_loader( filename as string = "" )
+	
+	'level up data
+
+	if len( filename ) = 0 then
+		filename = sync_names_using_default( "levels/filename", ".\gamedata\Levels.dat", Bundle_Table() )
+	end if
+
+	load_names_from_file filename, Levels_Table()
+	
+    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
+        l_sia(t_si) = val( sync_names( "levels/" + As_String( t_si ), Levels_Table() ) )
+    NEXT t_si
+    
+end sub
+
+sub win_loader( filename as string = "" )
+	
+	if len( filename ) = 0 then
+		filename = sync_names_using_default( "win/filename", ".\gamedata\Win.dat", Bundle_Table() )
+	end if
+	
+	erase Win_Table
+	load_names_from_file filename, Win_Table()
+	
+	win_si = val( sync_names( "count", Win_Table() ) )
+
+    'RANDOMIZE TIMER
+    'RESTORE  
+
+    FOR ttt_si = val( sync_names( "start", Win_Table() ) ) TO win_si
+        
+		win_sia(1 + (ttt_si - 1) * 2) = val( sync_names_using_default(As_String(ttt_si)+"/"+As_String(1), "0", Win_Table() ) )
+		
+        win_sia(1 + (ttt_si - 1) * 2) = val( sync_names_using_default(As_String(ttt_si)+"/"+As_String(2), "0", Win_Table() ) )
+
+		'READ win_sia(1 + (ttt_si - 1) * 2)
+        'READ win_sia(2 + (ttt_si - 1) * 2)
+    NEXT ttt_si
+	
+end sub
+
 sub map_loader ( map_filename as string = "%%" )
 	dim as names_type Entity_Table( any )
 	dim as integer count = 0, index = 0
@@ -75,24 +125,7 @@ sub map_loader ( map_filename as string = "%%" )
     
     textcolor_si = .01
     textdelay_sf = 2.5: '.8 '.55
-    win_si = 4
-
-    RANDOMIZE TIMER
-    RESTORE  
-
-    FOR ttt_si = 0 TO win_si
-        READ win_sia(1 + (ttt_si - 1) * 2)
-        READ win_sia(2 + (ttt_si - 1) * 2)
-    NEXT ttt_si
         
-	'level up data
-
-	load_names_from_file( sync_names( "levels/filename", Bundle_Table() ), Levels_Table() )
-	
-    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
-        l_sia(t_si) = val( sync_names( "levels/" + As_String( t_si ), Levels_Table() ) )
-    NEXT t_si
-    
     ctrl_str = "pndximp_"
     IF INT(RND(1) * 2) + 1 = 2 THEN ctrl_str = ctrl_str + "dust"
     FOR Ty_si = 1 TO DD_si step 1

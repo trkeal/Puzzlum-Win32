@@ -3,7 +3,7 @@
 'puzzlum-vars.bas
 'Puzzlum Variable Definitions
 '
-'Puzzlum is Copyright (C) 1997, 2010, 2021 Timothy Robert Keal
+'Puzzlum is Copyright (C) 1997, 2010, 2021, 2022 Timothy Robert Keal
 'Released under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
 '
 'http://puzzlum.com/
@@ -26,11 +26,3 @@
 	#include once ".\inc\fbpngs.bi"
 
 	'ScreenRes 640, 480, 32, 16
-
-    'dir axis info '[!] um? proper documentation, please.
-    
-	DATA  1, 1
-    DATA  1, 4
-    DATA  1, 8
-    DATA  1,12
-    DATA  1,16

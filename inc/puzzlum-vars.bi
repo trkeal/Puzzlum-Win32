@@ -2,7 +2,7 @@
 'puzzlum-vars.bi
 'Puzzlum Variable Definitions
 '
-'Puzzlum is Copyright (C) 1997, 2010, 2021 Timothy Robert Keal
+'Puzzlum is Copyright (C) 1997, 2010, 2021, 2022 Timothy Robert Keal
 'Released under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
 '
 'http://puzzlum.com/
@@ -30,8 +30,9 @@
 	redim shared as names_type Bundle_Table( any )
 	redim shared as names_type Display_Table( any )
 	redim shared as names_type Input_Table( any )
-	redim shared as names_type Names_Table(any)
-	redim shared as names_type Levels_Table()
+	redim shared as names_type Names_Table( any )
+	redim shared as names_type Levels_Table( any )
+	redim shared as names_type Win_Table( any )
 	redim shared as names_type Maps_Table( any )
 	redim shared as names_type Save_Table( any )
 	redim shared as names_type Queue_Table( any )

@@ -16,6 +16,7 @@ bundle/filename=.\gamedata\Bundle.dat
 help/filename=.\gamedata\Help\Help.hlp
 input/filename=.\gamedata\Input.dat
 levels/filename=.\gamedata\Levels.dat
+win/filename=.\gamedata\Win.dat
 main/filename=.\gamedata\Main.dat
 names/filename=.\gamedata\Names.dat
 palette/filename=.\gamedata\QBVGAPAL.BIN

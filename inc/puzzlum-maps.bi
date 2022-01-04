@@ -40,6 +40,10 @@
 	'#include once ".\inc\puzzlum-subs.bi"
 	'#include once ".\inc\puzzlum-vars.bi"
 	
+	declare sub levels_loader( filename as string = "" )
+
+	declare sub win_loader( filename as string = "" )
+
 	declare sub map_loader ( map_filename as string = "%%" )
 	
 	declare sub Entity_Action
