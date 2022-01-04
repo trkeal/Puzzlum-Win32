@@ -30,18 +30,17 @@
 	#include once ".\inc\puzzlum-subs.bi"
 	#include once ".\inc\puzzlum-vars.bi"
 	
-
 	'dim shared as integer Central_Count = 0
 
 	'redim shared debug_table( any ) as names_type
 
     'dir axis info '[!] um? proper documentation, please.
     
-	DATA  1, 1
-    DATA  1, 4
-    DATA  1, 8
-    DATA  1,12
-    DATA  1,16
+	'DATA  1, 1
+    'DATA  1, 4
+    'DATA  1, 8
+    'DATA  1,12
+    'DATA  1,16
 
 sub levels_loader( filename as string = "" )
 	
@@ -53,7 +52,7 @@ sub levels_loader( filename as string = "" )
 
 	load_names_from_file filename, Levels_Table()
 	
-    FOR t_si = 0 TO val( sync_names( "levels/count", Levels_Table() ) )
+    FOR t_si = val( sync_names( "levels/start", Levels_Table() ) ) TO val( sync_names( "levels/count", Levels_Table() ) ) step 1
         l_sia(t_si) = val( sync_names( "levels/" + As_String( t_si ), Levels_Table() ) )
     NEXT t_si
     
