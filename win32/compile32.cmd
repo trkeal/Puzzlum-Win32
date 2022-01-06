@@ -71,6 +71,11 @@ echo ===[ Puzzlum / Subs ]==[ %static% ]=== >> %log%
 if errorlevel 1 goto :failed
 
 echo: >> %log%
+echo ===[ Puzzlum / Entity Loader ]==[ %static% ]=== >> %log%
+%fbc% "puzzlum-entity-loader.bas" %debugopts% %libopts% >> %log% 2>&1
+if errorlevel 1 goto :failed
+
+echo: >> %log%
 echo ===[ Puzzlum / Maps ]==[ %static% ]=== >> %log%
 %fbc% "puzzlum-maps.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed

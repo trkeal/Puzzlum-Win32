@@ -31,6 +31,8 @@ puzzlum-subs.bas(4123) warning 36(1): Mismatching parameter initializer, at para
 puzzlum-subs.bas(4235) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of text_out()
 puzzlum-subs.bas(4268) warning 36(1): Mismatching parameter initializer, at parameter 1 (tag) of cleantag()
  
+===[ Puzzlum / Entity Loader ]==[ Win32 Static Library ]=== 
+ 
 ===[ Puzzlum / Maps ]==[ Win32 Static Library ]=== 
  
 ===[ Puzzlum / Test ]==[ Win32 Static Library ]=== 

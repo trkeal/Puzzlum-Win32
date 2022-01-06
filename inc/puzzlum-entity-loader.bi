@@ -1,6 +1,6 @@
 
-'puzzlum-maps.bi
-'Puzzlum - "Names Table" Maps loader
+'puzzlum-entity_loader.bi
+'Puzzlum - Entity Loader
 '
 'Copyright (C) 2009, 2021 Timothy Robert Keal
 '
@@ -14,8 +14,8 @@
 
 '=====
 
-	#ifndef puzzlum_maps_lib
-	#inclib "puzzlum-maps"
+	#ifndef puzzlum_entity_loader_lib
+	#inclib "puzzlum-entity-loader"
 	#endif
 
 	#inclib "puzzlum-common"
@@ -37,19 +37,7 @@
 
 	#include once ".\inc\CLV.bi"
 
-	'#include once ".\inc\puzzlum-subs.bi"
-	'#include once ".\inc\puzzlum-vars.bi"
-	
-	#include once ".\inc\puzzlum-entity-loader.bi"
-	
-	declare sub levels_loader( filename as string = "" )
 
-	declare sub win_loader( filename as string = "" )
 
-	declare sub map_loader ( map_filename as string = "%%" )
-	
-	declare sub Entity_Action
-		
-	declare sub sync_entity( Entity_Table( any ) as names_type )	
-	
-	declare sub push_entity( Entity_Table( any ) as names_type )	
+
+declare sub Entity_Loader ()
