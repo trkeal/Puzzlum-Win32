@@ -24,11 +24,6 @@
 	#include once ".\inc\Const.bi"
 	#include once ".\inc\Names.bi"
 
-	#include once ".\inc\central-debug.bi"
-
-	redim shared as names_type CMD_Table( any )
-	debug_status CMD_Table()
-
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
@@ -36,6 +31,8 @@
 	#include once ".\inc\puzzlum-outro.bi"
 
 	#include once ".\inc\CLV.bi"
+
+	#include once ".\inc\central-debug.bi"
 
 	#include once ".\inc\puzzlum-subs.bi"
 	#include once ".\inc\puzzlum-vars.bi"
@@ -105,6 +102,8 @@
 	declare sub ln_attk_table( attk as string = "%%" )
 	
 	declare sub ln_usecure ()
+	declare sub ln_useslep ()
+	
     declare sub ln_attkslep ()
     declare sub ln_victory ()
     declare sub ln_pillage ()
@@ -246,32 +245,6 @@ declare function Rose_Calc( Tx_si as integer = 0, Ty_si as integer = 0 ) as inte
 declare function Rose_Direct( byref X as integer = 0, byref Y as integer = 0, Card as integer = 0, Range as integer = 0 ) as integer
 	
 declare function wait_key() as string
-
-declare sub central_call overload( target as string = "" )
-
-declare sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer)
-
-declare sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
-
-declare sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, Caption as string, _
-        byref Cur as integer, Max as integer, _
-        X1 as integer, Y1 as integer, X2 as integer, Y2 as integer, _
-        Switch as integer, ARGB as uinteger, Increment as integer, Progress as string, _
-        byref LastSec as double, DelaySec as double)
-
-declare sub central overload ( target as string = "", clv_buffer() as fb.image ptr)
-
-declare sub central overload ( target as string = "", Row as short, Col as short)
-
-declare sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, X1 as short, Y1 as short, X2 as short, Y2 as short, C1 as short,C2 as short)
-
-declare sub central overload ( target as string = "", clv_glyph() as integer)
-
-declare sub central overload ( target as string = "", Index as integer, Src as integer, Row as short, Col as short, W as short, H as short, byref Text_str as string)
-
-declare sub central overload ( target as string = "", db_names() as names_type)
-
-declare sub central overload ( target as string = "", attk as string = "%%" )
 
 declare sub load_bundle()
 

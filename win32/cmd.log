@@ -1,2 +1,2 @@
-cmd/count=0
-cmd/0=puzzlum-win32.exe
+cmd/count=-1
+cmd/0=
