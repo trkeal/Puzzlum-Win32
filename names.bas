@@ -1,53 +1,14 @@
 #define names_lib
  
-'#include once ".\inc\names.bi"
+#include once ".\inc\names.bi"
 #include once ".\inc\const.bi"
 
 #include "file.bi"
 
-type names_type
-	label as string
-	value as string
-end type
-
-declare function sync_names_using_default( label as string = "", default as string = "%%", names_table( any ) as names_type ) as string
-
-declare sub wipe_table( names( any ) as names_type )
-declare sub push_names( label as string, value as string, names_table( any ) as names_type )
-
-declare function name_as_string( subject as string ) as string
-
-declare function name_ref_as_string( subject as string, names( any ) as names_type ) as string
-declare function name_hex_as_string( subject as string, names( any ) as names_type ) as string
-declare function name_as_special_string( subject as string, names( any ) as names_type ) as string
-
-declare function sync_names( lookup as string, names_table( any ) as names_type ) as string
-
-declare sub load_names( filename as string = "", names_table( any ) as names_type )
-declare sub load_names_from_buffer( buffer as string = "", names_table( any ) as names_type )
-declare sub load_names_from_file( filename as string = "", names_table( any ) as names_type )
-
-declare sub save_names( filename as string = "", names_table( any ) as names_type )
-declare sub save_names_to_file( filename as string = "", names_table( any ) as names_type )
-declare sub save_names_to_buffer( subject as string = "", names_table( any ) as names_type )
-
-declare sub merge_names(source_table( any ) as names_type, dest_table( any ) as names_type )
-
-declare function ucword( subject as string ) as string
-declare function ord_series( subject as string = "" ) as integer
-declare function hex2asc( subject as string = "" ) as string
-
-declare function trimint overload ( subject as integer = 0 ) as string	
-declare function trimint overload ( subject as single = 0 ) as string	
-declare function trimint overload ( subject as double = 0 ) as string	
-declare function trimint overload ( subject as long = 0 ) as string	
-declare function trimint overload ( subject as short = 0 ) as string	
-declare function trimint overload ( subject as string = "" ) as string	
-
-function sync_names_using_default( label as string = "", default as string = "%%", names_table( any ) as names_type ) as string
+function sync_names_using_default( label as string = "", default as string = "%%", names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq ) as string
 	
 	dim as string temp = string$( 0, 0 )
-	temp = sync_names( label, names_table() )
+	temp = sync_names( label, names_table(), separator, delimiter )
 	
 	select case temp
 	case "%%"
@@ -70,7 +31,7 @@ sub wipe_table( names( any ) as names_type )
 	 
 end sub
 
-sub push_names( label as string, value as string, names_table( any ) as names_type )
+sub push_names( label as string, value as string, names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 	
 	dim as integer index = 0
 	
@@ -167,7 +128,7 @@ function name_hex_as_string( subject as string, names( any ) as names_type ) as 
 
 end function
 
-function sync_names( lookup as string, names_table( any ) as names_type ) as string
+function sync_names( lookup as string, names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq ) as string
 	
 	dim as integer index = lbound( names_table, 1 )
 	
@@ -193,27 +154,27 @@ function sync_names( lookup as string, names_table( any ) as names_type ) as str
 	
 end function
 
-sub load_names( filename as string = "", names_table( any ) as names_type )
+sub load_names( filename as string = "", names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 	
 	wipe_table names_table()
 
-	load_names_from_file( filename, names_table() )
+	load_names_from_file( filename, names_table(), separator, delimiter )
 
 end sub
 
-sub load_names_from_buffer( buffer as string = "", names_table( any ) as names_type )
+sub load_names_from_buffer( buffer as string = "", names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 	
 	wipe_table names_table()
 
 	dim as string subject = string$( 0, 0 )
 	
-	do while instr( 1, buffer, crlf ) > 0
+	do while instr( 1, buffer, separator ) > 0
 		
-		subject = left$( buffer, instr( 1, buffer, crlf ) - 1 )
+		subject = left$( buffer, instr( 1, buffer, separator ) - 1 )
 		
-		buffer = mid$( buffer, len( subject ) + len( crlf ) + 1 )
+		buffer = mid$( buffer, len( subject ) + len( separator ) + 1 )
 		
-		if instr( subject, eq ) > 0 then
+		if instr( subject, delimiter ) > 0 then
 			
 			if ubound( names_table, 0 ) > 0 then
 				redim preserve names_table( lbound( names_table, 1 ) to ubound( names_table, 1 ) + 1 )
@@ -221,9 +182,9 @@ sub load_names_from_buffer( buffer as string = "", names_table( any ) as names_t
 				redim names_table( 0 to 0 )
 			end if
 			
-			names_table( ubound( names_table, 1 ) ).label = left$( subject, instr( subject, eq ) - 1 )
+			names_table( ubound( names_table, 1 ) ).label = left$( subject, instr( subject, delimiter ) - 1 )
 			
-			names_table( ubound( names_table, 1 ) ).value = mid$( subject, instr( subject, eq ) + len( eq ) )
+			names_table( ubound( names_table, 1 ) ).value = mid$( subject, instr( subject, delimiter ) + len( delimiter ) )
 			
 		end if
 	loop
@@ -231,7 +192,7 @@ sub load_names_from_buffer( buffer as string = "", names_table( any ) as names_t
 	subject = buffer
 	buffer = string$( 0, 0 )
 	
-	if instr( subject, eq ) > 0 then
+	if instr( subject, delimiter ) > 0 then
 		
 		if ubound( names_table, 0 ) > 0 then		
 			redim preserve names_table( lbound( names_table, 1 ) to ubound( names_table, 1 ) + 1 )
@@ -239,15 +200,15 @@ sub load_names_from_buffer( buffer as string = "", names_table( any ) as names_t
 			redim names_table( 0 to 0 )
 		end if
 		
-		names_table( ubound( names_table, 1 ) ).label = left$( subject, instr( subject, eq ) - 1 )
+		names_table( ubound( names_table, 1 ) ).label = left$( subject, instr( subject, delimiter ) - 1 )
 		
-		names_table( ubound( names_table, 1 ) ).value = mid$( subject, instr( subject, eq ) + len( eq ) )
+		names_table( ubound( names_table, 1 ) ).value = mid$( subject, instr( subject, delimiter ) + len( delimiter ) )
 	
 	end if
 
 end sub
 
-sub load_names_from_file( filename as string = "", names_table( any ) as names_type )
+sub load_names_from_file( filename as string = "", names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 
 	wipe_table names_table()
 
@@ -273,17 +234,17 @@ sub load_names_from_file( filename as string = "", names_table( any ) as names_t
 		
 	end if
 	
-	load_names_from_buffer buffer, names_table()
+	load_names_from_buffer buffer, names_table(), separator, delimiter
 	
 end sub
 
-sub save_names( filename as string = "", names_table( any ) as names_type )
+sub save_names( filename as string = "", names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 
-	save_names_to_file( filename, names_table() )
+	save_names_to_file( filename, names_table(), separator, delimiter )
 
 end sub
 
-sub save_names_to_file( filename as string = "", names_table( any ) as names_type )
+sub save_names_to_file( filename as string = "", names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 	
 	dim as integer filemode = freefile, index = 0
 	dim as string buffer = string$( 0, 0 )
@@ -295,14 +256,14 @@ sub save_names_to_file( filename as string = "", names_table( any ) as names_typ
 		exit sub
 	end if
 	
-	save_names_to_buffer( buffer, names_table() )
+	save_names_to_buffer( buffer, names_table(), separator, delimiter )
 	
 	put #filemode, 1, buffer
 	close #filemode
 
 end sub
 
-sub save_names_to_buffer( subject as string = "", names_table( any ) as names_type )
+sub save_names_to_buffer( subject as string = "", names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 	
 	dim as integer index = 0
 	dim as string buffer = subject
@@ -310,7 +271,7 @@ sub save_names_to_buffer( subject as string = "", names_table( any ) as names_ty
 	for index = lbound( names_table, 1 ) to ubound( names_table, 1 ) step 1
 		
 		if index > lbound( names_table, 1 ) then
-			buffer += crlf
+			buffer += separator
 		end if
 		
 		buffer += names_table( index ).label + "=" + names_table( index ).value
@@ -321,7 +282,7 @@ sub save_names_to_buffer( subject as string = "", names_table( any ) as names_ty
 	
 end sub
 
-sub merge_names(source_table( any ) as names_type, dest_table( any ) as names_type )
+sub merge_names(source_table( any ) as names_type, dest_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 	
 	dim as string source_buffer = string$( 0, 0 ), dest_buffer = string$( 0, 0 ), result = string$( 0, 0 )
 	
@@ -381,18 +342,23 @@ end function
 function trimint overload ( subject as integer = 0 ) as string	
 	trimint = ltrim$(str$(subject))
 end function
+
 function trimint overload ( subject as single = 0 ) as string	
 	trimint = ltrim$(str$(subject))
 end function
+
 function trimint overload ( subject as double = 0 ) as string	
 	trimint = ltrim$(str$(subject))
 end function
+
 function trimint overload ( subject as long = 0 ) as string	
 	trimint = ltrim$(str$(subject))
 end function
+
 function trimint overload ( subject as short = 0 ) as string	
 	trimint = ltrim$(str$(subject))
 end function
+
 function trimint overload ( subject as string = "" ) as string	
 	trimint = ltrim$(subject)
 end function
