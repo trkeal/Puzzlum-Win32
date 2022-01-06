@@ -58,3 +58,6 @@ outro/shade=vga/13
 font/count=2
 font/0/filename=.\gameart\fonts\mishap22.png
 font/1/filename=.\gameart\fonts\roe00.png
+
+affliction=zzzz,burn
+affliction/distance=0001,0001
