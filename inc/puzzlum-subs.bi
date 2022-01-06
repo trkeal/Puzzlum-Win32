@@ -297,6 +297,8 @@ declare sub load_data()
 
 declare sub load_input()
 
+declare sub load_afflictions()
+
 declare sub text_out( subject as string = "" )
 
 declare function make_keys() as string

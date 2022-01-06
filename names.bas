@@ -21,7 +21,6 @@ function sync_names_using_default( label as string = "", default as string = "%%
 	
 end function
 
-
 sub wipe_table( names( any ) as names_type )
 
 	erase names

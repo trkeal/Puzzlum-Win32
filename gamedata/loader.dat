@@ -1,4 +1,4 @@
-loader/count=9
+loader/count=10
 loader/1=load_display
 loader/2=load_bundle
 loader/3=load_input
@@ -8,3 +8,4 @@ loader/6=load_levels
 loader/7=load_art
 loader/8=load_data
 loader/9=splash
+loader/10=load_afflictions
