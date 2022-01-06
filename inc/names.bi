@@ -69,4 +69,4 @@ declare function trimint overload ( subject as long = 0 ) as string
 
 declare function trimint overload ( subject as short = 0 ) as string	
 
-declare function trimint overload ( subject as string = "" ) as string	
+declare function trimint overload ( subject as string = "" ) as string
