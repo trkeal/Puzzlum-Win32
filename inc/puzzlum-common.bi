@@ -21,3 +21,7 @@
 	declare function As_String overload ( X as single = 0 ) as string
 	declare function As_String overload ( X as integer = 0 ) as string
 	
+	declare function diceroll ( dice as string = "1d10" ) as integer
+	declare function dicehit( index as integer = 1, range as string = "1to5" ) as integer
+	
+	declare function like( byval main as zstring ptr, byval pat as zstring ptr ) as integer

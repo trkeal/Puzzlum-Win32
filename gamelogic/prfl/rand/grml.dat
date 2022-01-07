@@ -1,0 +1,8 @@
+crtn=grml
+line/start=0
+line/count=3
+line:0=dice::roll=1d10
+line:1=dice::hit=6to10
+line:2=dice::prize=dggr
+line:3=dice::cashout
+

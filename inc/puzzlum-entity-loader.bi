@@ -38,6 +38,30 @@
 	#include once ".\inc\CLV.bi"
 
 
+declare sub entityblnk()
 
+declare sub entityspdr()
+
+declare sub entitywall()
+
+declare sub entityweb()
+
+declare sub entitygrml()
+
+declare sub entitypndx()
+
+declare sub entitydtby()
+
+declare sub entityshkt()
+
+declare sub entityemgd()
+
+declare sub entitydoor()
+
+declare sub entityimp()
+
+declare sub entitychst()
+
+declare sub entitybldr()
 
 declare sub Entity_Loader ()

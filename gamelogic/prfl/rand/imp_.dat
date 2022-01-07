@@ -1,0 +1,7 @@
+crtn=imp_
+line/start=0
+line/count=3
+line:0=dice::roll=1d2;dice::hit=2to2
+line:1=dice::prize=dggr;dice::cashout
+line:2=dice::prize=grpl;dice::cashout
+line:3=dice::prize=seed;dice::cashout

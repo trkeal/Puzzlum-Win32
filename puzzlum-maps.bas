@@ -187,11 +187,11 @@ sub map_loader ( map_filename as string = "%%" )
 			put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, or
 			png_destroy cell
 			
-			select case left$(prflgpic_str,4)
+			select case left$( prflgpic_str, 4 )
 			case "door", "chst"
-				select case left$(prflactn_str,3)
+				select case left$( prflactn_str, 3 )
                 case "loc"
-					select case val(right$(prflactn_str,1))
+					select case valint( right$( prflactn_str, 1 ) )
 					case 1 to 3
 						
 						cell = png_load( ".\gameart\sprites\" + prflactn_str + "____" + ".24y.png" )
@@ -226,6 +226,65 @@ sub map_loader ( map_filename as string = "%%" )
 		Central_Close_Out target	
 	'#endif
 
+end sub
+
+sub Entity_Randomizer
+
+	dim as string target = string$( 0, 0 )
+	Central_Count += 1
+	target = "map" + colon + "Entity_Randomizer" + string$( 1, 32 ) + quot + Entity_Shortname( rfg_str ) + quot
+	
+	central_debug target
+	
+	redim as names_type Entity_Table( any )
+	
+	redim as names_type Line_Table( any )
+	redim as names_type Part_Table( any )
+	redim as names_type Instruction_Table( any )
+	
+	dim as integer count = 0, index = 0, part_index = 0, d_roll = 0, d_hit = 0
+	dim as string d_prize = string$( 0, 0 )
+	
+	load_names_from_file ".\gamelogic\prfl\rand\" + Entity_Shortname( rfg_str ) + ".dat", Entity_Table()
+
+	index = valint( sync_names_using_default( "line/start", "0", Entity_Table() ) )
+	count = valint( sync_names_using_default( "line/count", "0", Entity_Table() ) )
+	
+	dim as string entity_line = string$( 0, 0 )
+	
+	do while index < count
+	
+		entity_line = sync_names_using_default( "line:" + As_String( index ), "", Entity_Table() )
+	
+		load_names_from_buffer( entity_line, Line_Table(), semi, eq )	
+		
+		for part_index = lbound( Line_Table, 1 ) to ubound( Line_Table, 1 ) step 1
+			
+			load_names_from_buffer Line_Table( part_index ).label, Instruction_Table(), ";", "::"
+			
+			select case Instruction_Table( lbound( Instruction_Table, 1 ) ).label
+			case "dice"
+				select case Instruction_Table( lbound( Instruction_Table, 1 ) ).value
+				case "roll"
+					d_roll = diceroll( Line_Table( part_index ).value )
+				case "hit"
+					d_hit = dicehit( d_roll, Line_Table( part_index ).value )
+				case "prize"
+					select case d_hit
+					case is > 0
+						d_prize = Line_Table( part_index ).value
+					end select
+				case "cashout"
+					prflactn_str += d_prize
+					prflactnct_str += mkl(1)
+				end select
+			end select
+	
+		next part_index
+			
+		index += 1
+	loop
+	
 end sub
 
 sub Entity_Action

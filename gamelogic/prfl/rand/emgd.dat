@@ -1,0 +1,10 @@
+crtn=emgd
+line/start=0
+line/count=6
+line:0=dice::roll=1d10
+line:1=dice::hit=1to4
+line:2=dice::prize=dggr
+line:3=dice::cashout
+line:4=dice::hit=4to10
+line:5=dice::prize=pike
+line:6=dice::cashout
