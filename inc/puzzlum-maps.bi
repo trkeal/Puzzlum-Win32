@@ -50,6 +50,6 @@
 	
 	declare sub Entity_Action
 		
-	declare sub sync_entity( Entity_Table( any ) as names_type )	
-	
 	declare sub push_entity( Entity_Table( any ) as names_type )	
+
+	declare sub sync_entity( Entity_Table( any ) as names_type )	
