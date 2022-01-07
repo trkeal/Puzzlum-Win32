@@ -41,7 +41,9 @@
 	'#include once ".\inc\puzzlum-vars.bi"
 	
 	#include once ".\inc\puzzlum-entity-loader.bi"
-	
+		
+	declare sub seed_loader( filename as string = "" )
+
 	declare sub levels_loader( filename as string = "" )
 
 	declare sub win_loader( filename as string = "" )
@@ -53,3 +55,5 @@
 	declare sub push_entity( Entity_Table( any ) as names_type )	
 
 	declare sub sync_entity( Entity_Table( any ) as names_type )	
+
+	seed_loader ".\gamedata\Seeds.dat"

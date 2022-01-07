@@ -44,6 +44,52 @@
     'DATA  1,12
     'DATA  1,16
 
+sub seed_loader( filename as string = "" )
+	
+	'seed data
+	dim as names_type Seeds_Table( any ), Parts_Table( any )
+	wipe_table Seeds_Table()
+	wipe_table Parts_Table()
+	
+	if len( filename ) = 0 then
+		filename = sync_names_using_default( "seed/filename", ".\gamedata\Seeds.dat", Bundle_Table() )
+	end if
+
+	dim as integer seed_index = 0, part_index = 0
+	dim as single rand_seed = 0
+	dim as string this_seed = string$( 0, 0 ), seed_line = string$( 0, 0 )
+	
+	load_names_from_file filename, Seeds_Table()
+	
+    FOR seed_index = valint( sync_names( "seed/start", Seeds_Table() ) ) TO valint( sync_names( "seed/count", Seeds_Table() ) ) step 1
+		
+		seed_line = sync_names_using_default( "seed:" + As_String( t_si ), "", Seeds_Table() )
+        		
+		load_names_from_buffer seed_line, Parts_Table(), ";", "::"
+		
+		for part_index = lbound( Parts_Table, 1 ) to ubound( Parts_Table, 1 ) step 1
+			
+			select case Parts_Table( part_index ).label
+			case "timer"
+				select case Parts_Table( part_index ).value
+				case "full"
+					rand_seed = timer
+				case "short"
+					rand_seed = timer
+					rand_seed = rand_seed - fix( rand_seed )
+				end select
+			case "set"
+				rand_seed = val( Parts_Table( part_index ).value )
+			end select
+			
+		next part_index
+		
+    NEXT seed_index
+    
+	randomize rand_seed
+	
+end sub
+
 sub levels_loader( filename as string = "" )
 	
 	'level up data
@@ -381,7 +427,7 @@ end sub
 
 sub push_entity( Entity_Table( any ) as names_type )	
 	
-	prflidty_sf = rid_sf
+	'prflidty_sf = rid_sf
 	
 	push_names "prfl/idty_str", prflidty_str, Entity_Table()
 	push_names "prfl/actn_str", prflactn_str, Entity_Table()
@@ -413,7 +459,7 @@ end sub
 
 sub sync_entity( Entity_Table( any ) as names_type )	
 	
-	prflidty_sf = rid_sf
+	'prflidty_sf = rid_sf
 	
 	prflidty_str = sync_names_using_default( "prfl/idty_str", "____", Entity_Table() )
 	prflactn_str = sync_names_using_default( "prfl/actn_str", "____", Entity_Table() )
