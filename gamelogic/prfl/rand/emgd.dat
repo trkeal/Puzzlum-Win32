@@ -7,4 +7,4 @@ line:2=dice::prize=dggr
 line:3=dice::cashout
 line:4=dice::hit=4to10
 line:5=dice::prize=pike
-line:6=dice::cashout
+line:6=dice::cashout=once

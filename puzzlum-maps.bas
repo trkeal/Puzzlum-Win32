@@ -128,7 +128,11 @@ sub map_loader ( map_filename as string = "%%" )
     textdelay_sf = 2.5: '.8 '.55
         
     ctrl_str = "pndximp_"
-    IF INT(RND(1) * 2) + 1 = 2 THEN ctrl_str = ctrl_str + "dust"
+    
+	if dicehit( diceroll( "1d2" ), "2to2" ) then
+		ctrl_str += "dust"
+	end if
+	
     FOR Ty_si = 1 TO DD_si step 1
         
 		bg_str = sync_names( "map/row/" + As_String( Ty_si )+"/bg", Maps_Table() )
@@ -189,10 +193,12 @@ sub map_loader ( map_filename as string = "%%" )
 			
 			select case left$( prflgpic_str, 4 )
 			case "door", "chst"
-				select case left$( prflactn_str, 3 )
+				select case left$( rid_str, 3 )
                 case "loc"
-					select case valint( right$( prflactn_str, 1 ) )
+					select case valint( right$( rid_str, 1 ) )
 					case 1 to 3
+						
+						prflactn_str = rid_str
 						
 						cell = png_load( ".\gameart\sprites\" + prflactn_str + "____" + ".24y.png" )
 						put map_capture,(24*(Tx_si-1),24*(Ty_si-1)),cell, and
@@ -275,8 +281,11 @@ sub Entity_Randomizer
 						d_prize = Line_Table( part_index ).value
 					end select
 				case "cashout"
-					prflactn_str += d_prize
-					prflactnct_str += mkl(1)
+					select case Line_Table( part_index ).value
+					case "once"
+						prflactn_str += d_prize
+						prflactnct_str += mkl(1)
+					end select
 				end select
 			end select
 	
