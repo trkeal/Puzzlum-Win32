@@ -1,4 +1,6 @@
 
+seed/filename=.\gamedata\Seeds.dat
+
 statx=24
 
 debug/filename=.\win32\central.log

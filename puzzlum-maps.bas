@@ -388,44 +388,13 @@ sub Entity_Action
 		next
 	end select
 	
-	sync_entity Entity_Table()
-
-	#ifdef __old_sync_entity__
-	prflidty_sf = rid_sf
-	
-	prflidty_str = sync_names_using_default("prfl/idty_str", Entity_Shortname(), Entity_Table() )
-	prflactn_str = sync_names_using_default("prfl/actn_str", Entity_Shortname(), Entity_Table() )'
-	prflgpic_str = sync_names_using_default("prfl/gpic_str", Entity_Shortname(), Entity_Table() )
-	
-	prflidty_sf = val( sync_names_using_default("prfl/idty_sf", "0", Entity_Table() ) )'
-	
-	prflhpcur_sf = val( sync_names_using_default("prfl/hp/cur_sf", "0", Entity_Table() ) )
-	prflstrcur_sf = val( sync_names_using_default("prfl/str/cur_sf", "0", Entity_Table() ) )
-	prflesscur_sf = val( sync_names_using_default("prfl/ess/cur_sf", "0", Entity_Table() ) )
-
-	prflhpmax_sf = val( sync_names_using_default("prfl/hp/max_sf", "0", Entity_Table() ) )
-	prflstrmax_sf = val( sync_names_using_default("prfl/str/max_sf", "0", Entity_Table() ) )
-	prflessmax_sf = val( sync_names_using_default("prfl/ess/max_sf", "0", Entity_Table() ) )
-	
-	prflhpspd_sf = val( sync_names_using_default("prfl/hp/spd_sf", "0", Entity_Table() ) )
-	prflstrspd_sf = val( sync_names_using_default("prfl/str/spd_sf", "0", Entity_Table() ) )
-	prflessspd_sf = val( sync_names_using_default("prfl/ess/spd_sf", "0", Entity_Table() ) )
-	
-	prflarmr_sf = val( sync_names_using_default("prfl/armr_sf", "0", Entity_Table() ) )
-	prflpirc_sf = val( sync_names_using_default("prfl/pirc_sf", "0", Entity_Table() ) )
-	prflevad_sf = val( sync_names_using_default("prfl/evad_sf", "0", Entity_Table() ) )
-		
-	prfllv_sf = val( sync_names_using_default("prfl/lv_sf", "0", Entity_Table() ) )
-	prflexp_sf = val( sync_names_using_default("prfl/exp_sf", "0", Entity_Table() ) )
-	prflvalu_sf = val( sync_names_using_default("prfl/valu_sf", "0", Entity_Table() ) )
-	
-	#endif
+	sync_entity_from_table Entity_Table()
 	
 	Central_Close_Out target	
 
 end sub
 
-sub push_entity( Entity_Table( any ) as names_type )	
+sub push_entity_to_table( Entity_Table( any ) as names_type )	
 	
 	'prflidty_sf = rid_sf
 	
@@ -457,7 +426,7 @@ sub push_entity( Entity_Table( any ) as names_type )
 	
 end sub
 
-sub sync_entity( Entity_Table( any ) as names_type )	
+sub sync_entity_from_table( Entity_Table( any ) as names_type )	
 	
 	'prflidty_sf = rid_sf
 	
@@ -486,5 +455,45 @@ sub sync_entity( Entity_Table( any ) as names_type )
 	prfllv_sf = val( sync_names_using_default( "prfl/lv_sf", "0", Entity_Table() ) )
 	prflexp_sf = val( sync_names_using_default( "prfl/exp_sf", "0", Entity_Table() ) )
 	prflvalu_sf = val( sync_names_using_default( "prfl/valu_sf", "0", Entity_Table() ) )
+	
+end sub
+
+sub sync_entity_from_buffer ( buffer as string = "", Entity_Table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
+
+	load_names_from_buffer buffer, Entity_Table(), separator, delimiter
+	
+	sync_entity_from_table Entity_Table()
+
+end sub
+
+sub push_entity_to_buffer( buffer as string = "", separator as string = crlf, delimiter as string = eq )
+	
+	'prflidty_sf = rid_sf
+	
+	buffer += "prfl/idty_str" + delimiter + prflidty_str + separator
+	buffer += "prfl/actn_str" + delimiter + prflactn_str + separator
+	buffer += "prfl/gpic_str" + delimiter + prflgpic_str + separator
+	
+	buffer += "prfl/idty_sf" + delimiter + As_String( prflidty_sf ) + separator
+	
+	buffer += "prfl/hp/cur_sf" + delimiter + As_String( prflhpcur_sf ) + separator
+	buffer += "prfl/str/cur_sf" + delimiter + As_String( prflstrcur_sf ) + separator
+	buffer += "prfl/ess/cur_sf" + delimiter + As_String( prflesscur_sf ) + separator
+	
+	buffer += "prfl/hp/spd_sf" + delimiter + As_String( prflhpspd_sf ) + separator
+	buffer += "prfl/str/spd_sf" + delimiter + As_String( prflstrspd_sf ) + separator
+	buffer += "prfl/ess/spd_sf" + delimiter + As_String( prflessspd_sf ) + separator
+
+	buffer += "prfl/hp/max_sf" + delimiter + As_String( prflhpmax_sf ) + separator
+	buffer += "prfl/str/max_sf" + delimiter + As_String( prflstrmax_sf ) + separator
+	buffer += "prfl/ess/max_sf" + delimiter + As_String( prflessmax_sf ) + separator
+	
+	buffer += "prfl/armr_sf" + delimiter + As_String( prflarmr_sf ) + separator
+	buffer += "prfl/pirc_sf" + delimiter + As_String( prflpirc_sf ) + separator
+	buffer += "prfl/evad_sf" + delimiter + As_String( prflevad_sf ) + separator
+
+	buffer += "prfl/lv_sf" + delimiter + As_String( prfllv_sf ) + separator
+	buffer += "prfl/exp_sf" + delimiter + As_String( prflexp_sf ) + separator
+	buffer += "prfl/valu_sf" + delimiter + As_String( prflvalu_sf ) + separator
 	
 end sub

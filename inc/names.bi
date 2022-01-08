@@ -51,6 +51,8 @@ declare sub save_names_to_file( filename as string = "", names_table( any ) as n
 
 declare sub save_names_to_buffer( subject as string = "", names_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 
+declare sub save_names_from_buffer ( filename as string = "", buffer as string = "", separator as string = crlf, delimiter as string = eq )
+
 declare sub merge_names(source_table( any ) as names_type, dest_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 
 declare function ucword( subject as string ) as string

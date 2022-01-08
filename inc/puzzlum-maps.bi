@@ -41,7 +41,7 @@
 	'#include once ".\inc\puzzlum-vars.bi"
 	
 	#include once ".\inc\puzzlum-entity-loader.bi"
-		
+	
 	declare sub seed_loader( filename as string = "" )
 
 	declare sub levels_loader( filename as string = "" )
@@ -52,8 +52,14 @@
 	
 	declare sub Entity_Action
 		
-	declare sub push_entity( Entity_Table( any ) as names_type )	
-
-	declare sub sync_entity( Entity_Table( any ) as names_type )	
-
-	seed_loader ".\gamedata\Seeds.dat"
+	declare sub push_entity_to_table( Entity_Table( any ) as names_type )	
+	
+	declare sub sync_entity_from_table( Entity_Table( any ) as names_type )	
+	
+	declare sub sync_entity_from_buffer ( buffer as string = "", Entity_Table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
+	
+	declare sub push_entity_to_buffer( buffer as string = "", separator as string = crlf, delimiter as string = eq )
+	
+	declare sub save_entity_to_file ( filename as string = "" )
+	
+	declare sub load_entity_from_file ( filename as string = "" )

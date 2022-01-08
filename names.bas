@@ -281,6 +281,26 @@ sub save_names_to_buffer( subject as string = "", names_table( any ) as names_ty
 	
 end sub
 
+sub save_names_from_buffer ( filename as string = "", buffer as string = "", separator as string = crlf, delimiter as string = eq )
+	
+	dim as integer filemode = freefile
+	
+	kill filename
+	
+	if open( filename for binary as filemode ) then
+		close #filemode
+		exit sub
+	end if
+		
+	put #filemode, 1, buffer
+	close #filemode
+
+end sub
+
+sub load_entity_from_file ( filename as string = "" )
+
+end sub
+
 sub merge_names(source_table( any ) as names_type, dest_table( any ) as names_type, separator as string = crlf, delimiter as string = eq )
 	
 	dim as string source_buffer = string$( 0, 0 ), dest_buffer = string$( 0, 0 ), result = string$( 0, 0 )
@@ -361,3 +381,4 @@ end function
 function trimint overload ( subject as string = "" ) as string	
 	trimint = ltrim$(subject)
 end function
+
