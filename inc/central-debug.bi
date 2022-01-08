@@ -26,10 +26,6 @@ dim shared as integer Central_Count = 0
 
 redim shared as string Central_History( any )	
 
-declare sub CMD_Ini( CMD_Table( any ) as names_type )
-
-declare sub Dump_CMD ( CMD_Table( any ) as names_type )
-
 declare sub CMD_Debug_Enabled()
 
 declare sub central_debug ( target as string =  "" )

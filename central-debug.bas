@@ -24,112 +24,6 @@
 dim shared as string debug_filename
 debug_filename = ".\Win32\central.log"
 
-redim shared as names_type CMD_Table( any )
-CMD_Ini CMD_Table()
-
-kill debug_filename
-
-dim as integer filemode = freefile
-dim as string Buffer
-
-Buffer = "===[ " + debug_filename + " ]===" + crlf
-
-if open( debug_filename for binary as #filemode ) then
-	close #filemode
-else
-	put #filemode, lof( filemode ) + 1, Buffer
-	close #filemode
-end if
-
-sub CMD_Ini( CMD_Table( any ) as names_type )
-
-	'if ubound( CMD_Table, 0 ) < 1 then
-		wipe_table CMD_Table()
-		Dump_CMD CMD_Table()
-	'end if
-	
-	dim as integer Index = 1
-	dim as string CMD_i = string$( 0, 0 )
-	
-	do
-		if Index > valint( sync_names( "CMD/count", CMD_Table() ) ) then
-			exit do
-		end if
-		
-		CMD_i = sync_names( "CMD/" + As_String( Index ), CMD_Table() )
-		
-		select case CMD_i
-		case "-debug"
-			Debug_Enabled = not( 0 )
-			exit do
-		end select
-		
-		Index += 1
-	loop
-end sub
-
-sub Dump_CMD ( CMD_Table( any ) as names_type )
-
-	ScreenRes Display_Width, Display_Height, Display_Depth, Display_Pages
-	ScreenSet 1, 0
-	color &HFFFFFF
-	cls
-	locate 1,1
-	print "===[ Dump CMD ]==="
-	print
-	
-	wipe_table CMD_Table()
-	
-	redim as string CMD ( any )
-	erase CMD
-	
-	print "command$(" + As_String( 0 ) + ")" + eq + command$( 0 )
-	
-	redim preserve CMD( 0 to 0 )
-	CMD( 0 ) = command$( 0 )
-	
-	dim as string Buffer = string$( 0, 0 )
-	dim as integer Index = 1
-	
-	do while len( command$( Index ) ) > 0
-		
-		print "command$(" + As_String( Index ) + ")" + eq + command$( Index )
-		
-		redim preserve CMD( 0 to Index )
-		CMD( Index ) = command$( Index )
-		Index += 1
-		
-	loop
-	
-	Buffer += "CMD/start" + eq + As_String( lbound( CMD, 1 ) ) + crlf
-	
-	print "CMD/start" + eq + As_String( lbound( CMD, 1 ) )
-	
-	Buffer += "CMD/count" + eq + As_String( ubound( CMD, 1 ) ) + crlf
-	
-	print "CMD/count" + eq + As_String( ubound( CMD, 1 ) )
-	
-	for Index = lbound( CMD, 1 ) to ubound( CMD, 1 ) step 1
-		
-		Buffer += "CMD/" + As_String( Index ) + eq + CMD( Index )
-		
-		print "CMD/" + As_String( Index ) + eq + CMD( Index )
-		
-		if Index < ubound( CMD, 1 ) then
-			Buffer += crlf
-		end if
-	next Index
-
-	load_names_from_Buffer Buffer, CMD_Table(), crlf, eq
-	
-	kill ".\Win32\CMD.dat"
-	save_names_to_file ".\Win32\CMD.dat", CMD_Table(), crlf, eq
-	
-	flip
-	wait_key
-	
-end sub
-
 sub central_debug ( target as string =  "" )
 
 	if not( Debug_Enabled ) then
@@ -146,7 +40,7 @@ sub central_debug ( target as string =  "" )
 	dim as integer filemode = freefile
 	
 	dim as string Buffer = string$( 0, 0 )
-		
+	
 	if open( debug_filename for binary as #filemode ) then
 		close #filemode
 		exit sub
@@ -608,71 +502,6 @@ sub central overload ( target as string = "", attk as string = "%%" )
 	
 	Central_Close_Out target
 
-end sub
-
-sub names_dumper( filename as string = "" )
-
-	redim as names_type CMD_Table( any )
-
-	load_names_from_file filename, CMD_Table()
-	
-	dim as integer Index = lbound( CMD_Table, 1 )
-	dim as integer offset = 0
-
-	splash	
-
-	do	
-		select case not( 0 )
-		case offset = 0
-		
-			splash	
-			
-			locate 1, 1
-			print "Index"
-			
-			locate 1, 10
-			print "label"
-			
-			locate 1, 40
-			print "value"
-						
-		end select
-		
-		locate offset + 3, 1
-		print As_String( Index )
-		
-		locate offset + 3, 10
-		print CMD_Table( Index ).label
-		
-		locate offset + 3, 40
-		print CMD_Table( Index ).value
-		
-		Index += 1
-		offset += 1
-					
-		select case not( 0 )
-		
-		case Index > ubound( CMD_Table, 1 )
-			
-			flip
-			wait_key
-			
-			exit do
-			
-		case offset >= 35
-
-			flip
-			wait_key
-			
-			offset = 0
-			
-		end select
-		
-	loop
-	
-	'flip
-	'wait_key
-	
 end sub
 
 sub central_loader( target as string = "" )

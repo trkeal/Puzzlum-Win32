@@ -8,6 +8,8 @@
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
 #define CMD_Test_lib
+
+dim shared as integer Debug_Enabled = 0
  
 '#include once ".\inc\names.bi"
 #include once ".\inc\const.bi"
@@ -54,8 +56,24 @@ sub CMD_Test ( CMD_Table( any ) as names_type )
 	
 	next cmdindex
 
-	save_names_to_file ".\Win32\direct cmd.log", CMD_Table()   
+	save_names_to_file ".\gamedata\CMD.dat", CMD_Table()   
 
 	flip
 	do while len(inkey)=0:loop
+end sub
+
+sub CMD_Ini( CMD_Table( any ) as names_type )
+	
+	dim as integer cmdindex = 1 
+	
+	do while cmdindex <= valint( sync_names_using_default( "CMD/count", "0", CMD_Table() ) )
+		
+		select case sync_names_using_default( "CMD/" + As_String( cmdindex ), "", CMD_Table() )
+		case "-debug"
+			Debug_Enabled = not( 0 )
+		end select
+		
+		cmdindex += 1
+	loop
+
 end sub
