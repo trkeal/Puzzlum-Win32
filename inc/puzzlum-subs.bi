@@ -182,9 +182,6 @@
     declare sub ln_screenset ()
     declare sub ln_findcrsr ()
     declare sub ln_showtext (clv_buffer() as fb.image ptr, Index as integer)
-    declare sub ln_prflblnk ()
-    declare sub ln_prflset ()
-    declare sub ln_prflmake ()
     
 	declare sub ln_actncure ()
     declare sub ln_actnbite ()

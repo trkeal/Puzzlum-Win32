@@ -33,6 +33,8 @@
 
 #include once ".\inc\puzzlum-maps.bi"
 
+#include once ".\inc\puzzlum-profile-manip.bi"
+
 
 'CMD_Debug_Enabled
 central_call "roe" : outro

@@ -16,6 +16,9 @@
 #include once ".\inc\Names.bi"
 
 #include once ".\inc\puzzlum-subs.bi"
+
+#include once ".\inc\puzzlum-profile-manip.bi"
+
 #include once ".\inc\central-debug.bi"
 
 'dim shared as string bundle_filename

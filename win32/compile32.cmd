@@ -96,6 +96,11 @@ echo ===[ Puzzlum / Test ]==[ %static% ]=== >> %log%
 if errorlevel 1 goto :failed
 
 echo: >> %log%
+echo ===[ Puzzlum / Profile Manip ]==[ %static% ]=== >> %log%
+%fbc% ".\puzzlum-profile-manip.bas" %debugopts% %libopts% >> %log% 2>&1
+if errorlevel 1 goto :failed
+
+echo: >> %log%
 echo ===[ Puzzlum / Main ]==[ %binary% ]=== >> %log%
 %fbc% ".\puzzlum-win32.bas" %debugopts% %fbopts% %guiopts% >> %log% 2>&1
 if errorlevel 1 goto :failed

@@ -1,0 +1,33 @@
+#define puzzlum_profile_manip_lib
+
+'puzzlum-profile-manip.bi
+'
+'Puzzlum is Copyright (C) 1997, 2010, 2021, 2022 Timothy Robert Keal
+'Released by Timothy Robert Keal under the Lesser Gnu Public License "2.2" ( Attribution, Education / Charity )
+'
+'http://puzzlum.net/
+'mailto:trkeal@gmail.com
+'
+'Please review the Gnu Public License, Thank you. 
+'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
+
+'=====
+
+	#inclib "puzzlum-common"
+
+	#include once "crt\math.bi"
+	#include once ".\inc\Const.bi"
+	#include once ".\inc\Names.bi"
+	
+	#include once ".\inc\puzzlum-subs.bi"
+	#include once ".\inc\puzzlum-vars.bi"
+	#include once ".\inc\puzzlum-maps.bi"
+	#include once ".\inc\puzzlum-map-viewer.bi"
+	
+	#ifndef puzzlum_profile_manip_lib
+	#inclib "puzzlum-profile-manip"
+	#endif
+	
+    declare sub ln_prflblnk ()
+    declare sub ln_prflset ()
+    declare sub ln_prflmake ()
