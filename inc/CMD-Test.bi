@@ -18,3 +18,7 @@
 #include once ".\inc\Names.bi"
 
 #include once "fbgfx.bi"
+
+redim shared as names_type CMD_Table( any )
+
+declare sub CMD_Test ( CMD_Table( any ) as names_type )
