@@ -91,12 +91,12 @@ sub Entity_Loader ()
 	select case rfg_str
 	case "____"
 		
-		central_call "prflblnk"		
+		profile_manip "blnk"		
 		Entity_Action		
-		central_call "prflset"
+		profile_manip "set"
 	
 	case "spdr"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		Entity_Action
 
 		'load from table
@@ -109,18 +109,18 @@ sub Entity_Loader ()
 			END IF
 		END SELECT
 		
-		central_call "prflset"
+		profile_manip "set"
 		
 	case "wall"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		Entity_Action
 
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	case "web_"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		'load from table
 
@@ -128,41 +128,41 @@ sub Entity_Loader ()
 
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	case "grml"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		Entity_Action
 
 		'load from table
 
-		central_call "prflset"
+		profile_manip "set"
 	case "pndx"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		Entity_Action
 
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	case "dtby"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		Entity_Action
 
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	case "shkt"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		Entity_Action
 		
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	case "emgd"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		Entity_Action
 
@@ -170,9 +170,9 @@ sub Entity_Loader ()
 				
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	case "door"
-		central_call "prflblnk"
+		profile_manip "blnk"
 
 		Entity_Action
 
@@ -188,9 +188,9 @@ sub Entity_Loader ()
 
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	case "chst"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		Entity_Action
 
@@ -205,22 +205,22 @@ sub Entity_Loader ()
 			end select
 		end select
 				
-		central_call "prflset"
+		profile_manip "set"
 	case "imp_"
-		central_call "prflblnk"
+		profile_manip "blnk"
 
 		Entity_Action
 
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	case "bldr"
-		central_call "prflblnk"
+		profile_manip "blnk"
 		
 		Entity_Action
 		
 		'load from table
 		
-		central_call "prflset"
+		profile_manip "set"
 	end select
 end sub

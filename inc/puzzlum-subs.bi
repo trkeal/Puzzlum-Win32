@@ -40,6 +40,8 @@
 
 	#include once ".\inc\puzzlum-test.bi"
 
+	#include once ".\inc\puzzlum-profile-manip.bi"
+
 	'#include once ".\puzzlum-vars.bi"
 	
 	

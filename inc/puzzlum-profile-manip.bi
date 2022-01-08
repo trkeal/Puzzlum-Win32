@@ -28,6 +28,10 @@
 	#inclib "puzzlum-profile-manip"
 	#endif
 	
+	declare sub profile_manip( request as string = "" )
+	
     declare sub ln_prflblnk ()
-    declare sub ln_prflset ()
-    declare sub ln_prflmake ()
+    
+	declare sub ln_prflset ()
+    
+	declare sub ln_prflmake ()

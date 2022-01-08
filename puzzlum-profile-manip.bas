@@ -37,6 +37,19 @@
 	
 	#include once ".\inc\puzzlum-profile-manip.bi"
 
+sub profile_manip( request as string = "" )
+    
+	select case request
+	case "blnk"
+		central_call "ln_prfl"+request
+	case "set"
+		central_call "ln_prfl"+request
+	case "make"
+		central_call "ln_prfl"+request
+	end select
+	
+end sub
+
 sub ln_prflblnk()
     prflidty_str = ""
     prflactn_str = ""

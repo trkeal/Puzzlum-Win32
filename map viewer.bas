@@ -28,7 +28,7 @@ sub map_viewer ()
             
 			graphicsaction_str = e_stra(Rose_Calc( Tx_si, Ty_si ), 4)
             
-			'central_call "prflblnk"
+			'profile_manip "blnk"
 
 			'prflgpic_str = "____"
 

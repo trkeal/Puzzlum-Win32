@@ -209,7 +209,7 @@ sub map_loader ( map_filename as string = "%%" )
             
 			e_stra(Rose_Calc( Tx_si, Ty_si ), 4) = "________" 'graphicsaction_str
             
-			central_call "prflblnk"
+			profile_manip "blnk"
 
 			prflgpic_str = "____"
 
