@@ -33,6 +33,9 @@ CMD_Test CMD_Table()
 #include once ".\inc\CLV.bi"
 
 #include once ".\inc\puzzlum-vars.bi"
+
+#include once ".\inc\puzzlum-loaders.bi"
+
 #include once ".\inc\puzzlum-subs.bi"
 
 #include once ".\inc\puzzlum-maps.bi"

@@ -23,6 +23,8 @@
  
 ===[ Puzzlum / Vars ]==[ Win32 Static Library ]=== 
  
+===[ Puzzlum / Loaders ]==[ Win32 Static Library ]=== 
+ 
 ===[ Puzzlum / Subs ]==[ Win32 Static Library ]=== 
 .\puzzlum-subs.bas(494) warning 36(1): Mismatching parameter initializer, at parameter 1 (attk) of ln_attk_table()
 .\puzzlum-subs.bas(3502) warning 36(1): Mismatching parameter initializer, at parameter 1 (filename) of savegame_save()
@@ -31,9 +33,8 @@
 .\puzzlum-subs.bas(3520) warning 36(1): Mismatching parameter initializer, at parameter 2 (Comparison) of Compare_Key()
 .\puzzlum-subs.bas(3550) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of stripquotes()
 .\puzzlum-subs.bas(3563) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of KeySet()
-.\puzzlum-subs.bas(3730) warning 36(1): Mismatching parameter initializer, at parameter 1 (caption) of report_caption()
-.\puzzlum-subs.bas(3842) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of text_out()
-.\puzzlum-subs.bas(3875) warning 36(1): Mismatching parameter initializer, at parameter 1 (tag) of cleantag()
+.\puzzlum-subs.bas(3641) warning 36(1): Mismatching parameter initializer, at parameter 1 (subject) of text_out()
+.\puzzlum-subs.bas(3674) warning 36(1): Mismatching parameter initializer, at parameter 1 (tag) of cleantag()
  
 ===[ Puzzlum / Entity Loader ]==[ Win32 Static Library ]=== 
  

@@ -76,6 +76,11 @@ echo ===[ Puzzlum / Vars ]==[ %static% ]=== >> %log%
 if errorlevel 1 goto :failed
 
 echo: >> %log%
+echo ===[ Puzzlum / Loaders ]==[ %static% ]=== >> %log%
+%fbc% ".\puzzlum-loaders.bas" %debugopts% %libopts% >> %log% 2>&1
+if errorlevel 1 goto :failed
+
+echo: >> %log%
 echo ===[ Puzzlum / Subs ]==[ %static% ]=== >> %log%
 %fbc% ".\puzzlum-subs.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed

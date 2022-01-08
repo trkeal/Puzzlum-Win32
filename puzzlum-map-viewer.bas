@@ -162,7 +162,7 @@ end sub
 sub map_data ( Tx_si as integer = 1, Ty_si as integer = 1 )
 	
 	cls
-	report_caption( "map sync" )
+	report_caption "map sync"
 	
 	print "(" + As_String( Tx_si ) + "," + As_String( Ty_si ) + ")"
 

@@ -38,9 +38,12 @@
 	#include once ".\inc\puzzlum-vars.bi"
 	#include once ".\inc\puzzlum-maps.bi"
 
+	#include once ".\inc\puzzlum-loaders.bi"
+
 	#include once ".\inc\puzzlum-test.bi"
 
 	#include once ".\inc\puzzlum-profile-manip.bi"
+	
 
 	'#include once ".\puzzlum-vars.bi"
 	
@@ -237,29 +240,6 @@ declare function Rose_Direct( byref X as integer = 0, byref Y as integer = 0, Ca
 	
 declare function wait_key() as string
 
-declare sub load_bundle()
-
-declare sub load_levels()
-
-declare sub load_rose()
-
-declare sub report_caption( caption as string = "%%" )
-
-declare sub font_loader()
-
-declare sub central_loader( target as string = "" )
-
-declare sub loader()
-
-declare sub load_display()
-
-declare sub load_art()
-
-declare sub load_data()
-
-declare sub load_input()
-
-declare sub load_afflictions()
 
 declare sub text_out( subject as string = "" )
 

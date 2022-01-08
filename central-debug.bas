@@ -21,6 +21,8 @@
 
 #include once ".\inc\puzzlum-main.bi"
 
+#include once ".\inc\puzzlum-loaders.bi"
+
 #include once ".\inc\central-debug.bi"
 
 dim shared as string debug_filename
