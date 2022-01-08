@@ -21,111 +21,113 @@
 
 #include once ".\inc\central-debug.bi"
 
-'dim shared as string bundle_filename
-'bundle_filename = ".\gamedata\Bundle.dat"
-
-'load_names_from_file( bundle_filename, Bundle_Table() )
-
-'dim shared as string debug_filename
-'debug_filename = sync_names( "debug/filename", Bundle_Table() )
-
 dim shared as string debug_filename
-debug_filename = ".\win32\central.log"
+debug_filename = ".\Win32\central.log"
 
 redim shared as names_type CMD_Table( any )
-debug_status CMD_Table()
+CMD_Ini CMD_Table()
 
 kill debug_filename
 
 dim as integer filemode = freefile
-dim as string buffer
+dim as string Buffer
 
-buffer = "===[ " + debug_filename + " ]===" + crlf
+Buffer = "===[ " + debug_filename + " ]===" + crlf
 
 if open( debug_filename for binary as #filemode ) then
 	close #filemode
 else
-	put #filemode, lof( filemode ) + 1, buffer
+	put #filemode, lof( filemode ) + 1, Buffer
 	close #filemode
 end if
 
-sub debug_status( CMD_Table( any ) as names_type )
+sub CMD_Ini( CMD_Table( any ) as names_type )
 
-	redim as string CMD_Rip( any )
-
-	dump_commands CMD_Rip()
+	'if ubound( CMD_Table, 0 ) < 1 then
+		wipe_table CMD_Table()
+		Dump_CMD CMD_Table()
+	'end if
 	
-	dump_array_to_table CMD_Rip(), CMD_Table()
-	
-	cmd_vars CMD_Table()
-
-end sub
-
-sub dump_commands( CMD_Rip( any ) as string )
-		
-	erase CMD_Rip
-	
-	dim as string cmd_temp = string$( 0, 0 )
-	
-	dim as integer index = 0
+	dim as integer Index = 1
+	dim as string CMD_i = string$( 0, 0 )
 	
 	do
-		cmd_temp = command$( index )
-		
-		if len( cmd_temp ) = 0 then exit do
-		
-		redim preserve CMD_Rip( 0 to index )
-		
-		CMD_Rip( index ) = cmd_temp
-		
-		index += 1
-	loop
-
-end sub
-
-sub dump_array_to_table( CMD_Rip( any ) as string, CMD_Table( any ) as names_type )
-
-	dim as string cmd_temp = string$( 0, 0 )
-	dim as string buffer = string$( 0, 0 )
-	dim as string cmd_i = string$( 0, 0 )
-
-	dim as integer index = 0
-
-	buffer = "cmd/0" + eq + CMD_Rip( 0 )
-
-	for index = lbound( CMD_Rip, 1 ) + 1 to ubound( CMD_Rip, 1 ) step 1 
-				
-		buffer += crlf + "cmd/" + As_String( index ) + eq + CMD_Rip( index )
-		
-	next index
-	
-	buffer = "cmd/count" + eq + As_String( ubound( CMD_Rip, 1 ) ) + crlf + buffer
-	
-	load_names_from_buffer buffer, CMD_Table()
-	
-	kill ".\win32\cmd.log"
-	
-	save_names_to_file ".\win32\cmd.log", CMD_Table()
-	
-end sub
-
-sub cmd_vars( CMD_Table( any ) as names_type )
-
-	dim as integer index = 1
-	dim as string cmd_i = string$( 0, 0 )
-	
-	do
-		if index > val( sync_names( "cmd/count", CMD_Table() ) ) then exit do
-		
-		cmd_i = sync_names( "cmd/" + As_String( index ), CMD_Table() )
-		
-		if cmd_i = "-debug" then
-			Debug_Enabled = not( 0 )
+		if Index > valint( sync_names( "CMD/count", CMD_Table() ) ) then
 			exit do
 		end if
 		
-		index += 1
+		CMD_i = sync_names( "CMD/" + As_String( Index ), CMD_Table() )
+		
+		select case CMD_i
+		case "-debug"
+			Debug_Enabled = not( 0 )
+			exit do
+		end select
+		
+		Index += 1
 	loop
+end sub
+
+sub Dump_CMD ( CMD_Table( any ) as names_type )
+
+	ScreenRes Display_Width, Display_Height, Display_Depth, Display_Pages
+	ScreenSet 1, 0
+	color &HFFFFFF
+	cls
+	locate 1,1
+	print "===[ Dump CMD ]==="
+	print
+	
+	wipe_table CMD_Table()
+	
+	redim as string CMD ( any )
+	erase CMD
+	
+	print "command$(" + As_String( 0 ) + ")" + eq + command$( 0 )
+	
+	redim preserve CMD( 0 to 0 )
+	CMD( 0 ) = command$( 0 )
+	
+	dim as string Buffer = string$( 0, 0 )
+	dim as integer Index = 1
+	
+	do while len( command$( Index ) ) > 0
+		
+		print "command$(" + As_String( Index ) + ")" + eq + command$( Index )
+		
+		redim preserve CMD( 0 to Index )
+		CMD( Index ) = command$( Index )
+		Index += 1
+		
+	loop
+	
+	Buffer += "CMD/start" + eq + As_String( lbound( CMD, 1 ) ) + crlf
+	
+	print "CMD/start" + eq + As_String( lbound( CMD, 1 ) )
+	
+	Buffer += "CMD/count" + eq + As_String( ubound( CMD, 1 ) ) + crlf
+	
+	print "CMD/count" + eq + As_String( ubound( CMD, 1 ) )
+	
+	for Index = lbound( CMD, 1 ) to ubound( CMD, 1 ) step 1
+		
+		Buffer += "CMD/" + As_String( Index ) + eq + CMD( Index )
+		
+		print "CMD/" + As_String( Index ) + eq + CMD( Index )
+		
+		if Index < ubound( CMD, 1 ) then
+			Buffer += crlf
+		end if
+	next Index
+
+	load_names_from_Buffer Buffer, CMD_Table(), crlf, eq
+	
+	kill ".\Win32\CMD.dat"
+	save_names_to_file ".\Win32\CMD.dat", CMD_Table(), crlf, eq
+	
+	flip
+	wait_key
+	
 end sub
 
 sub central_debug ( target as string =  "" )
@@ -143,24 +145,24 @@ sub central_debug ( target as string =  "" )
 	
 	dim as integer filemode = freefile
 	
-	dim as string buffer = string$( 0, 0 )
+	dim as string Buffer = string$( 0, 0 )
 		
 	if open( debug_filename for binary as #filemode ) then
 		close #filemode
 		exit sub
 	else
 	
-		dim as integer index = 0
+		dim as integer Index = 0
 	
-		for index = 0 to Central_Count step 1
-			buffer += "/" + Central_History( index )
-		next index
+		for Index = 0 to Central_Count step 1
+			Buffer += "/" + Central_History( Index )
+		next Index
 		
-		buffer += string$( 1, 32 ) + "( " + As_String( Central_Count ) + " deep )"
+		Buffer += string$( 1, 32 ) + "( " + As_String( Central_Count ) + " deep )"
 		
-		buffer += crlf
+		Buffer += crlf
 	
-		put #filemode, lof( filemode ) + 1, buffer
+		put #filemode, lof( filemode ) + 1, Buffer
 	
 		close #filemode
 	
@@ -440,7 +442,7 @@ sub central_call overload( target as string = "" )
 
 end sub
 
-sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer)
+sub central overload ( target as string = "", clv_Buffer() as fb.image ptr, Index as integer)
 
 	
 	
@@ -448,16 +450,16 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 	
 	select case target
 	case "title"
-		ln_title clv_buffer(), Index
+		ln_title clv_Buffer(), Index
 	case "showtext"
-		ln_showtext clv_buffer(), Index
+		ln_showtext clv_Buffer(), Index
 	end select
 	
 	Central_Close_Out target
 
 end sub
 
-sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
+sub central overload ( target as string = "", clv_Buffer() as fb.image ptr, Index as integer, Row as short, Col as short)
 
 	
 	
@@ -465,14 +467,14 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 
 	select case target
 	case "stts"
-		ln_stts clv_buffer(), Index, Row, Col
+		ln_stts clv_Buffer(), Index, Row, Col
 	end select
 	
 	Central_Close_Out target
 
 end sub
 
-sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, Caption as string, _
+sub central overload ( target as string = "", clv_Buffer() as fb.image ptr, Index as integer, Caption as string, _
         byref Cur as integer, Max as integer, _
         X1 as integer, Y1 as integer, X2 as integer, Y2 as integer, _
         Switch as integer, ARGB as uinteger, Increment as integer, Progress as string, _
@@ -484,7 +486,7 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 
 	select case target
 	case "progress_put"
-		progress_put clv_buffer(), Index, Caption, _
+		progress_put clv_Buffer(), Index, Caption, _
 			Cur, Max, _
 			X1, Y1, X2, Y2, _
 			Switch, ARGB, Increment, Progress, _
@@ -495,15 +497,15 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 
 end sub
 
-sub central overload ( target as string = "", clv_buffer() as fb.image ptr)
+sub central overload ( target as string = "", clv_Buffer() as fb.image ptr)
 
 	
 	
 	central_debug target
 
 	select case target
-	case "clv_buffer_stack"
-		clv_buffer_stack clv_buffer()
+	case "clv_Buffer_stack"
+		clv_Buffer_stack clv_Buffer()
 	end select
 	
 	Central_Close_Out target
@@ -527,7 +529,7 @@ sub central overload ( target as string = "", Row as short, Col as short)
 
 end sub
 
-sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Index as integer, X1 as short, Y1 as short, X2 as short, Y2 as short, C1 as short,C2 as short)
+sub central overload ( target as string = "", clv_Buffer() as fb.image ptr, Index as integer, X1 as short, Y1 as short, X2 as short, Y2 as short, C1 as short,C2 as short)
 
 	
 	
@@ -535,7 +537,7 @@ sub central overload ( target as string = "", clv_buffer() as fb.image ptr, Inde
 
 	select case target
 	case "frame_put"
-		frame_put clv_buffer(), Index, X1, Y1, X2, Y2, C1, C2
+		frame_put clv_Buffer(), Index, X1, Y1, X2, Y2, C1, C2
 	end select
 	
 	Central_Close_Out target
@@ -614,7 +616,7 @@ sub names_dumper( filename as string = "" )
 
 	load_names_from_file filename, CMD_Table()
 	
-	dim as integer index = lbound( CMD_Table, 1 )
+	dim as integer Index = lbound( CMD_Table, 1 )
 	dim as integer offset = 0
 
 	splash	
@@ -626,7 +628,7 @@ sub names_dumper( filename as string = "" )
 			splash	
 			
 			locate 1, 1
-			print "index"
+			print "Index"
 			
 			locate 1, 10
 			print "label"
@@ -637,20 +639,20 @@ sub names_dumper( filename as string = "" )
 		end select
 		
 		locate offset + 3, 1
-		print As_String( index )
+		print As_String( Index )
 		
 		locate offset + 3, 10
-		print CMD_Table( index ).label
+		print CMD_Table( Index ).label
 		
 		locate offset + 3, 40
-		print CMD_Table( index ).value
+		print CMD_Table( Index ).value
 		
-		index += 1
+		Index += 1
 		offset += 1
 					
 		select case not( 0 )
 		
-		case index > ubound( CMD_Table, 1 )
+		case Index > ubound( CMD_Table, 1 )
 			
 			flip
 			wait_key
@@ -709,19 +711,19 @@ sub loader()
 	central_debug "loader"
 
 	redim as names_type Loader_Table( any )
-	dim as integer index = 0
+	dim as integer Index = 0
 
 	load_names_from_file( ".\gamedata\Loader.dat", Loader_Table() )
 	
-	for index = 1 to val(sync_names("loader/count", Loader_Table())) step 1
+	for Index = 1 to val(sync_names("loader/count", Loader_Table())) step 1
 		cls
 		
-		central_loader sync_names( "loader/" + As_String( index ), Loader_Table())
+		central_loader sync_names( "loader/" + As_String( Index ), Loader_Table())
 		
 		flip
 		c_str = wait_key()
 	
-	next index
+	next Index
 	
 	Central_Close_Out "loader"
 

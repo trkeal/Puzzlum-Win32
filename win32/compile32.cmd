@@ -36,6 +36,11 @@ echo ===[ Puzzlum / Common ]==[ %static% ]=== >> %log%
 if errorlevel 1 goto :failed
 
 echo: >> %log%
+echo ===[ Puzzlum / CMD Test ]==[ %static% ]=== >> %log%
+%fbc% ".\CMD-Test.bas" %debugopts% %libopts% >> %log% 2>&1
+if errorlevel 1 goto :failed
+
+echo: >> %log%
 echo ===[ Puzzlum / Central Debug ]==[ %static% ]=== >> %log%
 %fbc% ".\central-debug.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
