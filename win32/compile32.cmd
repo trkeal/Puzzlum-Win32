@@ -15,7 +15,7 @@ if exist %log% (
 	del %log%
 )
 
-set fbopts= -include "const.inc.bas"
+set fbopts= -include ".\const.bas"
 set libopts= -lib %fbopts% 
 
 echo: >> %log%
@@ -26,68 +26,78 @@ rem echo ===[ Constants ]==[ %static% ]=== >> %log%
 rem %fbc% "const.bas" %libopts% >> %log% 2>&1
 
 echo: >> %log%
+echo ===[ Puzzlum / Constants ]==[ %static% ]=== >> %log%
+%fbc% ".\const.bas" %debugopts% %libopts% >> %log% 2>&1
+if errorlevel 1 goto :failed
+
+echo: >> %log%
 echo ===[ Puzzlum / Common ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-common.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\puzzlum-common.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Central Debug ]==[ %static% ]=== >> %log%
-%fbc% "central-debug.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\central-debug.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / VGA Table ]==[ %static% ]=== >> %log%
-%fbc% "VGA_Table.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\VGA_Table.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Names Table ]==[ %static% ]=== >> %log%
-%fbc% "Names.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\Names.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Composite Layer Video ]==[ %static% ]=== >> %log%
-%fbc% "CLV.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\CLV.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ FBImage ]==[ %static% ]=== >> %log%
-%fbc% "fbimage.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\fbimage.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Outro ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-outro.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\puzzlum-outro.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Vars ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-vars.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\puzzlum-vars.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Subs ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-subs.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\puzzlum-subs.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Entity Loader ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-entity-loader.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\puzzlum-entity-loader.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Maps ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-maps.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\puzzlum-maps.bas" %debugopts% %libopts% >> %log% 2>&1
+if errorlevel 1 goto :failed
+
+echo: >> %log%
+echo ===[ Puzzlum / Map Viewer ]==[ %static% ]=== >> %log%
+%fbc% ".\puzzlum-map-viewer.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Test ]==[ %static% ]=== >> %log%
-%fbc% "puzzlum-test.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\puzzlum-test.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / Main ]==[ %binary% ]=== >> %log%
-%fbc% "puzzlum-win32.bas" %debugopts% %fbopts% %guiopts% >> %log% 2>&1
+%fbc% ".\puzzlum-win32.bas" %debugopts% %fbopts% %guiopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%
@@ -97,5 +107,10 @@ exit /b 0
 
 :failed
 echo failed to compile 1>&2
+pause >nul
+exit /b 1
+
+:caption
+echo ===[ %header% ]==[ %type% ]=== >> %log%
 pause >nul
 exit /b 1

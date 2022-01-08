@@ -13,10 +13,12 @@
 '=====
 
 	#inclib "puzzlum-common"
+	'#include once ".\const.inc.bas"
 	
 	#include once ".\inc\puzzlum-subs.bi"
 	#include once ".\inc\puzzlum-vars.bi"
 	#include once ".\inc\puzzlum-maps.bi"
+	#include once ".\inc\puzzlum-map-viewer.bi"
 	
 	#ifndef puzzlum_win32_lib
 	#inclib "puzzlum-win32"

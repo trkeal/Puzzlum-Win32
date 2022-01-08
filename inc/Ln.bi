@@ -15,7 +15,7 @@
 
 #inclib "puzzlum-common"
 
-#inclib "Const"
+'#inclib "Const"
 #inclib "Names"
 #ifndef Ln_lib
 #inclib "Ln"

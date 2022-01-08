@@ -12,7 +12,7 @@
 'The GPL can be located online at http://www.gnu.org/copyleft/gpl.html
 
 '=====
-	#include once ".\inc\puzzlum-common.bi"
+	#inclib "puzzlum-common"
 
 	#include once "crt\math.bi"
 	#include once ".\inc\Const.bi"

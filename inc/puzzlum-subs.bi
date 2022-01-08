@@ -16,7 +16,7 @@
 	#inclib "puzzlum-subs"
 	#endif
 
-	#include once ".\inc\puzzlum-common.bi"
+	#inclib "puzzlum-common"
 
 	#include once ".\inc\VGA_Table.bi"
 

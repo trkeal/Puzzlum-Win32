@@ -15,11 +15,11 @@
 
 #include once ".\inc\puzzlum-win32.bi"
 
-#include once ".\inc\VGA_Table.bi"
+#inclib "VGA_Table"
 
 #include once "crt\math.bi"
-#include once ".\inc\Const.bi"
-#include once ".\inc\Names.bi"
+'#inclib "Const"
+#inclib "Names"
 
 #include once ".\inc\FBImage.bi"
 #include once ".\inc\fbpngs.bi"

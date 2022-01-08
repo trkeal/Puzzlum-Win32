@@ -40,8 +40,9 @@
 	'#include once ".\inc\puzzlum-subs.bi"
 	'#include once ".\inc\puzzlum-vars.bi"
 	
-	#include once ".\inc\puzzlum-entity-loader.bi"
-	
+	#inclib "puzzlum-entity-loader"
+	#inclib "puzzlum-map-viewer"
+
 	declare sub seed_loader( filename as string = "" )
 
 	declare sub levels_loader( filename as string = "" )

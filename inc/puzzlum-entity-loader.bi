@@ -22,14 +22,14 @@
 	
 	#include once ".\inc\clv.bi"
 
-	#include once ".\inc\VGA_Table.bi"
+	#inclib "VGA_Table"
 
 	#include once "crt\math.bi"
-	#include once ".\inc\Const.bi"
-	#include once ".\inc\Names.bi"
+	
+	'#inclib "Const"
+	
+	#inclib "Names"
 	#include once ".\inc\central-debug.bi"
-
-	#include once ".\inc\VGA_Table.bi"
 
 	#include once "fbgfx.bi"
 	#include once ".\inc\fbimage.bi"
