@@ -39,6 +39,7 @@ CMD_Test CMD_Table()
 
 #include once ".\inc\puzzlum-profile-manip.bi"
 
+#inclib "puzzlum-main"
 
 'CMD_Debug_Enabled
 central_call "roe" : outro

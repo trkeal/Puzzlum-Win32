@@ -71,14 +71,6 @@
     declare sub frame_put (clv_buffer() as fb.image ptr, Index as integer, _
         X1 as short, Y1 as short, X2 as short, Y2 as short, C1 as short,C2 as short)
     declare sub clv_buffer_stack (clv_buffer() as fb.image ptr)
-
-	declare sub bootstrap()  
-	declare sub ln_roe ()
-	declare sub ln_startup ()
-    
-	declare sub ln_starttitle ()
-    declare sub ln_starthelp ()
-    declare sub ln_main ()
     
 	declare sub ln_command ()
     declare sub ln_command2 ()

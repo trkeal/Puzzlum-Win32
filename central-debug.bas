@@ -19,6 +19,8 @@
 
 #include once ".\inc\puzzlum-profile-manip.bi"
 
+#include once ".\inc\puzzlum-main.bi"
+
 #include once ".\inc\central-debug.bi"
 
 dim shared as string debug_filename
