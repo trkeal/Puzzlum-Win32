@@ -27,7 +27,7 @@
 	#include once ".\inc\fbimage.bi"
 	#include once ".\inc\fbpngs.bi"
 	
-	redim shared as names_type Bundle_Table( any )
+	'[!]'redim shared as names_type Bundle_Table( any )
 	redim shared as names_type Display_Table( any )
 	redim shared as names_type Input_Table( any )
 	redim shared as names_type Names_Table( any )

@@ -11,22 +11,20 @@
 #inclib "central-debug"
 #endif
 
-'#include once ".\inc\names.bi"
+#include once ".\inc\names.bi"
 #include once ".\inc\const.bi"
 #include once ".\inc\puzzlum-common.bi"
 
 #include once "file.bi"
 
-#include once ".\inc\central-debug.bi"
+#include once ".\inc\CMD-Poll.bi"
+
+'[.]'#include once ".\inc\central-debug.bi"
 #include once ".\inc\puzzlum-subs.bi"
-
-dim shared as integer Debug_Enabled = 0
-
+'==
 dim shared as integer Central_Count = 0
 
 redim shared as string Central_History( any )	
-
-declare sub CMD_Debug_Enabled()
 
 declare sub central_debug ( target as string =  "" )
 

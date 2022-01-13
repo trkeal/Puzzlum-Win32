@@ -76,12 +76,12 @@ sub clv_font_load (clv_font(any) as fb.image ptr, FontIndex as integer, Switch a
 
 end sub
 
-sub clv_draw_text (clv_buffer(any,any) as fb.image ptr, clv_font(any) as fb.image ptr, PageIndex as integer, clv_glyph(any,any) as integer, X as integer, Y as integer, Value as string)
+sub clv_Draw_Text (clv_buffer(any,any) as fb.image ptr, clv_font(any) as fb.image ptr, PageIndex as integer, clv_glyph(any,any) as integer, X as integer, Y as integer, Value as string)
 
 	#ifdef __clv_debug__
 		dim as string target = string$( 0, 0 )
 		Central_Count += 1
-		target = "clv" + colon + "draw_text"
+		target = "clv" + colon + "Draw_Text"
 		central_debug target
 	#endif
 

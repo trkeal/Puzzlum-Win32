@@ -328,7 +328,7 @@ sub ln_main()
                 MID(e_stra(Rose_Calc( Tx_si, Ty_si ), 4), 1, 4) = "____"
                 central "getaction"
 				
-				load_names_from_file( ".\gamedata\Afflictions.dat", Afflictions_table() )
+				load_names_from_file( ".\gamedata\Dynamic\Afflictions.dat", Afflictions_table() )
 				
 				act_index=valint( sync_names_using_default( "start", "", Afflictions_Table() ) )
 				act_count=valint( sync_names_using_default( "count", "", Afflictions_Table() ) )

@@ -15,6 +15,8 @@
 #include once "file.bi"
 #include once ".\inc\Names.bi"
 
+#include once ".\inc\CMD-Poll.bi"
+
 #include once ".\inc\puzzlum-subs.bi"
 
 #include once ".\inc\puzzlum-profile-manip.bi"
@@ -23,10 +25,7 @@
 
 #include once ".\inc\puzzlum-loaders.bi"
 
-#include once ".\inc\central-debug.bi"
-
-dim shared as string debug_filename
-debug_filename = ".\Win32\central.log"
+'[.]'#include once ".\inc\central-debug.bi"
 
 sub central_debug ( target as string =  "" )
 
@@ -45,7 +44,7 @@ sub central_debug ( target as string =  "" )
 	
 	dim as string Buffer = string$( 0, 0 )
 	
-	if open( debug_filename for binary as #filemode ) then
+	if open( Debug_Filename for binary as #filemode ) then
 		close #filemode
 		exit sub
 	else

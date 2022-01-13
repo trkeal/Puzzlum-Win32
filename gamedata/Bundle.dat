@@ -3,7 +3,8 @@ seed/filename=.\gamedata\Seeds.dat
 
 statx=24
 
-debug/filename=.\win32\central.log
+debug/filename=.\Win32\central32.log
+debug/enabled=-1
 
 title=Puzzlum-Win32
 copyright=Copyright 1989-2021 Timothy Robert Keal

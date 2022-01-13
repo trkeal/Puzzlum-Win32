@@ -537,7 +537,7 @@ sub outro_map( map_prefix as string = "map", Map_Table( any ) as names_type, AA 
 	push_names prefix + "start", "0", Map_Table()
 	push_names prefix + "count", entry, Map_Table()
 	
-	save_names_to_file ".\gamedata\Map.dat", Map_Table()
+	save_names_to_file ".\gamedata\Dynamic\Map.dat", Map_Table()
 	
 end sub
 

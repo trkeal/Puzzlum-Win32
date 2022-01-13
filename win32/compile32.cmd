@@ -37,7 +37,7 @@ if errorlevel 1 goto :failed
 
 echo: >> %log%
 echo ===[ Puzzlum / CMD Test ]==[ %static% ]=== >> %log%
-%fbc% ".\CMD-Test.bas" %debugopts% %libopts% >> %log% 2>&1
+%fbc% ".\CMD-Poll.bas" %debugopts% %libopts% >> %log% 2>&1
 if errorlevel 1 goto :failed
 
 echo: >> %log%

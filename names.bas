@@ -381,4 +381,3 @@ end function
 function trimint overload ( subject as string = "" ) as string	
 	trimint = ltrim$(subject)
 end function
-

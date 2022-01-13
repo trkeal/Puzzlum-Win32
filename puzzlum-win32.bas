@@ -13,6 +13,8 @@
 
 '=====
 
+mkdir ".\gamedata\Dynamic"
+
 #include once ".\inc\puzzlum-win32.bi"
 
 #inclib "VGA_Table"
@@ -25,9 +27,10 @@
 #include once ".\inc\fbpngs.bi"
 #include once "fbgfx.bi"
 
-#include once ".\inc\CMD-Test.bi"
+#include once ".\inc\puzzlum-outro.bi"
 
-CMD_Test CMD_Table()
+
+#include once ".\inc\CMD-Poll.bi"
 
 #inclib "z"
 #include once ".\inc\CLV.bi"
@@ -43,6 +46,32 @@ CMD_Test CMD_Table()
 #include once ".\inc\puzzlum-profile-manip.bi"
 
 #inclib "puzzlum-main"
+
+wipe_table Bundle_Table()
+
+load_names_from_file ".\gamedata\Bundle.dat", Bundle_Table(), crlf, eq
+
+Debug_Filename = sync_names_using_default( "debug/filename",".\Win32\central.log", Bundle_Table() )
+
+Debug_Enabled = valint( sync_names_using_default( "debug/enabled", "0", Bundle_Table() ) )
+
+CMD_Poll CMD_Table()
+
+load_names_from_file ".\gamedata\Dynamic\CMD.dat", CMD_Table(), crlf, eq
+
+redim shared as names_type Debug_Table( any )
+
+CMD_Ini CMD_Table(), Debug_Table()
+
+push_names "debug/filename", Debug_Filename, Debug_Table()
+
+push_names "debug/enabled", As_String( Debug_Enabled ), Debug_Table()
+
+save_names_to_file ".\gamedata\Dynamic\Debug.dat", Debug_Table()
+
+dump_names_to_display "Debug Table", Debug_Table()
+
+dump_names_to_display "CMD Table", CMD_Table()
 
 'CMD_Debug_Enabled
 central_call "roe" : outro
